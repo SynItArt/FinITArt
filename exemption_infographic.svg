@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1240" viewBox="0 0 800 1240" font-family="Malgun Gothic, 'Noto Sans CJK KR', NanumGothic, sans-serif">
+  <rect x="0" y="0" width="800" height="1240" fill="#FFFFFF"/>
+
+  <text x="400" y="62" text-anchor="middle" font-size="38" font-weight="bold" fill="#1A3C6D">상속세·증여세, 언제부터 내나?</text>
+  <text x="400" y="96" text-anchor="middle" font-size="16" fill="#888888">현행 「상속세 및 증여세법」 기준 · 2026 · 신해남 가족 사례</text>
+
+  <rect x="50" y="114" width="700" height="52" rx="10" fill="#EBF3FA"/>
+  <text x="72" y="146" font-size="17" font-weight="bold" fill="#1A3C6D">면세점이란?</text>
+  <text x="186" y="146" font-size="16" fill="#334466">세금이 나오기 시작하는 경계 금액 — 이 금액 아래면 세금은 0원입니다</text>
+
+  <rect x="50" y="190" width="104" height="38" rx="19" fill="#1A3C6D"/>
+  <text x="102" y="215" text-anchor="middle" font-size="19" font-weight="bold" fill="#FFFFFF">상속세</text>
+  <text x="170" y="217" font-size="23" font-weight="bold" fill="#1A3C6D">얼마부터 세금이 나오나</text>
+
+  <rect x="50" y="246" width="340" height="272" rx="14" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1.5"/>
+  <rect x="110" y="266" width="220" height="30" rx="15" fill="#0F6E56"/>
+  <text x="220" y="286" text-anchor="middle" font-size="15" font-weight="bold" fill="#FFFFFF">배우자 + 자녀 2명</text>
+  <text x="220" y="372" text-anchor="middle" font-size="62" font-weight="bold" fill="#0F6E56">10억</text>
+  <text x="220" y="410" text-anchor="middle" font-size="23" fill="#0F6E56">까지 비과세</text>
+  <line x1="86" y1="438" x2="354" y2="438" stroke="#0F6E56" stroke-width="0.8" opacity="0.4"/>
+  <text x="220" y="468" text-anchor="middle" font-size="16" fill="#085041">일괄공제 5억 + 배우자공제 5억</text>
+  <text x="220" y="496" text-anchor="middle" font-size="14" fill="#5DCAA5">허미향 + 영재 · 연선</text>
+
+  <rect x="410" y="246" width="340" height="272" rx="14" fill="#FAECE7" stroke="#E8593C" stroke-width="1.5"/>
+  <rect x="455" y="266" width="250" height="30" rx="15" fill="#993C1D"/>
+  <text x="580" y="286" text-anchor="middle" font-size="15" font-weight="bold" fill="#FFFFFF">자녀 2명만 (배우자 없음)</text>
+  <text x="580" y="372" text-anchor="middle" font-size="54" font-weight="bold" fill="#993C1D">5억 초과</text>
+  <text x="580" y="410" text-anchor="middle" font-size="23" fill="#993C1D">부터 과세</text>
+  <line x1="446" y1="438" x2="714" y2="438" stroke="#993C1D" stroke-width="0.8" opacity="0.4"/>
+  <text x="580" y="468" text-anchor="middle" font-size="16" fill="#712B13">일괄공제 5억만 적용</text>
+  <text x="580" y="496" text-anchor="middle" font-size="14" fill="#F0997B">영재 · 연선</text>
+
+  <rect x="50" y="538" width="700" height="68" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="1.2"/>
+  <text x="72" y="568" font-size="16" font-weight="bold" fill="#854F0B">왜 자녀가 2명인데도 면세점이 같을까?</text>
+  <text x="72" y="593" font-size="15" fill="#633806">자녀공제(1인 5천만)는 일괄공제 5억에 이미 포함돼, 더 큰 5억이 적용되기 때문입니다.</text>
+
+  <text x="400" y="634" text-anchor="middle" font-size="15" fill="#888888">※ 금융재산공제(최대 2억)·동거주택공제(최대 6억) 적용 시 면세점은 더 올라갑니다</text>
+
+  <line x1="50" y1="660" x2="750" y2="660" stroke="#D5E8F0" stroke-width="2"/>
+
+  <rect x="50" y="684" width="104" height="38" rx="19" fill="#2255AA"/>
+  <text x="102" y="709" text-anchor="middle" font-size="19" font-weight="bold" fill="#FFFFFF">증여세</text>
+  <text x="170" y="711" font-size="23" font-weight="bold" fill="#1A3C6D">누구에게 얼마까지 무세인가</text>
+  <text x="50" y="744" font-size="15" fill="#888888">10년 합산 기준 · 받는 사람(수증자) 기준 · 한도 초과분부터 과세</text>
+
+  <rect x="50" y="760" width="700" height="52" rx="8" fill="#EBF3FA"/>
+  <text x="74" y="792" font-size="19" font-weight="bold" fill="#1A3C6D">배우자</text>
+  <text x="726" y="792" text-anchor="end" font-size="20" font-weight="bold" fill="#2255AA">6억원</text>
+
+  <rect x="50" y="820" width="700" height="52" rx="8" fill="#F5F5F5"/>
+  <text x="74" y="852" font-size="19" font-weight="bold" fill="#1A3C6D">성년 자녀</text>
+  <text x="300" y="852" font-size="15" fill="#888888">(미성년 자녀 2천만원)</text>
+  <text x="726" y="852" text-anchor="end" font-size="20" font-weight="bold" fill="#2255AA">5천만원</text>
+
+  <rect x="50" y="880" width="700" height="52" rx="8" fill="#EBF3FA"/>
+  <text x="74" y="912" font-size="19" font-weight="bold" fill="#1A3C6D">부모 (직계존속)</text>
+  <text x="726" y="912" text-anchor="end" font-size="20" font-weight="bold" fill="#2255AA">5천만원</text>
+
+  <rect x="50" y="940" width="700" height="52" rx="8" fill="#F5F5F5"/>
+  <text x="74" y="972" font-size="19" font-weight="bold" fill="#1A3C6D">기타 친족 (4촌 이내 혈족 등)</text>
+  <text x="726" y="972" text-anchor="end" font-size="20" font-weight="bold" fill="#2255AA">1천만원</text>
+
+  <rect x="50" y="1000" width="700" height="52" rx="8" fill="#FFF8E1" stroke="#F9A825" stroke-width="1.2"/>
+  <text x="74" y="1032" font-size="19" font-weight="bold" fill="#854F0B">+ 혼인·출산 시</text>
+  <text x="726" y="1032" text-anchor="end" font-size="20" font-weight="bold" fill="#854F0B">1억원 추가</text>
+
+  <line x1="50" y1="1090" x2="750" y2="1090" stroke="#D5E8F0" stroke-width="2"/>
+
+  <rect x="50" y="1108" width="700" height="44" rx="10" fill="#1A3C6D"/>
+  <text x="400" y="1136" text-anchor="middle" font-size="18" font-weight="bold" fill="#FFFFFF">상속세·증여세 세율은 동일 — 과세표준에 10% ~ 50% 누진 적용</text>
+
+  <text x="400" y="1182" text-anchor="middle" font-size="15" fill="#888888">정확한 세액은 재산 구성에 따라 다릅니다. 전문 상담 → www.finitart.com</text>
+  <text x="746" y="1210" text-anchor="end" font-size="14" font-weight="bold" fill="#1A3C6D">HeirWise</text>
+</svg>
