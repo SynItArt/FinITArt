@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>상속 종합 계산기 v3 | Heirwise</title>
+<style>
+:root{--hw-navy:#1A3C6D;--hw-teal:#0F6E56;--hw-coral:#D85A30;--hw-purple:#534AB7;--bg:#ffffff;--bg2:#f5f4f0;--bg3:#eeedea;--tx:#1a1a1a;--tx2:#555555;--tx3:#888880;--bd:rgba(0,0,0,0.18);--info-bg:#e6f1fb;--info-tx:#0c447c;--warn-bg:#faeeda;--warn-tx:#633806;--err-bg:#fcebeb;--err-tx:#791f1f;--ok-bg:#eaf3de;--ok-tx:#27500a;--r:10px}
+@media(prefers-color-scheme:dark){:root{--bg:#1e1e1c;--bg2:#2c2c2a;--bg3:#3d3d3a;--tx:#e8e6df;--tx2:#b4b2a9;--tx3:#888780;--bd:rgba(255,255,255,0.18);--info-bg:#042c53;--info-tx:#85b7eb;--warn-bg:#412402;--warn-tx:#fac775;--err-bg:#501313;--err-tx:#f09595;--ok-bg:#173404;--ok-tx:#c0dd97}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg3);color:var(--tx);font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:640px;margin:0 auto;padding:12px}
+h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding:16px 0 4px}
+@media(prefers-color-scheme:dark){h1{color:#85b7eb}}
+.sub{text-align:center;font-size:13px;color:var(--tx2);margin-bottom:12px}
+.law-date{text-align:center;font-size:12px;padding:6px 12px;background:var(--info-bg);color:var(--info-tx);border-radius:var(--r);margin-bottom:16px;font-weight:500}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto}
+.tabs button{flex:1;min-width:0;padding:12px 6px;font-size:14px;font-weight:600;border:1.5px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx2);cursor:pointer;transition:all .2s;white-space:nowrap}
+.tabs button.on{background:var(--hw-navy);color:#fff;border-color:var(--hw-navy)}
+@media(prefers-color-scheme:dark){.tabs button.on{background:#185FA5;border-color:#185FA5}}
+.tabs button:focus-visible{outline:3px solid var(--hw-teal);outline-offset:2px}
+
+.panel{display:none}.panel.show{display:block}
+
+/* Form */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:14px;font-weight:600;color:var(--tx);margin-bottom:4px}
+.field .desc{font-size:12px;color:var(--tx3);margin-bottom:4px}
+.field input,.field select{width:100%;padding:14px 12px;font-size:18px;font-weight:600;border:1.5px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);text-align:right}
+.field input:focus,.field select:focus{border-color:var(--hw-teal);outline:3px solid rgba(15,110,86,0.2)}
+.field select{text-align:left;font-size:16px}
+.kr-display{font-size:16px;font-weight:700;color:var(--info-tx);margin-top:4px;min-height:24px;text-align:right}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* Heir inputs */
+.heir-card{padding:12px;margin-bottom:8px;border-radius:var(--r);background:var(--bg2);border-left:4px solid var(--hw-purple)}
+.heir-card .name{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px}
+.heir-card input{width:100%;padding:10px;font-size:16px;font-weight:600;text-align:right;border:1px solid var(--bd);border-radius:6px;background:var(--bg);color:var(--tx)}
+.heir-card .kr-display{font-size:14px}
+
+/* Section divider */
+.sec-title{font-size:16px;font-weight:700;color:var(--hw-navy);margin:20px 0 10px;padding-top:14px;border-top:2px solid var(--bd);display:flex;align-items:center;gap:8px}
+@media(prefers-color-scheme:dark){.sec-title{color:#85b7eb}}
+.badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:600}
+.badge-info{background:var(--info-bg);color:var(--info-tx)}
+.badge-warn{background:var(--warn-bg);color:var(--warn-tx)}
+.badge-err{background:var(--err-bg);color:var(--err-tx)}
+.badge-ok{background:var(--ok-bg);color:var(--ok-tx)}
+
+/* Results */
+.result-card{padding:14px;margin-bottom:8px;border-radius:var(--r);background:var(--bg);border:1.5px solid var(--bd)}
+.result-card .rname{font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
+.result-card .ramt{font-size:22px;font-weight:700;color:var(--tx);margin-top:4px}
+.result-card .rkr{font-size:15px;font-weight:600;color:var(--info-tx)}
+.result-card .rdetail{font-size:13px;color:var(--tx2);margin-top:6px;display:flex;flex-wrap:wrap;gap:8px}
+.result-card .rdetail span{font-weight:600;color:var(--tx)}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* Bar */
+.bar{display:flex;height:36px;border-radius:8px;overflow:hidden;border:1px solid var(--bd);margin:12px 0}
+.bar-seg{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;min-width:0;transition:width .5s;overflow:hidden;white-space:nowrap}
+
+/* Summary */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:12px 0}
+.summary-box{padding:10px;border-radius:var(--r);background:var(--bg2);text-align:center}
+.summary-box .sl{font-size:12px;color:var(--tx2)}
+.summary-box .sv{font-size:18px;font-weight:700;color:var(--tx);margin-top:2px}
+.summary-box .sk{font-size:13px;font-weight:600;color:var(--info-tx)}
+
+/* Tax detail */
+.tx-box{padding:14px;border-radius:var(--r);background:var(--bg);border:1.5px solid var(--bd);margin:12px 0}
+.tx-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:14px}
+.tx-row.indent{padding-left:16px;font-size:13px;color:var(--tx2)}
+.tx-row.total{border-top:1.5px solid var(--bd);margin-top:6px;padding-top:8px;font-weight:700}
+.tx-row.big{font-size:20px;font-weight:700;border-top:2px solid var(--tx);margin-top:8px;padding-top:12px}
+.tx-val{text-align:right;font-weight:600}
+
+/* CTA */
+.cta-box{margin:16px 0;padding:16px;border-radius:var(--r);background:var(--hw-navy);color:#fff;text-align:center}
+@media(prefers-color-scheme:dark){.cta-box{background:#185FA5}}
+.cta-box .cta-title{font-size:16px;font-weight:700}
+.cta-box .cta-desc{font-size:13px;opacity:.85;margin-top:4px}
+.cta-box a{display:inline-block;margin-top:10px;padding:10px 24px;background:#fff;color:var(--hw-navy);font-weight:700;font-size:14px;border-radius:8px;text-decoration:none}
+@media(prefers-color-scheme:dark){.cta-box a{background:#e8e6df;color:#042c53}}
+
+/* Footer */
+.footer{font-size:12px;color:var(--tx3);margin-top:20px;padding:12px 0;border-top:1px solid var(--bd);line-height:1.8;text-align:center}
+.footer a{color:var(--info-tx);text-decoration:none}
+
+/* Email collect */
+.email-section{margin:16px 0;padding:14px;border-radius:var(--r);background:var(--ok-bg);border:1px solid rgba(15,110,86,0.2)}
+.email-section label{font-size:14px;font-weight:600;color:var(--ok-tx);display:block;margin-bottom:6px}
+.email-section input[type=email]{width:100%;padding:12px;font-size:16px;border:1.5px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
+.email-section button{margin-top:8px;width:100%;padding:12px;font-size:15px;font-weight:700;background:var(--hw-teal);color:#fff;border:none;border-radius:8px;cursor:pointer}
+.email-section .note{font-size:11px;color:var(--tx3);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1 aria-label="Heirwise 상속 종합 계산기">상속 종합 계산기 v3</h1>
+<div class="sub">Heirwise · Syn Dae Sik, AFPK | RC</div>
+<div class="law-date" role="status" aria-live="polite">적용 법령: 민법 제5편 상속 + 상속세 및 증여세법 (현행 확정 법령 기준)</div>
+
+<div class="tabs" role="tablist">
+  <button class="on" role="tab" aria-selected="true" onclick="tab(0,this)">재산 입력</button>
+  <button role="tab" aria-selected="false" onclick="tab(1,this)">상속분</button>
+  <button role="tab" aria-selected="false" onclick="tab(2,this)">유류분</button>
+  <button role="tab" aria-selected="false" onclick="tab(3,this)">상속세</button>
+</div>
+
+<!-- TAB 0: 입력 -->
+<div id="p0" class="panel show" role="tabpanel" aria-label="상속재산 입력">
+  <div class="row2">
+    <div class="field">
+      <label for="assets">적극재산</label>
+      <div class="desc">부동산+금융+기타 (만원)</div>
+      <input type="number" id="assets" value="100000" min="0" step="1000" inputmode="numeric" oninput="calc()" aria-describedby="kr_a">
+      <div class="kr-display" id="kr_a" aria-live="polite"></div>
+    </div>
+    <div class="field">
+      <label for="debt">상속채무</label>
+      <div class="desc">대출+보증+미납세금 (만원)</div>
+      <input type="number" id="debt" value="0" min="0" step="1000" inputmode="numeric" oninput="calc()" aria-describedby="kr_d">
+      <div class="kr-display" id="kr_d" aria-live="polite"></div>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="field">
+      <label for="spouse">배우자</label>
+      <select id="spouse" onchange="buildHeirs();calc()" aria-label="배우자 유무">
+        <option value="1">있음</option>
+        <option value="0">없음</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="ch">자녀 수</label>
+      <select id="ch" onchange="buildHeirs();calc()" aria-label="자녀 수">
+        <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sec-title">특별수익 <span class="badge badge-warn">선택</span></div>
+  <div id="heirInputs" aria-label="상속인별 특별수익 입력"></div>
+
+  <div class="sec-title">상속세 관련 <span class="badge badge-err">세금</span></div>
+  <div class="row2">
+    <div class="field">
+      <label for="pregift">사전증여 (10년 이내)</label>
+      <input type="number" id="pregift" value="0" min="0" step="1000" inputmode="numeric" oninput="calc()" aria-describedby="kr_pg">
+      <div class="kr-display" id="kr_pg"></div>
+    </div>
+    <div class="field">
+      <label for="funeral">장례비용</label>
+      <input type="number" id="funeral" value="1000" min="0" step="100" inputmode="numeric" oninput="calc()" aria-describedby="kr_fn">
+      <div class="kr-display" id="kr_fn"></div>
+    </div>
+  </div>
+  <div class="row2">
+    <div class="field">
+      <label for="finance">금융재산 (적극재산 중)</label>
+      <input type="number" id="finance" value="0" min="0" step="1000" inputmode="numeric" oninput="calc()">
+      <div class="kr-display" id="kr_fi"></div>
+    </div>
+    <div class="field">
+      <label for="findebt">금융채무 (채무 중)</label>
+      <input type="number" id="findebt" value="0" min="0" step="1000" inputmode="numeric" oninput="calc()">
+      <div class="kr-display" id="kr_fd"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1: 상속분 -->
+<div id="p1" class="panel" role="tabpanel" aria-label="상속분 계산 결과">
+  <div id="summ" aria-label="요약"></div>
+  <div id="barArea"></div>
+  <div id="shareRes" aria-label="상속인별 상속분"></div>
+</div>
+
+<!-- TAB 2: 유류분 -->
+<div id="p2" class="panel" role="tabpanel" aria-label="유류분 계산 결과">
+  <div id="ylRes"></div>
+</div>
+
+<!-- TAB 3: 상속세 -->
+<div id="p3" class="panel" role="tabpanel" aria-label="상속세 계산 결과">
+  <div id="taxRes"></div>
+</div>
+
+<!-- Email / CTA -->
+<div class="email-section" id="emailSec">
+  <label for="emailInput">계산 결과를 저장하시겠습니까?</label>
+  <input type="email" id="emailInput" placeholder="이메일 주소 입력" aria-label="이메일 주소">
+  <button onclick="saveResult()" aria-label="결과 저장하기">결과 리포트 받기</button>
+  <div class="note">입력하신 이메일로 계산 결과 요약 리포트를 보내드립니다. 개인정보처리방침에 동의하는 것으로 간주합니다.</div>
+</div>
+
+<div class="cta-box">
+  <div class="cta-title">이 결과, 전문가와 함께 검토하세요</div>
+  <div class="cta-desc">간이 추정치입니다. 정확한 세액과 최적 전략은 전문가 상담이 필요합니다.</div>
+  <a href="consult.html" aria-label="무료 상담 예약">무료 15분 상담 예약</a>
+</div>
+
+<div class="footer">
+  상속, 설계하면 달라진다. — <a href="https://www.finitart.com">Heirwise</a><br>
+  적용 법령: 민법 제5편 상속 (제997조~제1118조) / 상속세 및 증여세법<br>
+  본 계산기는 간이 추정 도구이며, 정확한 법률·세무 판단은 전문가 상담이 필요합니다.<br>
+  © 2026 Syn Dae Sik / Heirwise. v3.0
+</div>
+
+</div>
+
+<script>
+const COLORS=['#534AB7','#0F6E56','#D85A30','#185FA5','#993556','#639922'];
+const COLORS_L=['#EEEDFE','#E1F5EE','#FAECE7','#E6F1FB','#FBEAF0','#EAF3DE'];
+const dk=matchMedia('(prefers-color-scheme:dark)').matches;
+
+function tab(n,btn){
+  document.querySelectorAll('.panel').forEach((p,i)=>{p.classList.toggle('show',i===n)});
+  document.querySelectorAll('.tabs button').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-selected','false')});
+  btn.classList.add('on');btn.setAttribute('aria-selected','true');
+}
+
+function toKr(v){
+  v=Math.round(v);if(v===0)return'0원';
+  const neg=v<0;v=Math.abs(v);
+  const eok=Math.floor(v/10000),man=v%10000;
+  let p=[];
+  if(eok)p.push(eok.toLocaleString('ko-KR')+'억');
+  if(man)p.push(man.toLocaleString('ko-KR')+'만');
+  return(neg?'-':'')+p.join(' ')+'원';
+}
+function fm(v){return Math.round(v).toLocaleString('ko-KR')}
+
+function getHeirs(){
+  const sp=+document.getElementById('spouse').value,ch=+document.getElementById('ch').value;
+  const h=[];
+  if(sp)h.push({id:'sp',name:'배우자',w:1.5,yl:0.5});
+  const names=['첫째','둘째','셋째','넷째','다섯째'];
+  for(let i=0;i<ch;i++)h.push({id:'c'+i,name:names[i]||('자녀'+(i+1)),w:1,yl:0.5});
+  return h;
+}
+
+function buildHeirs(){
+  const h=getHeirs(),el=document.getElementById('heirInputs');
+  if(!h.length){el.innerHTML='<div style="padding:20px;text-align:center;color:var(--tx3);font-size:14px">상속인을 선택해주세요</div>';return;}
+  el.innerHTML=h.map((x,i)=>`<div class="heir-card" style="border-left-color:${COLORS[i%6]}">
+    <div class="name" style="color:${dk?COLORS_L[i%6]:COLORS[i%6]}">${x.name}</div>
+    <label style="font-size:12px;color:var(--tx2)">특별수익 (만원)</label>
+    <input type="number" id="sp_${x.id}" value="0" min="0" step="1000" inputmode="numeric" oninput="calc()" aria-label="${x.name} 특별수익">
+    <div class="kr-display" id="sk_${x.id}"></div>
+  </div>`).join('');
+}
+
+function updateKr(){
+  const ids={assets:'kr_a',debt:'kr_d',pregift:'kr_pg',funeral:'kr_fn',finance:'kr_fi',findebt:'kr_fd'};
+  Object.entries(ids).forEach(([k,target])=>{
+    const v=+(document.getElementById(k)?.value)||0;
+    const el=document.getElementById(target);
+    if(el)el.textContent=v?toKr(v):'';
+  });
+  getHeirs().forEach(x=>{
+    const inp=document.getElementById('sp_'+x.id),kr=document.getElementById('sk_'+x.id);
+    if(inp&&kr){const v=+inp.value||0;kr.textContent=v?toKr(v):'';}
+  });
+}
+
+function calcTax(assets,debt,funeral,pregift,finance,findebt,hasSp,spShare){
+  const gross=assets+pregift;
+  const funD=Math.min(funeral,1500);
+  const debtD=debt+funD;
+  const taxable=Math.max(0,gross-debtD);
+  const std=50000;
+  let spD=0;
+  if(hasSp){spD=Math.min(Math.max(spShare,50000),300000);spD=Math.max(spD,50000);}
+  const netFin=Math.max(0,finance-findebt);
+  let finD=0;
+  if(netFin>2000)finD=Math.min(Math.round(netFin*0.2),20000);
+  const totD=std+spD+finD;
+  const base=Math.max(0,taxable-totD);
+  let tax=0;const bk=[[10000,.1],[40000,.2],[50000,.3],[200000,.4],[Infinity,.5]];
+  let rem=base;const bd=[];
+  for(const [rng,rate] of bk){
+    const amt=Math.min(rem,rng);if(amt<=0)break;
+    tax+=amt*rate;bd.push({rng,rate,amt,t:Math.round(amt*rate)});rem-=amt;
+  }
+  return{gross,debtD,taxable,std,spD,finD,totD,base,tax:Math.round(tax),bd,funD};
+}
+
+function calc(){
+  updateKr();
+  const assets=+(document.getElementById('assets').value)||0;
+  const debt=+(document.getElementById('debt').value)||0;
+  const pregift=+(document.getElementById('pregift').value)||0;
+  const funeral=+(document.getElementById('funeral').value)||0;
+  const finance=+(document.getElementById('finance').value)||0;
+  const findebt=+(document.getElementById('findebt').value)||0;
+  const heirs=getHeirs();
+  if(!heirs.length){['summ','barArea','shareRes','ylRes','taxRes'].forEach(id=>{document.getElementById(id).innerHTML='<div style="padding:24px;text-align:center;color:var(--tx3)">상속인을 선택해주세요</div>'});return;}
+
+  const sp=heirs.map(x=>{const e=document.getElementById('sp_'+x.id);return e?(+e.value||0):0;});
+  const tSp=sp.reduce((a,b)=>a+b,0);
+  const deemed=assets+tSp;
+  const tW=heirs.reduce((a,x)=>a+x.w,0);
+  const ls=heirs.map(x=>deemed*x.w/tW);
+  let c1=heirs.map((x,i)=>ls[i]-sp[i]);
+  const ex={};let loop=true;
+  while(loop){loop=false;let eT=0,rW=0;
+    c1.forEach((v,i)=>{if(v<0&&!ex[i]){eT+=Math.abs(v);ex[i]=true;c1[i]=0;loop=true;}else if(!ex[i])rW+=heirs[i].w;});
+    if(loop&&rW>0)c1=c1.map((v,i)=>ex[i]?0:v-eT*heirs[i].w/rW);
+  }
+  c1=c1.map(v=>Math.max(0,v));
+  const ds=heirs.map(x=>debt*x.w/tW);
+  const tb=heirs.map((x,i)=>c1[i]+sp[i]-ds[i]);
+
+  // Summary
+  document.getElementById('summ').innerHTML=`<div class="summary-grid">
+    <div class="summary-box"><div class="sl">간주상속재산</div><div class="sv">${fm(deemed)}만</div><div class="sk">${toKr(deemed)}</div></div>
+    <div class="summary-box"><div class="sl">분할 대상</div><div class="sv">${fm(assets)}만</div><div class="sk">${toKr(assets)}</div></div>
+    ${debt>0?`<div class="summary-box"><div class="sl">채무</div><div class="sv">${fm(debt)}만</div><div class="sk">${toKr(debt)}</div></div>`:''}
+  </div>`;
+
+  // Bar
+  const tAll=tb.reduce((a,b)=>a+Math.max(0,b),0)||1;
+  document.getElementById('barArea').innerHTML=`<div class="bar">${heirs.map((x,i)=>{
+    const pct=Math.max(0,tb[i])/tAll*100;
+    const cc=dk?COLORS[i%6]:COLORS_L[i%6],tc=dk?'#fff':COLORS[i%6];
+    return pct>5?`<div class="bar-seg" style="width:${pct.toFixed(1)}%;background:${cc};color:${tc}">${x.name} ${Math.round(pct)}%</div>`:`<div class="bar-seg" style="width:${pct.toFixed(1)}%;background:${cc}"></div>`;
+  }).join('')}</div>`;
+
+  // Share results
+  document.getElementById('shareRes').innerHTML=heirs.map((x,i)=>{
+    const cc=COLORS[i%6],cl=COLORS_L[i%6],isEx=sp[i]>ls[i];
+    return`<div class="result-card">
+      <div class="rname"><span class="dot" style="background:${dk?cc:cl};border:2px solid ${cc}"></span>${x.name}${isEx?' <span class="badge badge-warn">초과</span>':''}</div>
+      <div class="ramt">${fm(tb[i])}만원</div>
+      <div class="rkr">${toKr(tb[i])}</div>
+      <div class="rdetail">
+        <div>법정상속분 <span>${fm(ls[i])}만</span> (${toKr(ls[i])})</div>
+        ${sp[i]>0?`<div>특별수익 <span style="color:var(--err-tx)">-${fm(sp[i])}만</span></div>`:''}
+        <div>수령액 <span>${fm(c1[i])}만</span></div>
+        ${debt>0?`<div>채무부담 <span style="color:var(--err-tx)">-${fm(ds[i])}만</span></div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+
+  // 유류분 계산
+  const ylBase=assets+tSp-debt;
+  let ylHtml=`<div class="sec-title">유류분 산정 <span class="badge badge-info">민법 제1112~1118조</span></div>
+    <div class="summary-grid">
+      <div class="summary-box"><div class="sl">유류분 기초재산</div><div class="sv">${fm(ylBase)}만</div><div class="sk">${toKr(ylBase)}</div></div>
+    </div>
+    <div style="font-size:13px;color:var(--tx2);margin:8px 0;line-height:1.6">유류분 = 기초재산 × 법정상속분 × 유류분비율(1/2 또는 1/3)<br>유류분 부족액 = 유류분 - 특별수익 - 순상속분</div>`;
+  ylHtml+=heirs.map((x,i)=>{
+    const ylRate=x.yl;
+    const ylAmt=ylBase*x.w/tW*ylRate;
+    const netShare=c1[i]-ds[i];
+    const shortage=ylAmt-sp[i]-netShare;
+    const isShort=shortage>0;
+    return`<div class="result-card">
+      <div class="rname"><span class="dot" style="background:${dk?COLORS[i%6]:COLORS_L[i%6]};border:2px solid ${COLORS[i%6]}"></span>${x.name} ${isShort?'<span class="badge badge-err">부족</span>':'<span class="badge badge-ok">충족</span>'}</div>
+      <div class="rdetail" style="margin-top:8px">
+        <div>유류분액 <span>${fm(Math.round(ylAmt))}만</span> (${toKr(Math.round(ylAmt))})</div>
+        <div>특별수익 <span>${fm(sp[i])}만</span></div>
+        <div>순상속분 <span>${fm(Math.round(netShare))}만</span></div>
+      </div>
+      <div style="margin-top:8px;font-size:16px;font-weight:700;color:${isShort?'var(--err-tx)':'var(--ok-tx)'}">
+        ${isShort?`부족액: ${fm(Math.round(shortage))}만원 (${toKr(Math.round(shortage))})`:'유류분 충족'}
+      </div>
+    </div>`;
+  }).join('');
+  ylHtml+=`<div style="font-size:12px;color:var(--tx3);margin-top:12px;line-height:1.6">
+    * 배우자·직계비속: 법정상속분의 1/2 / 직계존속: 법정상속분의 1/3<br>
+    * 형제자매 유류분: 2024.04.25. 폐지 (헌법재판소 결정)<br>
+    * 유류분반환 청구 소멸시효: 안 날로부터 1년, 상속개시일로부터 10년
+  </div>`;
+  document.getElementById('ylRes').innerHTML=ylHtml;
+
+  // 상속세
+  const hasSp=+document.getElementById('spouse').value;
+  const spShare=hasSp?ls[0]:0;
+  const tx=calcTax(assets,debt,funeral,pregift,finance,findebt,hasSp,spShare);
+  const rLbl=['1억 이하 10%','1~5억 20%','5~10억 30%','10~30억 40%','30억 초과 50%'];
+
+  document.getElementById('taxRes').innerHTML=`<div class="tx-box">
+    <div style="font-size:16px;font-weight:700;margin-bottom:10px">상속세 산출 과정</div>
+    <div class="tx-row"><span>총상속재산</span><span class="tx-val">${fm(tx.gross)}만 <span style="font-size:13px;color:var(--info-tx)">${toKr(tx.gross)}</span></span></div>
+    <div class="tx-row indent"><span>적극재산</span><span>${fm(assets)}만</span></div>
+    <div class="tx-row indent"><span>사전증여 (10년 이내)</span><span>+${fm(pregift)}만</span></div>
+    <div class="tx-row"><span>차감 (채무+장례비)</span><span class="tx-val" style="color:var(--err-tx)">-${fm(tx.debtD)}만</span></div>
+    <div class="tx-row total"><span>과세가액</span><span class="tx-val">${fm(tx.taxable)}만 <span style="font-size:13px;color:var(--info-tx)">${toKr(tx.taxable)}</span></span></div>
+    <div style="height:10px"></div>
+    <div class="tx-row"><span>일괄공제 (기초2억+인적 vs 5억 중 큰 것)</span><span class="tx-val" style="color:var(--ok-tx)">-${fm(tx.std)}만</span></div>
+    ${hasSp?`<div class="tx-row"><span>배우자공제 (5억~30억)</span><span class="tx-val" style="color:var(--ok-tx)">-${fm(tx.spD)}만</span></div>`:''}
+    ${tx.finD>0?`<div class="tx-row"><span>금융재산공제 (순금융 20%, 최대2억)</span><span class="tx-val" style="color:var(--ok-tx)">-${fm(tx.finD)}만</span></div>`:''}
+    <div class="tx-row total"><span>공제 합계</span><span class="tx-val" style="color:var(--ok-tx)">-${fm(tx.totD)}만 (${toKr(tx.totD)})</span></div>
+    <div class="tx-row total"><span>과세표준</span><span class="tx-val">${fm(tx.base)}만 (${toKr(tx.base)})</span></div>
+    <div style="height:10px"></div>
+    <div style="font-size:13px;color:var(--tx2);margin-bottom:6px">누진세율 적용</div>
+    ${tx.bd.map((b,i)=>`<div class="tx-row indent"><span>${rLbl[i]}</span><span>${fm(b.amt)}만 × ${Math.round(b.rate*100)}% = ${fm(b.t)}만</span></div>`).join('')}
+    <div class="tx-row big"><span>산출세액 (추정)</span><span style="color:${tx.tax>0?'var(--err-tx)':'var(--ok-tx)'}">${fm(tx.tax)}만원<div style="font-size:14px;font-weight:600;color:var(--info-tx)">${toKr(tx.tax)}</div></span></div>
+    ${tx.tax===0?'<div style="text-align:center;padding:12px;font-size:15px;color:var(--ok-tx);font-weight:700">상속세 비과세 구간입니다</div>':''}
+    ${tx.tax>0?`<div class="summary-grid"><div class="summary-box"><div class="sl">실효세율</div><div class="sv">${(tx.tax/Math.max(1,tx.taxable)*100).toFixed(1)}%</div></div><div class="summary-box"><div class="sl">상속인당 평균</div><div class="sv">${fm(Math.round(tx.tax/heirs.length))}만</div><div class="sk">${toKr(Math.round(tx.tax/heirs.length))}</div></div></div>`:''}
+  </div>`;
+}
+
+function saveResult(){
+  const email=document.getElementById('emailInput').value;
+  if(!email||!email.includes('@')){alert('올바른 이메일을 입력해주세요.');return;}
+  const data={
+    email,timestamp:new Date().toISOString(),
+    assets:+(document.getElementById('assets').value)||0,
+    debt:+(document.getElementById('debt').value)||0,
+    spouse:+document.getElementById('spouse').value,
+    children:+document.getElementById('ch').value,
+    heirs:getHeirs().map(x=>({name:x.name,specialBenefit:+(document.getElementById('sp_'+x.id)?.value)||0}))
+  };
+  console.log('Heirwise Data:',JSON.stringify(data));
+  alert(`${email}으로 결과 리포트를 보내드립니다.\n\n(현재 MVP 버전: 실제 이메일 발송은 finitart.com 정식 오픈 후 제공됩니다)`);
+}
+
+buildHeirs();calc();
+</script>
+</body>
+</html>
