@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>교통사고 사망 보상금 계산기 | HeirWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!--
+  보안등급: 공유 가능 (자체 제작 도구)
+  제작: HeirWise_Syn Dae Sik (申大湜)
+  연동: www.finitart.com (Squarespace Code Block / iframe 임베드용 자체완결 파일)
+  버전: v1.1 — 미성년 가동개시·병역 보정 / 가동연한 직접입력 / 상실수익 산식 노출 / 사례 프리셋
+-->
+<style>
+  :root{
+    --navy:#1A3C6D; --navy2:#2255AA; --amber:#F9A825;
+    --ink:#1c2330; --muted:#5a6577; --line:#d7dde6; --line2:#c2cad6;
+    --bg:#f4f6fa; --card:#ffffff; --soft:#eef3fa; --soft2:#e3edf7;
+    --ok:#1d7a5a; --ok-bg:#e3f5ec; --warn:#a33a16; --warn-bg:#fbeae2;
+    --shadow:0 1px 3px rgba(20,40,80,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --navy:#7fb0ee; --navy2:#9cc3f5; --amber:#F2C24A;
+      --ink:#e8edf5; --muted:#a7b2c4; --line:#2c3645; --line2:#3a4658;
+      --bg:#0e141d; --card:#161e2b; --soft:#1b2533; --soft2:#1f2c3e;
+      --ok:#5fd3a2; --ok-bg:#143027; --warn:#f0a07e; --warn-bg:#33190f;
+      --shadow:0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Malgun Gothic","맑은 고딕",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    font-size:15px; line-height:1.6; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:18px 16px 60px}
+  header.hd{ background:var(--navy); color:#fff; border-radius:14px; padding:20px 22px; margin-bottom:14px; }
+  @media (prefers-color-scheme: dark){ header.hd{background:#10243f} }
+  header.hd h1{margin:0 0 6px; font-size:21px; line-height:1.3}
+  header.hd p{margin:0; font-size:14px; color:#cfe0f6}
+  @media (prefers-color-scheme: dark){ header.hd p{color:#bcd2ef} }
+  .lawbar{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+  .lawbar span{ background:rgba(255,255,255,.14); color:#fff; font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; border:1px solid rgba(255,255,255,.25); }
+  @media (prefers-color-scheme: dark){ .lawbar span{background:rgba(127,176,238,.15); color:#cfe0f6} }
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; margin-bottom:14px; box-shadow:var(--shadow)}
+  .card h2{font-size:16px; margin:0 0 14px; color:var(--navy); display:flex; align-items:center; gap:8px}
+  .card h2 .tag{background:var(--amber); color:#3a2a00; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px}
+  @media (prefers-color-scheme: dark){ .card h2 .tag{color:#241a00} }
+
+  .presets{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px}
+  .presets button{ flex:1; min-width:120px; padding:11px 8px; font-size:13.5px; font-weight:700; cursor:pointer; border:1.5px dashed var(--navy2); background:var(--soft); color:var(--navy); border-radius:10px; font-family:inherit; }
+  .presets button:hover{background:var(--soft2)}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px 16px}
+  @media(max-width:560px){ .grid{grid-template-columns:1fr} }
+  .field label{display:block; font-size:13px; font-weight:700; margin-bottom:5px; color:var(--ink)}
+  .field .hint{font-size:12px; color:var(--muted); font-weight:400}
+  .field input[type=number], .field select{ width:100%; padding:10px 11px; font-size:15px; border:1.5px solid var(--line2); border-radius:9px; background:var(--card); color:var(--ink); font-family:inherit; }
+  .field input:focus, .field select:focus{outline:none; border-color:var(--navy2); box-shadow:0 0 0 3px rgba(34,85,170,.18)}
+  .inline{display:flex; align-items:center; gap:7px; font-size:13.5px; margin-top:6px}
+  .inline input[type=checkbox]{width:17px; height:17px; accent-color:var(--navy2)}
+  .seg{display:flex; gap:6px; flex-wrap:wrap}
+  .seg button{ flex:1; min-width:72px; padding:9px 6px; font-size:13.5px; font-weight:700; cursor:pointer; border:1.5px solid var(--line2); background:var(--card); color:var(--ink); border-radius:9px; font-family:inherit; }
+  .seg button.on{background:var(--navy); color:#fff; border-color:var(--navy)}
+  @media (prefers-color-scheme: dark){ .seg button.on{background:var(--navy2); color:#0e141d} }
+
+  .btn-calc{ width:100%; margin-top:16px; padding:14px; font-size:16px; font-weight:800; cursor:pointer; background:var(--amber); color:#3a2a00; border:none; border-radius:11px; font-family:inherit; }
+  @media (prefers-color-scheme: dark){ .btn-calc{color:#241a00} }
+  .btn-calc:active{transform:translateY(1px)}
+
+  .res-row{display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--line)}
+  .res-row.nb{border-bottom:none; padding-bottom:2px}
+  .res-row .k{font-size:14px; color:var(--muted)}
+  .res-row .v{font-size:16px; font-weight:700; color:var(--ink)}
+  .formula{font-size:12px; color:var(--muted); background:var(--soft); border-radius:8px; padding:8px 11px; margin:2px 0 8px; line-height:1.6; word-break:keep-all}
+  .res-row.total{margin-top:8px; padding:14px; background:var(--soft2); border-radius:10px; border-bottom:none}
+  .res-row.total .k{font-size:15px; font-weight:800; color:var(--navy)}
+  .res-row.total .v{font-size:21px; font-weight:800; color:var(--navy)}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+  @media(max-width:560px){ .split{grid-template-columns:1fr} }
+  .pill{padding:13px 14px; border-radius:11px; border:1px solid}
+  .pill.cover{background:var(--ok-bg); border-color:var(--ok)}
+  .pill.gap{background:var(--warn-bg); border-color:var(--warn)}
+  .pill .lab{font-size:12.5px; font-weight:700; margin-bottom:3px}
+  .pill.cover .lab{color:var(--ok)} .pill.gap .lab{color:var(--warn)}
+  .pill .amt{font-size:18px; font-weight:800; color:var(--ink)}
+  .pill .sub{font-size:11.5px; color:var(--muted); margin-top:2px}
+
+  table.tax{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:4px}
+  table.tax th, table.tax td{padding:9px 10px; text-align:left; border-bottom:1px solid var(--line)}
+  table.tax th{background:var(--soft); color:var(--navy); font-size:12.5px}
+  table.tax td.b{font-weight:700}
+  .chip{display:inline-block; font-size:11.5px; font-weight:800; padding:2px 8px; border-radius:6px}
+  .chip.no{background:var(--ok-bg); color:var(--ok)}
+  .chip.yes{background:var(--warn-bg); color:var(--warn)}
+  .alert{margin-top:13px; padding:13px 14px; border-radius:10px; background:var(--warn-bg); border:1px solid var(--warn); font-size:13.5px; color:var(--ink)}
+  .alert b{color:var(--warn)}
+  .note-info{margin-top:10px; font-size:12.5px; color:var(--muted)}
+
+  .cta{background:var(--navy); color:#fff; border-radius:14px; padding:20px; margin-top:6px; text-align:center}
+  @media (prefers-color-scheme: dark){ .cta{background:#10243f} }
+  .cta h3{margin:0 0 6px; font-size:17px}
+  .cta p{margin:0 0 13px; font-size:13.5px; color:#cfe0f6}
+  @media (prefers-color-scheme: dark){ .cta p{color:#bcd2ef} }
+  .cta a.go{display:inline-block; background:var(--amber); color:#3a2a00; font-weight:800; font-size:15px; text-decoration:none; padding:12px 26px; border-radius:10px}
+  @media (prefers-color-scheme: dark){ .cta a.go{color:#241a00} }
+  .cta .contact{margin-top:12px; font-size:12.5px; color:#cfe0f6; line-height:1.8}
+  .cta .contact a{color:#fff; text-decoration:underline}
+
+  .disc{font-size:12px; color:var(--muted); margin-top:16px; line-height:1.7}
+  .disc b{color:var(--ink)}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav style="display:flex;gap:14px;align-items:center;font-size:13.5px;margin-bottom:12px">
+    <a href="index.html" style="color:var(--navy);font-weight:800;text-decoration:none">← HeirWise</a>
+    <span style="color:var(--muted)">|</span>
+    <a href="calculator.html" style="color:var(--navy2);text-decoration:none">상속세 계산기</a>
+    <a href="consult.html" style="color:var(--navy2);text-decoration:none">상담 신청</a>
+  </nav>
+
+  <header class="hd">
+    <h1>교통사고 사망 보상금 계산기</h1>
+    <p>손해배상금(트랙①) + 상속세 영향(트랙②)을 한 번에 — 받은 돈 중 상속세 대상이 무엇인지까지 알려드립니다.</p>
+    <div class="lawbar">
+      <span>자동차손해배상 보장법 시행령 (시행 2026.3.24)</span>
+      <span>법원 실무기준 · 가동연한 만 65세</span>
+      <span>상속세 분류 · 상증법 §8</span>
+    </div>
+  </header>
+
+  <!-- INPUT -->
+  <div class="card">
+    <h2>① 정보 입력</h2>
+
+    <div class="presets">
+      <button data-preset="gajang">40대 가장</button>
+      <button data-preset="jubu">전업주부</button>
+      <button data-preset="minor">미성년 자녀</button>
+    </div>
+
+    <div class="grid">
+      <div class="field">
+        <label>고인 나이 <span class="hint">(만 나이)</span></label>
+        <input type="number" id="age" value="45" min="0" max="100">
+      </div>
+      <div class="field">
+        <label>성별 <span class="hint">(남성 병역 보정)</span></label>
+        <div class="seg" id="segSex">
+          <button data-v="m" class="on">남성</button>
+          <button data-v="f">여성</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>월 소득 <span class="hint">(만원 / 세전)</span></label>
+        <input type="number" id="income" value="350" min="0" step="10">
+        <div class="inline">
+          <input type="checkbox" id="useDaily">
+          <label for="useDaily" style="margin:0;font-weight:400">소득 입증 어려움 → 도시일용노임(월 336만원)</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>가동연한 <span class="hint">(만 나이 · 기본 65)</span></label>
+        <input type="number" id="retire" value="65" min="19" max="90">
+      </div>
+      <div class="field">
+        <label>생활비 공제율</label>
+        <div class="seg" id="segLiving">
+          <button data-v="0.333" class="on">부양가족 있음 (1/3)</button>
+          <button data-v="0.5">단신 (1/2)</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>위자료 기준</label>
+        <div class="seg" id="segSolatium">
+          <button data-v="10000" class="on">법원기준 1억원</button>
+          <button data-v="0" data-custom="1">직접입력</button>
+        </div>
+        <input type="number" id="solatiumCustom" class="hidden" value="8000" min="0" step="500" placeholder="만원" style="margin-top:6px">
+      </div>
+      <div class="field">
+        <label>피해자(고인) 과실비율 <span class="hint">(%)</span></label>
+        <input type="number" id="fault" value="0" min="0" max="100" step="5">
+      </div>
+      <div class="field">
+        <label>장례비 <span class="hint">(만원)</span></label>
+        <input type="number" id="funeral" value="500" min="0" step="100">
+      </div>
+      <div class="field">
+        <label>가해차량 임의보험(대인Ⅱ)</label>
+        <div class="seg" id="segLiab">
+          <button data-v="-1" class="on">무한</button>
+          <button data-v="0">미가입</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>고인 본인 생명보험금 <span class="hint">(트랙② · 만원)</span></label>
+        <input type="number" id="lifeIns" value="0" min="0" step="1000">
+        <div class="hint" style="margin-top:5px">고인이 계약자·피보험자인 보험. 없으면 0.</div>
+      </div>
+    </div>
+    <button class="btn-calc" id="calcBtn">계산하기</button>
+  </div>
+
+  <!-- TRACK 1 -->
+  <div class="card hidden" id="track1">
+    <h2><span class="tag">트랙 ①</span> 손해배상금 산출</h2>
+    <div class="res-row"><span class="k">위자료</span><span class="v" id="rSol">–</span></div>
+    <div class="res-row nb"><span class="k">상실수익액 (일실수입) <span class="hint" id="rHint"></span></span><span class="v" id="rLost">–</span></div>
+    <div class="formula" id="rFormula"></div>
+    <div class="res-row"><span class="k">장례비</span><span class="v" id="rFun">–</span></div>
+    <div class="res-row"><span class="k">과실상계</span><span class="v" id="rFault">–</span></div>
+    <div class="res-row total"><span class="k">총 손해배상액</span><span class="v" id="rTotal">–</span></div>
+
+    <div class="split">
+      <div class="pill cover">
+        <div class="lab">책임보험(대인Ⅰ)으로 충당</div>
+        <div class="amt" id="rCover">–</div>
+        <div class="sub">사망 한도 1.5억원 내</div>
+      </div>
+      <div class="pill gap">
+        <div class="lab">임의보험(대인Ⅱ)에서 받을 부분</div>
+        <div class="amt" id="rGap">–</div>
+        <div class="sub" id="rGapSub">한도 초과분</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACK 2 -->
+  <div class="card hidden" id="track2">
+    <h2><span class="tag">트랙 ②</span> 이 돈, 상속세 내야 하나?</h2>
+    <table class="tax">
+      <thead><tr><th>받는 돈</th><th>금액</th><th>상속세</th></tr></thead>
+      <tbody id="taxBody"></tbody>
+    </table>
+    <div class="alert" id="taxAlert"></div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta hidden" id="cta">
+    <h3>이 금액, 우리 가족 상황에 정확히 맞을까요?</h3>
+    <p>과실비율·임의보험 약관·생명보험 계약구조에 따라 실제 수령액과 세금은 크게 달라집니다.<br>HeirWise 상속·증여 전문 상담으로 정확히 설계하세요.</p>
+    <a class="go" href="consult.html">무료 상담 신청</a>
+    <div class="contact">
+      ☎ 010-2088-5383 &nbsp;|&nbsp; ✉ <a href="mailto:itart@finitart.com">itart@finitart.com</a><br>
+      AFPK · RC · 상속·증여 전문 재무설계사 — HeirWise
+    </div>
+  </div>
+
+  <div class="disc">
+    <b>면책 안내</b> · 본 계산기는 일반적인 법원 실무기준(가동개시 만 19세·남성 병역 보정, 가동연한, 생활비 공제, 호프만식 중간이자 공제)에 따른 <b>참고용 추정치</b>이며 실제 보상액·세액과 다를 수 있습니다. 정확한 손해배상액은 과실비율·약관·판례에 따라, 정확한 세액은 세무전문가 상담이 필요합니다.<br><br>
+    <b>적용 법령</b> · 자동차손해배상 보장법 시행령 제3조(시행 2026.3.24, 사망 책임보험금 한도 1.5억원) / 위자료·일실수입: 법원 손해배상 실무기준(가동연한 만 65세, 대법원 2014다219415) / 상속세 분류: 상속세 및 증여세법 제8조(간주상속재산) 및 국세청 해석례.<br><br>
+    제작: HeirWise_Syn Dae Sik &nbsp;|&nbsp; 보안등급: 공유 가능
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+
+  var livingRate = 0.333, solatiumMode = 10000, liabMode = -1, sex = "m";
+
+  function bindSeg(wrapId, onChange){
+    var w = $(wrapId);
+    w.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        w.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+        b.classList.add('on');
+        if(onChange) onChange(b);
+      });
+    });
+  }
+  function setSeg(wrapId, val, onChange){
+    var w = $(wrapId), hit=null;
+    w.querySelectorAll('button').forEach(function(b){
+      var match = (b.dataset.v === String(val));
+      b.classList.toggle('on', match);
+      if(match) hit=b;
+    });
+    if(hit && onChange) onChange(hit);
+  }
+  bindSeg('segSex', function(b){ sex = b.dataset.v; });
+  bindSeg('segLiving', function(b){ livingRate = parseFloat(b.dataset.v); });
+  bindSeg('segSolatium', function(b){
+    if(b.dataset.custom){ $('solatiumCustom').classList.remove('hidden'); solatiumMode = -1; }
+    else { $('solatiumCustom').classList.add('hidden'); solatiumMode = parseFloat(b.dataset.v); }
+  });
+  bindSeg('segLiab', function(b){ liabMode = parseFloat(b.dataset.v); });
+
+  function fmtWon(won){
+    won = Math.round(won);
+    if(won <= 0) return "0원";
+    var eok = Math.floor(won/100000000);
+    var man = Math.floor((won%100000000)/10000);
+    var s = "";
+    if(eok > 0) s += eok + "억";
+    if(man > 0) s += (eok>0?" ":"") + man.toLocaleString() + "만";
+    if(eok===0 && man===0) s = Math.round(won).toLocaleString();
+    return s + "원";
+  }
+
+  // 월단위 호프만 누계 (단리 5% 중간이자 공제), 240 상한
+  function hoffman(months){
+    months = Math.max(0, Math.round(months));
+    var sum = 0;
+    for(var m=1; m<=months; m++){ sum += 1 / (1 + 0.05 * m / 12); }
+    return Math.min(sum, 240);
+  }
+
+  // ---- presets ----
+  var PRESETS = {
+    gajang: { age:45, sex:"m", retire:65, income:400, daily:false, living:"0.333", solatium:"10000", fault:0, funeral:500, liab:"-1", life:0 },
+    jubu:   { age:50, sex:"f", retire:65, income:336, daily:true,  living:"0.333", solatium:"10000", fault:0, funeral:500, liab:"-1", life:0 },
+    minor:  { age:15, sex:"m", retire:65, income:336, daily:true,  living:"0.333", solatium:"10000", fault:0, funeral:500, liab:"-1", life:0 }
+  };
+  function applyPreset(name){
+    var p = PRESETS[name]; if(!p) return;
+    $('age').value = p.age;
+    $('retire').value = p.retire;
+    $('income').value = p.income;
+    $('useDaily').checked = p.daily;
+    $('fault').value = p.fault;
+    $('funeral').value = p.funeral;
+    $('lifeIns').value = p.life;
+    setSeg('segSex', p.sex, function(b){ sex=b.dataset.v; });
+    setSeg('segLiving', p.living, function(b){ livingRate=parseFloat(b.dataset.v); });
+    setSeg('segLiab', p.liab, function(b){ liabMode=parseFloat(b.dataset.v); });
+    // 위자료: 법원기준으로 리셋
+    $('solatiumCustom').classList.add('hidden');
+    setSeg('segSolatium', p.solatium, function(b){ solatiumMode=parseFloat(b.dataset.v); });
+    calc();
+  }
+  document.querySelectorAll('.presets button').forEach(function(b){
+    b.addEventListener('click', function(){ applyPreset(b.dataset.preset); });
+  });
+
+  function calc(){
+    var age = Math.max(0, parseFloat($('age').value)||0);
+    var retire = Math.max(19, parseFloat($('retire').value)||65);
+    var useDaily = $('useDaily').checked;
+    var incomeMan = useDaily ? 336 : (parseFloat($('income').value)||0);
+    var monthlyIncome = incomeMan * 10000;
+    var fault = Math.min(100, Math.max(0, parseFloat($('fault').value)||0)) / 100;
+    var funeral = (parseFloat($('funeral').value)||0) * 10000;
+    var lifeIns = (parseFloat($('lifeIns').value)||0) * 10000;
+
+    // 위자료 = 기준액 × {1 - 과실 × 0.6}
+    var solBase = (solatiumMode === -1) ? (parseFloat($('solatiumCustom').value)||0)*10000 : solatiumMode*10000;
+    var solatium = solBase * (1 - fault*0.6);
+
+    // 가동개시: 만 19세(성년), 남성은 병역 18개월 추가 지연
+    var startAgeMonths = 19*12 + (sex==="m" ? 18 : 0);
+    var nowMonths = age*12;
+    var startM = Math.max(0, startAgeMonths - nowMonths);   // 지금부터 가동개시까지(개월)
+    var endM   = Math.max(0, (retire - age) * 12);           // 지금부터 가동종료까지(개월)
+
+    var hfStart = hoffman(startM);
+    var hfEnd   = hoffman(endM);
+    var hfNet   = Math.max(0, hfEnd - hfStart);
+    var lost = monthlyIncome * (1 - livingRate) * hfNet;
+
+    var lostAfter = lost * (1 - fault);
+    var funAfter  = funeral * (1 - fault);
+    var total = solatium + lostAfter + funAfter;
+
+    var CAP = 150000000;
+    var cover = Math.min(total, CAP);
+    var rawGap = Math.max(0, total - CAP);
+    var gap, gapSub;
+    if(liabMode === 0){ gap = 0; gapSub = "임의보험 미가입 — 가해자 직접청구 대상"; }
+    else { gap = rawGap; gapSub = rawGap>0 ? "책임보험 한도(1.5억) 초과분" : "초과분 없음"; }
+
+    // ---- render track1 ----
+    $('rSol').textContent = fmtWon(solatium);
+    $('rLost').textContent = fmtWon(lostAfter);
+    $('rHint').textContent = useDaily ? "· 도시일용노임 기준" : "";
+    $('rFun').textContent = fmtWon(funAfter);
+    $('rFault').textContent = fault>0 ? ("고인 과실 " + (fault*100) + "% 반영") : "과실 0% (전액 인정)";
+    $('rTotal').textContent = fmtWon(total);
+    $('rCover').textContent = fmtWon(cover);
+    $('rGap').textContent = fmtWon(gap);
+    $('rGapSub').textContent = gapSub;
+
+    // 상실수익 산식 노출
+    var livingTxt = (Math.abs(livingRate-0.333)<0.01) ? "1/3" : "1/2";
+    var f = "월 " + monthlyIncome.toLocaleString() + "원 × (1−" + livingTxt + ") × 호프만 " + hfNet.toFixed(2);
+    if(startM > 0){
+      f += "  〔만" + retire + "세 " + hfEnd.toFixed(2) + " − 가동개시(만" +
+           (startAgeMonths/12).toFixed(sex==="m"?1:0) + "세) " + hfStart.toFixed(2) + "〕";
+    }
+    if(endM <= 0){ f = "가동연한(만" + retire + "세) 경과 — 상실수익 미산정(여명·도시일용 등 사안별 검토 필요)"; }
+    $('rFormula').textContent = f;
+
+    // ---- render track2 ----
+    var rows = [
+      { name:"위자료", amt:solatium, taxable:false, note:"정신적 손해 보상 — 비과세" },
+      { name:"손해배상금(일실수입)", amt:lostAfter + funAfter, taxable:false, note:"손해 보전 성격 — 원칙적 비과세(사실판단)" },
+      { name:"고인 본인 생명보험금", amt:lifeIns, taxable:true, note:"간주상속재산(상증법 §8) — 과세" }
+    ];
+    var tb = $('taxBody'); tb.innerHTML = "";
+    rows.forEach(function(r){
+      if(r.amt<=0 && r.taxable) return;
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td class="b">'+r.name+'<br><span style="font-weight:400;color:var(--muted);font-size:12px">'+r.note+'</span></td>'+
+                     '<td>'+fmtWon(r.amt)+'</td>'+
+                     '<td>'+(r.taxable?'<span class="chip yes">과세</span>':'<span class="chip no">비과세</span>')+'</td>';
+      tb.appendChild(tr);
+    });
+
+    var alert = $('taxAlert');
+    if(lifeIns > 0){
+      alert.innerHTML = '<b>주의 — 상속세 대상:</b> 교통사고 배상금 대부분은 상속세가 없지만, 고인이 든 생명보험금 <b>'+fmtWon(lifeIns)+'</b>은 간주상속재산으로 상속세 과세 대상입니다. 다른 상속재산과 합산되어 세율이 달라질 수 있어 점검이 필요합니다.';
+    } else {
+      alert.innerHTML = '<b>참고:</b> 교통사고 손해배상금·위자료는 상속세 과세 대상이 아닙니다. 다만 고인이 든 생명보험금·다른 상속재산이 있으면 별도로 합산 점검이 필요합니다.';
+    }
+
+    ['track1','track2','cta'].forEach(function(id){ $(id).classList.remove('hidden'); });
+    $('track1').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  $('calcBtn').addEventListener('click', calc);
+})();
+</script>
+</body>
+</html>
