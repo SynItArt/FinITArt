@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>교통사고 사망·후유장애 보상금 계산기 | HeirWise</title>
+<title>화재 사망·후유장애 보상금 계산기 | HeirWise</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <!--
   보안등급: 공유 가능 (자체 제작 도구)
-  버전: v2.0 — 사망/후유장애 토글 + 책임/임의보험 충당 + 노동능력상실률·개호비 + 억원 표시
+  버전: v2.0 — 사망/후유장애 토글 + 원인 3분기 + 노동능력상실률·개호비 + 억원 표시
   제작: HeirWise_Syn Dae Sik (申大湜)
   연동: www.finitart.com (Squarespace Code Block / iframe 임베드용 자체완결 파일)
 -->
@@ -151,48 +151,52 @@
     <a href="natural-death.html" style="color:var(--navy2);text-decoration:none">자연사·상속세</a>
   </nav>
   <header class="hd">
-    <h1>교통사고 사망·후유장애 보상금 계산기</h1>
-    <p>가해차량 보험으로 얼마를 받고(트랙①), 그 돈에 상속세가 붙는지(트랙②)를 한 번에.</p>
-    <div class="lawbar"><span>자동차손해배상보장법 시행령 §3 (시행 2026.3.24)</span><span>책임보험 사망 1.5억</span><span>상증법 제8조</span></div>
+    <h1>화재 사망·후유장애 보상금 계산기</h1>
+    <p>화재 원인에 따라 보상 주체가 달라집니다 — 누가 배상하는지(트랙①)와 상속세(트랙②)를 한 번에.</p>
+    <div class="lawbar"><span>실화책임법·제조물책임법</span><span>다중이용업소법 화재배상책임보험</span><span>상증법 제8조</span></div>
   </header>
 
   <div class="card">
     <h2>① 정보 입력</h2>
     <div class="modeseg" id="segMode"><button data-v="death" class="on">사망</button><button data-v="disab">후유장애</button></div>
-    <div class="presets"><button data-preset="gajang">40대 가장</button><button data-preset="jubu">전업주부</button><button data-preset="minor">미성년 자녀</button></div>
+    <div class="field" style="margin-bottom:14px"><label>화재 원인 · 배상 주체</label>
+      <div class="seg" id="segCause"><button data-v="liable" class="on">타인 과실·제조물·시공하자</button><button data-v="multi">다중이용업소 화재</button><button data-v="self">원인불명·본인 실화</button></div>
+      <div class="sub" id="causeNote"></div></div>
     <div class="grid">
-      <div class="field"><label>고인/피해자 나이 <span class="hint">(만)</span></label><input type="number" id="age" value="45" min="0" max="100"></div>
+      <div class="field"><label>나이 <span class="hint">(만)</span></label><input type="number" id="age" value="45" min="0" max="100"></div>
       <div class="field"><label>성별 <span class="hint">(남성 병역 보정)</span></label><div class="seg" id="segSex"><button data-v="m" class="on">남성</button><button data-v="f">여성</button></div></div>
       <div class="field"><label>월 소득 <span class="hint">(만원·세전)</span></label><input type="number" id="income" value="350" min="0" step="10"><div class="inline"><input type="checkbox" id="useDaily"><label for="useDaily" style="margin:0;font-weight:400">소득 입증 어려움 → 도시일용(월 336만)</label></div></div>
       <div class="field"><label>가동연한 <span class="hint">(만·기본 65)</span></label><input type="number" id="retire" value="65" min="19" max="90"></div>
       <div class="field"><label>생활비 공제율</label><div class="seg" id="segLiving"><button data-v="0.333" class="on">부양 (1/3)</button><button data-v="0.5">단신 (1/2)</button></div></div>
       <div class="field"><label>위자료 기준</label><div class="seg" id="segSol"><button data-v="10000" class="on">법원기준 1억</button><button data-v="-1">직접입력</button></div><input type="number" id="solCustom" class="hidden" value="8000" min="0" step="500" placeholder="만원" style="margin-top:6px"></div>
-      <div class="field"><label>피해자 과실비율 <span class="hint">(%)</span></label><input type="number" id="fault" value="0" min="0" max="100" step="5"></div>
+      <div class="field"><label>과실비율 <span class="hint">(%)</span></label><input type="number" id="fault" value="0" min="0" max="100" step="5"></div>
       <div class="field md-death"><label>장례비 <span class="hint">(만원)</span></label><input type="number" id="funeral" value="500" min="0" step="100"></div>
       <div class="field md-disab"><label>노동능력상실률 <span class="hint">(%)</span></label><input type="number" id="loss" value="50" min="0" max="100" step="5"></div>
-      <div class="field"><label>가해차량 임의보험(대인Ⅱ)</label><div class="seg" id="segLiab"><button data-v="-1" class="on">무한</button><button data-v="0">미가입</button></div></div>
-      <div class="field"><label>고인/본인 생명보험금 <span class="hint">(트랙② · 만원)</span></label><input type="number" id="lifeIns" value="0" min="0" step="1000"></div>
     </div>
     <label class="opt-toggle md-disab"><input type="checkbox" id="useCare"> 향후 개호비(간병) 포함 — 도시일용임금 기준</label>
     <div class="grid hidden md-disab" id="careBox" style="margin-top:10px">
       <div class="field"><label>개호 필요 기간 <span class="hint">(개월)</span></label><input type="number" id="careM" value="120" min="0" step="12"></div>
       <div class="field"><label>개호 강도</label><div class="seg" id="segCare"><button data-v="1" class="on">1인 (전일)</button><button data-v="0.5">0.5인 (반일)</button></div></div>
     </div>
+    <div class="grid">
+      <div class="field"><label>화재보험 사망특약 보험금 <span class="hint">(만원)</span></label><input type="number" id="fireIns" value="0" min="0" step="1000"></div>
+      <div class="field"><label>고인 생명보험금 <span class="hint">(만원)</span></label><input type="number" id="lifeIns" value="0" min="0" step="1000"></div>
+    </div>
     <button class="btn-calc" id="calcBtn">계산하기</button>
   </div>
 
   <div class="card hidden" id="track1">
-    <h2><span class="tag">트랙 ①</span> 손해배상금 산출</h2>
+    <h2><span class="tag">트랙 ①</span> <span id="t1title">보상금 산출</span></h2>
     <div class="res-row"><span class="k">위자료</span><span class="v" id="rSol">–</span></div>
-    <div class="res-row nb"><span class="k">상실수익액 <span class="hint" id="rHint"></span></span><span class="v" id="rLost">–</span></div>
+    <div class="res-row nb"><span class="k">일실수입 <span class="hint" id="rHint"></span></span><span class="v" id="rLost">–</span></div>
     <div class="formula" id="rFormula"></div>
     <div class="res-row md-death"><span class="k">장례비</span><span class="v" id="rFun">–</span></div>
     <div class="res-row md-disab" id="careRow"><span class="k">향후 개호비</span><span class="v" id="rCare">–</span></div>
     <div class="res-row"><span class="k">과실상계</span><span class="v" id="rFault">–</span></div>
-    <div class="res-row total"><span class="k">총 손해배상액</span><span class="v" id="rTotal">–</span></div>
+    <div class="res-row total"><span class="k" id="totLab">총 손해배상액</span><span class="v" id="rTotal">–</span></div>
     <div class="split">
-      <div class="pill cover"><div class="lab">책임보험(대인Ⅰ) 충당</div><div class="amt" id="rCover">–</div><div class="sub" id="rCoverSub">사망/후유장애 한도</div></div>
-      <div class="pill gap"><div class="lab">임의보험(대인Ⅱ)/추가청구</div><div class="amt" id="rGap">–</div><div class="sub" id="rGapSub"></div></div>
+      <div class="pill cover"><div class="lab" id="coverLab">배상책임자/보험 충당</div><div class="amt" id="rCover">–</div><div class="sub" id="rCoverSub"></div></div>
+      <div class="pill gap"><div class="lab" id="gapLab">추가 청구분</div><div class="amt" id="rGap">–</div><div class="sub" id="rGapSub"></div></div>
     </div>
     <div class="breakdown" id="rCause"></div>
   </div>
@@ -200,7 +204,7 @@
   <div class="card hidden" id="track2">
     <h2><span class="tag">트랙 ②</span> 이 돈, 상속세 내야 하나?</h2>
     <div class="md-death"><table class="tax"><thead><tr><th>받는 돈</th><th>금액</th><th>상속세</th></tr></thead><tbody id="taxBody"></tbody></table><div class="alert" id="taxAlert"></div></div>
-    <div class="md-disab"><div class="alert"><b>후유장애 보상금은 피해자 본인이 생존 수령</b>하므로 상속세와 무관합니다(손해 보전, 비과세). 장해로 인한 장기 소득·간병 부담 대비 자산설계는 별도 상담을 권합니다.</div></div>
+    <div class="md-disab"><div class="alert"><b>후유장애 보상금은 피해자 본인이 생존 수령</b>하므로 상속세와 무관합니다(손해 보전 성격, 비과세). 장해로 인한 장기 소득·간병 부담 대비 자산설계는 별도 상담을 권합니다.</div></div>
   </div>
 
   <div class="cta hidden" id="cta">
@@ -208,7 +212,7 @@
     <p>계약구조·과실·등급·추가청구 여부에 따라 실수령액과 세금은 크게 달라집니다.<br>HeirWise 상속·증여 전문 상담으로 정확히 설계하세요.</p>
     <a class="go" href="consult.html">무료 상담 페이지</a>
     <span class="toggle" id="leadToggle" style="display:block;margin-top:12px">✍️ 여기서 바로 상담 신청하기 ↓</span>
-    <div class="lead hidden" id="lead" data-tool="교통사고">
+    <div class="lead hidden" id="lead" data-tool="화재">
       <div class="lh">계산 결과를 메모해 상담을 신청합니다</div>
       <input type="text" id="ldName" placeholder="성함">
       <input type="text" id="ldPhone" placeholder="연락처 (010-0000-0000)">
@@ -222,7 +226,7 @@
     </div>
   </div>
   <div class="disc">
-    <b>면책 안내</b> · 법원 손해배상 실무기준에 따른 <b>참고용 추정치</b>입니다. 후유장애 시 책임보험 한도는 장해등급별로 차등(최대 1.5억)되며, 실제 보험금은 약관·과실비율에 따릅니다.<br><br>    <b>적용 법령</b> · 자동차손해배상보장법 시행령 제3조(시행 2026.3.24, 사망 책임보험금 한도 1.5억원·후유장애 등급별) / 위자료·일실수입: 법원 손해배상 실무기준(가동연한 만 65세, 대법원 2014다219415; 후유장애 시 노동능력상실률 비례) / 상속세 분류: 상속세 및 증여세법 제8조.<br><br>
+    <b>면책 안내</b> · 화재 손해배상은 원인·과실·실화책임법 적용 여부에 따라 크게 달라지는 <b>참고용 추정치</b>입니다. 경과실 실화는 「실화책임에 관한 법률」 제3조로 배상액 경감이 청구될 수 있습니다.<br><br>    <b>적용 법령</b> · 일실수입·위자료: 법원 손해배상 실무기준(가동연한 만 65세, 대법원 2014다219415; 후유장애 시 노동능력상실률 비례) / 개호비: 도시일용임금×개호기간 호프만 / 다중이용업소 화재배상책임보험: 다중이용업소법(사망 1인 1.5억) / 제조물책임법 / 상속세: 상증법 제8조.<br><br>
     제작: HeirWise_Syn Dae Sik &nbsp;|&nbsp; 보안등급: 공유 가능
   </div>
 
@@ -310,34 +314,24 @@
     msg.className='msg'; msg.textContent='메일 앱이 열립니다. 그대로 전송해 주세요. (안 열리면 ☎010-2088-5383)';
   }
 
-  var sex="m", livingRate=0.333, solMode=10000, liabMode=-1, careRate=1, mode="death";
+  var sex="m", livingRate=0.333, solMode=10000, cause="liable", careRate=1, mode="death";
   bindSeg('segSex', function(b){ sex=b.dataset.v; });
   bindSeg('segLiving', function(b){ livingRate=parseFloat(b.dataset.v); });
   bindSeg('segSol', function(b){ solMode=parseFloat(b.dataset.v); $('solCustom').classList.toggle('hidden', solMode!==-1); });
-  bindSeg('segLiab', function(b){ liabMode=parseFloat(b.dataset.v); });
   bindSeg('segCare', function(b){ careRate=parseFloat(b.dataset.v); });
+  var CN={liable:'방화·이웃 과실·전기제품 결함 등 배상책임자가 있는 경우 → 민사 손해배상 청구.',
+          multi:'노래방·음식점 등 다중이용업소 → 화재배상책임보험(사망 1인 1.5억) + 초과분 업주 청구.',
+          self:'본인 실화·원인불명·천재지변 → 배상 주체 없음. 가입한 화재보험·생명보험만 수령.'};
+  bindSeg('segCause', function(b){ cause=b.dataset.v; $('causeNote').textContent=CN[cause]; });
+  $('causeNote').textContent=CN.liable;
   $('useCare').addEventListener('change', function(){ $('careBox').classList.toggle('hidden', !this.checked); });
-  attachEok('income',false); attachEok('funeral',false); attachEok('lifeIns',false);
-
-  var P={gajang:{age:45,sex:'m',retire:65,income:400,daily:false,living:'0.333',fault:0,funeral:500,liab:'-1'},
-         jubu:{age:50,sex:'f',retire:65,income:336,daily:true,living:'0.333',fault:0,funeral:500,liab:'-1'},
-         minor:{age:15,sex:'m',retire:65,income:336,daily:true,living:'0.333',fault:0,funeral:500,liab:'-1'}};
-  document.querySelectorAll('.presets button').forEach(function(b){
-    b.addEventListener('click', function(){ var p=P[b.dataset.preset]; if(!p)return;
-      $('age').value=p.age; $('income').value=p.income; $('useDaily').checked=p.daily;
-      $('retire').value=p.retire; $('fault').value=p.fault; $('funeral').value=p.funeral;
-      setSeg('segSex',p.sex,function(x){sex=x.dataset.v;});
-      setSeg('segLiving',p.living,function(x){livingRate=parseFloat(x.dataset.v);});
-      setSeg('segLiab',p.liab,function(x){liabMode=parseFloat(x.dataset.v);});
-      ['income','funeral'].forEach(function(id){ var e=$(id+'_eok'); if(e){ var v=parseFloat($(id).value)||0; e.textContent=v>0?('= '+fmtWon(v*10000)):''; } });
-      calc(); });
-  });
+  attachEok('income',false); attachEok('funeral',false); attachEok('fireIns',false); attachEok('lifeIns',false);
 
   function applyMode(m){
     mode=m;
     document.querySelectorAll('.md-death').forEach(function(e){ e.style.display=(m==='death')?'':'none'; });
     document.querySelectorAll('.md-disab').forEach(function(e){ e.style.display=(m==='disab')?'':'none'; });
-    if(m==='death' && $('careBox')) $('careBox').classList.add('hidden');
+    if($('careBox') && m==='death'){ $('careBox').classList.add('hidden'); }
     if(!$('track1').classList.contains('hidden')) calc();
   }
   bindSeg('segMode', function(b){ applyMode(b.dataset.v); });
@@ -348,6 +342,7 @@
     var useDaily=$('useDaily').checked;
     var monthly=(useDaily?336:(parseFloat($('income').value)||0))*10000;
     var fault=Math.min(100,Math.max(0,parseFloat($('fault').value)||0))/100;
+    var fireIns=(parseFloat($('fireIns').value)||0)*10000;
     var lifeIns=(parseFloat($('lifeIns').value)||0)*10000;
     var solBase=(solMode===-1)?(parseFloat($('solCustom').value)||0)*10000:solMode*10000;
     var sl=(mode==='disab')?(Math.min(100,Math.max(0,parseFloat($('loss').value)||0))/100):1;
@@ -355,45 +350,63 @@
 
     var startM=Math.max(0,(19*12+(sex==="m"?18:0))-age*12), endM=Math.max(0,(retire-age)*12);
     var hfNet=Math.max(0,hoffman(endM)-hoffman(startM));
-    var lostAfter=monthly*(1-livingRate)*hfNet*sl*(1-fault);
+    var lost=monthly*(1-livingRate)*hfNet*sl;
+    var lostAfter=lost*(1-fault);
 
-    var thirdItem=0;
-    if(mode==='death'){ var funeral=(parseFloat($('funeral').value)||0)*10000; thirdItem=funeral*(1-fault); $('rFun').textContent=fmtWon(thirdItem); }
-    else { var careAmt=0; if($('useCare').checked){ var careM=Math.max(0,parseFloat($('careM').value)||0); careAmt=3360000*careRate*hoffman(careM)*(1-fault); } thirdItem=careAmt; $('rCare').textContent=fmtWon(careAmt); }
+    var thirdItem=0, careAmt=0, funAfter=0;
+    if(mode==='death'){
+      var funeral=(parseFloat($('funeral').value)||0)*10000;
+      funAfter=funeral*(1-fault); thirdItem=funAfter;
+      $('rFun').textContent=fmtWon(funAfter);
+    } else {
+      if($('useCare').checked){
+        var careM=Math.max(0,parseFloat($('careM').value)||0);
+        careAmt=3360000*careRate*hoffman(careM)*(1-fault);
+      }
+      thirdItem=careAmt; $('rCare').textContent=fmtWon(careAmt);
+    }
     var total=solatium+lostAfter+thirdItem;
 
     $('rSol').textContent=fmtWon(solatium);
     $('rLost').textContent=fmtWon(lostAfter);
     $('rHint').textContent=(useDaily?'· 도시일용 ':'')+(mode==='disab'?('· 상실률 '+(sl*100)+'%'):'');
-    $('rFault').textContent=fault>0?('피해자 과실 '+(fault*100)+'% 반영'):'과실 0%';
+    $('rFault').textContent=fault>0?('고인/피해자 과실 '+(fault*100)+'% 반영'):'과실 0%';
+    $('totLab').textContent=(mode==='death')?'총 손해배상액':'총 손해배상액 (후유장애)';
     $('rTotal').textContent=fmtWon(total);
     var lt=(Math.abs(livingRate-0.333)<0.01)?'1/3':'1/2';
     var f='월 '+monthly.toLocaleString()+'원 × (1−'+lt+') × 호프만 '+hfNet.toFixed(2)+(sl<1?(' × 상실률 '+(sl*100)+'%'):'');
     if(endM<=0) f='가동연한(만'+retire+'세) 경과 — 상실수익 미산정(여명 등 사안별 검토)';
     $('rFormula').textContent=f;
 
-    var CAP=150000000;
-    var cover=Math.min(total,CAP), rawGap=Math.max(0,total-CAP), gap, gapSub;
-    if(liabMode===0){ gap=0; gapSub='임의보험 미가입 — 가해자 직접청구 대상'; }
-    else { gap=rawGap; gapSub=rawGap>0?'책임보험 한도(1.5억) 초과분':'초과분 없음'; }
-    $('rCover').textContent=fmtWon(cover); $('rGap').textContent=fmtWon(gap); $('rGapSub').textContent=gapSub;
-    $('rCause').innerHTML = (mode==='disab')
-      ? '<b>후유장애:</b> 책임보험(대인Ⅰ) 후유장애 한도는 장해등급별 차등(최대 1.5억)입니다. 노동능력상실률·개호 필요성은 신체감정으로 확정됩니다.'
-      : '<b>사망:</b> 책임보험(대인Ⅰ) 1.5억까지 우선 충당되고, 초과분은 가해차량 임의보험(대인Ⅱ) 또는 가해자에게 청구합니다.';
+    var cover=0, gap=0, coverLab='', coverSub='', gapSub='', causeMsg='';
+    if(cause==='liable'){ cover=total; gap=0; coverLab='배상책임자 청구(민사)'; coverSub='가해자·제조사·시공사 상대'; gapSub='—';
+      causeMsg='<b>타인 책임 화재:</b> 전액 민사 손해배상 청구 대상. 가해자가 경과실 실화면 「실화책임법」 제3조로 배상액 경감이 가능합니다.'; }
+    else if(cause==='multi'){ var CAP=150000000; cover=Math.min(total,CAP); gap=Math.max(0,total-CAP);
+      coverLab='화재배상책임보험 충당'; coverSub='사망 1인 한도 1.5억'; gapSub=gap>0?'한도 초과 — 업주 청구':'초과분 없음';
+      causeMsg='<b>다중이용업소 화재:</b> 업주의 화재배상책임보험에서 1인당 1.5억까지 우선 지급, 초과분은 업주 청구(다중이용업소법).'; }
+    else { cover=0; gap=0; coverLab='배상 주체 없음'; coverSub='원인불명·본인 실화·천재'; gapSub='가입한 사적보험만 수령';
+      causeMsg='<b>원인불명·본인 실화:</b> 민사 배상 주체가 없어 손해배상 0. 화재보험·생명보험만 수령하므로 <b>사적보험 설계</b>가 중요합니다.'; }
+    $('coverLab').textContent=coverLab; $('rCover').textContent=fmtWon(cover); $('rCoverSub').textContent=coverSub;
+    $('rGap').textContent=fmtWon(gap); $('rGapSub').textContent=gapSub; $('rCause').innerHTML=causeMsg;
 
     if(mode==='death'){
-      var rows=[{name:'자동차보험 손해배상금',amt:total,taxable:false,note:'손해 보전 — 원칙적 비과세'}];
+      var comp=(cause==='self')?0:total;
+      var rows=[];
+      if(comp>0) rows.push({name:'화재 손해배상금/책임보험금',amt:comp,taxable:false,note:'손해 보전 — 원칙적 비과세'});
+      if(fireIns>0) rows.push({name:'화재보험 사망보험금',amt:fireIns,taxable:true,note:'간주상속재산(상증법 §8) — 과세'});
       if(lifeIns>0) rows.push({name:'고인 생명보험금',amt:lifeIns,taxable:true,note:'간주상속재산(상증법 §8) — 과세'});
+      if(rows.length===0) rows.push({name:'손해배상금',amt:0,taxable:false,note:'—'});
       var tb=$('taxBody'); tb.innerHTML='';
       rows.forEach(function(r){ var tr=document.createElement('tr');
         tr.innerHTML='<td class="b">'+r.name+'<br><span style="font-weight:400;color:var(--muted);font-size:12px">'+r.note+'</span></td><td>'+fmtWon(r.amt)+'</td><td>'+(r.taxable?'<span class="chip yes">과세</span>':'<span class="chip no">비과세</span>')+'</td>';
         tb.appendChild(tr); });
-      $('taxAlert').innerHTML = lifeIns>0
-        ? '<b>주의:</b> 자동차보험 손해배상금은 비과세지만, 고인 생명보험금 <b>'+fmtWon(lifeIns)+'</b>은 간주상속재산으로 과세되며 다른 상속재산과 합산됩니다.'
-        : '<b>참고:</b> 자동차보험 손해배상금은 상속세 대상이 아닙니다. 생명보험금·다른 상속재산이 있으면 별도 합산 점검이 필요합니다.';
+      var tx=fireIns+lifeIns;
+      $('taxAlert').innerHTML = tx>0
+        ? '<b>주의:</b> 손해배상금은 비과세지만, 보험금 <b>'+fmtWon(tx)+'</b>(화재보험+생명보험)은 간주상속재산으로 과세되며 다른 상속재산과 합산됩니다.'
+        : '<b>참고:</b> 화재 손해배상금은 상속세 대상이 아닙니다. 보험금·다른 상속재산이 있으면 별도 합산 점검이 필요합니다.';
     }
-    window.__lastResult='[교통'+(mode==='death'?'사망':'장애')+'] 손해 '+fmtWon(total)+' / 책임보험 '+fmtWon(cover)+' / 추가 '+fmtWon(gap);
-    window.__lastInputs={mode:mode,age:age,income:monthly,loss:sl,liab:liabMode,lifeIns:lifeIns};
+    window.__lastResult='[화재'+(mode==='death'?'사망':'장애')+'] 원인:'+cause+' / 손해 '+fmtWon(total)+' / 충당 '+fmtWon(cover);
+    window.__lastInputs={mode:mode,cause:cause,age:age,income:monthly,loss:sl,fireIns:fireIns,lifeIns:lifeIns};
 
     ['track1','track2','cta'].forEach(function(id){ $(id).classList.remove('hidden'); });
     document.querySelectorAll('.md-death').forEach(function(e){ e.style.display=(mode==='death')?'':'none'; });
