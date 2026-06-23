@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보험금의 두 얼굴 계산기 | HeirWise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!--
+  보안등급: 공유 가능 (자체 제작 도구)
+  버전: v1.0 — 사망보험금의 상속세(간주상속 §8) + 유류분 산입(특별수익) 동시 산출
+  제작: HeirWise_Syn Dae Sik (申大湜)
+  연동: www.finitart.com (Squarespace Code Block / iframe 임베드용 자체완결 파일)
+-->
+<style>
+  :root{
+    --navy:#1A3C6D; --navy2:#2255AA; --amber:#F9A825;
+    --ink:#1c2330; --muted:#5a6577; --line:#d7dde6; --line2:#c2cad6;
+    --bg:#f4f6fa; --card:#ffffff; --soft:#eef3fa; --soft2:#e3edf7;
+    --ok:#1d7a5a; --ok-bg:#e3f5ec; --warn:#a33a16; --warn-bg:#fbeae2;
+    --shadow:0 1px 3px rgba(20,40,80,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --navy:#7fb0ee; --navy2:#9cc3f5; --amber:#F2C24A;
+      --ink:#e8edf5; --muted:#a7b2c4; --line:#2c3645; --line2:#3a4658;
+      --bg:#0e141d; --card:#161e2b; --soft:#1b2533; --soft2:#1f2c3e;
+      --ok:#5fd3a2; --ok-bg:#143027; --warn:#f0a07e; --warn-bg:#33190f;
+      --shadow:0 1px 3px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Malgun Gothic","맑은 고딕",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+    font-size:15px; line-height:1.6; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:18px 16px 60px}
+  header.hd{ background:var(--navy); color:#fff; border-radius:14px; padding:20px 22px; margin-bottom:14px; }
+  @media (prefers-color-scheme: dark){ header.hd{background:#10243f} }
+  header.hd h1{margin:0 0 6px; font-size:21px; line-height:1.3}
+  header.hd p{margin:0; font-size:14px; color:#cfe0f6}
+  @media (prefers-color-scheme: dark){ header.hd p{color:#bcd2ef} }
+  .lawbar{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px}
+  .lawbar span{ background:rgba(255,255,255,.14); color:#fff; font-size:12px; font-weight:600; padding:4px 9px; border-radius:999px; border:1px solid rgba(255,255,255,.25); }
+  @media (prefers-color-scheme: dark){ .lawbar span{background:rgba(127,176,238,.15); color:#cfe0f6} }
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 18px 16px; margin-bottom:14px; box-shadow:var(--shadow)}
+  .card h2{font-size:16px; margin:0 0 14px; color:var(--navy); display:flex; align-items:center; gap:8px}
+  .card h2 .tag{background:var(--amber); color:#3a2a00; font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px}
+  @media (prefers-color-scheme: dark){ .card h2 .tag{color:#241a00} }
+
+  .presets{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px}
+  .presets button{ flex:1; min-width:120px; padding:11px 8px; font-size:13.5px; font-weight:700; cursor:pointer; border:1.5px dashed var(--navy2); background:var(--soft); color:var(--navy); border-radius:10px; font-family:inherit; }
+  .presets button:hover{background:var(--soft2)}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px 16px}
+  @media(max-width:560px){ .grid{grid-template-columns:1fr} }
+  .field label{display:block; font-size:13px; font-weight:700; margin-bottom:5px; color:var(--ink)}
+  .field .hint{font-size:12px; color:var(--muted); font-weight:400}
+  .field input[type=number], .field select{ width:100%; padding:10px 11px; font-size:15px; border:1.5px solid var(--line2); border-radius:9px; background:var(--card); color:var(--ink); font-family:inherit; }
+  .field input:focus, .field select:focus{outline:none; border-color:var(--navy2); box-shadow:0 0 0 3px rgba(34,85,170,.18)}
+  .inline{display:flex; align-items:center; gap:7px; font-size:13.5px; margin-top:6px}
+  .inline input[type=checkbox]{width:17px; height:17px; accent-color:var(--navy2)}
+  .seg{display:flex; gap:6px; flex-wrap:wrap}
+  .seg button{ flex:1; min-width:72px; padding:9px 6px; font-size:13.5px; font-weight:700; cursor:pointer; border:1.5px solid var(--line2); background:var(--card); color:var(--ink); border-radius:9px; font-family:inherit; }
+  .seg button.on{background:var(--navy); color:#fff; border-color:var(--navy)}
+  @media (prefers-color-scheme: dark){ .seg button.on{background:var(--navy2); color:#0e141d} }
+
+  .btn-calc{ width:100%; margin-top:16px; padding:14px; font-size:16px; font-weight:800; cursor:pointer; background:var(--amber); color:#3a2a00; border:none; border-radius:11px; font-family:inherit; }
+  @media (prefers-color-scheme: dark){ .btn-calc{color:#241a00} }
+  .btn-calc:active{transform:translateY(1px)}
+
+  .res-row{display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px solid var(--line)}
+  .res-row.nb{border-bottom:none; padding-bottom:2px}
+  .res-row .k{font-size:14px; color:var(--muted)}
+  .res-row .v{font-size:16px; font-weight:700; color:var(--ink)}
+  .formula{font-size:12px; color:var(--muted); background:var(--soft); border-radius:8px; padding:8px 11px; margin:2px 0 8px; line-height:1.6; word-break:keep-all}
+  .res-row.total{margin-top:8px; padding:14px; background:var(--soft2); border-radius:10px; border-bottom:none}
+  .res-row.total .k{font-size:15px; font-weight:800; color:var(--navy)}
+  .res-row.total .v{font-size:21px; font-weight:800; color:var(--navy)}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+  @media(max-width:560px){ .split{grid-template-columns:1fr} }
+  .pill{padding:13px 14px; border-radius:11px; border:1px solid}
+  .pill.cover{background:var(--ok-bg); border-color:var(--ok)}
+  .pill.gap{background:var(--warn-bg); border-color:var(--warn)}
+  .pill .lab{font-size:12.5px; font-weight:700; margin-bottom:3px}
+  .pill.cover .lab{color:var(--ok)} .pill.gap .lab{color:var(--warn)}
+  .pill .amt{font-size:18px; font-weight:800; color:var(--ink)}
+  .pill .sub{font-size:11.5px; color:var(--muted); margin-top:2px}
+
+  table.tax{width:100%; border-collapse:collapse; font-size:13.5px; margin-top:4px}
+  table.tax th, table.tax td{padding:9px 10px; text-align:left; border-bottom:1px solid var(--line)}
+  table.tax th{background:var(--soft); color:var(--navy); font-size:12.5px}
+  table.tax td.b{font-weight:700}
+  .chip{display:inline-block; font-size:11.5px; font-weight:800; padding:2px 8px; border-radius:6px}
+  .chip.no{background:var(--ok-bg); color:var(--ok)}
+  .chip.yes{background:var(--warn-bg); color:var(--warn)}
+  .alert{margin-top:13px; padding:13px 14px; border-radius:10px; background:var(--warn-bg); border:1px solid var(--warn); font-size:13.5px; color:var(--ink)}
+  .alert b{color:var(--warn)}
+  .note-info{margin-top:10px; font-size:12.5px; color:var(--muted)}
+
+  .cta{background:var(--navy); color:#fff; border-radius:14px; padding:20px; margin-top:6px; text-align:center}
+  @media (prefers-color-scheme: dark){ .cta{background:#10243f} }
+  .cta h3{margin:0 0 6px; font-size:17px}
+  .cta p{margin:0 0 13px; font-size:13.5px; color:#cfe0f6}
+  @media (prefers-color-scheme: dark){ .cta p{color:#bcd2ef} }
+  .cta a.go{display:inline-block; background:var(--amber); color:#3a2a00; font-weight:800; font-size:15px; text-decoration:none; padding:12px 26px; border-radius:10px}
+  @media (prefers-color-scheme: dark){ .cta a.go{color:#241a00} }
+  .cta .contact{margin-top:12px; font-size:12.5px; color:#cfe0f6; line-height:1.8}
+  .cta .contact a{color:#fff; text-decoration:underline}
+
+  .disc{font-size:12px; color:var(--muted); margin-top:16px; line-height:1.7}
+  .disc b{color:var(--ink)}
+  .hidden{display:none}
+</style>
+
+<style>
+  .lead{margin-top:14px; text-align:left; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:12px; padding:14px}
+  @media (prefers-color-scheme: dark){ .lead{background:rgba(127,176,238,.08)} }
+  .lead .lh{font-size:13.5px; font-weight:800; color:#fff; margin-bottom:9px}
+  .lead input[type=text]{width:100%; padding:10px 11px; font-size:14.5px; border:none; border-radius:8px; margin-bottom:8px; font-family:inherit}
+  .lead .consent{display:flex; align-items:flex-start; gap:7px; font-size:12px; color:#dbe7f7; margin:2px 0 10px; cursor:pointer; line-height:1.5}
+  .lead .consent input{width:16px; height:16px; margin-top:1px; accent-color:var(--amber)}
+  .lead button{width:100%; padding:11px; font-size:14.5px; font-weight:800; cursor:pointer; background:var(--amber); color:#3a2a00; border:none; border-radius:9px; font-family:inherit}
+  @media (prefers-color-scheme: dark){ .lead button{color:#241a00} }
+  .lead .msg{font-size:12.5px; margin-top:8px; color:#fff; min-height:1px}
+  .lead .msg.err{color:#ffd2c2}
+  .toggle{font-size:12.5px; color:#cfe0f6; text-decoration:underline; cursor:pointer}
+  .sub{font-size:11.5px; color:var(--muted); margin-top:2px}
+  .res-row .vmut{font-size:13px; color:var(--muted); font-weight:600}
+  .breakdown{font-size:12.5px; color:var(--muted); background:var(--soft); border-radius:8px; padding:9px 11px; margin-top:8px; line-height:1.7; word-break:keep-all}
+  .eok{font-size:11.5px; color:var(--navy2); font-weight:800; margin-top:3px; letter-spacing:-.2px}
+  .modeseg{display:flex; gap:8px; margin-bottom:16px}
+  .modeseg button{flex:1; padding:12px 8px; font-size:14.5px; font-weight:800; cursor:pointer; border:1.5px solid var(--line2); background:var(--card); color:var(--muted); border-radius:11px; font-family:inherit}
+  .modeseg button.on{background:var(--navy); color:#fff; border-color:var(--navy)}
+  @media (prefers-color-scheme: dark){ .modeseg button.on{background:var(--navy2); color:#0e141d} }
+  .opt-toggle{display:flex; align-items:center; gap:7px; font-size:13.5px; margin:10px 0 0; cursor:pointer}
+  .opt-toggle input{width:17px; height:17px; accent-color:var(--navy2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav style="display:flex;gap:14px;align-items:center;font-size:13.5px;margin-bottom:12px;flex-wrap:wrap">
+    <a href="index.html" style="color:var(--navy);font-weight:800;text-decoration:none">← HeirWise</a>
+    <span style="color:var(--muted)">|</span>
+    <a href="car-accident.html" style="color:var(--navy2);text-decoration:none">교통사고</a>
+    <a href="industrial-accident.html" style="color:var(--navy2);text-decoration:none">산재</a>
+    <a href="fire-accident.html" style="color:var(--navy2);text-decoration:none">화재</a>
+    <a href="natural-death.html" style="color:var(--navy2);text-decoration:none">자연사·상속세</a>
+  </nav>
+  <header class="hd">
+    <h1>보험금의 두 얼굴 계산기</h1>
+    <p>같은 사망보험금이 <b>세법에선 상속세</b>로, <b>민법에선 유류분</b>으로 — 두 갈래를 한 번에 계산합니다.</p>
+    <div class="lawbar"><span>상증법 §8 (간주상속재산)</span><span>대법원 2020다247428</span><span>민법 §1008·§1114</span></div>
+  </header>
+
+  <div class="card">
+    <h2>① 정보 입력</h2>
+    <div class="field" style="margin-bottom:14px"><label>보험수익자 <span class="hint">(누가 보험금을 받나)</span></label>
+      <div class="seg" id="segBene"><button data-v="heir" class="on">공동상속인 (예: 아들)</button><button data-v="third">제3자 (비상속인)</button></div>
+      <div class="sub" id="beneNote"></div>
+    </div>
+    <div class="grid">
+      <div class="field"><label>사망보험금 <span class="hint">(수익자 수령액·만원)</span></label><input type="number" id="benefit" value="100000" min="0" step="1000"></div>
+      <div class="field"><label>피상속인 부담 보험료 비율 <span class="hint">(%)</span></label><input type="number" id="ratio" value="100" min="0" max="100" step="5"><div class="hint" style="margin-top:5px">총 납입보험료 중 고인이 낸 비율. 보통 100%.</div></div>
+      <div class="field"><label>보험금 외 상속재산 <span class="hint">(부동산·예금 등 만원)</span></label><input type="number" id="estate" value="0" min="0" step="1000"></div>
+      <div class="field"><label>상속채무 <span class="hint">(만원)</span></label><input type="number" id="debt" value="0" min="0" step="1000"></div>
+    </div>
+    <h2 style="margin-top:18px">② 유류분 — "딸" 관점</h2>
+    <div class="grid">
+      <div class="field"><label>유류분 청구자</label><div class="seg" id="segClaim"><button data-v="child" class="on">자녀(직계비속)</button><button data-v="spouse">배우자</button><button data-v="parent2">직계존속</button></div></div>
+      <div class="field"><label>공동상속인 총 수 <span class="hint">(배우자·자녀 등 전원)</span></label><input type="number" id="heirs" value="2" min="1" max="10"></div>
+      <div class="field"><label>청구자가 실제 받은 상속 <span class="hint">(특별수익·순상속 만원)</span></label><input type="number" id="received" value="0" min="0" step="1000"><div class="hint" style="margin-top:5px">청구자(딸)가 이미 받은 재산. 없으면 0.</div></div>
+    </div>
+    <label class="opt-toggle"><input type="checkbox" id="thirdTime"> (제3자 수익자일 때) 상속개시 1년 이내 지정 또는 악의 — 유류분 산입 요건 충족</label>
+    <button class="btn-calc" id="calcBtn">두 갈래 계산하기</button>
+  </div>
+
+  <div class="card hidden" id="face1">
+    <h2><span class="tag">얼굴 ① 세법</span> 상속세 (간주상속재산)</h2>
+    <div class="res-row"><span class="k">간주상속재산 산입 보험금 <span class="hint">(부담비율 반영)</span></span><span class="v" id="rImputed">–</span></div>
+    <div class="res-row"><span class="k">+ 보험금 외 상속재산</span><span class="v vmut" id="rEstate">–</span></div>
+    <div class="res-row"><span class="k">− 상속채무</span><span class="v vmut" id="rDebt">–</span></div>
+    <div class="res-row total"><span class="k">상속세 과세 대상 합계</span><span class="v" id="rTaxBase">–</span></div>
+    <div class="breakdown" id="rTaxNote"></div>
+  </div>
+
+  <div class="card hidden" id="face2">
+    <h2><span class="tag">얼굴 ② 민법</span> 유류분 (특별수익 산입)</h2>
+    <div class="res-row"><span class="k">유류분 기초재산 산입 보험금 <span class="hint">(보험료비율×보험금)</span></span><span class="v" id="rIncluded">–</span></div>
+    <div class="res-row"><span class="k">유류분 기초재산 <span class="hint">(보험금+상속재산−채무)</span></span><span class="v vmut" id="rBase">–</span></div>
+    <div class="res-row"><span class="k">청구자 유류분율</span><span class="v vmut" id="rRate">–</span></div>
+    <div class="res-row"><span class="k">청구자 유류분액</span><span class="v" id="rYuryu">–</span></div>
+    <div class="res-row total"><span class="k">유류분 부족액 (청구 가능액)</span><span class="v" id="rShort">–</span></div>
+    <div class="breakdown" id="rYuryuNote"></div>
+  </div>
+
+  <div class="cta hidden" id="cta">
+    <h3>이 금액, 우리 가족 상황에 정확히 맞을까요?</h3>
+    <p>계약구조·과실·등급·추가청구 여부에 따라 실수령액과 세금은 크게 달라집니다.<br>HeirWise 상속·증여 전문 상담으로 정확히 설계하세요.</p>
+    <a class="go" href="consult.html">무료 상담 페이지</a>
+    <span class="toggle" id="leadToggle" style="display:block;margin-top:12px">✍️ 여기서 바로 상담 신청하기 ↓</span>
+    <div class="lead hidden" id="lead" data-tool="보험금두얼굴">
+      <div class="lh">계산 결과를 메모해 상담을 신청합니다</div>
+      <input type="text" id="ldName" placeholder="성함">
+      <input type="text" id="ldPhone" placeholder="연락처 (010-0000-0000)">
+      <label class="consent"><input type="checkbox" id="ldAgree"><span>개인정보 수집·이용에 동의합니다. (목적: 상담 연락 / 항목: 성함·연락처·계산입력값 / 보유: 1년 / 거부 시 상담 제한)</span></label>
+      <button id="ldSend">상담 신청 보내기</button>
+      <div class="msg" id="ldMsg"></div>
+    </div>
+    <div class="contact">
+      ☎ 010-2088-5383 &nbsp;|&nbsp; ✉ <a href="mailto:itart@finitart.com">itart@finitart.com</a><br>
+      AFPK · RC · 상속·증여 전문 재무설계사 — HeirWise
+    </div>
+  </div>
+  <div class="disc">
+    <b>면책 안내</b> · 본 계산기는 <b>참고용 추정치</b>입니다. 유류분 산입 여부·가액은 수익자 유형(공동상속인/제3자)·지정시점·악의 여부에 따라 달라지며(공동상속인은 기간제한 없음, 제3자는 §1114 요건), 구체적 상속분·기여분 등 쟁점은 사안별 검토가 필요합니다.<br><br>    <b>적용 법령·판례</b> · 세법: 상속세 및 증여세법 §8(간주상속재산, 피상속인 부담 보험료분 과세). 민법: §1008(특별수익)·§1114(증여 산입)·§1118 / 대법원 2022.8.11. 선고 2020다247428(보험수익자 보험금은 특별수익으로 유류분 기초재산 산입 가능, 가액 = 납입보험료 중 피상속인 부담비율 × 보험금). 유류분율: 직계비속·배우자 1/2, 직계존속 1/3(민법 §1112). 출처: 국가법령정보센터(law.go.kr).<br><br>
+    제작: HeirWise_Syn Dae Sik &nbsp;|&nbsp; 보안등급: 공유 가능
+  </div>
+
+</div>
+<script>
+(function(){
+  "use strict";
+
+  var $ = function(id){ return document.getElementById(id); };
+  function fmtWon(won){
+    won = Math.round(won);
+    if(won <= 0) return "0원";
+    var eok = Math.floor(won/100000000);
+    var man = Math.floor((won%100000000)/10000);
+    var s = "";
+    if(eok > 0) s += eok + "억";
+    if(man > 0) s += (eok>0?" ":"") + man.toLocaleString() + "만";
+    if(eok===0 && man===0) s = Math.round(won).toLocaleString();
+    return s + "원";
+  }
+  function hoffman(months){
+    months = Math.max(0, Math.round(months));
+    var sum = 0;
+    for(var m=1; m<=months; m++){ sum += 1/(1 + 0.05*m/12); }
+    return Math.min(sum, 240);
+  }
+  function bindSeg(wrapId, onChange){
+    var w = $(wrapId); if(!w) return;
+    w.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        w.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+        b.classList.add('on'); onChange(b);
+      });
+    });
+  }
+  function setSeg(wrapId, val, onChange){
+    var w = $(wrapId); if(!w) return;
+    w.querySelectorAll('button').forEach(function(b){
+      var on = (b.dataset.v === String(val));
+      b.classList.toggle('on', on); if(on) onChange(b);
+    });
+  }
+  // ===== 억원 실시간 표시 =====
+  function attachEok(id, isWon){
+    var inp=$(id); if(!inp) return;
+    var e=document.createElement('div'); e.className='eok'; e.id=id+'_eok';
+    inp.parentNode.insertBefore(e, inp.nextSibling);
+    function upd(){
+      var v=parseFloat(inp.value)||0;
+      if(v<=0){ e.textContent=''; return; }
+      e.textContent = '= ' + (isWon ? fmtWon(v) : fmtWon(v*10000));
+    }
+    inp.addEventListener('input', upd); upd();
+  }
+  // ===== 리드 수집 (상담 DB 연동) — 백엔드 확정 시 LEAD_ENDPOINT 한 줄 교체 =====
+  var LEAD_ENDPOINT = ""; // 예: "https://script.google.com/macros/s/XXXX/exec"
+  window.__lastResult = "(계산 전)";
+  window.__lastInputs = {};
+  function initLead(){
+    var t = $('leadToggle'), box = $('lead');
+    if(t && box){ t.addEventListener('click', function(){ box.classList.toggle('hidden'); }); }
+    var btn = $('ldSend'); if(!btn) return;
+    btn.addEventListener('click', function(){
+      var msg = $('ldMsg'); msg.className='msg';
+      var name = ($('ldName').value||'').trim();
+      var phone = ($('ldPhone').value||'').trim();
+      if(!name){ msg.classList.add('err'); msg.textContent='성함을 입력해 주세요.'; return; }
+      if(!/[0-9]{2,4}-?[0-9]{3,4}-?[0-9]{4}/.test(phone)){ msg.classList.add('err'); msg.textContent='연락처 형식을 확인해 주세요.'; return; }
+      if(!$('ldAgree').checked){ msg.classList.add('err'); msg.textContent='개인정보 수집·이용 동의가 필요합니다.'; return; }
+      var payload = { tool:$('lead').dataset.tool, name:name, phone:phone,
+                      result:window.__lastResult, inputs:window.__lastInputs,
+                      page:location.href, ts:new Date().toISOString() };
+      if(LEAD_ENDPOINT){
+        msg.textContent='전송 중…';
+        fetch(LEAD_ENDPOINT, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
+          .then(function(){ msg.className='msg'; msg.textContent='✅ 신청이 접수되었습니다. 곧 연락드리겠습니다.'; $('ldSend').disabled=true; })
+          .catch(function(){ mailtoFallback(payload, msg); });
+      } else { mailtoFallback(payload, msg); }
+    });
+  }
+  function mailtoFallback(p, msg){
+    var body = '[HeirWise 상담신청]\n\n계산기: '+p.tool+'\n성함: '+p.name+'\n연락처: '+p.phone+
+               '\n\n계산결과: '+p.result+'\n\n입력값: '+JSON.stringify(p.inputs)+'\n시각: '+p.ts;
+    window.location.href = 'mailto:itart@finitart.com?subject='+encodeURIComponent('[상담신청] '+p.name+' · '+p.tool)+'&body='+encodeURIComponent(body);
+    msg.className='msg'; msg.textContent='메일 앱이 열립니다. 그대로 전송해 주세요. (안 열리면 ☎010-2088-5383)';
+  }
+
+  var bene="heir", claim="child";
+  var CN={heir:'공동상속인이 수익자 → 유류분 산입에 <b>기간 제한 없음</b>(특별수익, §1008·§1118).',
+          third:'제3자(비상속인)가 수익자 → 상속개시 1년 이내 지정 또는 악의일 때만 산입(§1114).'};
+  bindSeg('segBene', function(b){ bene=b.dataset.v; $('beneNote').innerHTML=CN[bene]; });
+  $('beneNote').innerHTML=CN.heir;
+  bindSeg('segClaim', function(b){ claim=b.dataset.v; });
+  ['benefit','estate','debt','received'].forEach(function(id){ attachEok(id,false); });
+
+  function calc(){
+    var M=10000;
+    var benefit=(parseFloat($('benefit').value)||0)*M;
+    var ratio=Math.min(100,Math.max(0,parseFloat($('ratio').value)||0))/100;
+    var estate=(parseFloat($('estate').value)||0)*M;
+    var debt=(parseFloat($('debt').value)||0)*M;
+    var heirs=Math.max(1,parseFloat($('heirs').value)||1);
+    var received=(parseFloat($('received').value)||0)*M;
+
+    var imputed=benefit*ratio; // 피상속인 부담분
+
+    // 얼굴1 세법
+    $('rImputed').textContent=fmtWon(imputed);
+    $('rEstate').textContent='+ '+fmtWon(estate);
+    $('rDebt').textContent='− '+fmtWon(debt);
+    var taxBase=Math.max(0, imputed+estate-debt);
+    $('rTaxBase').textContent=fmtWon(taxBase);
+    $('rTaxNote').innerHTML='보험금 중 고인이 부담한 보험료분 <b>'+fmtWon(imputed)+'</b>이 간주상속재산(§8)으로 과세 대상에 포함됩니다. 실제 세액은 일괄·배우자공제 등 적용 후 산출되니 <a href="natural-death.html" style="color:var(--navy2)">상속세 계산기</a>로 이어 계산하세요.';
+
+    // 얼굴2 민법 — 유류분
+    var included = (bene==='heir') ? imputed : ($('thirdTime').checked ? imputed : 0);
+    $('rIncluded').textContent=fmtWon(included)+(bene==='third'&&!$('thirdTime').checked?' (요건 미충족 → 산입 안 됨)':'');
+    var base=Math.max(0, included+estate-debt);
+    $('rBase').textContent=fmtWon(base);
+    // 법정상속분: 균등 가정(단순화). 유류분율
+    var legalShare = base / heirs;
+    var yrate = (claim==='parent2') ? (1/3) : (1/2);
+    var rateTxt = (claim==='parent2') ? '법정상속분 × 1/3' : '법정상속분 × 1/2';
+    $('rRate').textContent=rateTxt;
+    var yuryu = legalShare * yrate;
+    $('rYuryu').textContent=fmtWon(yuryu);
+    var shortfall=Math.max(0, yuryu - received);
+    $('rShort').textContent=fmtWon(shortfall);
+    var msg;
+    if(included>0 && shortfall>0){
+      msg='<b>"딸들아 일어나라":</b> 아들이 받은 보험금도 유류분 기초재산에 들어가, 배제된 청구자는 약 <b>'+fmtWon(shortfall)+'</b>을 청구할 수 있습니다(2020다247428). 통장 잔액만 보지 말고 보험금까지 추적해야 합니다.';
+    } else if(included>0 && shortfall<=0){
+      msg='보험금이 기초재산에 산입되지만, 청구자가 이미 유류분 이상을 받아 부족액이 없습니다.';
+    } else {
+      msg='현재 설정(제3자 수익자·요건 미충족)에서는 보험금이 유류분에 산입되지 않습니다. 수익자가 공동상속인이거나 1년 이내 지정/악의이면 산입됩니다.';
+    }
+    $('rYuryuNote').innerHTML=msg+' ※ 법정상속분을 균등 가정한 단순 계산으로, 배우자 가산·구체적 상속분은 별도 검토가 필요합니다.';
+
+    window.__lastResult='[보험금두얼굴] 간주상속 '+fmtWon(imputed)+' / 유류분산입 '+fmtWon(included)+' / 청구가능 '+fmtWon(shortfall);
+    window.__lastInputs={bene:bene,benefit:benefit,ratio:ratio,claim:claim,heirs:heirs,received:received};
+
+    ['face1','face2','cta'].forEach(function(id){ $(id).classList.remove('hidden'); });
+    $('face1').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  $('calcBtn').addEventListener('click', calc);
+  initLead();
+})();
+</script>
+</body>
+</html>
