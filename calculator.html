@@ -95,6 +95,12 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 .email-section input[type=email]{width:100%;padding:12px;font-size:16px;border:1.5px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
 .email-section button{margin-top:8px;width:100%;padding:12px;font-size:15px;font-weight:700;background:var(--hw-teal);color:#fff;border:none;border-radius:8px;cursor:pointer}
 .email-section .note{font-size:11px;color:var(--tx3);margin-top:6px}
+.mnote{font-size:13.5px;line-height:1.6;padding:11px 13px;border-radius:10px;margin:4px 0 14px;border:1px solid rgba(128,128,128,.3);color:var(--tx2)}
+.mnote.warn{border-color:#C8471F;color:#C8471F}
+.myth h3{font-size:16px;color:#C8471F;margin:18px 0 10px}
+.myth-card{border:1px solid rgba(128,128,128,.3);border-left:4px solid #C8471F;border-radius:0 10px 10px 0;padding:13px 15px;margin:9px 0}
+.myth-card .q{font-weight:800;color:#C8471F;font-size:14.5px;margin-bottom:4px}
+.myth-card .a{font-size:14px;line-height:1.65;color:var(--tx2)}
 </style>
 </head>
 <body>
@@ -129,20 +135,30 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
   </div>
   <div class="row2">
     <div class="field">
-      <label for="spouse">배우자</label>
-      <select id="spouse" onchange="buildHeirs();calc()" aria-label="배우자 유무">
-        <option value="1">있음</option>
-        <option value="0">없음</option>
+      <label for="marital">혼인상태</label>
+      <select id="marital" onchange="refreshHeirUI()" aria-label="혼인상태">
+        <option value="married">법률혼 (배우자 상속)</option>
+        <option value="remarried">재혼 (현 배우자 상속)</option>
+        <option value="defacto">사실혼 (상속권 없음)</option>
+        <option value="divorced">이혼 (상속권 없음)</option>
       </select>
+      <input type="hidden" id="spouse" value="1">
     </div>
     <div class="field">
       <label for="ch">자녀 수</label>
-      <select id="ch" onchange="buildHeirs();calc()" aria-label="자녀 수">
-        <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option>
+      <select id="ch" onchange="refreshHeirUI()" aria-label="자녀 수">
+        <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="chPrev">그 중 전혼 자녀</label>
+      <select id="chPrev" onchange="refreshHeirUI()" aria-label="전혼 자녀 수">
+        <option selected>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
       </select>
     </div>
   </div>
 
+  <div id="maritalNote" class="mnote"></div>
   <div class="sec-title">특별수익 <span class="badge badge-warn">선택</span></div>
   <div id="heirInputs" aria-label="상속인별 특별수익 입력"></div>
 
@@ -203,6 +219,14 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
   <div class="note">입력하신 이메일로 계산 결과 요약 리포트를 보내드립니다. 동의하신 정보는 상담 목적으로만 사용됩니다.</div>
 </div>
 
+<div class="myth">
+  <h3>이혼·재혼·사실혼 상속, 오해 3가지</h3>
+  <div class="myth-card"><div class="q">① 이혼하면 자녀도 상속 못 받는다?</div><div class="a">아닙니다. 이혼한 전 배우자는 상속인이 아니지만, 자녀의 상속권은 부모 이혼과 무관하게 유지됩니다. 전혼 자녀도 현혼 자녀와 똑같이 1순위로 상속받습니다.</div></div>
+  <div class="myth-card"><div class="q">② 오래 함께 산 사실혼 배우자는 당연히 상속받는다?</div><div class="a">아닙니다. 30년을 함께 살아도 혼인신고가 없으면 상속분은 0원입니다(민법 §1003①, 헌재 2020헌바494 합헌). 유증·증여·보험 수익자 지정으로 미리 설계해야 합니다.</div></div>
+  <div class="myth-card"><div class="q">③ 재혼하면 전혼 자녀는 상속에서 빠진다?</div><div class="a">아닙니다. 재혼하면 현 배우자가 상속인이 되고, 전혼 자녀와 현혼 자녀가 모두 함께 동순위로 상속받습니다.</div></div>
+  <div class="a" style="font-size:12px;color:var(--tx3);margin-top:8px">※ 일반 정보 제공이며 개별 세무·법률 자문이 아닙니다. 정확한 판단은 전문가 상담이 필요합니다. (민법 §1000·§1003·§1009·§839-2)</div>
+</div>
+
 <div class="cta-box">
   <div class="cta-title">이 결과, 전문가와 함께 검토하세요</div>
   <div class="cta-desc">간이 추정치입니다. 정확한 세액과 최적 전략은 전문가 상담이 필요합니다.</div>
@@ -240,12 +264,30 @@ function toKr(v){
 }
 function fm(v){return Math.round(v).toLocaleString('ko-KR')}
 
+function refreshHeirUI(){
+  const m=document.getElementById('marital').value;
+  const inherits=(m==='married'||m==='remarried');
+  document.getElementById('spouse').value=inherits?'1':'0';
+  const ch=+document.getElementById('ch').value;
+  const cp=document.getElementById('chPrev'); if(cp&&+cp.value>ch)cp.value=ch;
+  buildHeirs(); renderMaritalNote(m); calc();
+}
+function renderMaritalNote(m){
+  const el=document.getElementById('maritalNote'); if(!el)return;
+  let cls='mnote',msg='';
+  if(m==='defacto'){cls='mnote warn';msg='<b>⚠ 사실혼 배우자는 상속인이 아닙니다.</b> 혼인신고를 한 법률상 배우자만 상속받습니다(민법 §1003①, 헌재 2020헌바494 합헌). 상속을 원하면 혼인신고·유증·증여·보험 수익자 지정 등 사전설계가 필요합니다.';}
+  else if(m==='divorced'){cls='mnote warn';msg='<b>⚠ 이혼한 전 배우자는 상속인이 아닙니다.</b> 이혼은 상속이 아니라 재산분할(민법 §839-2)의 문제입니다. 다만 자녀의 상속권은 이혼과 무관하게 유지됩니다.';}
+  else{msg='배우자는 직계비속과 동순위 공동상속인이며, 상속분이 5할 가산됩니다(민법 §1003·§1009).';}
+  const cp=document.getElementById('chPrev');const prev=cp?+cp.value:0;
+  if(prev>0)msg+=' 전혼 자녀도 현혼 자녀와 동일한 직계비속으로 같은 지분을 상속합니다.';
+  el.className=cls; el.innerHTML=msg;
+}
 function getHeirs(){
   const sp=+document.getElementById('spouse').value,ch=+document.getElementById('ch').value;
   const h=[];
   if(sp)h.push({id:'sp',name:'배우자',w:1.5,yl:0.5});
-  const names=['첫째','둘째','셋째','넷째','다섯째'];
-  for(let i=0;i<ch;i++)h.push({id:'c'+i,name:names[i]||('자녀'+(i+1)),w:1,yl:0.5});
+  const names=['첫째','둘째','셋째','넷째','다섯째','여섯째','일곱째','여덟째','아홉째','열째'];
+  const _pv=document.getElementById('chPrev');const _prev=_pv?Math.min(+_pv.value,ch):0;for(let i=0;i<ch;i++){const _tag=_prev>0?(i<_prev?'전혼 ':'현혼 '):'';h.push({id:'c'+i,name:_tag+(names[i]||('자녀'+(i+1))),w:1,yl:0.5});}
   return h;
 }
 
@@ -441,7 +483,7 @@ function saveResult(){
   alert('신청이 접수되었습니다. 입력하신 이메일로 요약 리포트를 보내드립니다.'+(phone?'\n상담을 원하시면 곧 연락드리겠습니다.':''));
 }
 
-buildHeirs();calc();
+refreshHeirUI();
 </script>
 </body>
 </html>
