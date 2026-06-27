@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>재무정보 수집 — AFPK 신대식</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+:root{
+  --navy:#0B1D35;--blue:#1A3A70;--sky:#2D6BE4;
+  --gold:#F5A623;--green:#016B49;--mint:#00A878;
+  --red:#C0392B;--orange:#D35400;
+  --bg:#F4F6FA;--card:#fff;--text:#0B1D35;--sub:#364F6B;--muted:#7B8FA3;--border:#D5DDE8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.5}
+
+.topbar{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.topbar-l{display:flex;align-items:center;gap:10px}
+.topbar-l span{font-size:15px;font-weight:900;color:#fff}
+.topbar-r{font-size:12px;color:#5C7A99;font-weight:700}
+.badge{background:var(--gold);color:var(--navy);font-size:10px;font-weight:900;
+  padding:3px 8px;border-radius:4px;letter-spacing:.5px}
+
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 80px}
+
+.client-bar{background:linear-gradient(135deg,var(--navy),var(--blue));
+  border-radius:14px;padding:18px 20px;color:#fff;margin-bottom:16px}
+.cb-name{font-size:20px;font-weight:900}
+.cb-info{font-size:13px;color:#94B4D4;font-weight:600;margin-top:4px}
+.cb-tag{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:5px;padding:2px 8px;font-size:11px;font-weight:800;color:var(--gold);margin-top:8px}
+
+.section{background:var(--card);border-radius:14px;padding:20px;
+  border:1px solid var(--border);margin-bottom:12px}
+.sec-title{font-size:15px;font-weight:900;color:var(--navy);margin-bottom:14px;
+  padding-bottom:8px;border-bottom:2px solid var(--border)}
+
+.row{display:grid;grid-template-columns:130px 1fr;gap:8px;align-items:center;
+  padding:8px 0;border-bottom:1px solid #EEF1F5}
+.row:last-child{border-bottom:none}
+.row-label{font-size:13px;font-weight:800;color:var(--sub)}
+.row-input input,.row-input select{width:100%;padding:10px 12px;border-radius:8px;
+  border:1.5px solid var(--border);font-size:15px;font-weight:700;color:var(--text);
+  font-family:inherit;outline:none;background:#FAFBFD;transition:border .2s}
+.row-input input:focus,.row-input select:focus{border-color:var(--sky);background:#F0F6FF}
+.row-input input.has-val{border-color:var(--mint);background:#F0FFF8}
+
+.row-input select{-webkit-appearance:none;appearance:none;
+  background:#FAFBFD url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235C7A99' fill='none' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 12px center}
+
+.unit{font-size:12px;color:var(--muted);font-weight:700;margin-left:4px}
+
+.memo-box{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid var(--border);
+  font-size:14px;font-weight:700;color:var(--text);font-family:inherit;outline:none;
+  background:#FAFBFD;resize:vertical;min-height:60px}
+.memo-box:focus{border-color:var(--sky);background:#F0F6FF}
+
+.btn-submit{width:100%;padding:16px;border-radius:12px;border:none;
+  background:linear-gradient(135deg,var(--gold),#F5B833);color:var(--navy);
+  font-size:17px;font-weight:900;cursor:pointer;font-family:inherit;
+  box-shadow:0 4px 20px rgba(224,123,0,.3);transition:all .2s;margin-top:8px}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(224,123,0,.4)}
+
+.status-msg{text-align:center;font-size:14px;font-weight:800;margin-top:10px;min-height:20px}
+
+.tip{background:#FFF8E7;border:1px solid #F0DDA0;border-radius:10px;
+  padding:12px 14px;font-size:12px;color:#7A5500;font-weight:700;line-height:1.7;margin-bottom:12px}
+
+@media(max-width:480px){.row{grid-template-columns:100px 1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-l">
+    <span>재무정보 수집</span>
+    <span class="badge">AFPK 전용</span>
+  </div>
+  <div class="topbar-r">통화 중 입력용</div>
+</div>
+
+<div class="wrap">
+
+  <div class="client-bar" id="clientBar">
+    <div class="cb-name" id="cbName">고객명</div>
+    <div class="cb-info" id="cbInfo">정보를 불러오는 중...</div>
+    <div class="cb-tag" id="cbTag"></div>
+  </div>
+
+  <div class="tip">
+    통화하면서 확인한 내용을 입력하세요. 저장하면 기존 접수 데이터에 업데이트됩니다.
+  </div>
+
+  <!-- 연금 현황 -->
+  <div class="section">
+    <div class="sec-title">연금 현황</div>
+    <div class="row">
+      <div class="row-label">국민연금/월</div>
+      <div class="row-input"><input type="number" id="fPension" placeholder="만원" oninput="markFilled(this)"><span class="unit">만원</span></div>
+    </div>
+    <div class="row">
+      <div class="row-label">배우자 연금/월</div>
+      <div class="row-input"><input type="number" id="fSpousePension" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-label">퇴직연금 적립</div>
+      <div class="row-input"><input type="number" id="fRetirePension" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-label">개인연금/월</div>
+      <div class="row-input"><input type="number" id="fPersonalPension" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-label">주택연금/월</div>
+      <div class="row-input"><input type="number" id="fHousingPension" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+  </div>
+
+  <!-- 자산·부채 -->
+  <div class="section">
+    <div class="sec-title">자산·부채</div>
+    <div class="row">
+      <div class="row-label">금융자산</div>
+      <div class="row-input"><input type="number" id="fFinancial" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-label">부동산 시가</div>
+      <div class="row-input"><input type="number" id="fRealEstate" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-label">부채 합계</div>
+      <div class="row-input"><input type="number" id="fDebt" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-label">월 지출</div>
+      <div class="row-input"><input type="number" id="fExpense" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+  </div>
+
+  <!-- 목표·성향 -->
+  <div class="section">
+    <div class="sec-title">목표·성향</div>
+    <div class="row">
+      <div class="row-label">목표 은퇴 나이</div>
+      <div class="row-input">
+        <select id="fRetireAge" onchange="markFilled(this)">
+          <option value="">선택</option>
+          <option value="55">55세</option>
+          <option value="58">58세</option>
+          <option value="60">60세</option>
+          <option value="62">62세</option>
+          <option value="65">65세</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-label">목표 생활비/월</div>
+      <div class="row-input"><input type="number" id="fTarget" placeholder="만원" oninput="markFilled(this)"></div>
+    </div>
+    <div class="row">
+      <div class="row-label">투자 성향</div>
+      <div class="row-input">
+        <select id="fRisk" onchange="markFilled(this)">
+          <option value="">선택</option>
+          <option value="안정형">안정형</option>
+          <option value="중립형">중립형</option>
+          <option value="공격형">공격형</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 메모 -->
+  <div class="section">
+    <div class="sec-title">메모</div>
+    <textarea class="memo-box" id="fMemo" placeholder="통화 중 특이사항, 고객 요청사항 등"></textarea>
+  </div>
+
+  <button class="btn-submit" onclick="submitIntake()">저장하기</button>
+  <div class="status-msg" id="statusMsg"></div>
+
+</div>
+
+<script>
+const SHEET_URL='https://script.google.com/macros/s/AKfycbwcgtbX_685BwUrylnqEBua73PEaJICd73MjBG5D2AapXDEweWp7eq1b2vykvBB4uM/exec';
+const SECRET_KEY='b8b7190746adc6c981b2b30fd9e83481';
+
+const p=new URLSearchParams(window.location.search);
+const clientName=p.get('name')||'';
+const clientPhone=p.get('phone')||'';
+const clientEmail=p.get('email')||'';
+const clientAge=p.get('age')||'';
+const clientGender=p.get('gender')||'';
+const clientIncome=p.get('income')||'';
+const clientGap=p.get('gap')||'';
+const clientRef=p.get('ref')||'';
+
+function num(v){return(v!==undefined&&v!==null&&v!==''&&!isNaN(v))?Number(v):0}
+function str(v){return(v!==undefined&&v!==null)?String(v):''}
+
+// 클라이언트 바 채우기
+document.getElementById('cbName').textContent=clientName||'고객명 미입력';
+document.getElementById('cbInfo').textContent=
+  (clientAge?clientAge+'세 ':'')+(clientGender?clientGender+' · ':'')+
+  (clientPhone||clientEmail||'연락처 없음');
+if(clientGap){
+  const g=+clientGap;
+  document.getElementById('cbTag').textContent=
+    '월갭 '+(g>0?'-':'+')+ Math.abs(g)+'만원'+(clientIncome?' · 소득 '+clientIncome+'만원':'');
+}
+if(p.get('target'))document.getElementById('fTarget').value=p.get('target');
+
+function markFilled(el){
+  if(el.value)el.classList.add('has-val');
+  else el.classList.remove('has-val');
+}
+
+function submitIntake(){
+  const payload={
+    action:'save_client',
+    secretKey:SECRET_KEY,
+    timestamp:new Date().toLocaleString('ko-KR'),
+    name:str(clientName),
+    phone:str(clientPhone)||'없음',
+    email:str(clientEmail)||'없음',
+    age:num(clientAge),
+    gender:str(clientGender),
+    income:num(clientIncome),
+    expense:num(document.getElementById('fExpense').value),
+    target:num(document.getElementById('fTarget').value),
+    retireAge:num(document.getElementById('fRetireAge').value),
+    pension:num(document.getElementById('fPension').value),
+    spousePension:num(document.getElementById('fSpousePension').value),
+    retirePension:num(document.getElementById('fRetirePension').value),
+    personalPension:num(document.getElementById('fPersonalPension').value),
+    housingPension:num(document.getElementById('fHousingPension').value),
+    financial:num(document.getElementById('fFinancial').value),
+    realEstate:num(document.getElementById('fRealEstate').value),
+    debt:num(document.getElementById('fDebt').value),
+    netAsset:num(document.getElementById('fFinancial').value)+num(document.getElementById('fRealEstate').value)-num(document.getElementById('fDebt').value),
+    riskLevel:str(document.getElementById('fRisk').value),
+    memo:str(document.getElementById('fMemo').value),
+    source:'AFPK_통화수집',
+    referrer:str(clientRef),
+    contactMethod:'',
+    privacyAgree:true,marketingAgree:false,
+    sendEmail:'profinitart@gmail.com'
+  };
+
+  // 연금합계·갭 자동 계산
+  const tp=num(payload.pension)+num(payload.spousePension)+num(payload.personalPension)+num(payload.housingPension);
+  payload.totalPension=tp;
+  payload.gap=num(payload.target)-tp;
+  payload.crevYears=Math.max(0,65-num(payload.retireAge||62));
+  payload.crevTotal=payload.crevYears>0?num(payload.target)*12*payload.crevYears:0;
+  payload.onTrack=payload.gap<=0;
+  payload.depAge=payload.gap>0?'계산필요':'소진없음';
+  payload.strategy='';
+  payload.spouse='';
+  payload.consultDateTime='AFPK 직접 수집';
+
+  const old=document.getElementById('_sif');if(old)old.remove();
+  const iframe=document.createElement('iframe');
+  iframe.id='_sif';iframe.name='_sif';iframe.style.display='none';
+  document.body.appendChild(iframe);
+  const form=document.createElement('form');
+  form.method='POST';form.action=SHEET_URL;form.target='_sif';form.style.display='none';
+  const inp=document.createElement('input');
+  inp.type='hidden';inp.name='data';inp.value=JSON.stringify(payload);
+  form.appendChild(inp);document.body.appendChild(form);form.submit();
+  setTimeout(()=>form.remove(),3000);
+
+  document.getElementById('statusMsg').style.color='var(--green)';
+  document.getElementById('statusMsg').textContent='저장 완료! 시트에 업데이트되었습니다.';
+}
+</script>
+</body>
+</html>
