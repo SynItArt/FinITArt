@@ -85,9 +85,17 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .anchor .amt{display:block; font-size:20px; color:var(--navy); font-weight:800}
 .anchor .lbl{display:block; font-size:13px; color:var(--muted); margin-top:3px}
 
-.account{background:var(--card); border:2px dashed var(--blue); border-radius:12px; padding:18px; margin-top:8px}
-.account .num{font-size:24px; font-weight:800; color:var(--navy); letter-spacing:.5px}
-.account .who{font-size:15px; color:var(--muted); margin-top:4px}
+.bowwrap{text-align:center; margin:2px 0 6px}
+.bow{width:104px; height:104px; display:inline-block}
+.account{background:var(--navy); border-radius:18px; padding:22px 20px; margin-top:10px; text-align:center;
+  box-shadow:0 10px 28px rgba(26,60,109,.30)}
+.account .bank{font-size:17px; font-weight:800; color:#BFD6F0; letter-spacing:2px}
+.account .num{font-size:31px; font-weight:900; color:#FFD66B; letter-spacing:1.5px; margin:6px 0 2px;
+  line-height:1.15; word-break:keep-all}
+.account .who{font-size:16px; color:#D7E5F5; margin-top:2px}
+.copybtn{margin-top:15px; width:100%; background:var(--amber); color:#3a2c00; border:0;
+  font-family:inherit; font-weight:800; font-size:17px; padding:14px 18px; border-radius:12px; cursor:pointer}
+.copybtn:active{transform:translateY(1px)}
 
 .consult-fee{list-style:none; padding:0; margin:14px 0}
 .consult-fee li{display:flex; justify-content:space-between; gap:14px; padding:12px 0; border-bottom:1px dashed var(--line)}
@@ -103,7 +111,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--navy); color:#fff;
   padding:13px 20px; border-radius:12px; font-weight:700; box-shadow:0 8px 28px rgba(0,0,0,.25); opacity:0; transition:opacity .25s}
 .toast.show{opacity:1}
-@media (max-width:480px){ h1{font-size:28px} .anchors{grid-template-columns:1fr 1fr} }
+@media (max-width:480px){ h1{font-size:28px} .anchors{grid-template-columns:1fr 1fr} .account .num{font-size:26px; letter-spacing:.8px} }
 @media (prefers-reduced-motion: reduce){ *{transition:none!important; scroll-behavior:auto} }
 </style>
 </head>
@@ -159,7 +167,8 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
   </section>
 
   <section class="card support hidden" id="supportCard">
-    <h2>읽어주셔서 고맙습니다</h2>
+    <div class="bowwrap"><span id="bowSpot"></span></div>
+    <h2 style="text-align:center">읽어주셔서 고맙습니다</h2>
     <p>이 책과 사이트, 계산기는 모두 직접 만들었습니다. “크고 선명하고, 누구나 이해할 수 있는 상속 안내”를 목표로요.</p>
     <p>더 정확한 책과 더 똑똑한 상속 도구를 이어가는 데, 보내주시는 응원이 그대로 쓰입니다. <b>강제가 아닙니다. 가치를 느끼신 만큼이면 충분합니다.</b></p>
 
@@ -175,9 +184,11 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 
     <!-- 계좌 게이트 (후원하기 누른 사람만) -->
     <div class="account hidden" id="accountBox">
-      <div>아래 계좌로 보내주시면 됩니다.</div>
-      <div class="num">국민은행 605701-01-301782</div>
-      <div class="who">예금주 신대식 · 입금자명을 정확히 남겨주세요</div>
+      <div class="bank">국민은행</div>
+      <div class="num" id="acctNum">605701-01-301782</div>
+      <div class="who">예금주 신대식</div>
+      <button class="copybtn" id="copyAcct">📋 계좌번호 복사</button>
+      <div class="who" style="margin-top:12px">입금 후 입금자명을 정확히 남겨주세요 🙇</div>
     </div>
 
     <!-- [4] 입금확인 폼 -->
@@ -235,12 +246,39 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
   var $ = function(id){ return document.getElementById(id); };
   var PAGE = "book";
 
+  // 넙죽 인사 캐릭터 (직접 그린 원본 SVG · 저작권 없음)
+  var BOW_SVG =
+    '<svg class="bow" viewBox="0 0 120 120" role="img" aria-label="감사 인사">'+
+    '<path d="M95 28 q9 -5 11 4" fill="none" stroke="#F9A825" stroke-width="3.5" stroke-linecap="round"/>'+
+    '<path d="M100 41 q10 -3 9 7" fill="none" stroke="#F9A825" stroke-width="3.5" stroke-linecap="round"/>'+
+    '<ellipse cx="60" cy="94" rx="35" ry="24" fill="#1A3C6D"/>'+
+    '<circle cx="60" cy="47" r="29" fill="#1A3C6D"/>'+
+    '<path d="M47 49 q5.5 7 11 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>'+
+    '<path d="M62 49 q5.5 7 11 0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>'+
+    '<path d="M52 60 q8 7 16 0" fill="none" stroke="#FFD66B" stroke-width="4" stroke-linecap="round"/>'+
+    '<circle cx="60" cy="96" r="12" fill="#F6C56B"/>'+
+    '<circle cx="60" cy="96" r="12" fill="none" stroke="#0E1726" stroke-width="2" opacity=".25"/>'+
+    '</svg>';
+  if($('bowSpot')) $('bowSpot').innerHTML = BOW_SVG;
+
   function toast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},2600); }
   function post(payload){
     if(!ENDPOINT) return Promise.resolve();
     return fetch(ENDPOINT, { method:'POST', mode:'no-cors',
       headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) }).catch(function(){});
   }
+  function fallbackCopy(n){
+    var i=document.createElement('input'); i.value=n; document.body.appendChild(i); i.select();
+    try{ document.execCommand('copy'); toast('계좌번호를 복사했습니다 ✓'); }
+    catch(e){ toast('번호를 길게 눌러 복사해주세요'); }
+    document.body.removeChild(i);
+  }
+  $('copyAcct').addEventListener('click', function(){
+    var n='605701-01-301782';
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(n).then(function(){ toast('계좌번호를 복사했습니다 ✓'); }, function(){ fallbackCopy(n); });
+    } else { fallbackCopy(n); }
+  });
 
   // [1] 본책자 신청
   $('bSend').addEventListener('click', function(){
@@ -285,8 +323,8 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
            memo:chosen?('앵커 '+chosen):'', page:PAGE, ts:new Date().toISOString() });
     $('confirmBox').innerHTML =
       '<div style="text-align:center; padding:10px 0">'+
-      '<div style="font-size:40px">🙏</div>'+
-      '<p style="font-size:18px; font-weight:800; color:var(--amber-ink)">고맙습니다, '+depositor+'님.</p>'+
+      '<div class="bowwrap">'+BOW_SVG+'</div>'+
+      '<p style="font-size:19px; font-weight:800; color:var(--amber-ink)">고맙습니다, '+depositor+'님 🙇</p>'+
       '<p class="note">입금 확인 후 감사 인사와 상담 크레딧 코드를 이메일로 보내드리겠습니다.</p></div>';
     toast('응원 감사합니다');
   });
