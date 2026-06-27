@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상속설계의 기술 — 전체 책 받기 | HeirWise</title>
+<meta name="description" content="상속설계의 기술 136페이지 전체 책을 받아보세요. 큰 글씨, 선명한 표로 누구나 읽기 쉽게 만들었습니다.">
+<style>
+:root{
+  --navy:#1A3C6D; --blue:#2255AA; --dark:#334466;
+  --amber:#F9A825; --amber-bg:#FFF8E1; --amber-ink:#854F0B;
+  --teal:#0F6E56; --light-accent:#EBF3FA;
+  --ink:#1A2230; --muted:#5F5E5A; --line:#E4E4DE;
+  --bg:#ffffff; --card:#ffffff; --card2:#F6F9FC;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#EAF1F8; --muted:#A9B6C6; --line:#2C3A4D;
+    --bg:#0E1726; --card:#16223A; --card2:#1C2A45;
+    --light-accent:#13243D;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:'Malgun Gothic','Noto Sans KR',sans-serif;
+  color:var(--ink); background:var(--bg); font-size:18px; line-height:1.75;
+  -webkit-text-size-adjust:100%;
+}
+a{color:var(--blue)}
+.wrap{max-width:760px; margin:0 auto; padding:0 20px}
+.top{border-bottom:1px solid var(--line)}
+.top .wrap{display:flex; align-items:center; justify-content:space-between; height:60px}
+.brand{font-weight:800; color:var(--navy); font-size:20px; letter-spacing:.3px}
+.brand small{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:1px}
+.navlink{font-size:15px; color:var(--dark); text-decoration:none}
+
+.hero{padding:48px 0 28px}
+.eyebrow{display:inline-block; font-size:13px; font-weight:800; letter-spacing:2px; color:var(--blue);
+  background:var(--light-accent); padding:6px 12px; border-radius:999px}
+h1{font-size:34px; line-height:1.3; margin:16px 0 10px; color:var(--navy); letter-spacing:-.5px}
+.lead{font-size:19px; color:var(--ink)}
+.pages-badge{display:inline-flex; gap:8px; align-items:center; margin-top:18px; font-weight:700; color:var(--dark)}
+.pages-badge b{color:var(--navy); font-size:22px}
+
+.card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px; margin:22px 0;
+  box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.card.accent{border-color:var(--blue); border-width:2px}
+.card h2{font-size:22px; color:var(--navy); margin:0 0 6px}
+.card .sub{color:var(--muted); font-size:16px; margin:0 0 18px}
+
+label{display:block; font-weight:700; margin:14px 0 6px; font-size:16px}
+input,select{width:100%; font-size:17px; padding:13px 14px; border:1.5px solid var(--line);
+  border-radius:10px; background:var(--card2); color:var(--ink); font-family:inherit}
+input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
+.row{display:flex; gap:12px; flex-wrap:wrap}
+.row > div{flex:1; min-width:160px}
+.consent{display:flex; gap:10px; align-items:flex-start; margin-top:14px; font-size:15px; color:var(--muted)}
+.consent input{width:auto; margin-top:5px}
+
+.btn{display:inline-block; width:100%; text-align:center; cursor:pointer; border:0;
+  font-family:inherit; font-size:18px; font-weight:800; padding:15px 18px; border-radius:12px;
+  background:var(--navy); color:#fff; margin-top:18px; transition:transform .05s}
+.btn:hover{filter:brightness(1.07)} .btn:active{transform:translateY(1px)}
+.btn.amber{background:var(--amber); color:#3a2c00}
+.btn.ghost{background:transparent; color:var(--navy); border:2px solid var(--navy)}
+.btn.small{width:auto; font-size:16px; padding:12px 18px}
+
+.hidden{display:none}
+
+.deliver h2{color:var(--teal)}
+.dl{display:inline-flex; align-items:center; gap:10px; background:var(--teal); color:#fff;
+  text-decoration:none; font-weight:800; font-size:18px; padding:15px 22px; border-radius:12px}
+
+.support{background:var(--amber-bg); border:1px solid #F3D58A}
+@media (prefers-color-scheme: dark){ .support{background:#2A2410; border-color:#4A3F18} }
+.support h2{color:var(--amber-ink)}
+@media (prefers-color-scheme: dark){ .support h2{color:#F4C95B} }
+.support p{font-size:17px}
+.anchors{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:16px 0}
+.anchor{cursor:pointer; border:2px solid var(--line); background:var(--card); border-radius:12px;
+  padding:14px; text-align:center; font-weight:700; color:var(--ink)}
+.anchor:hover{border-color:var(--amber)}
+.anchor.sel{border-color:var(--amber); background:var(--amber-bg)}
+.anchor .amt{display:block; font-size:20px; color:var(--navy); font-weight:800}
+.anchor .lbl{display:block; font-size:13px; color:var(--muted); margin-top:3px}
+
+.account{background:var(--card); border:2px dashed var(--blue); border-radius:12px; padding:18px; margin-top:8px}
+.account .num{font-size:24px; font-weight:800; color:var(--navy); letter-spacing:.5px}
+.account .who{font-size:15px; color:var(--muted); margin-top:4px}
+
+.consult-fee{list-style:none; padding:0; margin:14px 0}
+.consult-fee li{display:flex; justify-content:space-between; gap:14px; padding:12px 0; border-bottom:1px dashed var(--line)}
+.consult-fee li:last-child{border-bottom:0}
+.consult-fee .svc{font-weight:700}
+.consult-fee .desc{display:block; font-size:14px; color:var(--muted); font-weight:400}
+.consult-fee .price{white-space:nowrap; font-weight:800; color:var(--navy)}
+
+.note{font-size:13.5px; color:var(--muted); line-height:1.7}
+.lawbar{font-size:13px; color:var(--muted); background:var(--card2); border:1px solid var(--line);
+  border-radius:10px; padding:12px 14px; margin:18px 0}
+.foot{border-top:1px solid var(--line); margin-top:36px; padding:24px 0 60px; color:var(--muted); font-size:14px}
+.toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--navy); color:#fff;
+  padding:13px 20px; border-radius:12px; font-weight:700; box-shadow:0 8px 28px rgba(0,0,0,.25); opacity:0; transition:opacity .25s}
+.toast.show{opacity:1}
+@media (max-width:480px){ h1{font-size:28px} .anchors{grid-template-columns:1fr 1fr} }
+@media (prefers-reduced-motion: reduce){ *{transition:none!important; scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <div class="brand">HeirWise<small>상속·증여 재무설계</small></div>
+  <a class="navlink" href="index.html">← 홈으로</a>
+</div></header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">전체 책 받기</span>
+    <h1>상속설계의 기술<br>136페이지 전체 책</h1>
+    <p class="lead">법정상속분·유류분·증여 설계·상속재원까지 — 핵심을 큰 글씨와 선명한 표로 정리했습니다. 이메일과 연락처만 남기시면 바로 보내드립니다.</p>
+    <div class="pages-badge">📖 <b>136</b> 페이지 · 30개 주제 · 무료</div>
+  </section>
+
+  <!-- [1] 신청 폼 -->
+  <section class="card accent" id="applyCard">
+    <h2>책 받기</h2>
+    <p class="sub">받으실 곳과 관심사를 알려주세요. 받은 정보는 책 전달과 상담 안내에만 사용합니다.</p>
+    <label for="bEmail">이메일</label>
+    <input id="bEmail" type="email" inputmode="email" placeholder="name@example.com" autocomplete="email">
+    <div class="row">
+      <div>
+        <label for="bPhone">연락처</label>
+        <input id="bPhone" type="tel" inputmode="tel" placeholder="010-0000-0000" autocomplete="tel">
+      </div>
+      <div>
+        <label for="bInterest">가장 궁금한 것</label>
+        <select id="bInterest">
+          <option value="">선택해주세요</option>
+          <option>절세 (상속세·증여세)</option>
+          <option>분쟁 예방 (유류분·유언)</option>
+          <option>사업·법인 승계</option>
+          <option>상속재원 마련 (보험)</option>
+          <option>아직 막연함 / 전반</option>
+        </select>
+      </div>
+    </div>
+    <label class="consent"><input id="bConsent" type="checkbox"> 개인정보 수집·이용에 동의합니다. (책 전달 및 상담 안내 목적)</label>
+    <button class="btn" id="bSend">책 받기</button>
+    <p class="note" style="margin-top:12px">버튼을 누르면 화면에서 바로 다운로드되며, 입력하신 이메일로도 안내가 발송됩니다.</p>
+  </section>
+
+  <!-- [2~3] 전달 + 후원 (제출 후 노출) -->
+  <section class="card deliver hidden" id="deliverCard">
+    <h2>받을 준비가 되었습니다 ✓</h2>
+    <p class="sub">아래 버튼으로 전체 책을 받으세요. 이메일로도 링크를 보내드렸습니다.</p>
+    <a class="dl" id="dlLink" href="heirwise-estate-guide.pdf" download>⬇ 상속설계의 기술 (136p) 받기</a>
+  </section>
+
+  <section class="card support hidden" id="supportCard">
+    <h2>읽어주셔서 고맙습니다</h2>
+    <p>이 책과 사이트, 계산기는 모두 직접 만들었습니다. “크고 선명하고, 누구나 이해할 수 있는 상속 안내”를 목표로요.</p>
+    <p>더 정확한 책과 더 똑똑한 상속 도구를 이어가는 데, 보내주시는 응원이 그대로 쓰입니다. <b>강제가 아닙니다. 가치를 느끼신 만큼이면 충분합니다.</b></p>
+
+    <div class="anchors" id="anchors">
+      <div class="anchor" data-amt="5000"><span class="amt">5,000원</span><span class="lbl">☕ 커피 한 잔으로</span></div>
+      <div class="anchor" data-amt="15000"><span class="amt">15,000원</span><span class="lbl">📖 책 한 권 값으로</span></div>
+      <div class="anchor" data-amt="30000"><span class="amt">30,000원</span><span class="lbl">🙌 다음 도구 개발에</span></div>
+      <div class="anchor" data-amt=""><span class="amt">직접</span><span class="lbl">✍️ 마음만큼</span></div>
+    </div>
+    <p class="note">후원해주신 분께는 감사 인사와 함께 <b>상속 상담료에서 차감되는 크레딧</b>을 보내드립니다. (후원액의 100%, 최대 3만원 · 6개월 유효)</p>
+
+    <button class="btn amber" id="showAccount">후원하기</button>
+
+    <!-- 계좌 게이트 (후원하기 누른 사람만) -->
+    <div class="account hidden" id="accountBox">
+      <div>아래 계좌로 보내주시면 됩니다.</div>
+      <div class="num">국민은행 605701-01-301782</div>
+      <div class="who">예금주 신대식 · 입금자명을 정확히 남겨주세요</div>
+    </div>
+
+    <!-- [4] 입금확인 폼 -->
+    <div class="hidden" id="confirmBox" style="margin-top:18px">
+      <label for="sName">입금자명</label>
+      <input id="sName" type="text" placeholder="홍길동">
+      <div class="row">
+        <div>
+          <label for="sAmount">보내신 금액</label>
+          <input id="sAmount" type="number" inputmode="numeric" placeholder="15000">
+        </div>
+        <div>
+          <label for="sEmail">이메일 (크레딧 받을 곳)</label>
+          <input id="sEmail" type="email" inputmode="email" placeholder="name@example.com">
+        </div>
+      </div>
+      <button class="btn amber" id="sSend">응원 보냈어요</button>
+    </div>
+  </section>
+
+  <!-- [6] 상담 트랙 (후원과 별개) -->
+  <section class="card" id="consultCard">
+    <h2>1:1 상속 상담</h2>
+    <p class="sub">책으로 부족한 ‘내 상황’은 직접 짚어드립니다. AFPK·RC 재무설계사의 상속·증여 재무설계 컨설팅입니다.</p>
+    <ul class="consult-fee">
+      <li><span class="svc">무료 진단<span class="desc">20분, 온라인·전화 / 책·후원자 우선</span></span><span class="price">0원</span></li>
+      <li><span class="svc">1:1 진단 리포트<span class="desc">60~90분 + 맞춤 요약 리포트</span></span><span class="price">99,000원</span></li>
+      <li><span class="svc">종합 상속·증여 설계 패키지<span class="desc">가계도·재산분석·유류분 시뮬·10년 증여플랜·상속재원 설계</span></span><span class="price">66만~220만원</span></li>
+      <li><span class="svc">세무·법률 연계<span class="desc">신고대행·분쟁은 제휴 세무사·변호사로 연계</span></span><span class="price">별도</span></li>
+    </ul>
+    <p class="note">· 후원 크레딧은 진단 리포트·패키지 비용에서 차감됩니다. · 상담 패키지 선결제 시 할인 적용(문의). · 모든 금액 부가세 별도.</p>
+    <div class="row" style="margin-top:8px">
+      <div><a class="btn ghost" href="consult.html">상담 신청하기</a></div>
+      <div><a class="btn" href="tel:01020885383">전화 010-2088-5383</a></div>
+    </div>
+  </section>
+
+  <div class="lawbar">
+    적용 법령: 민법 제5편 상속(제997조~제1118조) · 상속세 및 증여세법 (현행 확정 법령 기준, 2026년).
+    본 자료는 일반적인 정보 제공이며 개별 세무·법률 자문이 아닙니다. 정확한 세액·법률 판단은 세무사·변호사 상담이 필요합니다.
+  </div>
+
+  <footer class="foot">
+    HeirWise · 상속·증여 재무설계 · 제작 HeirWise_Syn Dae Sik<br>
+    ☎ 010-2088-5383 · itart@finitart.com · www.finitart.com
+  </footer>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbwcgtbX_685BwUrylnqEBua73PEaJICd73MjBG5D2AapXDEweWp7eq1b2vykvBB4uM/exec";
+  var $ = function(id){ return document.getElementById(id); };
+  var PAGE = "book";
+
+  function toast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},2600); }
+  function post(payload){
+    if(!ENDPOINT) return Promise.resolve();
+    return fetch(ENDPOINT, { method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(payload) }).catch(function(){});
+  }
+
+  // [1] 본책자 신청
+  $('bSend').addEventListener('click', function(){
+    var email=$('bEmail').value.trim(), phone=$('bPhone').value.trim(),
+        interest=$('bInterest').value, consent=$('bConsent').checked;
+    if(email.indexOf('@')<0){ toast('이메일을 확인해주세요'); $('bEmail').focus(); return; }
+    if(!consent){ toast('개인정보 수집에 동의해주세요'); return; }
+    post({ type:'book', item:'fullbook', email:email, phone:phone, interest:interest,
+           page:PAGE, ts:new Date().toISOString() });
+    try{ localStorage.setItem('hw_fullbook', email); }catch(e){}
+    $('applyCard').classList.add('hidden');
+    $('deliverCard').classList.remove('hidden');
+    $('supportCard').classList.remove('hidden');
+    $('deliverCard').scrollIntoView({behavior:'smooth', block:'start'});
+    toast('이메일로도 링크를 보냈습니다');
+  });
+
+  // [3] 후원 금액 앵커
+  var chosen='';
+  Array.prototype.forEach.call(document.querySelectorAll('.anchor'), function(a){
+    a.addEventListener('click', function(){
+      document.querySelectorAll('.anchor').forEach(function(x){x.classList.remove('sel');});
+      a.classList.add('sel'); chosen=a.dataset.amt;
+      if($('sAmount') && chosen) $('sAmount').value=chosen;
+    });
+  });
+
+  // 후원하기 → 계좌 + 입금확인 노출
+  $('showAccount').addEventListener('click', function(){
+    $('accountBox').classList.remove('hidden');
+    $('confirmBox').classList.remove('hidden');
+    var e=''; try{ e=localStorage.getItem('hw_fullbook')||''; }catch(x){}
+    if(e && $('sEmail') && !$('sEmail').value) $('sEmail').value=e;
+    $('accountBox').scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  // [4] 입금확인 전송
+  $('sSend').addEventListener('click', function(){
+    var depositor=$('sName').value.trim(), amount=$('sAmount').value.trim(), email=$('sEmail').value.trim();
+    if(!depositor){ toast('입금자명을 남겨주세요'); $('sName').focus(); return; }
+    post({ type:'support', depositor:depositor, amount:amount, email:email,
+           memo:chosen?('앵커 '+chosen):'', page:PAGE, ts:new Date().toISOString() });
+    $('confirmBox').innerHTML =
+      '<div style="text-align:center; padding:10px 0">'+
+      '<div style="font-size:40px">🙏</div>'+
+      '<p style="font-size:18px; font-weight:800; color:var(--amber-ink)">고맙습니다, '+depositor+'님.</p>'+
+      '<p class="note">입금 확인 후 감사 인사와 상담 크레딧 코드를 이메일로 보내드리겠습니다.</p></div>';
+    toast('응원 감사합니다');
+  });
+})();
+</script>
+</body>
+</html>
