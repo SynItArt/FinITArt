@@ -22,12 +22,14 @@
     // GA4 측정 ID. 발급 전에는 빈 문자열로 두십시오(콘솔에만 기록됨).
     GA4_ID: "G-7KFP0RMD2Z",                    // 예: "G-XXXXXXXXXX"
 
-    // 리드 수집 엔드포인트. 비워 두면 메일 앱 폴백으로 동작합니다.
-    LEAD_ENDPOINT: "",             // 예: "https://script.google.com/macros/s/XXXX/exec"
+    // 리드 수집 엔드포인트.
+    // 2026.09.07 — 비어 있던 동안 common.js 를 쓰는 페이지(inheritdebt 등)의 리드가
+    // mailto 폴백으로만 나가 유실되고 있었습니다. calculator.html 의 배포 URL 로 연결합니다.
+    LEAD_ENDPOINT: "https://script.google.com/macros/s/AKfycbwcgtbX_685BwUrylnqEBua73PEaJICd73MjBG5D2AapXDEweWp7eq1b2vykvBB4uM/exec",
 
     // 적용 법령 기준일 (프로젝트 규칙 5-3)
     LAW: {
-      asOf: "2026.09.04",
+      asOf: "2026.09.07",
       short: "상증법 법률 제21065호",
       full: [
         "상속세 및 증여세법 — 법률 제21065호 (2026. 1. 2. 시행)",
@@ -328,18 +330,56 @@
 
       if (HW_CONFIG.LEAD_ENDPOINT) {
         if (msg) msg.textContent = "전송 중…";
-        fetch(HW_CONFIG.LEAD_ENDPOINT, {
-          method: "POST", mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        }).then(function () {
-          if (msg) { msg.className = "msg"; msg.textContent = "✅ 신청이 접수되었습니다. 곧 연락드리겠습니다."; }
-          btn.disabled = true;
-        }).catch(function () { mailFallback(payload, msg); });
+        sendViaIframe(payload, msg, btn);
       } else {
         mailFallback(payload, msg);
       }
     });
+  }
+
+  /* 숨은 iframe + form POST 전송.
+     no-cors fetch 는 응답을 읽을 수 없어 실패해도 성공처럼 보입니다(Day 06 교훈).
+     Apps Script 는 e.parameter.data 로 수신하고, doPost 는 payload.type 으로 라우팅합니다.
+     iframe 생성 자체가 막힌 경우에만 메일 앱 폴백으로 내려갑니다. */
+  function sendViaIframe(payload, msg, btn) {
+    try {
+      var old = d.getElementById("_hwSink");
+      if (old) old.remove();
+
+      var ifr = d.createElement("iframe");
+      ifr.id = "_hwSink"; ifr.name = "_hwSink"; ifr.style.display = "none";
+      d.body.appendChild(ifr);
+
+      var f = d.createElement("form");
+      f.method = "POST"; f.action = HW_CONFIG.LEAD_ENDPOINT;
+      f.target = "_hwSink"; f.style.display = "none";
+
+      var i = d.createElement("input");
+      i.type = "hidden"; i.name = "data"; i.value = JSON.stringify(payload);
+      f.appendChild(i); d.body.appendChild(f);
+
+      var settled = false;
+      ifr.addEventListener("load", function () {
+        if (settled) return; settled = true;
+        if (msg) { msg.className = "msg"; msg.textContent = "신청이 접수되었습니다. 곧 연락드리겠습니다."; }
+        if (btn) btn.disabled = true;
+      });
+
+      f.submit();
+      setTimeout(function () { try { f.remove(); } catch (e) {} }, 3000);
+
+      // 응답이 끝내 오지 않으면 사용자에게 실패를 숨기지 않습니다.
+      setTimeout(function () {
+        if (settled) return; settled = true;
+        if (msg) {
+          msg.className = "msg err";
+          msg.textContent = "전송 확인이 되지 않았습니다. " + HW_CONFIG.CONTACT.email +
+                            " 또는 ☎ " + HW_CONFIG.CONTACT.tel + " 로 연락 주시면 바로 확인하겠습니다.";
+        }
+      }, 12000);
+    } catch (e) {
+      mailFallback(payload, msg);
+    }
   }
 
   function mailFallback(p, msg) {

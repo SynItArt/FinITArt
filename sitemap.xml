@@ -1,25 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  HeirWise — finitart.com sitemap
+  최종 갱신 2026-09-07 · 작성 Syn Dae Sik (申大湜)
+
+  아래 URL 은 실제 사이트에서 링크가 확인된 페이지와 이번에 새로 만든 2개입니다.
+  존재하지 않는 URL 을 넣으면 색인에서 오히려 감점되므로, 확인되지 않은 페이지는
+  문서 하단 주석에 따로 모아 두었습니다. 배포 전에 존재 여부를 확인하고 옮겨 주십시오.
+
+  lastmod 는 이번 개편 반영일 기준입니다. 이후 페이지를 고치면 그 날짜로 갱신하십시오.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 홈 -->
-  <url><loc>https://finitart.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
-  <!-- 계산기 (사후축 · 상속) -->
-  <url><loc>https://finitart.com/natural-death.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://finitart.com/calculator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://finitart.com/car-accident.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://finitart.com/industrial-accident.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://finitart.com/fire-accident.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://finitart.com/insurance-two-faces.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <!-- ── 진입 ── -->
+  <url>
+    <loc>https://finitart.com/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
 
-  <!-- 계산기 (사전축 · 증여·설계) -->
-  <url><loc>https://finitart.com/disability-trust.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://finitart.com/retirement/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://finitart.com/retirement/detail.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://finitart.com/retirement/intake.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <!-- ── 계산·진단 도구 ── -->
+  <url>
+    <loc>https://finitart.com/calculator.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/inheritdebt.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/ceo-diagnosis.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/natural-death.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/car-accident.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/industrial-accident.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/fire-accident.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/disability-trust.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/insurance-two-faces.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/retirement/index.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
-  <!-- 전환·신뢰 -->
-  <url><loc>https://finitart.com/consult.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://finitart.com/about.html</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://finitart.com/book.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://finitart.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <!-- ── 신뢰·전환 ── -->
+  <url>
+    <loc>https://finitart.com/about.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/consult.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://finitart.com/book.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/retirement/detail.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/retirement/intake.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ── 정책 ── -->
+  <url>
+    <loc>https://finitart.com/privacy.html</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>
+
+<!--
+  ══ 배포 전 확인 후 위 목록으로 옮길 후보 ══
+  아래는 존재가 확인되지 않아 넣지 않았습니다. 실제로 있으면 <url> 블록으로 옮기십시오.
+
+    https://finitart.com/qna.html                   (질문방이 별도 페이지인 경우)
+
+  ══ 일부러 넣지 않은 것 ══
+    · heirwise-estate-guide.pdf (136쪽 안내서)
+      → 이름·연락처를 남긴 분께만 드리기로 했으므로 색인되면 게이팅이 무너집니다.
+        저장소에서 내리고 Drive 비공개로 옮긴 뒤에도 sitemap 에는 넣지 마십시오.
+    · heirwise-intro-booklet.pdf (14쪽 입문서)
+      → 공개 자료이나, PDF 를 색인시키면 HTML 페이지 대신 PDF 가 검색결과에 뜨는 일이
+        잦습니다. 입문서는 index.html 안에서 안내하는 편이 낫습니다.
+-->

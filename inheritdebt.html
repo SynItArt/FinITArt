@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>상속채무 진단기 — 빚이 더 많을 때 무엇을, 언제 | HeirWise</title>
+<meta name="description" content="상속재산보다 빚이 많을 때. 3개월 기한 계산부터 한정승인·상속포기·상속재산파산 비교, 개인회생 변제금 추정, 법인 회생·파산 분기까지 한 번에 진단합니다.">
+<style>
+:root{
+  --navy:#1A3C6D; --navy-d:#0E2647; --amber:#F9A825; --amber-d:#8A5A00;
+  --teal:#0F6E56; --coral:#C8471F; --crimson:#D81E34;
+  --ink:#101827; --ink2:#3B4657; --line:#C9D2E0; --line2:#E4EAF2;
+  --bg:#F4F7FB; --card:#FFFFFF;
+  --ok-bg:#E6F4EF; --ok-bd:#0F6E56;
+  --warn-bg:#FFF4D6; --warn-bd:#8A5A00;
+  --dang-bg:#FDE8EA; --dang-bd:#A4121F;
+  --info-bg:#E8F0FA; --info-bd:#1A3C6D;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","Apple SD Gothic Neo",system-ui,-apple-system,sans-serif;
+  font-size:17px;line-height:1.75;letter-spacing:-.01em}
+.wrap{max-width:940px;margin:0 auto;padding:0 18px 80px}
+a{color:var(--navy)}
+
+/* ---------- header ---------- */
+header.hd{background:var(--navy);color:#fff;padding:22px 0 18px;border-bottom:5px solid var(--amber)}
+header.hd .wrap{padding-bottom:0}
+.brand{font-size:15px;font-weight:800;letter-spacing:.04em;color:#FFD98A}
+h1{margin:8px 0 6px;font-size:30px;line-height:1.3;font-weight:900;color:#fff}
+.sub{margin:0;font-size:16px;color:#D6E2F2;font-weight:500}
+.lawbar{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+.lawbar span{background:#0E2647;border:1px solid #40607F;color:#E7F0FA;
+  font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px}
+
+/* ---------- cards ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 22px 24px;margin-top:20px;box-shadow:0 1px 3px rgba(16,24,39,.06)}
+.step{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+.stepno{flex:none;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;
+  font-weight:900;font-size:16px;display:grid;place-items:center}
+h2{margin:0;font-size:21px;font-weight:900;color:var(--navy-d);letter-spacing:-.02em}
+.lead{margin:8px 0 18px;font-size:15.5px;color:var(--ink2)}
+
+label.fl{display:block;font-size:15px;font-weight:800;color:var(--ink);margin:16px 0 6px}
+.hint{font-size:13.5px;color:var(--ink2);font-weight:500;margin:4px 0 0}
+input[type=number],input[type=date],input[type=text],select{
+  width:100%;padding:13px 14px;font-size:17px;font-weight:700;color:var(--ink);
+  border:2px solid var(--line);border-radius:10px;background:#fff;font-family:inherit}
+input:focus,select:focus{outline:3px solid #F9A825;outline-offset:1px;border-color:var(--navy)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}}
+.unitwrap{position:relative}
+.unitwrap .u{position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  font-size:14px;font-weight:800;color:var(--ink2);pointer-events:none}
+.unitwrap input{padding-right:54px}
+
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.seg button{flex:1 1 130px;padding:12px 10px;font-size:15px;font-weight:800;font-family:inherit;
+  border:2px solid var(--line);background:#fff;color:var(--ink2);border-radius:10px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.seg button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+.btn{display:block;width:100%;margin-top:24px;padding:17px;border:0;border-radius:12px;
+  background:var(--amber);color:#2B1D00;font-size:19px;font-weight:900;font-family:inherit;cursor:pointer;
+  box-shadow:0 2px 0 #8A5A00}
+.btn:hover{filter:brightness(1.05)}
+.btn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--navy);box-shadow:none;font-size:16px;padding:13px}
+
+/* ---------- results ---------- */
+.res{display:none;margin-top:20px}
+.res.on{display:block}
+.verdict{border-radius:16px;padding:20px 22px;border:3px solid;margin-bottom:18px}
+.verdict h3{margin:0 0 8px;font-size:23px;font-weight:900;letter-spacing:-.02em}
+.verdict p{margin:0;font-size:16px;line-height:1.7;font-weight:600}
+.v-ok{background:var(--ok-bg);border-color:var(--ok-bd);color:#08402F}
+.v-warn{background:var(--warn-bg);border-color:var(--warn-bd);color:#4A3000}
+.v-dang{background:var(--dang-bg);border-color:var(--dang-bd);color:#6B0A14}
+.v-info{background:var(--info-bg);border-color:var(--info-bd);color:#0E2647}
+
+.dday{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+@media(max-width:640px){.dday{grid-template-columns:1fr}}
+.ddcard{border-radius:14px;padding:18px;border:3px solid;text-align:center}
+.ddcard .t{font-size:14.5px;font-weight:800;margin-bottom:2px}
+.ddcard .n{font-size:40px;font-weight:900;line-height:1.15;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.ddcard .d{font-size:14px;font-weight:700;margin-top:4px}
+
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:15px}
+caption{text-align:left;font-size:16px;font-weight:900;color:var(--navy-d);padding:14px 0 8px}
+th,td{border:1px solid var(--line);padding:11px 12px;vertical-align:top;line-height:1.6}
+thead th{background:var(--navy);color:#fff;font-weight:800;font-size:14.5px;text-align:left}
+tbody th{background:#EEF3F9;font-weight:800;color:var(--navy-d);width:23%}
+td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:800}
+tr.hi td,tr.hi th{background:#FFF4D6}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.kv{display:grid;grid-template-columns:1fr auto;gap:6px 14px;margin:14px 0;
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#FBFCFE}
+.kv .k{font-size:15px;font-weight:700;color:var(--ink2)}
+.kv .v{font-size:16px;font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+.kv .tot{border-top:2px solid var(--navy);margin-top:6px;padding-top:8px}
+
+.note{border-left:5px solid var(--amber);background:#FFFBF0;padding:14px 16px;
+  border-radius:0 12px 12px 0;font-size:14.5px;line-height:1.75;margin-top:16px;color:#4A3000;font-weight:600}
+.note b{color:#2B1D00}
+.law{font-size:13.5px;color:var(--ink2);font-weight:700;margin-top:10px}
+.law code{background:#EEF3F9;border-radius:5px;padding:1px 6px;font-weight:800;color:var(--navy-d);
+  font-family:inherit;font-size:13px}
+
+.bar{height:26px;border-radius:8px;background:#E4EAF2;overflow:hidden;margin:8px 0 4px;border:1px solid var(--line)}
+.bar>i{display:block;height:100%}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;font-weight:800;margin-top:6px}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:5px;vertical-align:-2px}
+
+.disc{margin-top:26px;background:#EEF3F9;border:1px solid var(--line);border-radius:14px;
+  padding:18px 20px;font-size:14px;line-height:1.8;color:var(--ink2)}
+.disc b{color:var(--navy-d)}
+footer{margin-top:30px;text-align:center;font-size:13.5px;color:var(--ink2);line-height:1.9}
+
+/* lead */
+#lead{margin-top:22px;background:var(--navy);border-radius:16px;padding:22px;color:#fff}
+#lead h3{margin:0 0 6px;font-size:19px;font-weight:900}
+#lead p{margin:0 0 14px;font-size:14.5px;color:#D6E2F2}
+#lead input{margin-bottom:10px}
+#lead .consent{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:#D6E2F2;margin:6px 0 12px}
+#lead .consent input{width:20px;height:20px;margin:2px 0 0;flex:none}
+#lead .msg{font-size:14px;font-weight:800;margin-top:10px;min-height:20px}
+#lead .msg.err{color:#FFC9CF}
+.hw-lb{display:block;font-size:13.5px;font-weight:800;color:#D6E2F2;margin:0 0 4px}
+.hw-req{background:var(--amber);color:#2B1D00;font-size:11px;font-weight:900;
+  border-radius:4px;padding:1px 5px;margin-left:6px}
+@media print{body{background:#fff}.btn,#lead{display:none}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body data-tool="상속채무진단" data-axis="post">
+
+<header class="hd">
+  <div class="wrap">
+    <div class="brand">HeirWise · 상속 사용 설명서</div>
+    <h1>상속채무 진단기</h1>
+    <p class="sub">물려받을 것보다 갚을 것이 많을 때 — 무엇을, 언제까지 해야 하는지 계산합니다.</p>
+    <div class="lawbar">
+      <span>민법 2026. 3. 17. 시행</span>
+      <span>채무자회생법</span>
+      <span>2026년 기준 중위소득 적용</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- STEP 1 -->
+  <section class="card">
+    <div class="step"><div class="stepno">1</div><h2>상속의 크기와 시계</h2></div>
+    <p class="lead">사망일 하나만 정확하면 나머지 기한은 자동으로 계산됩니다. 금액은 만원 단위로 넣어 주세요.</p>
+
+    <label class="fl" for="dDeath">피상속인 사망일 (상속개시일)</label>
+    <input type="date" id="dDeath">
+    <p class="hint">상속을 알게 된 날이 사망일보다 늦다면, 아래 &lsquo;뒤늦게 알았다&rsquo; 항목에 체크해 주세요.</p>
+
+    <div class="grid2">
+      <div>
+        <label class="fl" for="assets">상속재산 (적극재산)</label>
+        <div class="unitwrap"><input type="number" id="assets" min="0" step="100" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">부동산·예금·주식·차량·보험금 등</p>
+      </div>
+      <div>
+        <label class="fl" for="debts">상속채무 (소극재산)</label>
+        <div class="unitwrap"><input type="number" id="debts" min="0" step="100" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">대출·카드·세금·<b>연대보증채무</b>·미지급금</p>
+      </div>
+    </div>
+
+    <label class="fl">채무의 전모를 파악하셨습니까?</label>
+    <div class="seg" role="group" aria-label="채무 파악 정도">
+      <button type="button" data-g="known" data-v="full" aria-pressed="true">모두 확인했다</button>
+      <button type="button" data-g="known" data-v="partial" aria-pressed="false">일부만 안다</button>
+      <button type="button" data-g="known" data-v="none" aria-pressed="false">거의 모른다</button>
+    </div>
+    <p class="hint">‘안심상속 원스톱서비스’(정부24)로 금융·세금·연금 채무를 한 번에 조회할 수 있습니다.</p>
+
+    <label class="fl">이미 상속재산을 쓰거나 처분한 적이 있습니까?</label>
+    <div class="seg" role="group" aria-label="법정단순승인 사유">
+      <button type="button" data-g="used" data-v="no" aria-pressed="true">없다</button>
+      <button type="button" data-g="used" data-v="yes" aria-pressed="false">있다</button>
+    </div>
+    <p class="hint">예금 인출·부동산 처분·채무 변제 등은 단순승인으로 간주될 수 있습니다(민법 제1026조).</p>
+
+    <label class="fl">사망 사실이나 채무 초과를 뒤늦게 알았습니까?</label>
+    <div class="seg" role="group" aria-label="특별한정승인 사유">
+      <button type="button" data-g="late" data-v="no" aria-pressed="true">아니다</button>
+      <button type="button" data-g="late" data-v="yes" aria-pressed="false">그렇다</button>
+    </div>
+    <div id="lateBox" style="display:none">
+      <label class="fl" for="dKnow">채무 초과 사실을 안 날</label>
+      <input type="date" id="dKnow">
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="card">
+    <div class="step"><div class="stepno">2</div><h2>이미 떠안았다면 — 상속인 본인의 상황</h2></div>
+    <p class="lead">3개월이 지났거나 단순승인이 된 경우, 승계된 빚은 상속인 본인의 문제가 됩니다. 개인회생·개인파산 가능성을 추정하기 위한 항목입니다. 해당 없으면 비워 두셔도 됩니다.</p>
+
+    <div class="grid3">
+      <div>
+        <label class="fl" for="income">본인 월 소득 (세후)</label>
+        <div class="unitwrap"><input type="number" id="income" min="0" step="10" placeholder="0"><span class="u">만원</span></div>
+      </div>
+      <div>
+        <label class="fl" for="famN">부양 가구원 수 (본인 포함)</label>
+        <select id="famN">
+          <option value="1">1인</option><option value="2">2인</option>
+          <option value="3" selected>3인</option><option value="4">4인</option>
+          <option value="5">5인</option><option value="6">6인</option><option value="7">7인</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" for="ownAsset">본인 보유 재산 (청산가치)</label>
+        <div class="unitwrap"><input type="number" id="ownAsset" min="0" step="100" placeholder="0"><span class="u">만원</span></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label class="fl" for="secured">담보부채무 합계</label>
+        <div class="unitwrap"><input type="number" id="secured" min="0" step="100" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">본인 기존 채무 + 승계 채무 중 담보 있는 것</p>
+      </div>
+      <div>
+        <label class="fl" for="unsecured">무담보채무 합계</label>
+        <div class="unitwrap"><input type="number" id="unsecured" min="0" step="100" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">비우면 상속채무 금액으로 자동 계산합니다</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="card">
+    <div class="step"><div class="stepno">3</div><h2>법인이 얽혀 있습니까</h2></div>
+    <p class="lead">피상속인이 사업체 대표였다면, 유족이 가장 늦게 알아차리는 것이 <b>대표이사 연대보증채무</b>입니다. 법인의 빚이 아니라 개인의 빚으로 상속됩니다.</p>
+
+    <label class="fl">피상속인의 법인 관련성</label>
+    <div class="seg" role="group" aria-label="법인 관련성">
+      <button type="button" data-g="corp" data-v="none" aria-pressed="true">해당 없음</button>
+      <button type="button" data-g="corp" data-v="share" aria-pressed="false">지분만 보유</button>
+      <button type="button" data-g="corp" data-v="ceo" aria-pressed="false">대표이사·사내이사</button>
+    </div>
+
+    <div id="corpBox" style="display:none">
+      <div class="grid2">
+        <div>
+          <label class="fl" for="corpDebt">법인 총부채</label>
+          <div class="unitwrap"><input type="number" id="corpDebt" min="0" step="1000" placeholder="0"><span class="u">만원</span></div>
+        </div>
+        <div>
+          <label class="fl" for="guarantee">피상속인 연대보증액</label>
+          <div class="unitwrap"><input type="number" id="guarantee" min="0" step="100" placeholder="0"><span class="u">만원</span></div>
+        </div>
+      </div>
+      <label class="fl">법인의 영업이 계속되고 있습니까?</label>
+      <div class="seg" role="group" aria-label="계속기업 여부">
+        <button type="button" data-g="going" data-v="yes" aria-pressed="true">영업 중이다</button>
+        <button type="button" data-g="going" data-v="no" aria-pressed="false">사실상 중단</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="card">
+    <div class="step"><div class="stepno">4</div><h2>사전증여가 있었다면</h2></div>
+    <p class="lead">생전에 재산을 미리 넘겼더라도, 도산절차가 열리면 <b>부인권</b>으로 되돌려질 수 있습니다. 증여 설계에서 가장 자주 빠지는 점검 항목입니다.</p>
+    <div class="grid2">
+      <div>
+        <label class="fl" for="dGift">가장 최근 증여일</label>
+        <input type="date" id="dGift">
+      </div>
+      <div>
+        <label class="fl" for="giftAmt">증여 재산 가액</label>
+        <div class="unitwrap"><input type="number" id="giftAmt" min="0" step="100" placeholder="0"><span class="u">만원</span></div>
+      </div>
+    </div>
+
+    <button class="btn" id="calcBtn" type="button">진단 결과 보기</button>
+  </section>
+
+  <!-- RESULT -->
+  <div class="res" id="result" data-hw-result aria-live="polite"></div>
+
+  <!-- LEAD -->
+  <div id="lead" data-tool="상속채무진단">
+    <h3>진단 결과를 정리해 보내드립니다</h3>
+    <p>남은 기한과 선택지를 정리한 요약본을 보내드리고, 필요하시면 회생·파산 전문 변호사·법무사를 연결해 드립니다.</p>
+    <input type="text" id="ldName" placeholder="성함">
+    <input type="text" id="ldPhone" placeholder="연락처 (010-0000-0000)">
+    <label class="consent"><input type="checkbox" id="ldAgree"><span>개인정보 수집·이용에 동의합니다.</span></label>
+    <button class="btn" id="ldSend" type="button">요약본 받기</button>
+    <div class="msg" id="ldMsg"></div>
+  </div>
+
+  <div class="disc" data-hw-lawbase>
+    <b>이 도구의 성격에 관하여.</b> 본 진단기는 공개된 법령과 법원 공표 기준에 따른 <b>일반적 정보 제공 도구</b>이며, 특정 사건에 대한 법률자문이나 절차 선택의 권고가 아닙니다. 회생·파산 신청의 대리와 개별 사건의 법률사무는 변호사 또는 법무사의 업무 영역입니다(변호사법 제109조). HeirWise는 전문가를 소개하는 대가로 어떠한 금품도 주고받지 않습니다(변호사법 제34조).<br><br>
+    <b>계산의 한계.</b> 변제금은 법원이 인정하는 생계비·부양가족·추가생계비·청산가치 평가에 따라 달라지며, 이 도구의 값은 표준 기준에 따른 <b>추정치</b>입니다. 실제 인가 여부와 금액은 회생위원의 검증과 법원의 판단으로 정해집니다.<br><br>
+    <b>적용 기준.</b> 민법(2026. 3. 17. 시행) · 채무자 회생 및 파산에 관한 법률 · 상속세 및 증여세법(법률 제21065호) · 2026년도 기준 중위소득(보건복지부 고시).
+  </div>
+
+  <footer>
+    HeirWise · 신대식(Syn Dae Sik, 申大湜) · AFPK<br>
+    ☎ 010-2088-5383 · itart@finitart.com · finitart.com
+  </footer>
+</div>
+
+<script>
+/* ===================== 기준값 (2026) ===================== */
+// 2026년도 기준 중위소득 — 보건복지부 고시 (월, 원)
+var MEDIAN_2026 = {1:2564238, 2:4199292, 3:5359036, 4:6494738, 5:7556719, 6:8555952, 7:9515150};
+var LIVING_RATE = 0.60;              // 생계비 = 기준 중위소득의 60% (서울회생법원 실무준칙 제405호)
+var LIMIT_UNSEC = 100000;            // 개인회생 무담보 한도 10억원 = 100,000만원 (법 §579 1호)
+var LIMIT_SEC   = 150000;            // 개인회생 담보부 한도 15억원 = 150,000만원
+var SIMPLE_CORP_LIMIT = 500000;      // 간이회생 부채한도 50억원 = 500,000만원 (시행령 §15의3)
+
+var S = { known:'full', used:'no', late:'no', corp:'none', going:'yes' };
+
+/* ===================== 유틸 ===================== */
+function $(id){ return document.getElementById(id); }
+function n(id){ var v = parseFloat(($(id)||{}).value); return isFinite(v)&&v>0 ? v : 0; }
+function fm(x){ return Math.round(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function won(manwon){ // 만원 -> 사람이 읽는 한국어
+  var m = Math.round(manwon);
+  if(m===0) return '0원';
+  var eok = Math.floor(m/10000), rest = m%10000;
+  var s = '';
+  if(eok) s += fm(eok)+'억 ';
+  if(rest) s += fm(rest)+'만';
+  return s.trim()+'원';
+}
+function addMonths(d, m){
+  var y=d.getFullYear(), mo=d.getMonth()+m, day=d.getDate();
+  var last=new Date(y, mo+1, 0).getDate();       // 말일 보정: 1/31 +3월 -> 4/30
+  return new Date(y, mo, Math.min(day,last));
+}
+function daysBetween(a,b){
+  var MS=86400000;
+  var ua=Date.UTC(a.getFullYear(),a.getMonth(),a.getDate());
+  var ub=Date.UTC(b.getFullYear(),b.getMonth(),b.getDate());
+  return Math.round((ub-ua)/MS);
+}
+function fdate(d){ return d.getFullYear()+'. '+(d.getMonth()+1)+'. '+d.getDate()+'.'; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function livingCost(fam){  // 만원 단위 반환
+  var f = Math.min(Math.max(fam,1),7);
+  var base = MEDIAN_2026[f];
+  if(fam>7) base = MEDIAN_2026[7] + (MEDIAN_2026[7]-MEDIAN_2026[6])*(fam-7);
+  return Math.floor(base*LIVING_RATE)/10000;   // 법원 실무는 원 단위 절사
+}
+
+/* ===================== 세그먼트 버튼 ===================== */
+document.querySelectorAll('.seg button').forEach(function(b){
+  b.addEventListener('click', function(){
+    var g=b.dataset.g;
+    document.querySelectorAll('.seg button[data-g="'+g+'"]').forEach(function(x){
+      x.setAttribute('aria-pressed', x===b ? 'true':'false');
+    });
+    S[g]=b.dataset.v;
+    if(g==='late')  $('lateBox').style.display = (S.late==='yes') ? 'block':'none';
+    if(g==='corp')  $('corpBox').style.display = (S.corp==='none') ? 'none':'block';
+  });
+});
+
+/* ===================== 진단 ===================== */
+$('calcBtn').addEventListener('click', function(){
+  var dv = $('dDeath').value;
+  if(!dv){ alert('사망일(상속개시일)을 입력해 주세요. 모든 기한이 이 날짜에서 계산됩니다.'); $('dDeath').focus(); return; }
+
+  var death = new Date(dv+'T00:00:00');
+  var today = new Date(); today.setHours(0,0,0,0);
+  if(death > today){ alert('사망일이 미래로 입력되어 있습니다. 날짜를 확인해 주세요.'); return; }
+
+  var assets = n('assets'), debts = n('debts');
+  var net = assets - debts;
+
+  /* ---- 기한 ---- */
+  var d3 = addMonths(death,3);            // 민법 §1019① 승인·포기 기간
+  var d6 = addMonths(death,6);            // 상증법 §67 상속세 신고·납부
+  var left3 = daysBetween(today,d3), left6 = daysBetween(today,d6);
+
+  var special = null;                     // 특별한정승인 §1019③
+  if(S.late==='yes' && $('dKnow').value){
+    var know = new Date($('dKnow').value+'T00:00:00');
+    var ds = addMonths(know,3);
+    special = { know:know, due:ds, left:daysBetween(today,ds) };
+  }
+
+  /* ---- 상속재산파산 신청 가능성 (법 §300) ---- */
+  var estBankruptcyOpen = (left3 >= 0) || (S.used==='no');
+
+  var H = [];
+
+  /* ================= 총평 ================= */
+  var vClass, vTitle, vBody;
+  if(debts===0 && assets===0){
+    vClass='v-info'; vTitle='금액을 넣으면 판정이 나옵니다';
+    vBody='재산과 채무를 모두 0으로 두면 기한만 계산됩니다. 아래 기한은 그대로 유효합니다.';
+  } else if(net > 0 && left3 >= 0){
+    vClass='v-ok'; vTitle='순재산 '+won(net)+' — 흑자 상속입니다';
+    vBody='현재 입력값으로는 재산이 채무보다 많습니다. 다만 채무를 다 파악하지 못한 상태라면 이 판정은 뒤집힐 수 있습니다. 아래 6개월 기한(상속세 신고)을 중심으로 준비하십시오.';
+  } else if(net > 0){
+    vClass='v-warn'; vTitle='순재산 '+won(net)+' — 흑자이나 3개월은 지났습니다';
+    vBody='재산이 더 많으므로 단순승인이 불리하지 않습니다. 다만 숨은 채무가 나중에 드러나면 되돌릴 방법이 특별한정승인뿐입니다. 채무 조회를 먼저 마치십시오.';
+  } else if(left3 >= 0){
+    vClass='v-dang'; vTitle='채무초과 '+won(-net)+' — 아직 선택할 수 있습니다';
+    vBody='빚이 재산보다 '+won(-net)+' 많습니다. 다행히 승인·포기 기간이 <b>'+left3+'일</b> 남아 있어 한정승인·상속포기·상속재산파산을 모두 검토할 수 있습니다. 이 기간이 지나면 선택지가 급격히 줄어듭니다.';
+  } else if(special && special.left >= 0){
+    vClass='v-warn'; vTitle='채무초과 '+won(-net)+' — 특별한정승인 기간이 남아 있습니다';
+    vBody='3개월은 지났으나, 중대한 과실 없이 채무 초과를 몰랐다면 <b>안 날부터 3개월</b> 안에 특별한정승인을 할 수 있습니다(민법 제1019조 제3항). 남은 기간 <b>'+special.left+'일</b>.';
+  } else {
+    vClass='v-dang'; vTitle='채무초과 '+won(-net)+' — 승계 후 대응 국면입니다';
+    vBody='승인·포기 기간이 지났습니다. 이제는 상속을 되돌리는 문제가 아니라, 떠안은 채무를 <b>상속인 본인의 회생·파산</b>으로 처리할 수 있는지의 문제입니다. 아래 2단계 추정을 보십시오.';
+  }
+  H.push('<div class="verdict '+vClass+'"><h3>'+vTitle+'</h3><p>'+vBody+'</p></div>');
+
+  /* ================= 기한 카드 ================= */
+  function ddCard(t, dt, left, sub){
+    var cls = left<0 ? 'v-dang' : (left<=45 ? 'v-warn' : 'v-ok');
+    var big = left<0 ? (-left)+'일 경과' : 'D-'+left;
+    return '<div class="ddcard '+cls+'"><div class="t">'+t+'</div>'+
+           '<div class="n">'+big+'</div><div class="d">'+fdate(dt)+' · '+sub+'</div></div>';
+  }
+  H.push('<div class="dday">');
+  H.push(ddCard('승인·포기 기한 (민법 §1019①)', d3, left3, '3개월'));
+  H.push(ddCard('상속세 신고·납부 (상증법 §67)', d6, left6, '6개월'));
+  H.push('</div>');
+  if(special){
+    H.push('<div class="verdict '+(special.left<0?'v-dang':'v-warn')+'" style="border-width:2px">'+
+      '<h3 style="font-size:18px">특별한정승인 기한 — '+(special.left<0?(-special.left)+'일 경과':'D-'+special.left)+'</h3>'+
+      '<p>채무 초과를 안 날 '+fdate(special.know)+'로부터 3개월 → <b>'+fdate(special.due)+'</b>까지. '+
+      '‘중대한 과실 없이 몰랐을 것’이 요건이며, 이를 상속인이 소명해야 합니다(민법 제1019조 제3항).</p></div>');
+  }
+
+  /* ================= 선택지 비교 ================= */
+  if(net < 0 || debts > 0){
+    var canChoose = left3 >= 0 || (special && special.left>=0);
+    H.push('<div class="card" style="margin-top:22px"><div class="step"><div class="stepno">A</div><h2>네 갈래 — 무엇을 고를 수 있는가</h2></div>');
+    if(S.used==='yes'){
+      H.push('<div class="note"><b>주의 — 법정단순승인 가능성.</b> 상속재산을 처분하거나 사용한 사실이 있으면 단순승인한 것으로 봅니다(민법 제1026조 제1호). 이 경우 한정승인·포기가 봉쇄될 수 있으므로, 어떤 행위였는지 전문가 검토가 먼저입니다.</div>');
+    }
+    H.push('<div class="tblwrap"><table><caption>선택지 비교 — 채무초과 상속의 경우</caption><thead><tr>'+
+      '<th>선택지</th><th>효과</th><th>기한</th><th>부담</th><th>적합한 상황</th></tr></thead><tbody>'+
+      '<tr'+(canChoose?'':'')+'><th>단순승인</th><td>재산·채무를 <b>그대로 전부</b> 승계</td><td>3개월 경과 시 자동</td><td>초과 채무를 본인 재산으로 변제</td><td>순재산이 확실히 흑자일 때만</td></tr>'+
+      '<tr'+(canChoose&&net<0?' class="hi"':'')+'><th>한정승인</th><td>상속재산 <b>한도 내에서만</b> 변제</td><td>3개월 (민법 §1019①)</td><td><b>상속인이 직접 청산</b> — 공고·최고·배당, 누락 시 손해배상책임</td><td>남길 재산이 있고 청산을 감당할 때</td></tr>'+
+      '<tr'+(canChoose&&net<0?' class="hi"':'')+'><th>상속포기</th><td>처음부터 상속인이 아니었던 것으로</td><td>3개월 (민법 §1041)</td><td><b>후순위로 채무가 넘어감</b> — 손자·형제까지 연쇄</td><td>남길 재산이 없고 후순위까지 정리 가능할 때</td></tr>'+
+      '<tr'+(canChoose&&net<0?' class="hi"':'')+'><th>상속재산파산</th><td>상속재산 자체를 파산 → <b>법원 선임 파산관재인</b>이 청산</td><td>재산분리 청구 가능기간 내 (법 §300)</td><td>청산 부담과 배상책임에서 해방</td><td>채권자가 많거나 재산 구성이 복잡할 때</td></tr>'+
+      '</tbody></table></div>');
+    H.push('<div class="note"><b>한정승인의 함정, 상속재산파산의 쓸모.</b> 한정승인은 신고로 끝나지 않습니다. 상속인이 직접 채권자에게 공고·최고하고 순위에 따라 배당해야 하며, 빠뜨린 채권자에게는 손해배상책임을 집니다(민법 제1032조·제1038조). 상속재산파산은 이 청산을 법원이 선임한 파산관재인에게 넘기는 제도입니다. 신청권자는 상속채권자·유증받은 자·상속인·상속재산관리인·유언집행자입니다.</div>');
+    H.push('<div class="law">근거 <code>민법 §1019 §1026 §1028 §1032 §1038 §1041</code> <code>채무자회생법 §299 §300</code> — 상속재산파산은 상속개시일부터 3개월 내, 또는 3개월이 지난 뒤라도 승인·포기를 하지 않은 동안 신청할 수 있고, 한정승인·재산분리가 있은 때에는 그 청산이 끝나기 전까지 신청할 수 있습니다.</div>');
+    H.push('</div>');
+  }
+
+  /* ================= 개인회생 / 개인파산 추정 ================= */
+  var income = n('income');
+  var fam = parseInt($('famN').value,10)||1;
+  var ownAsset = n('ownAsset');
+  var unsec = n('unsecured') || Math.max(0, -net);   // 비우면 초과채무로 대체
+  var sec = n('secured');
+
+  if(income>0 || unsec>0){
+    var lc = livingCost(fam);                 // 만원
+    var avail = Math.max(0, income - lc);     // 가용소득 만원/월
+    var p36 = avail*36, p60 = avail*60;
+    var okUnsec = unsec <= LIMIT_UNSEC, okSec = sec <= LIMIT_SEC;
+    var liq = ownAsset;                       // 청산가치 (단순 추정)
+    var meets36 = p36 >= liq, meets60 = p60 >= liq;
+    var totalDebt = unsec + sec;
+    var repayRate = totalDebt>0 ? (Math.min(p36, totalDebt)/totalDebt*100) : 0;
+
+    H.push('<div class="card" style="margin-top:22px"><div class="step"><div class="stepno">B</div><h2>이미 떠안았다면 — 개인회생 · 개인파산 추정</h2></div>');
+
+    H.push('<div class="kv">'+
+      '<div class="k">본인 월 소득</div><div class="v">'+won(income)+'</div>'+
+      '<div class="k">인정 생계비 ('+fam+'인 · 기준 중위소득의 60%)</div><div class="v">− '+won(lc)+'</div>'+
+      '<div class="k tot"><b>월 가용소득 = 예상 변제금</b></div><div class="v tot">'+won(avail)+'</div>'+
+      '<div class="k">3년(36개월) 변제 총액</div><div class="v">'+won(p36)+'</div>'+
+      '<div class="k">5년(60개월) 변제 총액</div><div class="v">'+won(p60)+'</div>'+
+      '<div class="k">청산가치 (보유 재산)</div><div class="v">'+won(liq)+'</div>'+
+      '</div>');
+
+    // 변제율 막대
+    if(totalDebt>0){
+      var pct = Math.max(0, Math.min(100, repayRate));
+      H.push('<div style="margin-top:16px"><div style="font-size:15px;font-weight:800;color:#3B4657;margin-bottom:4px">'+
+        '총채무 '+won(totalDebt)+' 중 3년간 변제 예상 '+won(Math.min(p36,totalDebt))+' ('+pct.toFixed(1)+'%)</div>'+
+        '<div class="bar"><i style="width:'+pct+'%;background:#0F6E56"></i></div>'+
+        '<div class="legend"><span><i style="background:#0F6E56"></i>변제 예정</span>'+
+        '<span><i style="background:#E4EAF2;border:1px solid #C9D2E0"></i>면책 대상(잔여)</span></div></div>');
+    }
+
+    var vc, vt, vb;
+    if(avail <= 0){
+      vc='v-dang'; vt='가용소득이 없습니다 → 개인파산 검토 구간';
+      vb='소득에서 생계비를 빼면 남는 돈이 없어 변제계획을 세울 수 없습니다. 이 경우 개인회생이 아니라 <b>개인파산·면책</b>이 검토 대상입니다. 다만 면책불허가사유(재산 은닉, 낭비·도박, 사기적 신용거래 등, 채무자회생법 제564조)가 있으면 면책이 제한됩니다.';
+    } else if(!okUnsec || !okSec){
+      vc='v-warn'; vt='개인회생 채무한도를 넘습니다 → 일반회생 구간';
+      vb='개인회생은 무담보 10억원·담보부 15억원 이하일 때 이용할 수 있습니다(채무자회생법 제579조 제1호). 입력값이 이를 넘으므로 <b>일반회생</b> 또는 파산 절차를 검토해야 합니다.';
+    } else if(!meets60){
+      vc='v-warn'; vt='청산가치에 미달합니다 → 재산 구조 조정이 먼저';
+      vb='5년을 변제해도 총액('+won(p60)+')이 보유 재산의 청산가치('+won(liq)+')에 미치지 못합니다. 청산가치 보장 원칙상 이대로는 인가가 어렵습니다(채무자회생법 제614조 제2항). 재산 처분·담보 관계 정리가 선행되어야 합니다.';
+    } else if(meets36){
+      vc='v-ok'; vt='3년 변제로 요건을 채울 수 있는 구간';
+      vb='월 <b>'+won(avail)+'</b>씩 36개월이면 총 '+won(p36)+'로, 청산가치 '+won(liq)+'를 넘습니다. 나머지 채무는 면책 대상이 됩니다. 실제 인가액은 회생위원이 증빙으로 검증한 생계비에 따라 달라집니다.';
+    } else {
+      vc='v-warn'; vt='변제기간을 5년까지 늘려야 하는 구간';
+      vb='3년 변제총액('+won(p36)+')은 청산가치에 미달하나 5년('+won(p60)+')이면 충족합니다. 변제기간은 원칙 3년, 특별한 사정이 있으면 최장 5년입니다(채무자회생법 제611조 제5항).';
+    }
+    H.push('<div class="verdict '+vc+'" style="border-width:2px;margin-top:18px"><h3 style="font-size:19px">'+vt+'</h3><p>'+vb+'</p></div>');
+
+    H.push('<div class="tblwrap"><table><caption>요건 점검</caption><thead><tr><th>항목</th><th>기준</th><th>입력값</th><th>판정</th></tr></thead><tbody>'+
+      '<tr><th>무담보채무</th><td class="num">10억원 이하</td><td class="num">'+won(unsec)+'</td><td><b style="color:'+(okUnsec?'#0F6E56':'#A4121F')+'">'+(okUnsec?'충족':'초과')+'</b></td></tr>'+
+      '<tr><th>담보부채무</th><td class="num">15억원 이하</td><td class="num">'+won(sec)+'</td><td><b style="color:'+(okSec?'#0F6E56':'#A4121F')+'">'+(okSec?'충족':'초과')+'</b></td></tr>'+
+      '<tr><th>청산가치 보장</th><td class="num">변제총액 ≥ 청산가치</td><td class="num">'+won(p36)+' vs '+won(liq)+'</td><td><b style="color:'+(avail<=0?'#A4121F':(meets36?'#0F6E56':(meets60?'#8A5A00':'#A4121F')))+'">'+(avail<=0?'가용소득 없음 — 회생 부적합':(meets36?'3년 충족':(meets60?'5년 필요':'미달')))+'</b></td></tr>'+
+      '<tr><th>계속적 수입</th><td>정기·반복적 소득</td><td class="num">'+won(income)+'/월</td><td><b style="color:'+(income>0?'#0F6E56':'#A4121F')+'">'+(income>0?'있음':'확인 필요')+'</b></td></tr>'+
+      '</tbody></table></div>');
+    H.push('<div class="law">근거 <code>채무자회생법 §579 §611⑤ §614② §564</code> · 생계비는 <code>서울회생법원 실무준칙 제405호</code>에 따라 기준 중위소득의 60%를 원칙으로 하며, 주거비·의료비·미성년 자녀 교육비는 증빙으로 추가 인정될 수 있습니다. 2026년 '+fam+'인 가구 기준 중위소득 '+fm(MEDIAN_2026[Math.min(fam,7)])+'원.</div>');
+    H.push('</div>');
+  }
+
+  /* ================= 법인 ================= */
+  if(S.corp!=='none'){
+    var cDebt = n('corpDebt'), gtee = n('guarantee');
+    H.push('<div class="card" style="margin-top:22px"><div class="step"><div class="stepno">C</div><h2>법인이 얽혀 있을 때</h2></div>');
+
+    if(S.corp==='ceo' && gtee>0){
+      H.push('<div class="verdict v-dang" style="border-width:2px"><h3 style="font-size:19px">연대보증채무 '+won(gtee)+' — 이 빚은 상속됩니다</h3>'+
+        '<p>법인의 채무는 법인의 것이지만, 대표이사가 개인 자격으로 선 연대보증은 <b>피상속인의 개인채무</b>로서 상속인에게 승계됩니다. 법인을 정리해도 이 보증채무는 남습니다. 위 1단계의 상속채무 금액에 이 '+won(gtee)+'가 포함되어 있는지 반드시 확인하십시오.</p></div>');
+    } else if(S.corp==='ceo'){
+      H.push('<div class="verdict v-warn" style="border-width:2px"><h3 style="font-size:19px">연대보증 존부를 먼저 확인하십시오</h3>'+
+        '<p>대표이사였다면 법인 대출에 개인 연대보증을 섰을 가능성이 높습니다. 금융기관 여신거래약정서와 신용정보원 조회로 확인해야 하며, 이 금액이 상속채무의 실제 크기를 좌우합니다.</p></div>');
+    } else {
+      H.push('<div class="verdict v-info" style="border-width:2px"><h3 style="font-size:19px">지분만 보유한 경우</h3>'+
+        '<p>비상장 주식도 상속재산이며 상증법상 보충적 평가방법으로 평가됩니다. 법인이 부실하면 지분 가치는 0에 가깝지만, <b>과점주주 제2차 납세의무</b>(국세기본법 제39조)가 함께 넘어올 수 있습니다.</p></div>');
+    }
+
+    if(cDebt>0){
+      var simple = cDebt <= SIMPLE_CORP_LIMIT;
+      H.push('<div class="tblwrap"><table><caption>법인의 갈림길 — 부채 '+won(cDebt)+'</caption><thead><tr><th>절차</th><th>요건</th><th>이 사안</th></tr></thead><tbody>'+
+        '<tr'+(simple&&S.going==='yes'?' class="hi"':'')+'><th>간이회생</th><td>부채총액 50억원 이하 소액영업소득자 · 영업 계속</td><td>'+
+          (simple ? (S.going==='yes' ? '<b style="color:#0F6E56">해당 가능</b> — 절차가 간명하고 비용이 낮습니다' : '부채 요건은 충족하나 영업이 중단되어 회생 실익이 낮습니다') : '<b style="color:#A4121F">부채한도 초과</b>')+
+        '</td></tr>'+
+        '<tr'+(!simple&&S.going==='yes'?' class="hi"':'')+'><th>일반 법인회생</th><td>부채한도 없음 · 계속기업가치 &gt; 청산가치</td><td>'+
+          (S.going==='yes' ? '영업이 살아 있으면 검토 대상입니다' : '영업 중단 시 계속기업가치를 인정받기 어렵습니다')+
+        '</td></tr>'+
+        '<tr'+(S.going==='no'?' class="hi"':'')+'><th>법인파산</th><td>지급불능 또는 채무초과</td><td>'+
+          (S.going==='no' ? '<b style="color:#A4121F">현실적 선택지</b> — 다만 대표의 보증채무는 별도로 남습니다' : '영업 중이라면 회생을 먼저 검토합니다')+
+        '</td></tr>'+
+        '</tbody></table></div>');
+      H.push('<div class="law">근거 <code>채무자회생법 §293의2 이하</code> · <code>같은 법 시행령 §15의3</code>(소액영업소득자 부채한도 50억원, 2020. 6. 2. 시행) · <code>§305 §306</code>(법인파산)</div>');
+    }
+    H.push('<div class="note"><b>순서가 중요합니다.</b> 법인 정리와 상속인의 개인 절차는 별개이며, 보증채무의 확정 시점에 따라 개인회생 채권액이 달라집니다. 법인 절차를 먼저 진행할지, 상속 단계에서 한정승인·포기로 끊을지는 사안마다 다르므로 반드시 함께 설계해야 합니다.</div>');
+    H.push('</div>');
+  }
+
+  /* ================= 부인권 ================= */
+  var gv = $('dGift').value, gAmt = n('giftAmt');
+  if(gv){
+    var gift = new Date(gv+'T00:00:00');
+    var passed = daysBetween(gift, today);
+    var years = passed/365.25;
+    H.push('<div class="card" style="margin-top:22px"><div class="step"><div class="stepno">D</div><h2>사전증여의 되돌림 위험</h2></div>');
+    H.push('<p class="lead">증여일 '+fdate(gift)+' · 경과 <b>'+fm(passed)+'일 (약 '+years.toFixed(1)+'년)</b>'+(gAmt?' · 가액 '+won(gAmt):'')+'</p>');
+
+    function riskRow(nm, limitY, law){
+      var exposed = years < limitY;
+      var remain = Math.max(0, limitY - years);
+      return '<tr'+(exposed?' class="hi"':'')+'><th>'+nm+'</th><td>'+limitY+'년</td><td><b style="color:'+(exposed?'#A4121F':'#0F6E56')+'">'+
+        (exposed ? '노출 (약 '+remain.toFixed(1)+'년 남음)' : '기간 경과')+'</b></td><td>'+law+'</td></tr>';
+    }
+    H.push('<div class="tblwrap"><table><caption>행위일 기준 제척·행사기간</caption><thead><tr><th>제도</th><th>행위일부터</th><th>현재 상태</th><th>근거</th></tr></thead><tbody>'+
+      riskRow('파산·회생 부인권', 10, '법 §112')+
+      riskRow('개인회생 부인권', 5, '법 §405')+
+      riskRow('사해행위취소권', 5, '민법 §406②')+
+      riskRow('상속세 합산 (상속인)', 10, '상증법 §13①1호')+
+      riskRow('상속세 합산 (상속인 외)', 5, '상증법 §13①2호')+
+      '</tbody></table></div>');
+    H.push('<div class="note"><b>무상행위는 특히 약합니다.</b> 지급정지 등이 있은 후 또는 그 전 6개월 이내의 무상행위는 상대방의 선의·악의를 묻지 않고 부인될 수 있습니다(채무자회생법 제100조 제1항 제4호). 채무가 이미 위태로운 상태에서 자녀에게 재산을 넘긴 증여는, 절세 설계가 아니라 되돌림의 표적이 됩니다. 사해행위취소권의 &lsquo;안 날부터 1년&rsquo; 기산은 채권자마다 따로 진행된다는 점도 유의하십시오.</div>');
+    H.push('</div>');
+  }
+
+  /* ================= 다음 걸음 ================= */
+  H.push('<div class="card" style="margin-top:22px"><div class="step"><div class="stepno">→</div><h2>지금 하실 일</h2></div><ol style="margin:6px 0 0;padding-left:22px;font-size:16px;line-height:2">'+
+    '<li><b>채무 전수조사</b> — 정부24 ‘안심상속 원스톱서비스’로 금융·국세·지방세·연금·공제회 채무를 일괄 조회합니다. 사망일이 속한 달의 말일부터 <b>1년</b> 안에 신청할 수 있습니다.</li>'+
+    '<li><b>상속재산을 건드리지 않기</b> — 예금 인출, 부동산 처분, 일부 채무 변제는 단순승인으로 간주될 수 있습니다. 판단이 설 때까지 손대지 마십시오.</li>'+
+    '<li><b>기한 안에 방향 결정</b> — 위 D-day 안에 한정승인·포기·상속재산파산 중 하나를 고르거나, 전문가 상담 일정을 먼저 잡으십시오.</li>'+
+    (S.corp!=='none' ? '<li><b>연대보증 조회</b> — 한국신용정보원 및 각 금융기관 여신거래약정서로 피상속인의 보증채무를 확인합니다.</li>' : '')+
+    '<li><b>후순위 상속인에게 알리기</b> — 포기를 택하면 채무가 다음 순위로 넘어갑니다. 손자녀·형제자매까지 함께 정리하지 않으면 문제가 뒤로 밀릴 뿐입니다.</li>'+
+    '</ol></div>');
+
+  var el = $('result');
+  el.innerHTML = H.join('');
+  el.classList.add('on');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+
+  // 공통 스크립트가 리드폼에 실어 보낼 요약값
+  window.__lastResult = vTitle;
+  window.__lastInputs = {
+    death:dv, assets:assets, debts:debts, net:net,
+    d3:fdate(d3), d6:fdate(d6), left3:left3, left6:left6,
+    known:S.known, used:S.used, late:S.late,
+    income:income, fam:fam, ownAsset:ownAsset, unsecured:unsec, secured:sec,
+    corp:S.corp, corpDebt:n('corpDebt'), guarantee:n('guarantee'), going:S.going,
+    gift:gv||'', giftAmt:gAmt
+  };
+});
+</script>
+<script src="heirwise-common.js" defer></script>
+</body>
+</html>

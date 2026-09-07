@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>대표님 진단 — 법인·보증·승계를 한 번에 | HeirWise</title>
+<meta name="description" content="법인 대표 한 사람을 위한 통합 진단. 중대재해처벌법 적용 여부, 법인 회생·파산 갈림길, 대표 연대보증채무의 상속 승계, 남은 가족의 개인회생 가능성까지 한 화면에서 봅니다.">
+<meta name="author" content="Syn Dae Sik (신대식, 申大湜)">
+<style>
+:root{
+  --navy:#123A6B; --navy-d:#0B2647; --amber:#F9A825; --amber-d:#8A5A00;
+  --teal:#0C5C48; --coral:#B23C15; --crimson:#A4121F; --violet:#5B2A87;
+  --ink:#101827; --ink2:#3B4657; --line:#C9D2E0; --line2:#E4EAF2;
+  --bg:#F5F7FB; --card:#FFFFFF;
+  --ok-bg:#E4F2ED; --ok-bd:#0C5C48;
+  --warn-bg:#FFF3D4; --warn-bd:#8A5A00;
+  --dang-bg:#FCE7E9; --dang-bd:#A4121F;
+  --info-bg:#E7EEF8; --info-bd:#123A6B;
+  --vio-bg:#F1E9F9; --vio-bd:#5B2A87;
+}
+@media(prefers-color-scheme:dark){:root{
+  --navy:#8CB3E8; --navy-d:#B9D2F2; --amber:#FFC44D; --amber-d:#FFC44D;
+  --teal:#4FCCA5; --coral:#FF9265; --crimson:#FF8593; --violet:#C39BE8;
+  --ink:#F1EFEA; --ink2:#B4BCC9; --line:#3A4250; --line2:#2A303B;
+  --bg:#12151A; --card:#1A1E26;
+  --ok-bg:#0F2C26; --warn-bg:#2E2512; --dang-bg:#32161A; --info-bg:#1B2635; --vio-bg:#241733;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Malgun Gothic","Apple SD Gothic Neo",system-ui,-apple-system,sans-serif;
+  font-size:17px;line-height:1.75;letter-spacing:-.01em;word-break:keep-all}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px 80px}
+a{color:var(--navy)}
+
+header.hd{background:var(--navy-d);color:#fff;padding:24px 0 20px;border-bottom:5px solid var(--amber)}
+@media(prefers-color-scheme:dark){header.hd{background:#0D1420}}
+header.hd .wrap{padding-bottom:0}
+.brand{font-size:15px;font-weight:800;letter-spacing:.04em;color:#FFD98A}
+h1{margin:8px 0 6px;font-size:clamp(26px,5vw,32px);line-height:1.3;font-weight:900;color:#fff}
+.sub{margin:0;font-size:16.5px;color:#D3E0F1;font-weight:500;max-width:56ch}
+.lawbar{margin-top:14px;display:flex;flex-wrap:wrap;gap:7px}
+.lawbar span{background:#0A1D36;border:1px solid #3F5F80;color:#E6EFFA;
+  font-size:12.5px;font-weight:700;padding:5px 11px;border-radius:999px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 22px 24px;margin-top:20px;box-shadow:0 1px 3px rgba(16,24,39,.06)}
+.step{display:flex;align-items:center;gap:11px;margin:0 0 4px}
+.stepno{flex:none;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;
+  font-weight:900;font-size:16px;display:grid;place-items:center}
+@media(prefers-color-scheme:dark){.stepno{color:#0D1420}}
+h2{margin:0;font-size:20.5px;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+.lead{margin:8px 0 18px;font-size:15.5px;color:var(--ink2)}
+
+label.fl{display:block;font-size:15px;font-weight:800;color:var(--ink);margin:16px 0 6px}
+.hint{font-size:13.5px;color:var(--ink2);font-weight:500;margin:4px 0 0}
+input[type=number],input[type=text],select{
+  width:100%;padding:13px 14px;font-size:17px;font-weight:700;color:var(--ink);
+  border:2px solid var(--line);border-radius:10px;background:var(--card);font-family:inherit}
+input:focus,select:focus{outline:3px solid var(--amber);outline-offset:1px;border-color:var(--navy)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:660px){.grid2,.grid3{grid-template-columns:1fr}}
+.unitwrap{position:relative}
+.unitwrap .u{position:absolute;right:13px;top:50%;transform:translateY(-50%);
+  font-size:14px;font-weight:800;color:var(--ink2);pointer-events:none}
+.unitwrap input{padding-right:54px}
+
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.seg button{flex:1 1 120px;padding:12px 10px;font-size:15px;font-weight:800;font-family:inherit;
+  border:2px solid var(--line);background:var(--card);color:var(--ink2);border-radius:10px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+@media(prefers-color-scheme:dark){.seg button[aria-pressed=true]{color:#0D1420}}
+.seg button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+.btn{display:block;width:100%;margin-top:24px;padding:17px;border:0;border-radius:12px;
+  background:var(--amber);color:#2B1D00;font-size:19px;font-weight:900;font-family:inherit;cursor:pointer;
+  box-shadow:0 2px 0 var(--amber-d)}
+.btn:hover{filter:brightness(1.05)}
+.btn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+
+.res{display:none;margin-top:20px}
+.res.on{display:block}
+.verdict{border-radius:16px;padding:20px 22px;border:3px solid;margin-bottom:18px}
+.verdict h3{margin:0 0 8px;font-size:21px;font-weight:900;letter-spacing:-.02em}
+.verdict p{margin:0;font-size:16px;line-height:1.7;font-weight:600}
+.verdict p+p{margin-top:10px}
+.v-ok{background:var(--ok-bg);border-color:var(--ok-bd);color:var(--teal)}
+.v-warn{background:var(--warn-bg);border-color:var(--warn-bd);color:var(--amber-d)}
+.v-dang{background:var(--dang-bg);border-color:var(--dang-bd);color:var(--crimson)}
+.v-info{background:var(--info-bg);border-color:var(--info-bd);color:var(--navy)}
+.v-vio{background:var(--vio-bg);border-color:var(--vio-bd);color:var(--violet)}
+@media(prefers-color-scheme:light){
+  .v-ok{color:#08402F}.v-warn{color:#4A3000}.v-dang{color:#6B0A14}
+  .v-info{color:#0B2647}.v-vio{color:#3D1B5C}
+}
+
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:15.5px}
+caption{text-align:left;font-size:16px;font-weight:900;color:var(--navy);padding:14px 0 8px}
+th,td{border:1px solid var(--line);padding:11px 12px;vertical-align:top;line-height:1.6}
+thead th{background:var(--navy);color:#fff;font-weight:800;font-size:14.5px;text-align:left}
+@media(prefers-color-scheme:dark){thead th{color:#0D1420}}
+tbody th{background:var(--line2);font-weight:800;color:var(--navy);width:24%}
+td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:800}
+tr.hi td,tr.hi th{background:var(--warn-bg)}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.kv{display:grid;grid-template-columns:1fr auto;gap:6px 14px;margin:14px 0;
+  border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg)}
+.kv .k{font-size:15px;font-weight:700;color:var(--ink2)}
+.kv .v{font-size:16px;font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+.kv .tot{border-top:2px solid var(--navy);margin-top:6px;padding-top:8px}
+
+.note{border-left:5px solid var(--amber);background:var(--warn-bg);padding:14px 16px;
+  border-radius:0 12px 12px 0;font-size:14.5px;line-height:1.75;margin-top:16px;color:var(--ink);font-weight:600}
+.law{font-size:13.5px;color:var(--ink2);font-weight:700;margin-top:10px}
+.law code{background:var(--line2);border-radius:5px;padding:1px 6px;font-weight:800;color:var(--navy);
+  font-family:inherit;font-size:13px}
+
+.disc{margin-top:26px;background:var(--line2);border:1px solid var(--line);border-radius:14px;
+  padding:18px 20px;font-size:14px;line-height:1.8;color:var(--ink2)}
+.disc b{color:var(--navy)}
+footer{margin-top:30px;text-align:center;font-size:13.5px;color:var(--ink2);line-height:1.9}
+
+#lead{margin-top:22px;background:var(--navy-d);border-radius:16px;padding:22px;color:#fff}
+@media(prefers-color-scheme:dark){#lead{background:#0D1420}}
+#lead h3{margin:0 0 6px;font-size:19px;font-weight:900}
+#lead p{margin:0 0 14px;font-size:14.5px;color:#D3E0F1}
+#lead input[type=text]{margin-bottom:10px;background:#FFFFFF;color:#101827;border:2px solid #4A6A93}
+#lead .consent{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:#D3E0F1;margin:6px 0 12px}
+#lead .consent input{width:20px;height:20px;margin:2px 0 0;flex:none}
+#lead .msg{font-size:14px;font-weight:800;margin-top:10px;min-height:20px}
+#lead .msg.err{color:#FFC9CF}
+@media print{body{background:#fff}.btn,#lead{display:none}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body data-tool="대표진단" data-axis="pre">
+
+<header class="hd">
+  <div class="wrap">
+    <div class="brand">HeirWise · 대표님을 위한 진단</div>
+    <h1>지금 법인이 위험한 것과,<br>내가 없어졌을 때 위험한 것</h1>
+    <p class="sub">둘은 다른 문제처럼 보이지만 같은 숫자에서 나옵니다. 한 번 입력하면 네 가지를 함께 봅니다.</p>
+    <div class="lawbar">
+      <span>중대재해처벌법 2024. 1. 27. 5인 이상 확대</span>
+      <span>채무자회생법</span>
+      <span>민법 2026. 3. 17. 시행</span>
+      <span>2026년 기준 중위소득</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- STEP 1 : 법인 -->
+  <section class="card">
+    <div class="step"><div class="stepno">1</div><h2>법인 — 지금 상태</h2></div>
+    <p class="lead">숫자는 만원 단위로 넣어 주세요. 정확하지 않아도 됩니다. 자릿수만 맞으면 판정은 달라지지 않습니다.</p>
+
+    <div class="grid2">
+      <div>
+        <label class="fl" for="empN">상시 근로자 수</label>
+        <div class="unitwrap"><input type="number" id="empN" min="0" step="1" placeholder="0"><span class="u">명</span></div>
+        <p class="hint">중대재해처벌법 적용 여부가 이 숫자로 갈립니다</p>
+      </div>
+      <div>
+        <label class="fl" for="sector">업종</label>
+        <select id="sector">
+          <option value="mfg">제조업</option>
+          <option value="const">건설업</option>
+          <option value="svc">서비스업</option>
+          <option value="etc">기타</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label class="fl" for="corpDebt">법인 총부채</label>
+        <div class="unitwrap"><input type="number" id="corpDebt" min="0" step="1000" placeholder="0"><span class="u">만원</span></div>
+      </div>
+      <div>
+        <label class="fl" for="corpNet">법인 순자산 (자본총계)</label>
+        <div class="unitwrap"><input type="number" id="corpNet" min="0" step="1000" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">비상장주식 가치를 가늠하는 기준입니다</p>
+      </div>
+    </div>
+
+    <label class="fl">영업 상태</label>
+    <div class="seg" role="group" aria-label="영업 상태">
+      <button type="button" data-g="going" data-v="yes" aria-pressed="true">영업 중</button>
+      <button type="button" data-g="going" data-v="slow" aria-pressed="false">버티는 중</button>
+      <button type="button" data-g="going" data-v="no" aria-pressed="false">사실상 중단</button>
+    </div>
+
+    <label class="fl">안전보건관리체계를 문서로 갖추고 계십니까?</label>
+    <div class="seg" role="group" aria-label="안전보건관리체계">
+      <button type="button" data-g="safety" data-v="yes" aria-pressed="false">갖췄다</button>
+      <button type="button" data-g="safety" data-v="partial" aria-pressed="true">일부만</button>
+      <button type="button" data-g="safety" data-v="no" aria-pressed="false">없다</button>
+    </div>
+  </section>
+
+  <!-- STEP 2 : 대표 개인 -->
+  <section class="card">
+    <div class="step"><div class="stepno">2</div><h2>대표님 개인 — 법인과 얽힌 부분</h2></div>
+    <p class="lead">여기가 대부분의 대표님이 놓치는 자리입니다. 법인의 빚은 법인 것이지만, <b>개인 자격으로 선 연대보증은 개인의 빚</b>입니다.</p>
+
+    <div class="grid3">
+      <div>
+        <label class="fl" for="share">지분율</label>
+        <div class="unitwrap"><input type="number" id="share" min="0" max="100" step="1" value="100"><span class="u">%</span></div>
+      </div>
+      <div>
+        <label class="fl" for="guarantee">연대보증액</label>
+        <div class="unitwrap"><input type="number" id="guarantee" min="0" step="1000" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">모르시면 비워 두세요</p>
+      </div>
+      <div>
+        <label class="fl" for="ceoAge">연세</label>
+        <div class="unitwrap"><input type="number" id="ceoAge" min="20" max="100" step="1" placeholder="0"><span class="u">세</span></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label class="fl" for="ownAsset">개인 재산 (법인 지분 제외)</label>
+        <div class="unitwrap"><input type="number" id="ownAsset" min="0" step="1000" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">부동산·예금·보험 등</p>
+      </div>
+      <div>
+        <label class="fl" for="ownDebt">개인 채무 (연대보증 제외)</label>
+        <div class="unitwrap"><input type="number" id="ownDebt" min="0" step="1000" placeholder="0"><span class="u">만원</span></div>
+      </div>
+    </div>
+
+    <label class="fl">연대보증 여부를 확인해 보셨습니까?</label>
+    <div class="seg" role="group" aria-label="연대보증 확인">
+      <button type="button" data-g="gknown" data-v="yes" aria-pressed="false">확인했다</button>
+      <button type="button" data-g="gknown" data-v="no" aria-pressed="true">확인 안 했다</button>
+    </div>
+    <p class="hint">한국신용정보원 조회와 금융기관 여신거래약정서로 확인할 수 있습니다.</p>
+  </section>
+
+  <!-- STEP 3 : 가족 -->
+  <section class="card">
+    <div class="step"><div class="stepno">3</div><h2>가족 — 물려받을 사람들</h2></div>
+    <p class="lead">대표님이 갑자기 안 계시면 이 채무를 누가, 어떻게 감당하게 되는지 봅니다.</p>
+
+    <div class="grid3">
+      <div>
+        <label class="fl" for="spouse">배우자</label>
+        <select id="spouse"><option value="1">있음</option><option value="0">없음</option></select>
+      </div>
+      <div>
+        <label class="fl" for="childN">자녀 수</label>
+        <select id="childN">
+          <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option>
+        </select>
+      </div>
+      <div>
+        <label class="fl" for="famN">유족 가구원 수</label>
+        <select id="famN">
+          <option value="1">1인</option><option value="2">2인</option>
+          <option value="3" selected>3인</option><option value="4">4인</option>
+          <option value="5">5인</option><option value="6">6인</option><option value="7">7인</option>
+        </select>
+        <p class="hint">개인회생 생계비 산정 기준</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <label class="fl" for="heirIncome">남은 가족의 월 소득 (세후)</label>
+        <div class="unitwrap"><input type="number" id="heirIncome" min="0" step="10" placeholder="0"><span class="u">만원</span></div>
+        <p class="hint">배우자·자녀가 벌 수 있는 정기 소득</p>
+      </div>
+      <div>
+        <label class="fl">가업을 이을 사람이 있습니까?</label>
+        <div class="seg" role="group" aria-label="승계 예정자">
+          <button type="button" data-g="succ" data-v="yes" aria-pressed="false">있다</button>
+          <button type="button" data-g="succ" data-v="maybe" aria-pressed="true">아직 모르겠다</button>
+          <button type="button" data-g="succ" data-v="no" aria-pressed="false">없다</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" id="calcBtn" type="button">네 가지를 한 번에 보기</button>
+  </section>
+
+  <div class="res" id="result" data-hw-result aria-live="polite"></div>
+
+  <div id="lead" data-tool="대표진단">
+    <h3>진단 결과를 정리해 보내드립니다</h3>
+    <p>연대보증 확인 방법과 남은 선택지를 정리한 요약본을 보내드리고, 필요하시면 회생·파산 전문 변호사나 세무사를 연결해 드립니다.</p>
+    <input type="text" id="ldName" placeholder="성함">
+    <input type="text" id="ldPhone" placeholder="연락처 (010-0000-0000)">
+    <label class="consent"><input type="checkbox" id="ldAgree"><span>개인정보 수집·이용에 동의합니다.</span></label>
+    <button class="btn" id="ldSend" type="button">요약본 받기</button>
+    <div class="msg" id="ldMsg"></div>
+  </div>
+
+  <div class="disc" data-hw-lawbase>
+    <b>이 도구의 성격에 관하여.</b> 본 진단기는 공개된 법령과 법원 공표 기준에 따른 <b>일반적 정보 제공 도구</b>이며, 특정 사건에 대한 법률자문이나 절차 선택의 권고가 아닙니다. 회생·파산 신청의 대리와 개별 사건의 법률사무는 변호사 또는 법무사의 업무 영역이고(변호사법 제109조), 세액의 확정과 신고 대리는 세무사의 영역입니다. HeirWise는 전문가를 소개하는 대가로 어떠한 금품도 주고받지 않습니다(변호사법 제34조).<br><br>
+    <b>계산의 한계.</b> 비상장주식 가치는 자본총계에 지분율을 곱한 <b>단순 추정</b>이며, 실제 상속세 평가는 순손익가치와 순자산가치를 가중평균하는 보충적 평가방법을 따릅니다(상증법 제63조). 변제금은 법원이 인정하는 생계비·부양가족·청산가치 평가에 따라 달라집니다. 상속세는 일괄공제와 배우자상속공제만 반영한 개략 추정입니다.<br><br>
+    <b>적용 기준.</b> 중대재해 처벌 등에 관한 법률(2024. 1. 27. 상시 근로자 50명 미만 사업장 확대 적용, 5명 미만 사업은 중대산업재해 의무 적용 제외) · 채무자 회생 및 파산에 관한 법률 · 민법(2026. 3. 17. 시행) · 상속세 및 증여세법(법률 제21065호, 2026. 1. 2. 시행) · 2026년도 기준 중위소득(보건복지부 고시).
+  </div>
+
+  <footer>
+    HeirWise · 신대식(Syn Dae Sik, 申大湜) · AFPK<br>
+    소방설비기사(전기·기계) · 소방기술자(중급)<br>
+    ☎ 010-2088-5383 · itart@finitart.com · finitart.com
+  </footer>
+</div>
+
+<script>
+/* ===== 기준값 ===== */
+var MEDIAN_2026 = {1:2564238,2:4199292,3:5359036,4:6494738,5:7556719,6:8555952,7:9515150};
+var LIVING_RATE = 0.60;
+var LIMIT_UNSEC = 100000;    // 개인회생 무담보 10억 (만원)
+var LIMIT_SEC   = 150000;    // 담보부 15억
+var SIMPLE_CORP = 500000;    // 간이회생 부채한도 50억
+var STD_DED     = 50000;     // 일괄공제 5억
+var SPOUSE_MIN  = 50000;     // 배우자상속공제 최소 5억
+var SPOUSE_MAX  = 300000;    // 최대 30억
+
+var S = { going:'yes', safety:'partial', gknown:'no', succ:'maybe' };
+
+function $(id){ return document.getElementById(id); }
+function n(id){ var v = parseFloat(($(id)||{}).value); return isFinite(v)&&v>0 ? v : 0; }
+function fm(x){ return Math.round(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+function won(m){
+  m = Math.round(m);
+  if(m===0) return '0원';
+  var neg = m<0; m = Math.abs(m);
+  var eok = Math.floor(m/10000), rest = m%10000, s='';
+  if(eok) s += fm(eok)+'억 ';
+  if(rest) s += fm(rest)+'만';
+  return (neg?'-':'')+s.trim()+'원';
+}
+function livingCost(fam){
+  var f = Math.min(Math.max(fam,1),7);
+  var base = MEDIAN_2026[f];
+  if(fam>7) base = MEDIAN_2026[7] + (MEDIAN_2026[7]-MEDIAN_2026[6])*(fam-7);
+  return Math.floor(base*LIVING_RATE)/10000;
+}
+function inhTax(base){
+  var bk=[[10000,.1],[40000,.2],[50000,.3],[200000,.4],[Infinity,.5]];
+  var t=0, rem=base;
+  for(var i=0;i<bk.length;i++){
+    var a=Math.min(rem,bk[i][0]); if(a<=0) break;
+    t+=a*bk[i][1]; rem-=a;
+  }
+  return Math.round(t);
+}
+
+document.querySelectorAll('.seg button').forEach(function(b){
+  b.addEventListener('click', function(){
+    var g=b.dataset.g;
+    document.querySelectorAll('.seg button[data-g="'+g+'"]').forEach(function(x){
+      x.setAttribute('aria-pressed', x===b ? 'true':'false');
+    });
+    S[g]=b.dataset.v;
+  });
+});
+
+$('calcBtn').addEventListener('click', function(){
+  var emp   = n('empN');
+  var sector= $('sector').value;
+  var cDebt = n('corpDebt');
+  var cNet  = n('corpNet');
+  var share = Math.min(n('share'),100);
+  var gtee  = n('guarantee');
+  var ownA  = n('ownAsset');
+  var ownD  = n('ownDebt');
+  var hasSp = +$('spouse').value;
+  var childN= +$('childN').value;
+  var fam   = +$('famN').value;
+  var hIncome = n('heirIncome');
+
+  if(!emp && !cDebt && !cNet){
+    alert('상시 근로자 수, 법인 부채, 법인 순자산 중 하나는 넣어 주셔야 판정이 됩니다.');
+    $('empN').focus(); return;
+  }
+
+  var H = [];
+
+  /* ===== ① 중대재해처벌법 ===== */
+  var covered = emp >= 5;
+  H.push('<div class="card"><div class="step"><div class="stepno">①</div><h2>안전 — 중대재해처벌법이 우리 회사에 적용되는가</h2></div>');
+
+  if(covered){
+    var sfTxt = S.safety==='yes' ? '문서를 갖추셨다니 출발점은 있습니다. 다만 서류가 아니라 <b>실제로 돌아가는지</b>가 판단 기준입니다.'
+              : S.safety==='partial' ? '일부만 갖춘 상태는 <b>가장 위험한 구간</b>입니다. 사고가 나면 빠진 부분이 그대로 드러납니다.'
+              : '체계가 없는 상태입니다. 사고 발생 시 의무 이행을 소명할 근거가 없습니다.';
+    H.push('<div class="verdict v-dang"><h3>적용 대상입니다 — 상시 근로자 '+fm(emp)+'명</h3>'+
+      '<p>2024년 1월 27일부터 상시 근로자 50명 미만 사업장까지 확대 적용되었고, <b>5명 미만만 중대산업재해 의무에서 제외</b>됩니다. '+fm(emp)+'명이면 적용 대상입니다.</p>'+
+      '<p>'+sfTxt+'</p></div>');
+    if(sector==='mfg' || sector==='const'){
+      H.push('<div class="note"><b>'+(sector==='mfg'?'제조업':'건설업')+'입니다.</b> 사고의 시작은 거의 언제나 전기 아니면 기계입니다. 두 계통을 함께 볼 수 있는 사람이 점검해야 빠지는 부분이 없습니다.</div>');
+    }
+  } else if(emp>0){
+    H.push('<div class="verdict v-warn"><h3>상시 근로자 '+fm(emp)+'명 — 중대산업재해 의무는 적용 제외</h3>'+
+      '<p>5명 미만 사업은 중대산업재해 관련 의무가 적용되지 않습니다. 다만 <b>산업안전보건법상 의무는 그대로</b>이고, 중대시민재해는 규모와 무관하게 적용될 수 있습니다.</p>'+
+      '<p>사람을 한 명만 더 뽑아도 적용 대상이 됩니다. 지금 준비해 두는 편이 낫습니다.</p></div>');
+  } else {
+    H.push('<div class="verdict v-info"><h3>근로자 수를 넣으시면 판정해 드립니다</h3><p>5명이 기준선입니다.</p></div>');
+  }
+  H.push('<div class="law">근거 <code>중대재해처벌법</code> — 2024. 1. 27. 상시 근로자 50명 미만 사업장 확대 적용, 5명 미만 사업 중대산업재해 의무 적용 제외</div>');
+  H.push('</div>');
+
+  /* ===== ② 법인 회생·파산 ===== */
+  if(cDebt>0 || cNet>0){
+    var simple = cDebt>0 && cDebt<=SIMPLE_CORP;
+    var insolvent = cDebt > cNet;
+    H.push('<div class="card"><div class="step"><div class="stepno">②</div><h2>법인 — 지금 흔들린다면 어느 길인가</h2></div>');
+
+    var vc,vt,vb;
+    if(!insolvent && S.going!=='no'){
+      vc='v-ok'; vt='자본이 부채보다 많습니다 — 도산 국면이 아닙니다';
+      vb='순자산 '+won(cNet)+' 대비 부채 '+won(cDebt)+'입니다. 지금은 회생·파산을 논할 상태가 아닙니다. 다만 <b>연대보증은 별개 문제</b>이니 아래 ③을 보십시오.';
+    } else if(S.going==='no'){
+      vc='v-dang'; vt='영업이 중단된 상태 — 법인파산이 현실적 선택지';
+      vb='영업이 멈추면 계속기업가치를 인정받기 어려워 회생 인가가 나기 어렵습니다. 다만 <b>법인을 정리해도 대표님의 연대보증채무는 남습니다.</b> 이 점이 가장 자주 오해되는 부분입니다.';
+    } else if(simple){
+      vc='v-warn'; vt='부채 '+won(cDebt)+' — 간이회생을 검토할 수 있는 구간';
+      vb='부채총액 50억원 이하이면서 영업이 살아 있으면 간이회생 대상이 될 수 있습니다. 절차가 간명하고 비용이 낮습니다.';
+    } else {
+      vc='v-warn'; vt='부채 '+won(cDebt)+' — 간이회생 한도를 넘습니다';
+      vb='부채가 50억원을 넘으면 일반 법인회생으로 가야 합니다. 계속기업가치가 청산가치보다 크다는 점을 소명해야 합니다.';
+    }
+    H.push('<div class="verdict '+vc+'"><h3>'+vt+'</h3><p>'+vb+'</p></div>');
+
+    H.push('<div class="tblwrap"><table><caption>법인의 갈림길</caption><thead><tr><th>절차</th><th>요건</th><th>이 회사</th></tr></thead><tbody>'+
+      '<tr'+(simple&&S.going!=='no'?' class="hi"':'')+'><th>간이회생</th><td>부채총액 50억원 이하 · 영업 계속</td><td>'+
+        (simple ? (S.going!=='no' ? '<b style="color:var(--teal)">해당 가능</b>' : '부채 요건은 충족하나 영업 중단') : '<b style="color:var(--crimson)">부채한도 초과</b>')+'</td></tr>'+
+      '<tr'+(!simple&&cDebt>0&&S.going!=='no'?' class="hi"':'')+'><th>일반 법인회생</th><td>부채한도 없음 · 계속기업가치 &gt; 청산가치</td><td>'+
+        (S.going!=='no' ? '검토 대상' : '영업 중단 시 인정받기 어려움')+'</td></tr>'+
+      '<tr'+(S.going==='no'?' class="hi"':'')+'><th>법인파산</th><td>지급불능 또는 채무초과</td><td>'+
+        (S.going==='no' ? '<b style="color:var(--crimson)">현실적 선택지</b>' : '회생을 먼저 검토')+'</td></tr>'+
+      '</tbody></table></div>');
+    H.push('<div class="law">근거 <code>채무자회생법 §293의2 이하</code> · <code>같은 법 시행령 §15의3</code>(소액영업소득자 부채한도 50억원) · <code>§305 §306</code></div>');
+    H.push('</div>');
+  }
+
+  /* ===== ③ 승계 — 내가 없어지면 ===== */
+  var stockVal = Math.round(cNet * share / 100);
+  var estateAssets = ownA + stockVal;
+  var estateDebt = ownD + gtee;
+  var net = estateAssets - estateDebt;
+
+  H.push('<div class="card"><div class="step"><div class="stepno">③</div><h2>승계 — 오늘 갑자기 안 계신다면</h2></div>');
+  H.push('<p class="lead">사망일을 넣지 않았습니다. <b>오늘 갑자기</b>를 가정한 계산입니다.</p>');
+
+  H.push('<div class="kv">'+
+    '<div class="k">개인 재산</div><div class="v">'+won(ownA)+'</div>'+
+    '<div class="k">비상장주식 (순자산 × 지분 '+fm(share)+'%)</div><div class="v">'+won(stockVal)+'</div>'+
+    '<div class="k tot"><b>상속재산 합계</b></div><div class="v tot">'+won(estateAssets)+'</div>'+
+    '<div class="k">개인 채무</div><div class="v">− '+won(ownD)+'</div>'+
+    '<div class="k">연대보증채무</div><div class="v" style="color:var(--crimson)">− '+won(gtee)+'</div>'+
+    '<div class="k tot"><b>남는 것</b></div><div class="v tot" style="color:'+(net<0?'var(--crimson)':'var(--teal)')+'">'+won(net)+'</div>'+
+    '</div>');
+
+  if(gtee>0){
+    H.push('<div class="verdict v-dang"><h3>연대보증 '+won(gtee)+' — 이 빚은 상속됩니다</h3>'+
+      '<p>법인의 채무는 법인의 것이지만, 대표님이 <b>개인 자격</b>으로 선 연대보증은 개인채무로서 배우자와 자녀에게 그대로 승계됩니다. 법인을 정리해도 이 부분은 남습니다.</p></div>');
+  } else if(S.gknown==='no'){
+    H.push('<div class="verdict v-warn"><h3>연대보증을 아직 확인하지 않으셨습니다</h3>'+
+      '<p>대표이사였다면 법인 대출에 개인 연대보증을 섰을 가능성이 높습니다. <b>이 금액 하나가 위 계산 전체를 뒤집습니다.</b> 한국신용정보원 조회와 여신거래약정서로 먼저 확인하셔야 합니다.</p></div>');
+  }
+
+  if(net < 0){
+    H.push('<div class="verdict v-dang"><h3>채무초과 '+won(-net)+' — 가족은 3개월 안에 결정해야 합니다</h3>'+
+      '<p>남기시는 것이 재산이 아니라 빚입니다. 가족은 사망을 안 날부터 <b>3개월</b> 안에 한정승인이나 상속포기를 선택해야 하고, 넘기면 단순승인으로 전부 떠안습니다.</p>'+
+      '<p>이 상태에서는 상속세 계산이 의미가 없습니다. <b>지금 살아 계실 때 보증을 줄이는 것</b>이 유일한 해법입니다.</p></div>');
+    H.push('<div class="law">근거 <code>민법 §1019①</code> 3개월 · <code>§1019③</code> 특별한정승인 · <code>§1026</code> 법정단순승인</div>');
+  } else {
+    var heirs = (hasSp?1:0) + childN;
+    var taxable = Math.max(0, net);
+    var ded = STD_DED;
+    if(hasSp){
+      // 배우자상속공제 한도는 채무를 뺀 뒤의 상속재산을 기준으로 봅니다.
+      // 채무 차감 전 금액으로 잡으면 공제가 과대해져 세금이 실제보다 작게 나옵니다.
+      var tW = 1.5 + childN;
+      var spShare = childN>0 ? taxable*1.5/tW : taxable;
+      ded += Math.min(Math.max(spShare, SPOUSE_MIN), SPOUSE_MAX);
+    }
+    var base = Math.max(0, taxable - ded);
+    var tax = inhTax(base);
+
+    H.push('<div class="kv">'+
+      '<div class="k">과세가액 (개략)</div><div class="v">'+won(taxable)+'</div>'+
+      '<div class="k">공제 (일괄'+(hasSp?' + 배우자':'')+')</div><div class="v">− '+won(ded)+'</div>'+
+      '<div class="k tot"><b>과세표준</b></div><div class="v tot">'+won(base)+'</div>'+
+      '<div class="k tot"><b>예상 상속세</b></div><div class="v tot" style="color:'+(tax>0?'var(--crimson)':'var(--teal)')+'">'+won(tax)+'</div>'+
+      '</div>');
+
+    if(tax > 0){
+      var liquid = ownA;
+      var shortfall = tax - liquid;
+      H.push('<div class="verdict '+(shortfall>0?'v-dang':'v-warn')+'"><h3>'+
+        (shortfall>0 ? '낼 현금이 '+won(shortfall)+' 부족합니다' : '세금은 나오지만 현금으로 감당 가능한 범위입니다')+'</h3>'+
+        '<p>상속세는 <b>현금 납부가 원칙</b>이고 기한은 사망한 달 말일부터 6개월입니다. 재산의 대부분이 비상장주식이면 <b>팔 수도 없는 재산에 세금이 붙습니다.</b></p>'+
+        (shortfall>0 ? '<p>가족이 주식을 처분하려 해도 살 사람이 없고, 법인에서 돈을 빼면 또 다른 세금이 붙습니다. 이 부족액을 <b>지금 미리 만들어 두는 것</b>이 재무설계에서 가장 먼저 보는 부분입니다.</p>' : '')+
+        '<p style="font-size:14.5px;font-weight:500">※ 개인 재산 '+won(liquid)+'를 <b>전부 현금화할 수 있다고 가정</b>한 계산입니다. 그 안에 부동산이 섞여 있으면 실제 부족액은 이보다 큽니다.</p>'+
+        '</div>');
+      H.push('<div class="law">근거 <code>상증법 §67</code> 신고·납부 6개월 · <code>§70~§73</code> 분납·연부연납·물납 · <code>§63</code> 비상장주식 평가</div>');
+    } else {
+      H.push('<div class="verdict v-ok"><h3>현재 입력값으로는 상속세가 나오지 않습니다</h3>'+
+        '<p>다만 <b>세금이 없어도 기한은 그대로</b>입니다. 상속포기·한정승인 3개월, 상속세 신고 6개월은 세금 유무와 관계없이 모든 상속인에게 적용됩니다.</p></div>');
+    }
+  }
+  H.push('</div>');
+
+  /* ===== ④ 가족이 떠안으면 — 개인회생·파산 ===== */
+  if(net < 0 || hIncome > 0){
+    var unsec = Math.max(0, -net);
+    var lc = livingCost(fam);
+    var avail = Math.max(0, hIncome - lc);
+    var p36 = avail*36, p60 = avail*60;
+    var liq = 0;                       // 상속을 포기·한정승인하면 유족 고유재산은 별개
+    var okUnsec = unsec <= LIMIT_UNSEC;
+
+    H.push('<div class="card"><div class="step"><div class="stepno">④</div><h2>가족이 떠안았다면 — 개인회생·파산이 가능한가</h2></div>');
+    H.push('<p class="lead">3개월을 놓쳐 단순승인이 된 경우를 가정합니다. 이때부터는 상속 문제가 아니라 <b>남은 가족 본인의 채무 문제</b>가 됩니다.</p>');
+
+    H.push('<div class="kv">'+
+      '<div class="k">가족의 월 소득</div><div class="v">'+won(hIncome)+'</div>'+
+      '<div class="k">인정 생계비 ('+fam+'인 · 기준 중위소득의 60%)</div><div class="v">− '+won(lc)+'</div>'+
+      '<div class="k tot"><b>월 가용소득 = 예상 변제금</b></div><div class="v tot">'+won(avail)+'</div>'+
+      '<div class="k">3년(36개월) 변제 총액</div><div class="v">'+won(p36)+'</div>'+
+      '<div class="k">5년(60개월) 변제 총액</div><div class="v">'+won(p60)+'</div>'+
+      '<div class="k">떠안게 되는 채무</div><div class="v" style="color:var(--crimson)">'+won(unsec)+'</div>'+
+      '</div>');
+
+    var vc2,vt2,vb2;
+    if(hIncome<=0){
+      vc2='v-info'; vt2='가족의 소득을 넣으시면 판정해 드립니다';
+      vb2='배우자나 자녀가 벌 수 있는 정기 소득이 있어야 개인회생이 가능합니다. 없으면 개인파산·면책 쪽을 봅니다.';
+    } else if(avail<=0){
+      vc2='v-dang'; vt2='가용소득이 없습니다 → 개인파산 검토 구간';
+      vb2='소득에서 생계비를 빼면 남는 돈이 없어 변제계획을 세울 수 없습니다. 이 경우 개인회생이 아니라 <b>개인파산·면책</b>이 검토 대상입니다.';
+    } else if(!okUnsec){
+      vc2='v-warn'; vt2='개인회생 채무한도를 넘습니다 → 일반회생 구간';
+      vb2='개인회생은 무담보 10억원 이하일 때 이용할 수 있습니다. 떠안는 채무가 '+won(unsec)+'이라 한도를 넘습니다.';
+    } else if(p60 < unsec*0.03){
+      vc2='v-warn'; vt2='변제 가능액이 채무에 비해 너무 작습니다';
+      vb2='5년을 변제해도 '+won(p60)+'로, 채무 '+won(unsec)+'에 크게 못 미칩니다. 인가 자체는 가능할 수 있으나 실질적으로는 파산·면책이 더 나은 길일 수 있습니다.';
+    } else {
+      vc2='v-ok'; vt2='개인회생으로 정리할 수 있는 구간';
+      vb2='월 <b>'+won(avail)+'</b>씩 36개월이면 '+won(p36)+'입니다. 나머지는 면책 대상이 됩니다. 실제 인가액은 회생위원이 증빙으로 검증한 생계비에 따라 달라집니다.';
+    }
+    H.push('<div class="verdict '+vc2+'"><h3>'+vt2+'</h3><p>'+vb2+'</p></div>');
+
+    H.push('<div class="tblwrap"><table><caption>요건 점검</caption><thead><tr><th>항목</th><th>기준</th><th>이 사안</th><th>판정</th></tr></thead><tbody>'+
+      '<tr><th>무담보채무</th><td class="num">10억원 이하</td><td class="num">'+won(unsec)+'</td><td><b style="color:'+(okUnsec?'var(--teal)':'var(--crimson)')+'">'+(okUnsec?'충족':'초과')+'</b></td></tr>'+
+      '<tr><th>계속적 수입</th><td>정기·반복적 소득</td><td class="num">'+won(hIncome)+'/월</td><td><b style="color:'+(hIncome>0?'var(--teal)':'var(--crimson)')+'">'+(hIncome>0?'있음':'확인 필요')+'</b></td></tr>'+
+      '<tr><th>가용소득</th><td>소득 − 생계비 &gt; 0</td><td class="num">'+won(avail)+'</td><td><b style="color:'+(avail>0?'var(--teal)':'var(--crimson)')+'">'+(avail>0?'있음':'없음 — 파산 검토')+'</b></td></tr>'+
+      '</tbody></table></div>');
+    H.push('<div class="note"><b>그런데 여기까지 올 필요가 없습니다.</b> 3개월 안에 한정승인이나 상속포기를 하면 이 표 전체가 필요 없어집니다. 개인회생은 <b>기한을 놓쳤을 때의 두 번째 방어선</b>일 뿐입니다.</div>');
+    H.push('<div class="law">근거 <code>채무자회생법 §579</code> 무담보 10억·담보부 15억 · <code>§611⑤</code> 변제기간 3년 원칙 최장 5년 · <code>§614②</code> 청산가치 보장 · <code>§564</code> 면책불허가사유 · 생계비는 <code>서울회생법원 실무준칙 제405호</code>에 따른 기준 중위소득 60%. 2026년 '+fam+'인 가구 기준 중위소득 '+fm(MEDIAN_2026[Math.min(fam,7)])+'원.</div>');
+    H.push('</div>');
+  }
+
+  /* ===== ⑤ 교차 리스크 ===== */
+  if(covered && (S.succ==='yes' || S.succ==='maybe') && stockVal>0){
+    H.push('<div class="card"><div class="step"><div class="stepno">⑤</div><h2>아무도 말해 주지 않는 것 — 안전과 승계가 만나는 자리</h2></div>');
+    H.push('<div class="verdict v-vio"><h3>중대재해 한 건이 이미 받은 상속공제를 되돌릴 수 있습니다</h3>'+
+      '<p>가업상속공제는 받는 순간 끝나지 않습니다. <b>고용 유지·업종 유지·지분 유지</b> 같은 사후관리 요건을 정해진 기간 동안 지켜야 하고, 깨지면 공제받은 세액에 이자를 더해 추징됩니다.</p>'+
+      '<p>그 기간에 중대재해가 나면 작업중지·영업 차질·고용 감소가 한꺼번에 옵니다. 요건이 깨지는 것은 물론이고, <b>승계한 자녀가 경영책임자로서 형사책임</b>까지 집니다. 사고 대응 비용과 세금 추징이 같은 시점에 닥칩니다.</p></div>');
+    H.push('<div class="note"><b>이 사슬을 통째로 보는 사람이 드뭅니다.</b> 세무사는 승계를 보고 안전을 모르고, 안전관리자는 안전을 보고 승계를 모릅니다. 둘 다 각자 자리에서 맞는 말을 하는데, 사슬은 아무도 안 봅니다.</div>');
+    H.push('<div class="note" style="border-left-color:var(--crimson)"><b>수치는 아직 넣지 않았습니다.</b> 가업상속공제(상증법 제18조의2)의 공제한도와 사후관리 기간·요건별 기준은 1차 자료로 확인한 뒤 반영하겠습니다. 검색으로 나오는 사후관리 개편안은 2027년 7월 시행 예정이라 현행법과 섞으면 안 됩니다.</div>');
+    H.push('</div>');
+  }
+
+  /* ===== 다음 걸음 ===== */
+  H.push('<div class="card"><div class="step"><div class="stepno">→</div><h2>지금 하실 일</h2></div><ol style="margin:6px 0 0;padding-left:22px;font-size:16.5px;line-height:2">');
+  if(S.gknown==='no') H.push('<li><b>연대보증 조회</b> — 한국신용정보원과 각 금융기관 여신거래약정서로 확인합니다. 위 계산 전체가 이 숫자에 달려 있습니다.</li>');
+  if(covered && S.safety!=='yes') H.push('<li><b>안전보건관리체계 문서화</b> — 사고가 난 뒤에는 만들 수 없습니다.</li>');
+  if(net<0) H.push('<li><b>보증 규모 축소</b> — 지금 살아 계실 때만 할 수 있는 일입니다.</li>');
+  else H.push('<li><b>납부 재원 확인</b> — 비상장주식은 팔리지 않는데 세금은 현금입니다. 그 간극을 미리 메워 둡니다.</li>');
+  H.push('<li><b>가족에게 알리기</b> — 대표님만 아는 채무는, 대표님이 안 계실 때 가장 위험합니다.</li>');
+  H.push('</ol></div>');
+
+  var el = $('result');
+  el.innerHTML = H.join('');
+  el.classList.add('on');
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+
+  window.__lastResult = covered ? '중대재해 적용 · 순재산 '+won(net) : '순재산 '+won(net);
+  window.__lastInputs = {
+    emp:emp, sector:sector, corpDebt:cDebt, corpNet:cNet, going:S.going, safety:S.safety,
+    share:share, guarantee:gtee, gknown:S.gknown, ownAsset:ownA, ownDebt:ownD, ceoAge:n('ceoAge'),
+    spouse:hasSp, children:childN, famN:fam, heirIncome:hIncome, succ:S.succ,
+    stockVal:stockVal, net:net
+  };
+});
+</script>
+<script src="heirwise-common.js" defer></script>
+</body>
+</html>
