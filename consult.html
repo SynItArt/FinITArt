@@ -113,9 +113,24 @@ function submitConsult(){
   if(!phone){alert('전화번호를 입력해주세요.');return;}
   if(!email||email.indexOf('@')<0){alert('올바른 이메일을 입력해주세요.');return;}
   if(!consent){alert('개인정보 수집·이용 동의(필수)에 체크해주세요.');return;}
-  var data={source:'consult',timestamp:new Date().toISOString(),name:name,phone:phone,email:email,consent:true,assets:0,debt:0,spouse:0,children:0,estimatedTax:0,taxable:0,familyInfo:family,assetInfo:asset,callTime:calltime};
+  var data={type:'lead',tool:'상담신청',axis:'both',source:'consult',timestamp:new Date().toISOString(),name:name,phone:phone,email:email,consent:true,assets:0,debt:0,spouse:0,children:0,estimatedTax:0,taxable:0,familyInfo:family,assetInfo:asset,callTime:calltime};
   if(ENDPOINT){
-    fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)}).catch(function(){});
+    // no-cors 는 서버가 거절해도 reject 되지 않아 실패를 감지할 수 없다.
+    // 숨은 iframe + form POST 로 보내면 Apps Script 가 e.parameter.data 로 수신한다.
+    try{
+      var old=document.getElementById('_hwSink'); if(old) old.remove();
+      var ifr=document.createElement('iframe');
+      ifr.id='_hwSink'; ifr.name='_hwSink'; ifr.style.display='none';
+      document.body.appendChild(ifr);
+      var fm=document.createElement('form');
+      fm.method='POST'; fm.action=ENDPOINT; fm.target='_hwSink'; fm.style.display='none';
+      var hid=document.createElement('input');
+      hid.type='hidden'; hid.name='data'; hid.value=JSON.stringify(data);
+      fm.appendChild(hid); document.body.appendChild(fm); fm.submit();
+      setTimeout(function(){ fm.remove(); }, 3000);
+    }catch(err){
+      fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)}).catch(function(){});
+    }
   }else{
     console.log('Heirwise Consult:',JSON.stringify(data));
   }

@@ -292,7 +292,7 @@
       if(!name){ msg.classList.add('err'); msg.textContent='성함을 입력해 주세요.'; return; }
       if(!/[0-9]{2,4}-?[0-9]{3,4}-?[0-9]{4}/.test(phone)){ msg.classList.add('err'); msg.textContent='연락처 형식을 확인해 주세요.'; return; }
       if(!$('ldAgree').checked){ msg.classList.add('err'); msg.textContent='개인정보 수집·이용 동의가 필요합니다.'; return; }
-      var payload = { tool:$('lead').dataset.tool, name:name, phone:phone,
+      var payload = { type:'lead', tool:$('lead').dataset.tool, name:name, phone:phone,
                       result:window.__lastResult, inputs:window.__lastInputs,
                       page:location.href, ts:new Date().toISOString() };
       if(LEAD_ENDPOINT){
