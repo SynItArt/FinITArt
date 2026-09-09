@@ -1013,7 +1013,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
 
 /* 질문 전송 — ENDPOINT 교체 필요. type 필드 반드시 포함해서 전송 */
 (function(){
-  var ENDPOINT = ''; /* ← Apps Script 웹앱 URL 을 여기에 */
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbwcgtbX_685BwUrylnqEBua73PEaJICd73MjBG5D2AapXDEweWp7eq1b2vykvBB4uM/exec";
   var form = document.getElementById('askForm');
   var msg  = document.getElementById('formMsg');
 
@@ -1049,7 +1049,29 @@ footer a:hover{color:var(--ink);text-decoration:underline}
       });
   });
 })();
+/* 상황 진입로 클릭 계측 — G1(진입 분포) 판정의 유일한 근거 */
+(function(){
+  function track(name, params){
+    if (typeof window.hwTrack === 'function') { window.hwTrack(name, params); return; }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(['event', name, params]);   /* common.js 미로드 시 폴백 */
+  }
+  var cards = document.querySelectorAll('a.sitcard, a[data-entry]');
+  Array.prototype.forEach.call(cards, function(a){
+    a.addEventListener('click', function(){
+      var label = (a.getAttribute('data-entry') ||
+                   (a.querySelector('h3, h2, b') || {}).textContent ||
+                   a.textContent || '').trim().replace(/\s+/g,' ').slice(0, 60);
+      track('entry_select', {
+        entry_href: a.getAttribute('href') || '',
+        entry_label: label
+      });
+    });
+  });
+})();
+
 </script>
 
+<script src="/heirwise-common.js" defer></script>
 </body>
 </html>

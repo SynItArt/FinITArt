@@ -597,10 +597,62 @@ $('calcBtn').addEventListener('click', function(){
     '<li><b>후순위 상속인에게 알리기</b> — 포기를 택하면 채무가 다음 순위로 넘어갑니다. 손자녀·형제자매까지 함께 정리하지 않으면 문제가 뒤로 밀릴 뿐입니다.</li>'+
     '</ol></div>');
 
+
+  /* ================= ④ 이어서 볼 것 · ⑤ 추가 진단 ================= */
+  var NEXT = [];
+  if(S.corp !== 'none'){
+    NEXT.push(['/ceo-diagnosis.html','법인 대표 부재 진단',
+      '연대보증·지분·과점주주 납세의무까지, 대표가 없어졌을 때 법인과 가족에 무엇이 남는지 봅니다.','urgent']);
+  }
+  if(net > 0){
+    NEXT.push(['/calculator.html','상속세 간이판정',
+      '순재산이 흑자이므로 상속세 대상인지부터 확인하십시오. 6개월 신고 기한이 함께 계산됩니다.','urgent']);
+  }
+  if(left3 < 0 && !(special && special.left >= 0)){
+    NEXT.push(['/consult.html','전문가 상담 신청',
+      '승인·포기 기간이 지난 사안은 선택지가 좁아 개별 검토가 필요합니다.','urgent']);
+  }
+  NEXT.push(['/natural-death.html','자연사 상속 절차',
+    '사망신고부터 상속세 신고까지, 날짜 순서대로 무엇을 해야 하는지 정리했습니다.','']);
+  NEXT.push(['/car-accident.html','사고사 보상과 상속',
+    '교통사고·산재·화재로 인한 사망은 보상금 자체에 상속세가 붙는지가 따로 문제됩니다.','']);
+  NEXT.push(['/insurance-two-faces.html','보험금과 유류분',
+    '사망보험금은 상속재산이 아니지만 유류분에서는 다르게 다뤄질 수 있습니다.','']);
+  NEXT.push(['/disability-trust.html','장애인 신탁',
+    '장애가 있는 가족이 상속인에 포함된다면 재산이 실제로 그 사람에게 닿는 구조가 따로 필요합니다.','']);
+
+  H.push('<div class="card" style="margin-top:22px"><div class="step"><div class="stepno">＋</div><h2>이어서 볼 것</h2></div>'+
+    '<p class="lead">이 진단은 상속채무 하나만 봅니다. 사안에 따라 아래를 함께 확인하셔야 합니다.</p>'+
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:4px">'+
+    NEXT.map(function(x){
+      var hot = x[3]==='urgent';
+      return '<a href="'+x[0]+'" style="display:block;text-decoration:none;border-radius:14px;padding:17px 18px;'+
+        'border:'+(hot?'3px solid #1A3C6D':'1px solid #C9D2E0')+';background:'+(hot?'#E8F0FA':'#FBFCFE')+'">'+
+        (hot?'<div style="font-size:12.5px;font-weight:900;letter-spacing:.06em;color:#8A5A00;margin-bottom:5px">먼저 보십시오</div>':'')+
+        '<div style="font-size:17.5px;font-weight:900;color:#0E2647;line-height:1.4">'+x[1]+' →</div>'+
+        '<div style="font-size:14.5px;color:#3B4657;line-height:1.65;margin-top:6px;font-weight:500">'+x[2]+'</div>'+
+        '</a>';
+    }).join('')+
+    '</div>'+
+    '<div class="note" style="margin-top:18px"><b>이름을 밝히지 않고 물어보셔도 됩니다.</b> 상황을 한 줄만 적어 주시면 정리해서 답을 드립니다. '+
+    '<a href="/index.html#ask" style="font-weight:800">익명으로 질문하기 →</a> · '+
+    '『상속설계의 기술』 입문서도 <a href="/book.html" style="font-weight:800">무료로 받으실 수 있습니다</a>.</div>'+
+    '</div>');
+
   var el = $('result');
   el.innerHTML = H.join('');
   el.classList.add('on');
   el.scrollIntoView({behavior:'smooth', block:'start'});
+  if(typeof window.hwTrack === 'function'){
+    window.hwTrack('calc_complete', {tool:'상속채무진단', net_sign: net>0?'plus':(net<0?'minus':'zero'), d3_left:left3});
+  }
+  el.querySelectorAll('a[href^="/"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      if(typeof window.hwTrack === 'function'){
+        window.hwTrack('next_step_click', {from:'상속채무진단', to:a.getAttribute('href')});
+      }
+    });
+  });
 
   // 공통 스크립트가 리드폼에 실어 보낼 요약값
   window.__lastResult = vTitle;
