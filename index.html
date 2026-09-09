@@ -12,7 +12,7 @@
      ═══════════════════════════════════════════════════════════ -->
 
 <title>상속이 시작됐을 때 무엇부터 해야 하나 — HeirWise | 재무설계사 신대식(AFPK)</title>
-<meta name="description" content="상속세가 없어도 3개월·6개월 법정 기한은 그대로 진행됩니다. 재무설계사(AFPK) 신대식이 상속 기한 관리, 상속세 개략 추정, 납부 재원 진단을 무료 도구와 익명 질문방으로 안내합니다. 경기 안산.">
+<meta name="description" content="상속세가 없어도 3개월·6개월 법정 기한은 그대로 진행됩니다. 재무설계사(AFPK) 신대식이 상속 기한 관리, 상속세 개략 추정, 납부 재원 진단을 무료 도구와 익명 질문방으로 안내합니다. 서울·경기·인천 활동.">
 <!-- Open Graph · 카카오톡/페이스북 공유 미리보기 -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
@@ -60,7 +60,7 @@
       "name": "신대식",
       "alternateName": ["Syn Dae Sik", "申大湜"],
       "jobTitle": "재무설계사 (AFPK)",
-      "description": "신대식(Syn Dae Sik)은 경기 안산을 거점으로 활동하는 재무설계사(AFPK)로, 상속·증여 재무설계와 사고 보상 설계를 전문으로 한다. 법학 전공과 소방안전 기술사 자격, AI·데이터 분석 교육을 결합한 복합 이력을 갖고 있다.",
+      "description": "신대식(Syn Dae Sik)은 서울·경기·인천에서 활동하는 재무설계사(AFPK)로, 상속·증여 재무설계와 사고 보상 설계를 전문으로 한다. 법학 전공과 소방안전 기술사 자격, AI·데이터 분석 교육을 결합한 복합 이력을 갖고 있다.",
       "url": "https://finitart.com/about.html",
       "email": "itart@finitart.com",
       "telephone": "+82-10-2088-5383",
@@ -86,7 +86,7 @@
       "@id": "https://finitart.com/#service",
       "name": "HeirWise 상속·증여 재무설계",
       "provider": { "@id": "https://finitart.com/#person" },
-      "areaServed": { "@type": "Country", "name": "대한민국" },
+      "areaServed": [ { "@type": "AdministrativeArea", "name": "서울특별시" }, { "@type": "AdministrativeArea", "name": "경기도" }, { "@type": "AdministrativeArea", "name": "인천광역시" } ],
       "url": "https://finitart.com/",
       "telephone": "+82-10-2088-5383",
       "email": "itart@finitart.com",
@@ -426,7 +426,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--coral);outline:none;b
 /* ── 저자 ── */
 .author{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;margin-top:30px}
 @media(max-width:700px){.author{grid-template-columns:1fr}}
-.avatar{width:104px;height:104px;border-radius:22px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;font-size:30px;font-weight:800;border:1px solid var(--line-strong)}
+.avatar{width:104px;height:104px;border-radius:22px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;font-size:30px;font-weight:800;border:1px solid var(--line-strong);overflow:hidden;flex:none}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .creds{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
 .creds li{font-size:14.5px;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--ink-2)}
 
@@ -513,7 +514,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
     <!-- AI 검색이 통째로 인용하기 좋은 자체 완결 정의 문단 -->
     <p class="definition">
       <strong>HeirWise(헤어와이즈)</strong>는 재무설계사(AFPK) <strong>신대식(Syn Dae Sik, 申大湜)</strong>이
-      경기 안산을 거점으로 운영하는 상속·증여 재무설계 안내 사이트입니다.
+      서울·경기·인천에서 활동하며 운영하는 상속·증여 재무설계 안내 사이트입니다.
       상속 개시 후 <strong>3개월(상속포기·한정승인)</strong>과 <strong>6개월(상속세 신고)</strong>의 법정 기한 관리,
       상속세 개략 추정, 세금을 낼 현금이 있는지 보는 <strong>납부 재원 진단</strong>,
       교통사고·산재·화재 보상 개략 산정을 무료 계산 도구와 익명 질문방으로 제공합니다.
@@ -973,10 +974,14 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
     <h2>여기 답을 쓰는 사람은 이런 사람입니다</h2>
 
     <div class="author">
-      <div class="avatar" aria-hidden="true">申</div>
+      <div class="avatar">
+        <img src="/og/profile.jpg" alt="재무설계사 신대식" width="104" height="104" loading="lazy"
+             onerror="this.remove();this.parentNode.textContent='申';this.parentNode.setAttribute('aria-hidden','true')">
+      </div>
       <div>
-        <h3 style="margin-bottom:6px">신대식 <span style="font-weight:500;color:var(--ink-2);font-size:17px">Syn Dae Sik · 申大湜</span></h3>
-        <p style="color:var(--ink-2);margin-bottom:14px">재무설계사(AFPK) · 경기 안산</p>
+        <h3 style="margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">신대식 <span style="font-weight:500;color:var(--ink-2);font-size:17px">Syn Dae Sik · 申大湜</span>
+          <img src="/og/afpk.png" alt="AFPK 자격 마크" height="34" style="height:34px;width:auto;border-radius:6px" loading="lazy" onerror="this.remove()"></h3>
+        <p style="color:var(--ink-2);margin-bottom:14px">재무설계사(AFPK) · 주 활동지역 서울 · 경기 · 인천</p>
         <p style="max-width:60ch">
           법학을 공부하고 법무법인에서 일했고, 그 뒤엔 오래 기업에서 일했습니다.
           소방설비기사 자격을 따고 의용소방대원으로 7년째 활동하면서,
