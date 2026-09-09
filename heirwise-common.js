@@ -25,7 +25,7 @@
     // 리드 수집 엔드포인트.
     // 2026.09.07 — 비어 있던 동안 common.js 를 쓰는 페이지(inheritdebt 등)의 리드가
     // mailto 폴백으로만 나가 유실되고 있었습니다. calculator.html 의 배포 URL 로 연결합니다.
-    LEAD_ENDPOINT: "https://script.google.com/macros/s/AKfycbwcgtbX_685BwUrylnqEBua73PEaJICd73MjBG5D2AapXDEweWp7eq1b2vykvBB4uM/exec",
+    LEAD_ENDPOINT: "https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec",
 
     // 적용 법령 기준일 (프로젝트 규칙 5-3)
     LAW: {
