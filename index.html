@@ -474,6 +474,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
   <div class="wrap nav">
     <a class="logo" href="/index.html">Heir<em>Wise</em> <small>상속·증여 재무설계</small></a>
     <ul>
+      <li><a href="/chuseok.html">추석 전에</a></li>
       <li><a href="#deadline">기한부터</a></li>
       <li><a href="#situations">실제 사례</a></li>
       <li><a href="#answers">자주 묻는 것</a></li>
@@ -507,7 +508,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
       <a class="btn btn-ghost" href="#room">이름 없이 질문 남기기</a>
     </div>
 
-    <p class="hero-note">연락처를 남기지 않아도 질문하실 수 있습니다. 답은 이 페이지에 올려 드립니다.</p>
+    <p class="hero-note">연락처를 남기지 않아도 질문하실 수 있습니다. 답은 이 페이지에 올려 드립니다. · <a href="/chuseok.html" style="font-weight:800">추석 전에 볼 다섯 가지 →</a></p>
 
     <!-- AI 검색이 통째로 인용하기 좋은 자체 완결 정의 문단 -->
     <p class="definition">
@@ -520,6 +521,39 @@ footer a:hover{color:var(--ink);text-decoration:underline}
     </p>
   </div>
 </section>
+
+<!-- ══════════════════ 추석 (시즌 블록 · 추석 뒤 통째로 제거 가능) ══════════════════ -->
+<section id="chuseok" data-season="chuseok-2026">
+  <div class="wrap">
+    <div class="season">
+      <div class="season-txt">
+        <p class="sec-label" style="color:var(--amber-ink)">2026 추석 · 가족이 모이기 전에</p>
+        <h2>추석 전에, 다섯 가지만 확인하세요</h2>
+        <p class="sec-intro" style="margin-bottom:14px">
+          명절에 재산 이야기를 꺼내는 사람은 미움을 받습니다. 그래서 사람 대신 이 사이트가 말합니다.
+          <strong>상속인은 누구인지 · 미리 받은 재산 · 빚과 보증 · 유언장 형식 · 법인 대표라면</strong> —
+          모이기 전에 하나만 보고 가셔도 자리에서 싸울 일이 줄어듭니다.
+        </p>
+        <div class="hero-cta" style="margin-top:0">
+          <a class="btn btn-primary" href="/chuseok.html">다섯 가지 보기 · 1분</a>
+          <a class="btn btn-ghost" href="/chuseok.html#get">인쇄용 한 장 받기</a>
+        </div>
+      </div>
+      <a class="season-card" href="/chuseok.html" aria-label="추석 전에 다섯 가지만 확인하세요 — 체크리스트 열기">
+        <img src="/og/og-chuseok.png" alt="추석 전에, 다섯 가지만 확인하세요 — 부모님 재산 이야기, 싸우지 않고 꺼내는 법" width="1200" height="630" loading="lazy">
+      </a>
+    </div>
+  </div>
+</section>
+<style>
+#chuseok{padding:8px 0 4px}
+.season{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:center;
+  background:var(--amber-soft);border:2px solid var(--amber);border-radius:var(--radius);padding:28px 30px}
+.season h2{margin:0 0 10px}
+.season-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line-strong);box-shadow:var(--shadow-lg);line-height:0}
+.season-card img{width:100%;height:auto;display:block}
+@media(max-width:860px){.season{grid-template-columns:1fr;padding:22px 20px}}
+</style>
 
 <!-- ══════════════════ 기한 ══════════════════ -->
 <section id="deadline">
