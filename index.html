@@ -573,6 +573,13 @@ footer a:hover{color:var(--ink);text-decoration:underline}
   transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;overflow:hidden;position:relative}
 .sitcard::before{content:"";position:absolute;top:0;left:0;right:0;height:6px}
 .sitcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+/* 카드 안에 보조 링크가 있는 경우 — 앵커 중첩(=파서가 카드를 깨뜨림)을 피한다 */
+.sitcard--box{cursor:pointer}
+.sitcard--box:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
+a.sit-go{margin-top:auto;font-size:16px;font-weight:800;color:var(--coral);text-decoration:none}
+a.sit-go::after{content:"";position:absolute;inset:0;z-index:1}
+a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.sit-book a{position:relative;z-index:2;text-decoration:underline;text-underline-offset:2px}
 .sitcard.c-navy::before{background:var(--navy)}
 .sitcard.c-crimson::before{background:var(--crimson)}
 .sitcard.c-violet::before{background:#5B2A87}
@@ -588,11 +595,13 @@ footer a:hover{color:var(--ink);text-decoration:underline}
 .sit-book{font-size:14px;font-weight:700;color:var(--teal);margin-top:8px}
 @media(prefers-color-scheme:dark){.sitcard.c-violet::before{background:#C39BE8}.c-violet .sit-src{color:#C39BE8}}
 /* 대표님 배너 */
-.ceoband{margin-top:34px;background:var(--navy-soft);border:2px solid var(--navy);border-radius:18px;
-  padding:32px 30px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center}
-@media(max-width:760px){.ceoband{grid-template-columns:1fr}}
-.ceoband h3{font-size:22px;font-weight:800;letter-spacing:-.025em;margin:0 0 10px;color:var(--ink)}
-.ceoband p{font-size:16.5px;color:var(--ink-2);margin:0;max-width:56ch}
+.ceolead{margin-top:44px;padding-top:30px;border-top:2px solid var(--line)}
+.ceolead h3{margin:0 0 10px;font-size:clamp(22px,3vw,28px);line-height:1.35;letter-spacing:-.02em}
+.ceolead p{margin:0;max-width:70ch;color:var(--ink-2);line-height:1.75}
+.ceocta{margin-top:24px;text-align:center}
+@media(max-width:760px){}
+.ceolead h3{font-weight:800;letter-spacing:-.025em;color:var(--ink)}
+.ceolead p{font-size:16.5px}
 </style>
 
 <section id="situations">
@@ -638,35 +647,59 @@ footer a:hover{color:var(--ink);text-decoration:underline}
         <span class="sit-book">안내서 21·86쪽 · 민법 §1008</span>
       </a>
 
-      <a class="sitcard c-teal" href="/car-accident.html">
+      <div class="sitcard sitcard--box c-teal" data-entry="사고로 가족을 잃었다면">
         <p class="sit-src">사고 보상</p>
         <h3>사고로 가족을 잃었다면</h3>
         <p>교통사고·산재·화재를 한자리에서 고르실 수 있습니다. 위자료와 일실수입뿐 아니라, 받은 보상금에 <strong>상속세가 붙는지까지</strong> 함께 봅니다.</p>
-        <span class="sit-go">우리 경우 보상 규모 확인 →</span>
+        <a class="sit-go" href="/car-accident.html">우리 경우 보상 규모 확인 →</a>
         <span class="sit-book">교통사고 · <a href="/industrial-accident.html" style="color:inherit">산재</a> · <a href="/fire-accident.html" style="color:inherit">화재</a></span>
-      </a>
+      </div>
 
-      <a class="sitcard c-violet" href="/disability-trust.html">
+      <div class="sitcard sitcard--box c-violet" data-entry="내가 없으면, 이 아이는 누가 지키죠">
         <p class="sit-src">설계 · 보장</p>
         <h3>내가 없으면, 이 아이는 누가 지키죠</h3>
         <p>장애인 신탁과 노후자금 진단을 함께 봅니다. 재산을 남기는 일과, 그 재산이 그 아이에게 실제로 닿게 하는 일은 다른 문제입니다.</p>
-        <span class="sit-go">우리 집 구조 살펴보기 →</span>
+        <a class="sit-go" href="/disability-trust.html">우리 집 구조 살펴보기 →</a>
         <span class="sit-book">장애인 신탁 · <a href="/retirement/index.html" style="color:inherit">노후자금 진단</a></span>
+      </div>
+
+    </div>
+
+    <div class="ceolead">
+      <p class="sec-label" style="color:var(--navy)">법인을 운영하고 계시다면</p>
+      <h3>지금 법인이 위험한 것과, 내가 없어졌을 때 위험한 것</h3>
+      <p>대표님이 개인 자격으로 선 <strong>연대보증은 법인의 빚이 아니라 개인의 빚</strong>이라 가족에게 그대로 갑니다. 세 갈래를 한 번에 봅니다.</p>
+    </div>
+
+    <div class="sitgrid">
+
+      <a class="sitcard c-amber" href="/ceo-diagnosis.html">
+        <p class="sit-src">법률 제17907호 · 2024. 1. 27. 확대</p>
+        <h3>5명만 넘어도 대표가 형사처벌을 받습니다</h3>
+        <p>2024년 1월 27일부터 상시 근로자 <strong>5명 이상</strong>이면 업종을 가리지 않고 적용됩니다. 사망자가 한 명만 나와도 경영책임자는 <strong>1년 이상 징역 또는 10억원 이하 벌금</strong>, 법인은 별도로 50억원 이하 벌금입니다.</p>
+        <span class="sit-go">우리 회사가 적용 대상인지 →</span>
+        <span class="sit-book">중대재해처벌법 §4 · §6① · §7</span>
+      </a>
+
+      <a class="sitcard c-navy" href="/ceo-diagnosis.html">
+        <p class="sit-src">채무자회생법</p>
+        <h3>지금 흔들린다면, 회생인가 파산인가</h3>
+        <p>부채가 <strong>50억원 이하</strong>면 간이회생을 쓸 수 있고, 영업이 살아 있어야 회생 실익이 인정됩니다. 갈림길을 한 번 잘못 들면 되돌리기 어렵고, 대표의 보증채무는 어느 쪽이든 따로 남습니다.</p>
+        <span class="sit-go">우리 법인은 어느 길인지 →</span>
+        <span class="sit-book">채무자회생법 §293의2 · 시행령 §15의3</span>
+      </a>
+
+      <a class="sitcard c-crimson" href="/inheritdebt.html">
+        <p class="sit-src">민법 §1005</p>
+        <h3>연대보증은 법인이 아니라 가족에게 갑니다</h3>
+        <p>법인을 정리해도 대표가 개인 자격으로 선 보증은 남고, 그대로 상속됩니다. 사망을 안 날부터 <strong>3개월</strong> 안에 한정승인이나 포기를 하지 않으면 배우자와 자녀가 떠안습니다.</p>
+        <span class="sit-go">오늘 갑자기 안 계신다면 →</span>
+        <span class="sit-book">민법 §1005 · §1019① · 채무자회생법 §579</span>
       </a>
 
     </div>
 
-    <div class="ceoband">
-      <div>
-        <p class="sec-label" style="color:var(--navy)">법인을 운영하고 계시다면</p>
-        <h3>지금 법인이 위험한 것과, 내가 없어졌을 때 위험한 것</h3>
-        <p>
-          대표님이 개인 자격으로 선 <strong>연대보증은 법인의 빚이 아니라 개인의 빚</strong>이라 가족에게 그대로 갑니다.
-          중대재해처벌법 적용 여부, 법인 회생·파산의 갈림길, 남은 가족의 개인회생 가능성까지 한 번에 봅니다.
-        </p>
-      </div>
-      <a class="btn btn-primary" href="/ceo-diagnosis.html" style="white-space:nowrap">대표님 진단 시작 →</a>
-    </div>
+    <p class="ceocta"><a class="btn btn-primary" href="/ceo-diagnosis.html">세 가지를 한 번에 진단하기 →</a></p>
   </div>
 </section>
 
