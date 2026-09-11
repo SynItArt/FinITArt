@@ -5,25 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- ═══════════════════════════════════════════════════════════
-     HeirWise — finitart.com  index.html  v2 (GEO-first)
+     HeirWise — finitart.com  index.html  v2.3 (GEO-first + N26 리스킨 + 사례 썸네일/모달 + 영상)
      제작: Syn Dae Sik (申大湜) / AFPK
      법령 기준일: 상증법 법률 제21065호(2026.1.2 시행), 민법 2026.3.17 시행
      보안등급: 공개용
+     리스킨 메모(2026-09-11): 단일 딥틸(teal) 액션 컬러로 통일, 그림자 제거(보더 대비로 위계 표현),
+       히어로 배경 그라데이션 단순화. 콘텐츠·구조화 데이터는 변경 없음(랜딩 한정 리스킨).
+     v2.2: 사례 카드 9종 썸네일(/case/*.jpg) + 확대 모달, G1 계측 셀렉터 버그 수정.
+     v2.3: 히어로 아래 #video-check 섹션(/video/chuseok-check.mp4 · 40초 · 무음 자동재생 + 소리 켜기).
+       #chuseok과 같은 data-season="chuseok-2026" — 추석 뒤 두 섹션 함께 제거.
      ═══════════════════════════════════════════════════════════ -->
 
 <title>상속이 시작됐을 때 무엇부터 해야 하나 — HeirWise | 재무설계사 신대식(AFPK)</title>
-<meta name="description" content="상속세가 없어도 3개월·6개월 법정 기한은 그대로 진행됩니다. 재무설계사(AFPK) 신대식이 상속 기한 관리, 상속세 개략 추정, 납부 재원 진단을 무료 도구와 익명 질문방으로 안내합니다. 경기 안산.">
+<meta name="description" content="상속세가 없어도 3개월·6개월 법정 기한은 그대로 진행됩니다. 재무설계사(AFPK) 신대식이 상속 기한 관리, 상속세 개략 추정, 납부 재원 진단을 무료 도구와 익명 질문방으로 안내합니다. 서울·경기·인천 활동.">
+<!-- Open Graph · 카카오톡/페이스북 공유 미리보기 -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="HeirWise · finitart.com">
+<meta property="og:url" content="https://finitart.com/">
+<meta property="og:title" content="이번 추석, 부모님 재산 이야기를 싸우지 않고 꺼내는 법">
+<meta property="og:description" content="가족이 모이기 전에 다섯 가지만 확인하세요. 상속인은 누구인지, 미리 받은 돈은 어떻게 되는지, 빚이 있다면 3개월 안에 무엇을 해야 하는지. 1분 진단 · 익명 질문 · 재무설계사 신대식(AFPK)">
+<meta property="og:image" content="https://finitart.com/og/og-chuseok.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="추석 전에, 다섯 가지만 확인하세요 — 부모님 재산 이야기, 싸우지 않고 꺼내는 법">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="이번 추석, 부모님 재산 이야기를 싸우지 않고 꺼내는 법">
+<meta name="twitter:description" content="가족이 모이기 전에 다섯 가지만 확인하세요. 상속인은 누구인지, 미리 받은 돈은 어떻게 되는지, 빚이 있다면 3개월 안에 무엇을 해야 하는지. 1분 진단 · 익명 질문 · 재무설계사 신대식(AFPK)">
+<meta name="twitter:image" content="https://finitart.com/og/og-chuseok.png">
+
 <meta name="author" content="Syn Dae Sik (신대식, 申大湜)">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://finitart.com/">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="HeirWise">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:title" content="상속이 시작됐을 때 무엇부터 해야 하나 — HeirWise">
-<meta property="og:description" content="상속세가 없어도 3개월·6개월 법정 기한은 그대로 진행됩니다. 재무설계사(AFPK) 신대식이 안내합니다.">
-<meta property="og:url" content="https://finitart.com/">
-<meta name="twitter:card" content="summary_large_image">
 
 <!-- AI 크롤러용 마크다운 미러 -->
 <link rel="alternate" type="text/markdown" href="https://finitart.com/llms.txt" title="HeirWise 요약 (AI 검색용)">
@@ -52,7 +65,7 @@
       "name": "신대식",
       "alternateName": ["Syn Dae Sik", "申大湜"],
       "jobTitle": "재무설계사 (AFPK)",
-      "description": "신대식(Syn Dae Sik)은 경기 안산을 거점으로 활동하는 재무설계사(AFPK)로, 상속·증여 재무설계와 사고 보상 설계를 전문으로 한다. 법학 전공과 소방안전 기술사 자격, AI·데이터 분석 교육을 결합한 복합 이력을 갖고 있다.",
+      "description": "신대식(Syn Dae Sik)은 서울·경기·인천에서 활동하는 재무설계사(AFPK)로, 상속·증여 재무설계와 사고 보상 설계를 전문으로 한다. 법학 전공과 소방안전 기술사 자격, AI·데이터 분석 교육을 결합한 복합 이력을 갖고 있다.",
       "url": "https://finitart.com/about.html",
       "email": "itart@finitart.com",
       "telephone": "+82-10-2088-5383",
@@ -78,7 +91,7 @@
       "@id": "https://finitart.com/#service",
       "name": "HeirWise 상속·증여 재무설계",
       "provider": { "@id": "https://finitart.com/#person" },
-      "areaServed": { "@type": "Country", "name": "대한민국" },
+      "areaServed": [ { "@type": "AdministrativeArea", "name": "서울특별시" }, { "@type": "AdministrativeArea", "name": "경기도" }, { "@type": "AdministrativeArea", "name": "인천광역시" } ],
       "url": "https://finitart.com/",
       "telephone": "+82-10-2088-5383",
       "email": "itart@finitart.com",
@@ -178,13 +191,13 @@
 <style>
 /* ══════════════════ 디자인 토큰 ══════════════════ */
 :root{
-  --bg:#FBF8F3;          /* 따뜻한 아이보리 */
+  --bg:#FAF8F5;          /* N26 톤 — 웜 오프화이트 */
   --surface:#FFFFFF;
   --surface-2:#F4EEE3;
-  --ink:#15181E;         /* 대비 15.9:1 on --bg */
-  --ink-2:#4B5361;       /* 대비 7.4:1 */
+  --ink:#1B1B1B;         /* 대비 16.2:1 on --bg */
+  --ink-2:#4A453D;       /* 대비 9.0:1 */
   --line:#E2D8C8;
-  --line-strong:#C9BCA6;
+  --line-strong:#B7A98F;
   --navy:#173863;
   --navy-soft:#EAF0F8;
   --amber:#F9A825;
@@ -192,41 +205,41 @@
   --amber-soft:#FDF1D6;
   --teal:#0C5C48;
   --teal-soft:#E2F2ED;
-  --coral:#B23C15;       /* CTA, 대비 5.9:1 */
-  --coral-hover:#8E2F0F;
+  --coral:#0C5C48;       /* N26 톤 — 단일 딥틸 액션 컬러(teal과 동일) */
+  --coral-hover:#094536;
   --crimson:#B31729;
   --crimson-soft:#FBE7E9;
-  --shadow:0 1px 2px rgba(21,24,30,.05), 0 8px 24px -12px rgba(21,24,30,.18);
-  --shadow-lg:0 2px 4px rgba(21,24,30,.06), 0 20px 48px -20px rgba(21,24,30,.28);
+  --shadow:none;         /* N26 톤 — 그림자 대신 보더 대비로 위계 표현 */
+  --shadow-lg:none;
   --radius:14px;
   --maxw:1120px;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#13161C; --surface:#1B1F27; --surface-2:#232833;
-    --ink:#F3F0EA; --ink-2:#B6BDCA; --line:#333A47; --line-strong:#4A5262;
+    --ink:#F3F0EA; --ink-2:#B6BDCA; --line:#333A47; --line-strong:#57607A;
     --navy:#8FB4E8; --navy-soft:#1D2836;
     --amber:#FFC64D; --amber-ink:#FFC64D; --amber-soft:#302713;
     --teal:#54CFA8; --teal-soft:#12302A;
-    --coral:#FF9265; --coral-hover:#FFB08F;
+    --coral:#54CFA8; --coral-hover:#7FE0C0;
     --crimson:#FF8593; --crimson-soft:#33161B;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
-    --shadow-lg:0 2px 4px rgba(0,0,0,.4), 0 20px 48px -20px rgba(0,0,0,.7);
+    --shadow:none;
+    --shadow-lg:none;
   }
 }
 html[data-theme="light"]{
-  --bg:#FBF8F3; --surface:#FFFFFF; --surface-2:#F4EEE3;
-  --ink:#15181E; --ink-2:#4B5361; --line:#E2D8C8; --line-strong:#C9BCA6;
+  --bg:#FAF8F5; --surface:#FFFFFF; --surface-2:#F4EEE3;
+  --ink:#1B1B1B; --ink-2:#4A453D; --line:#E2D8C8; --line-strong:#B7A98F;
   --navy:#173863; --navy-soft:#EAF0F8; --amber:#F9A825; --amber-ink:#8A5A00;
   --amber-soft:#FDF1D6; --teal:#0C5C48; --teal-soft:#E2F2ED;
-  --coral:#B23C15; --coral-hover:#8E2F0F; --crimson:#B31729; --crimson-soft:#FBE7E9;
+  --coral:#0C5C48; --coral-hover:#094536; --crimson:#B31729; --crimson-soft:#FBE7E9;
 }
 html[data-theme="dark"]{
   --bg:#13161C; --surface:#1B1F27; --surface-2:#232833;
-  --ink:#F3F0EA; --ink-2:#B6BDCA; --line:#333A47; --line-strong:#4A5262;
+  --ink:#F3F0EA; --ink-2:#B6BDCA; --line:#333A47; --line-strong:#57607A;
   --navy:#8FB4E8; --navy-soft:#1D2836; --amber:#FFC64D; --amber-ink:#FFC64D;
   --amber-soft:#302713; --teal:#54CFA8; --teal-soft:#12302A;
-  --coral:#FF9265; --coral-hover:#FFB08F; --crimson:#FF8593; --crimson-soft:#33161B;
+  --coral:#54CFA8; --coral-hover:#7FE0C0; --crimson:#FF8593; --crimson-soft:#33161B;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -285,9 +298,7 @@ html[data-theme="dark"] .btn-primary, :root:not([data-theme="light"]) .btn-prima
 .hero{padding:76px 0 60px;position:relative;overflow:hidden}
 .hero::before{
   content:"";position:absolute;inset:0;z-index:-1;
-  background:
-    radial-gradient(760px 380px at 12% -8%, color-mix(in srgb,var(--amber) 26%,transparent), transparent 68%),
-    radial-gradient(620px 320px at 92% 4%, color-mix(in srgb,var(--teal) 18%,transparent), transparent 66%);
+  background:linear-gradient(180deg, color-mix(in srgb,var(--teal) 7%,transparent), transparent 72%);
 }
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;
@@ -300,7 +311,7 @@ h1{
   font-size:clamp(2.1rem,5.2vw,3.35rem);line-height:1.28;letter-spacing:-.035em;
   font-weight:800;margin:0 0 22px;max-width:19ch;
 }
-h1 mark{background:linear-gradient(transparent 58%, color-mix(in srgb,var(--amber) 55%,transparent) 58%);color:inherit;padding:0 2px}
+h1 mark{background:linear-gradient(transparent 58%, color-mix(in srgb,var(--teal) 45%,transparent) 58%);color:inherit;padding:0 2px}
 .lede{font-size:clamp(1.08rem,2.1vw,1.28rem);color:var(--ink-2);max-width:52ch;margin:0 0 30px;line-height:1.85}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
 .hero-note{font-size:15px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
@@ -316,7 +327,7 @@ h1 mark{background:linear-gradient(transparent 58%, color-mix(in srgb,var(--ambe
 /* ── 섹션 ── */
 section{padding:70px 0;border-top:1px solid var(--line)}
 section:first-of-type{border-top:none}
-.sec-label{font-size:14px;font-weight:800;letter-spacing:.1em;color:var(--amber-ink);text-transform:uppercase;margin:0 0 12px}
+.sec-label{font-size:14px;font-weight:800;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin:0 0 12px}
 h2{font-size:clamp(1.55rem,3.4vw,2.15rem);line-height:1.4;letter-spacing:-.03em;font-weight:800;margin:0 0 16px;max-width:22ch}
 h3{font-size:clamp(1.15rem,2.2vw,1.35rem);line-height:1.5;font-weight:750;margin:0 0 10px;letter-spacing:-.02em}
 p{margin:0 0 18px}
@@ -418,7 +429,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--coral);outline:none;b
 /* ── 저자 ── */
 .author{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;margin-top:30px}
 @media(max-width:700px){.author{grid-template-columns:1fr}}
-.avatar{width:104px;height:104px;border-radius:22px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;font-size:30px;font-weight:800;border:1px solid var(--line-strong)}
+.avatar{width:104px;height:104px;border-radius:22px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;font-size:30px;font-weight:800;border:1px solid var(--line-strong);overflow:hidden;flex:none}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .creds{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
 .creds li{font-size:14.5px;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--ink-2)}
 
@@ -466,6 +478,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
   <div class="wrap nav">
     <a class="logo" href="/index.html">Heir<em>Wise</em> <small>상속·증여 재무설계</small></a>
     <ul>
+      <li><a href="/chuseok.html">추석 전에</a></li>
       <li><a href="#deadline">기한부터</a></li>
       <li><a href="#situations">실제 사례</a></li>
       <li><a href="#answers">자주 묻는 것</a></li>
@@ -499,12 +512,12 @@ footer a:hover{color:var(--ink);text-decoration:underline}
       <a class="btn btn-ghost" href="#room">이름 없이 질문 남기기</a>
     </div>
 
-    <p class="hero-note">연락처를 남기지 않아도 질문하실 수 있습니다. 답은 이 페이지에 올려 드립니다.</p>
+    <p class="hero-note">연락처를 남기지 않아도 질문하실 수 있습니다. 답은 이 페이지에 올려 드립니다. · <a href="/chuseok.html" style="font-weight:800">추석 전에 볼 다섯 가지 →</a></p>
 
     <!-- AI 검색이 통째로 인용하기 좋은 자체 완결 정의 문단 -->
     <p class="definition">
       <strong>HeirWise(헤어와이즈)</strong>는 재무설계사(AFPK) <strong>신대식(Syn Dae Sik, 申大湜)</strong>이
-      경기 안산을 거점으로 운영하는 상속·증여 재무설계 안내 사이트입니다.
+      서울·경기·인천에서 활동하며 운영하는 상속·증여 재무설계 안내 사이트입니다.
       상속 개시 후 <strong>3개월(상속포기·한정승인)</strong>과 <strong>6개월(상속세 신고)</strong>의 법정 기한 관리,
       상속세 개략 추정, 세금을 낼 현금이 있는지 보는 <strong>납부 재원 진단</strong>,
       교통사고·산재·화재 보상 개략 산정을 무료 계산 도구와 익명 질문방으로 제공합니다.
@@ -512,6 +525,86 @@ footer a:hover{color:var(--ink);text-decoration:underline}
     </p>
   </div>
 </section>
+
+<!-- ══════════════════ 영상 · 명절 전 상속 체크 (시즌 블록 · 추석 뒤 #chuseok과 함께 제거 가능) ══════════════════ -->
+<section id="video-check" data-season="chuseok-2026" aria-labelledby="videoCheckTitle">
+  <div class="wrap">
+    <div class="vid-wrap">
+      <p class="sec-label">40초로 보는</p>
+      <h2 id="videoCheckTitle">명절 전 상속 체크</h2>
+      <div class="vid-frame">
+        <video id="checkVideo"
+               src="/video/chuseok-check.mp4"
+               poster="/video/chuseok-check-poster.jpg"
+               muted playsinline preload="metadata" controls
+               width="1280" height="720"
+               aria-label="명절 전 상속 체크 — 40초 안내 영상 (자막 포함)">
+          <p>브라우저가 영상 재생을 지원하지 않습니다. <a href="/video/chuseok-check.mp4">영상 파일 열기</a></p>
+        </video>
+        <button type="button" class="vid-sound" id="checkVideoSound" aria-pressed="false">
+          <span class="vid-sound-ic" aria-hidden="true">🔊</span><span class="vid-sound-txt">소리 켜기</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+#video-check{padding:6px 0 44px;border-top:none}
+.vid-wrap{max-width:960px;margin:0 auto}
+.vid-wrap .sec-label{margin-bottom:8px}
+.vid-wrap h2{margin-bottom:18px}
+.vid-frame{
+  position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line-strong);background:#0B1A17;
+}
+.vid-frame video{width:100%;height:100%;display:block;object-fit:cover;background:#0B1A17}
+.vid-sound{
+  position:absolute;top:14px;right:14px;z-index:2;
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:17px;font-weight:800;line-height:1;
+  padding:12px 18px;border-radius:999px;cursor:pointer;
+  background:rgba(11,26,23,.88);color:#FFFFFF;border:2px solid #54CFA8;
+  transition:background .12s ease,transform .12s ease;
+}
+.vid-sound:hover{background:#0C5C48;transform:translateY(-1px)}
+.vid-sound:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.vid-sound[aria-pressed="true"]{background:#0C5C48;border-color:#7FE0C0}
+@media(max-width:520px){.vid-sound{font-size:15px;padding:10px 14px;top:10px;right:10px}}
+@media (prefers-reduced-motion: reduce){.vid-sound{transition:none}}
+</style>
+
+<!-- ══════════════════ 추석 (시즌 블록 · 추석 뒤 통째로 제거 가능) ══════════════════ -->
+<section id="chuseok" data-season="chuseok-2026">
+  <div class="wrap">
+    <div class="season">
+      <div class="season-txt">
+        <p class="sec-label" style="color:var(--amber-ink)">2026 추석 · 가족이 모이기 전에</p>
+        <h2>추석 전에, 다섯 가지만 확인하세요</h2>
+        <p class="sec-intro" style="margin-bottom:14px">
+          명절에 재산 이야기를 꺼내는 사람은 미움을 받습니다. 그래서 사람 대신 이 사이트가 말합니다.
+          <strong>상속인은 누구인지 · 미리 받은 재산 · 빚과 보증 · 유언장 형식 · 법인 대표라면</strong> —
+          모이기 전에 하나만 보고 가셔도 자리에서 싸울 일이 줄어듭니다.
+        </p>
+        <div class="hero-cta" style="margin-top:0">
+          <a class="btn btn-primary" href="/chuseok.html">다섯 가지 보기 · 1분</a>
+          <a class="btn btn-ghost" href="/chuseok.html#get">인쇄용 한 장 받기</a>
+        </div>
+      </div>
+      <a class="season-card" href="/chuseok.html" aria-label="추석 전에 다섯 가지만 확인하세요 — 체크리스트 열기">
+        <img src="/og/og-chuseok.png" alt="추석 전에, 다섯 가지만 확인하세요 — 부모님 재산 이야기, 싸우지 않고 꺼내는 법" width="1200" height="630" loading="lazy">
+      </a>
+    </div>
+  </div>
+</section>
+<style>
+#chuseok{padding:8px 0 4px}
+.season{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:center;
+  background:var(--amber-soft);border:1.5px solid var(--amber);border-radius:var(--radius);padding:28px 30px}
+.season h2{margin:0 0 10px}
+.season-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line-strong);box-shadow:var(--shadow-lg);line-height:0}
+.season-card img{width:100%;height:auto;display:block}
+@media(max-width:860px){.season{grid-template-columns:1fr;padding:22px 20px}}
+</style>
 
 <!-- ══════════════════ 기한 ══════════════════ -->
 <section id="deadline">
@@ -585,7 +678,8 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 .sitcard.c-violet::before{background:#5B2A87}
 .sitcard.c-amber::before{background:var(--amber)}
 .sitcard.c-teal::before{background:var(--teal)}
-.sit-src{font-size:13.5px;font-weight:800;letter-spacing:.02em;margin:26px 0 12px}
+.sit-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:26px}
+.sit-src{font-size:13.5px;font-weight:800;letter-spacing:.02em;margin:0 0 12px}
 .c-navy .sit-src{color:var(--navy)} .c-crimson .sit-src{color:var(--crimson)}
 .c-violet .sit-src{color:#5B2A87} .c-amber .sit-src{color:var(--amber-ink)}
 .c-teal .sit-src{color:var(--teal)}
@@ -594,6 +688,31 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 .sit-go{margin-top:auto;font-size:16px;font-weight:800;color:var(--coral)}
 .sit-book{font-size:14px;font-weight:700;color:var(--teal);margin-top:8px}
 @media(prefers-color-scheme:dark){.sitcard.c-violet::before{background:#C39BE8}.c-violet .sit-src{color:#C39BE8}}
+
+/* 사례 카드 썸네일 (영화적 사실감 이미지 · vstory 산출물) */
+.sit-thumb{
+  flex:none;position:relative;z-index:2;width:64px;height:64px;padding:0;margin:0 0 12px;
+  border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;
+  background:var(--surface-2);cursor:zoom-in;transition:border-color .12s ease,transform .12s ease;
+}
+.sit-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.sit-thumb:hover{border-color:var(--teal);transform:scale(1.04)}
+.sit-thumb:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+@media(max-width:420px){.sit-thumb{width:52px;height:52px}}
+
+/* 이미지 확대 모달 */
+.imgModal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:24px}
+.imgModal[hidden]{display:none}
+.imgModal-backdrop{position:absolute;inset:0;background:rgba(10,12,10,.72)}
+.imgModal-panel{position:relative;z-index:1;max-width:min(92vw,720px);max-height:90vh;
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:16px;
+  padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:auto}
+.imgModal-panel img{display:block;width:100%;height:auto;border-radius:10px;background:var(--surface-2)}
+.imgModal-close{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;
+  border-radius:10px;border:1px solid var(--line-strong);background:var(--surface);
+  color:var(--ink);font-size:18px;line-height:1;cursor:pointer}
+.imgModal-close:hover{background:var(--surface-2)}
+.imgModal-caption{font-size:15px;color:var(--ink-2);margin:12px 4px 2px;line-height:1.6}
 /* 대표님 배너 */
 .ceolead{margin-top:44px;padding-top:30px;border-top:2px solid var(--line)}
 .ceolead h3{margin:0 0 10px;font-size:clamp(22px,3vw,28px);line-height:1.35;letter-spacing:-.02em}
@@ -615,40 +734,65 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 
     <div class="sitgrid">
 
-      <a class="sitcard c-navy" href="/calculator.html">
-        <p class="sit-src">실제 판례 · 대법원 99다13157</p>
+      <div class="sitcard sitcard--box c-navy" data-entry="며느리·사위 대습상속">
+        <div class="sit-head">
+          <p class="sit-src">실제 판례 · 대법원 99다13157</p>
+          <button type="button" class="sit-thumb" data-img="/case/daeseup-99da13157.jpg" data-caption="며느리·사위가 시부모·처가 재산을 상속받는 일이 있습니다" aria-label="사진 크게 보기 — 며느리·사위 대습상속">
+            <img src="/case/daeseup-99da13157.jpg" alt="며느리와 사위가 상담사와 함께 서류를 검토하며 이야기를 나누는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>며느리·사위가 시부모·처가 재산을 상속받는 일이 있습니다</h3>
         <p>배우자가 먼저 세상을 떠나면, 남은 사위·며느리가 장인·시부모의 재산을 대신 상속(대습상속)할 수 있습니다. 피상속인의 형제자매보다 앞섭니다. 단, 재혼하면 그 자격은 사라집니다.</p>
-        <span class="sit-go">우리 집 상속인은 누구인지 1분 만에 →</span>
+        <a class="sit-go" href="/calculator.html">우리 집 상속인은 누구인지 1분 만에 →</a>
         <span class="sit-book">안내서 80쪽에서 더 자세히 · 민법 §1001·§1003</span>
-      </a>
+      </div>
 
-      <a class="sitcard c-crimson" href="/inheritdebt.html">
-        <p class="sit-src">실제 판례 · 대법원 2023. 3. 23.자 2020그42 전원합의체</p>
+      <div class="sitcard sitcard--box c-crimson" data-entry="포기해도 배우자까지">
+        <div class="sit-head">
+          <p class="sit-src">실제 판례 · 대법원 2023. 3. 23.자 2020그42 전원합의체</p>
+          <button type="button" class="sit-thumb" data-img="/case/podo-2020geu42.jpg" data-caption="포기했다고 끝난 게 아닙니다 — 배우자까지 포기해야 합니다" aria-label="사진 크게 보기 — 포기해도 배우자까지">
+            <img src="/case/podo-2020geu42.jpg" alt="가정법원 창구에서 상속포기 서류에 서명하는 부부의 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>포기했다고 끝난 게 아닙니다 — 배우자까지 포기해야 합니다</h3>
         <p>예전에는 자녀가 상속을 포기하면 빚이 손주에게 내려갔습니다. 2023년 대법원이 이를 바로잡아, <strong>자녀가 전부 포기하면 배우자가 단독으로 상속</strong>합니다. 다만 배우자까지 포기하면 그때는 다음 순위로 넘어갑니다. 기한은 사망을 안 날부터 3개월입니다.</p>
-        <span class="sit-go">우리 집 3개월은 언제까지인가 →</span>
+        <a class="sit-go" href="/inheritdebt.html">우리 집 3개월은 언제까지인가 →</a>
         <span class="sit-book">안내서 36·80쪽 · 민법 §1000·§1019</span>
-      </a>
+      </div>
 
-      <a class="sitcard c-violet" href="/insurance-two-faces.html">
-        <p class="sit-src">실제 사건 · 민법 §1066</p>
+      <div class="sitcard sitcard--box c-violet" data-entry="도장 빠진 유언장">
+        <div class="sit-head">
+          <p class="sit-src">실제 사건 · 민법 §1066</p>
+          <button type="button" class="sit-thumb" data-img="/case/yueon-1066.jpg" data-caption="도장 하나가 빠져 130억이 엉뚱한 곳으로 갔습니다" aria-label="사진 크게 보기 — 도장 빠진 유언장">
+            <img src="/case/yueon-1066.jpg" alt="손으로 쓴 유언장 옆에 도장 자리가 비어 있는 클로즈업" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>도장 하나가 빠져 130억이 엉뚱한 곳으로 갔습니다</h3>
         <p>손으로 쓴 유언장은 날인(도장)이 빠지면 전부 무효입니다. 형식 하나가 어긋나 거액의 기부 유언이 깨지고, 재산이 전혀 다른 상속인에게 넘어간 실제 사건이 있습니다.</p>
-        <span class="sit-go">우리 집 유언은 유효한가 →</span>
+        <a class="sit-go" href="/insurance-two-faces.html">우리 집 유언은 유효한가 →</a>
         <span class="sit-book">안내서 31·83쪽 · 민법 §1066·§1115</span>
-      </a>
+      </div>
 
-      <a class="sitcard c-amber" href="/retirement/index.html">
-        <p class="sit-src">실제 판례 · 민법 §1008</p>
+      <div class="sitcard sitcard--box c-amber" data-entry="특별수익·유류분">
+        <div class="sit-head">
+          <p class="sit-src">실제 판례 · 민법 §1008</p>
+          <button type="button" class="sit-thumb" data-img="/case/teukbyeol-1008.jpg" data-caption="30년 전에 받은 돈도 상속에서 다시 계산됩니다" aria-label="사진 크게 보기 — 특별수익·유류분">
+            <img src="/case/teukbyeol-1008.jpg" alt="형제자매가 오래된 사진첩과 증여 서류를 함께 살펴보는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>30년 전에 받은 돈도 상속에서 다시 계산됩니다</h3>
         <p>미리 받은 재산(특별수익)에는 시효가 없습니다. 수십 년 전의 증여도 상속분과 유류분 계산에 그대로 합산됩니다. "오래전 일이라 상관없다"는 통하지 않습니다.</p>
-        <span class="sit-go">미리 주면 정말 유리한지 계산 →</span>
+        <a class="sit-go" href="/retirement/index.html">미리 주면 정말 유리한지 계산 →</a>
         <span class="sit-book">안내서 21·86쪽 · 민법 §1008</span>
-      </a>
+      </div>
 
       <div class="sitcard sitcard--box c-teal" data-entry="사고로 가족을 잃었다면">
-        <p class="sit-src">사고 보상</p>
+        <div class="sit-head">
+          <p class="sit-src">사고 보상</p>
+          <button type="button" class="sit-thumb" data-img="/case/accident.jpg" data-caption="사고로 가족을 잃었다면" aria-label="사진 크게 보기 — 사고로 가족을 잃었다면">
+            <img src="/case/accident.jpg" alt="상담실에서 재무설계사와 조용히 이야기를 나누는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>사고로 가족을 잃었다면</h3>
         <p>교통사고·산재·화재를 한자리에서 고르실 수 있습니다. 위자료와 일실수입뿐 아니라, 받은 보상금에 <strong>상속세가 붙는지까지</strong> 함께 봅니다.</p>
         <a class="sit-go" href="/car-accident.html">우리 경우 보상 규모 확인 →</a>
@@ -656,7 +800,12 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
       </div>
 
       <div class="sitcard sitcard--box c-violet" data-entry="내가 없으면, 이 아이는 누가 지키죠">
-        <p class="sit-src">설계 · 보장</p>
+        <div class="sit-head">
+          <p class="sit-src">설계 · 보장</p>
+          <button type="button" class="sit-thumb" data-img="/case/disability-trust.jpg" data-caption="내가 없으면, 이 아이는 누가 지키죠" aria-label="사진 크게 보기 — 내가 없으면, 이 아이는 누가 지키죠">
+            <img src="/case/disability-trust.jpg" alt="부모와 성인 자녀가 함께 신탁 서류를 살펴보는 다정한 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>내가 없으면, 이 아이는 누가 지키죠</h3>
         <p>장애인 신탁과 노후자금 진단을 함께 봅니다. 재산을 남기는 일과, 그 재산이 그 아이에게 실제로 닿게 하는 일은 다른 문제입니다.</p>
         <a class="sit-go" href="/disability-trust.html">우리 집 구조 살펴보기 →</a>
@@ -673,29 +822,44 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 
     <div class="sitgrid">
 
-      <a class="sitcard c-amber" href="/ceo-diagnosis.html">
-        <p class="sit-src">법률 제17907호 · 2024. 1. 27. 확대</p>
+      <div class="sitcard sitcard--box c-amber" data-entry="중대재해처벌법">
+        <div class="sit-head">
+          <p class="sit-src">법률 제17907호 · 2024. 1. 27. 확대</p>
+          <button type="button" class="sit-thumb" data-img="/case/ceo-jungdaejaehae.jpg" data-caption="5명만 넘어도 대표가 형사처벌을 받습니다" aria-label="사진 크게 보기 — 중대재해처벌법">
+            <img src="/case/ceo-jungdaejaehae.jpg" alt="공장이 내려다보이는 사무실에서 서류를 든 대표의 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>5명만 넘어도 대표가 형사처벌을 받습니다</h3>
         <p>2024년 1월 27일부터 상시 근로자 <strong>5명 이상</strong>이면 업종을 가리지 않고 적용됩니다. 사망자가 한 명만 나와도 경영책임자는 <strong>1년 이상 징역 또는 10억원 이하 벌금</strong>, 법인은 별도로 50억원 이하 벌금입니다.</p>
-        <span class="sit-go">우리 회사가 적용 대상인지 →</span>
+        <a class="sit-go" href="/ceo-diagnosis.html">우리 회사가 적용 대상인지 →</a>
         <span class="sit-book">중대재해처벌법 §4 · §6① · §7</span>
-      </a>
+      </div>
 
-      <a class="sitcard c-navy" href="/ceo-diagnosis.html">
-        <p class="sit-src">채무자회생법</p>
+      <div class="sitcard sitcard--box c-navy" data-entry="회생 또는 파산">
+        <div class="sit-head">
+          <p class="sit-src">채무자회생법</p>
+          <button type="button" class="sit-thumb" data-img="/case/ceo-hoesaeng.jpg" data-caption="지금 흔들린다면, 회생인가 파산인가" aria-label="사진 크게 보기 — 회생 또는 파산">
+            <img src="/case/ceo-hoesaeng.jpg" alt="늦은 저녁 책상에서 재무제표를 검토하는 대표의 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>지금 흔들린다면, 회생인가 파산인가</h3>
         <p>부채가 <strong>50억원 이하</strong>면 간이회생을 쓸 수 있고, 영업이 살아 있어야 회생 실익이 인정됩니다. 갈림길을 한 번 잘못 들면 되돌리기 어렵고, 대표의 보증채무는 어느 쪽이든 따로 남습니다.</p>
-        <span class="sit-go">우리 법인은 어느 길인지 →</span>
+        <a class="sit-go" href="/ceo-diagnosis.html">우리 법인은 어느 길인지 →</a>
         <span class="sit-book">채무자회생법 §293의2 · 시행령 §15의3</span>
-      </a>
+      </div>
 
-      <a class="sitcard c-crimson" href="/inheritdebt.html">
-        <p class="sit-src">민법 §1005</p>
+      <div class="sitcard sitcard--box c-crimson" data-entry="연대보증">
+        <div class="sit-head">
+          <p class="sit-src">민법 §1005</p>
+          <button type="button" class="sit-thumb" data-img="/case/ceo-yeondaeboo.jpg" data-caption="연대보증은 법인이 아니라 가족에게 갑니다" aria-label="사진 크게 보기 — 연대보증">
+            <img src="/case/ceo-yeondaeboo.jpg" alt="연대보증 서류에 서명하는 손과 법인 도장" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
         <h3>연대보증은 법인이 아니라 가족에게 갑니다</h3>
         <p>법인을 정리해도 대표가 개인 자격으로 선 보증은 남고, 그대로 상속됩니다. 사망을 안 날부터 <strong>3개월</strong> 안에 한정승인이나 포기를 하지 않으면 배우자와 자녀가 떠안습니다.</p>
-        <span class="sit-go">오늘 갑자기 안 계신다면 →</span>
+        <a class="sit-go" href="/inheritdebt.html">오늘 갑자기 안 계신다면 →</a>
         <span class="sit-book">민법 §1005 · §1019① · 채무자회생법 §579</span>
-      </a>
+      </div>
 
     </div>
 
@@ -931,10 +1095,14 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
     <h2>여기 답을 쓰는 사람은 이런 사람입니다</h2>
 
     <div class="author">
-      <div class="avatar" aria-hidden="true">申</div>
+      <div class="avatar">
+        <img src="/og/profile.jpg" alt="재무설계사 신대식" width="104" height="104" loading="lazy"
+             onerror="var p=this.parentNode;this.remove();p.textContent='申';p.setAttribute('aria-hidden','true')">
+      </div>
       <div>
-        <h3 style="margin-bottom:6px">신대식 <span style="font-weight:500;color:var(--ink-2);font-size:17px">Syn Dae Sik · 申大湜</span></h3>
-        <p style="color:var(--ink-2);margin-bottom:14px">재무설계사(AFPK) · 경기 안산</p>
+        <h3 style="margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">신대식 <span style="font-weight:500;color:var(--ink-2);font-size:17px">Syn Dae Sik · 申大湜</span>
+          <img src="/og/afpk.png" alt="AFPK 자격 마크" height="34" style="height:34px;width:auto;border-radius:6px" loading="lazy" onerror="this.remove()"></h3>
+        <p style="color:var(--ink-2);margin-bottom:14px">재무설계사(AFPK) · 주 활동지역 서울 · 경기 · 인천</p>
         <p style="max-width:60ch">
           법학을 공부하고 법무법인에서 일했고, 그 뒤엔 오래 기업에서 일했습니다.
           소방설비기사 자격을 따고 의용소방대원으로 7년째 활동하면서,
@@ -1025,6 +1193,15 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
   </div>
 </footer>
 
+<div class="imgModal" id="imgModal" hidden>
+  <div class="imgModal-backdrop" data-modal-close></div>
+  <div class="imgModal-panel" role="dialog" aria-modal="true" aria-labelledby="imgModalCaption">
+    <button type="button" class="imgModal-close" data-modal-close aria-label="닫기">✕</button>
+    <img id="imgModalImg" src="" alt="">
+    <p class="imgModal-caption" id="imgModalCaption"></p>
+  </div>
+</div>
+
 <script>
 /* 화면 밝기 전환 — 저장은 하지 않고 세션 동안만 유지 */
 (function(){
@@ -1046,7 +1223,7 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 
 /* 질문 전송 — ENDPOINT 교체 필요. type 필드 반드시 포함해서 전송 */
 (function(){
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbwcgtbX_685BwUrylnqEBua73PEaJICd73MjBG5D2AapXDEweWp7eq1b2vykvBB4uM/exec";
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec";
   var form = document.getElementById('askForm');
   var msg  = document.getElementById('formMsg');
 
@@ -1089,10 +1266,13 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push(['event', name, params]);   /* common.js 미로드 시 폴백 */
   }
-  var cards = document.querySelectorAll('a.sitcard, a[data-entry]');
+  /* 수정: 기존 a[data-entry] 셀렉터는 data-entry가 실제로는 div에 있어 두 카드(사고 보상·장애인 신탁)가
+     계측되지 않던 버그였음. 카드 구조를 div+.sit-go 링크로 통일하면서 함께 고침. */
+  var cards = document.querySelectorAll('a.sitcard, .sitcard a.sit-go');
   Array.prototype.forEach.call(cards, function(a){
     a.addEventListener('click', function(){
-      var label = (a.getAttribute('data-entry') ||
+      var card = a.closest('.sitcard');
+      var label = ((card && card.getAttribute('data-entry')) ||
                    (a.querySelector('h3, h2, b') || {}).textContent ||
                    a.textContent || '').trim().replace(/\s+/g,' ').slice(0, 60);
       track('entry_select', {
@@ -1101,6 +1281,82 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
       });
     });
   });
+
+  /* 사례 카드 썸네일 → 이미지 확대 모달 (vstory 이미지 반영 전이면 onerror로 썸네일 자체가 사라짐) */
+  var modal = document.getElementById('imgModal');
+  if (modal){
+    var modalImg = document.getElementById('imgModalImg');
+    var modalCaption = document.getElementById('imgModalCaption');
+    var lastFocus = null;
+    function openModal(btn){
+      lastFocus = btn;
+      modalImg.src = btn.getAttribute('data-img') || '';
+      modalImg.alt = (btn.querySelector('img') || {}).alt || '';
+      modalCaption.textContent = btn.getAttribute('data-caption') || '';
+      modal.hidden = false;
+      modal.querySelector('.imgModal-close').focus();
+      document.addEventListener('keydown', onModalKey);
+      track('case_image_view', { image: modalImg.src, caption: modalCaption.textContent });
+    }
+    function closeModal(){
+      modal.hidden = true;
+      modalImg.src = '';
+      document.removeEventListener('keydown', onModalKey);
+      if (lastFocus) lastFocus.focus();
+    }
+    function onModalKey(e){ if (e.key === 'Escape') closeModal(); }
+    Array.prototype.forEach.call(document.querySelectorAll('.sit-thumb'), function(btn){
+      btn.addEventListener('click', function(){ openModal(btn); });
+    });
+    Array.prototype.forEach.call(modal.querySelectorAll('[data-modal-close]'), function(el){
+      el.addEventListener('click', closeModal);
+    });
+  }
+
+  /* 명절 전 상속 체크 영상 — 화면에 보이면 무음 자동재생, 벗어나면 일시정지, 버튼으로 소리 켜기 */
+  var vid = document.getElementById('checkVideo');
+  var soundBtn = document.getElementById('checkVideoSound');
+  if (vid && soundBtn){
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var completed = false;
+
+    function setSoundUI(on){
+      soundBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      soundBtn.querySelector('.vid-sound-ic').textContent = on ? '🔇' : '🔊';
+      soundBtn.querySelector('.vid-sound-txt').textContent = on ? '소리 끄기' : '소리 켜기';
+    }
+
+    soundBtn.addEventListener('click', function(){
+      if (vid.muted){
+        vid.muted = false;
+        vid.currentTime = 0;              /* 소리를 켜면 처음부터 — 내레이션을 앞에서부터 듣게 */
+        var p = vid.play(); if (p && p.catch) p.catch(function(){});
+        setSoundUI(true);
+        track('video_unmute', { video: 'chuseok-check' });
+      } else {
+        vid.muted = true;
+        setSoundUI(false);
+      }
+    });
+
+    vid.addEventListener('volumechange', function(){ setSoundUI(!vid.muted); });
+    vid.addEventListener('ended', function(){
+      if (!completed){ completed = true; track('video_complete', { video: 'chuseok-check', muted: vid.muted }); }
+    });
+
+    if (!reduceMotion && 'IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting && en.intersectionRatio >= 0.5){
+            if (vid.paused && !vid.ended){ var p2 = vid.play(); if (p2 && p2.catch) p2.catch(function(){}); }
+          } else if (!vid.paused && vid.muted){
+            vid.pause();                   /* 소리가 켜진 상태(사용자가 직접 켠 것)는 스크롤해도 끊지 않음 */
+          }
+        });
+      }, { threshold: [0, 0.5] });
+      io.observe(vid);
+    }
+  }
 })();
 
 </script>
