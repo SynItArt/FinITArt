@@ -54,8 +54,17 @@
   .submit{width:100%;font-size:18px;font-weight:700;color:#3a2400;background:var(--amber);border:none;border-radius:12px;padding:16px;cursor:pointer}
   .submit:hover{box-shadow:0 8px 22px rgba(249,168,37,.35)}
   .msg{display:none;text-align:center;background:#E1F5EE;border:1px solid #9FE1CB;border-radius:12px;padding:24px;font-size:17px;color:#0F6E56;font-weight:700}
-  footer{background:#11243f;color:#9fb2c8;font-size:14px;line-height:1.8;padding:32px 0;text-align:center}
-  footer a{color:#cfe0f2}
+  /* 2026-09-12 푸터 통일: index.html 과 동일한 밝은 3단 푸터 */
+  footer{--f-bg:#F4EEE3;--f-ink:#1B1B1B;--f-ink2:#4A453D;--f-line:#E2D8C8;--f-line2:#B7A98F;--f-amber:#FDF1D6;border-top:1px solid var(--f-line);background:var(--f-bg);padding:40px 0 36px;font-size:16px;color:var(--f-ink);text-align:left;margin-top:24px}
+  footer h4{font-size:15px;font-weight:800;margin:0 0 12px;letter-spacing:.02em;color:var(--f-ink)}
+  footer ul{list-style:none;padding:0;margin:0}
+  footer li{margin-bottom:9px;color:var(--f-ink2)}
+  footer a{color:var(--f-ink2);text-decoration:none}
+  footer a:hover{color:var(--f-ink);text-decoration:underline}
+  footer .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+  footer .disclaimer{margin-top:30px;padding-top:22px;border-top:1px solid var(--f-line2);font-size:14.5px;line-height:1.8;color:var(--f-ink2);max-width:78ch}
+  footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);border-radius:7px;padding:4px 10px;display:inline-block;margin-bottom:10px;font-size:14.5px}
+  @media(max-width:640px){footer .fgrid{grid-template-columns:1fr;gap:22px}}
   @media(max-width:640px){body{font-size:17px}.hero h1{font-size:27px}}
 </style>
 </head>
@@ -75,6 +84,9 @@
       <div class="big">바로 전화 010-2088-5383</div>
       <div class="row"><a href="tel:+821020885383">전화하기</a> · <a href="mailto:itart@finitart.com">itart@finitart.com</a></div>
     </div>
+
+    <!-- 2026-09-12 추가: 날짜·시간 지정 예약 안내 (booking.html) — 기존 폼·전송 로직은 변경 없음 -->
+    <a href="booking.html?src=consult" style="display:block;background:var(--navy);color:#fff;text-decoration:none;border-radius:14px;padding:18px 20px;margin:-16px 0 36px;font-size:18px;font-weight:700;text-align:center;line-height:1.4">📅 편한 시간을 골라 예약하기 →<br><span style="font-size:14px;font-weight:400;color:#cfe0f2">희망 시간 세 개까지 · 이름·전화번호만으로 1분 접수</span></a>
 
     <div id="formWrap">
       <h2>온라인으로 신청하기</h2>
@@ -109,8 +121,37 @@
 
 <footer>
   <div class="wrap">
-    HeirWise · Syn Dae Sik (申大湜) · 한국재무설계(주) FP · AFPK | RC<br>
-    <a href="index.html">홈</a> · <a href="calculator.html">상속 계산기</a> · <a href="about.html">전문가 소개</a> · <a href="privacy.html">개인정보처리방침</a>
+    <div class="fgrid">
+      <div>
+        <h4>HeirWise</h4>
+        <p style="color:var(--f-ink2);max-width:38ch;margin:0">상속·증여 재무설계 안내. 재무설계사(AFPK) 신대식이 운영합니다.</p>
+        <p style="color:var(--f-ink2);margin:14px 0 0">☎ 010-2088-5383<br>✉ <a href="mailto:itart@finitart.com">itart@finitart.com</a><br>경기 안산시 단원구 정왕천동로 30번길 2</p>
+      </div>
+      <div>
+        <h4>둘러보기</h4>
+        <ul>
+          <li><a href="/index.html#deadline">상속 기한 확인</a></li>
+          <li><a href="/index.html#answers">자주 묻는 것</a></li>
+          <li><a href="/index.html#tools">계산 도구</a></li>
+          <li><a href="/index.html#room">질문 남기기</a></li>
+          <li><a href="/about.html">전문가 소개</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>안내</h4>
+        <ul>
+          <li><a href="/consult.html">상담 신청</a></li>
+          <li><a href="/booking.html">상담 예약</a></li>
+          <li><a href="/privacy.html">개인정보처리방침</a></li>
+          <li><a href="/llms.txt">AI 검색용 요약(llms.txt)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <span class="lawdate">적용 법령 기준일 — 상속세 및 증여세법 법률 제21065호(2026.1.2 시행) · 민법(2026.3.17 시행)</span>
+      <p style="margin:0">이 사이트의 계산 도구는 간이 추정용이며, 실제 세액·보상액과 차이가 있을 수 있습니다. 정확한 세액은 세무전문가, 법률 판단은 변호사의 상담이 필요합니다. 여기 실린 내용은 일반적인 정보 제공이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 게시된 법령 내용은 법제처 국가법령정보센터(law.go.kr) 기준으로 확인했으며, 이후 개정이 있을 수 있습니다.</p>
+      <p style="margin:12px 0 0">© 2026 HeirWise_Syn Dae Sik (申大湜). 모든 권리 보유.</p>
+    </div>
   </div>
 </footer>
 
