@@ -1,0 +1,7 @@
+*.xlsx
+*.txt
+*.csv
+node_modules
+.env
+!robots.txt
+!llms.txt
