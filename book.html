@@ -172,14 +172,14 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
     </div>
     <label class="consent"><input id="bConsent" type="checkbox"> 개인정보 수집·이용에 동의합니다. (책 전달 및 상담 안내 목적)</label>
     <button class="btn" id="bSend">책 받기</button>
-    <p class="note" style="margin-top:12px">버튼을 누르면 화면에서 바로 다운로드되며, 입력하신 이메일로도 안내가 발송됩니다.</p>
+    <p class="note" style="margin-top:12px">버튼을 누르면 이 화면에 다운로드 버튼이 나타납니다.</p>
   </section>
 
   <!-- [2~3] 전달 + 후원 (제출 후 노출) -->
   <section class="card deliver hidden" id="deliverCard">
     <h2>받을 준비가 되었습니다 ✓</h2>
-    <p class="sub">아래 버튼으로 전체 책을 받으세요. 이메일로도 링크를 보내드렸습니다.</p>
-    <a class="dl" id="dlLink" href="heirwise-estate-guide.pdf" download>⬇ 상속설계의 기술 (136p) 받기</a>
+    <p class="sub">아래 버튼으로 전체 책을 받으세요.</p>
+    <a class="dl" id="dlLink" rel="noopener">⬇ 상속설계의 기술 (136p) 받기</a>
   </section>
 
   <section class="card support hidden" id="supportCard">
@@ -258,7 +258,10 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 
 <script>
 (function(){
+  // 후원 입금확인(type:'support') — 기존 리드 스크립트
   var ENDPOINT = "https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec";
+  // 본책자 신청(type:'book') — book-gate.gs: 시트 기록 후 { ok, url } 반환 (기존 리드 스크립트로도 전달)
+  var BOOK_GATE_ENDPOINT = "https://script.google.com/macros/s/AKfycbyp39GsO9Q3rw25JXAJ70Uykn1pjzSKKJBw8YE2o3XCDdmj01xERPcgXk857w4bpa78/exec";
   var $ = function(id){ return document.getElementById(id); };
   var PAGE = "book";
 
@@ -298,18 +301,33 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 
   // [1] 본책자 신청
   $('bSend').addEventListener('click', function(){
+    var btn=$('bSend');
+    if(btn.disabled) return;
     var email=$('bEmail').value.trim(), phone=$('bPhone').value.trim(),
         interest=$('bInterest').value, consent=$('bConsent').checked;
     if(email.indexOf('@')<0){ toast('이메일을 확인해주세요'); $('bEmail').focus(); return; }
     if(!consent){ toast('개인정보 수집에 동의해주세요'); return; }
-    post({ type:'book', item:'fullbook', email:email, phone:phone, interest:interest,
-           page:PAGE, ts:new Date().toISOString() });
-    try{ localStorage.setItem('hw_fullbook', email); }catch(e){}
-    $('applyCard').classList.add('hidden');
-    $('deliverCard').classList.remove('hidden');
-    $('supportCard').classList.remove('hidden');
-    $('deliverCard').scrollIntoView({behavior:'smooth', block:'start'});
-    toast('이메일로도 링크를 보냈습니다');
+
+    var label=btn.textContent;
+    btn.disabled=true; btn.textContent='준비 중…';
+    // 실패하면 폼을 그대로 두고 다시 누를 수 있게 복구
+    function fail(){ btn.disabled=false; btn.textContent=label; toast('잠시 후 다시 시도해 주세요'); }
+
+    // mode 기본값(cors) + text/plain → 사전요청 없이 Apps Script 응답 JSON 을 읽을 수 있음
+    fetch(BOOK_GATE_ENDPOINT, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({ type:'book', item:'fullbook', email:email, phone:phone, interest:interest,
+                            page:PAGE, ts:new Date().toISOString() }) })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if(!res || res.ok!==true || !/^https:\/\//.test(res.url||'')){ fail(); return; }
+        $('dlLink').href=res.url;
+        try{ localStorage.setItem('hw_fullbook', email); }catch(e){}
+        $('applyCard').classList.add('hidden');
+        $('deliverCard').classList.remove('hidden');
+        $('supportCard').classList.remove('hidden');
+        $('deliverCard').scrollIntoView({behavior:'smooth', block:'start'});
+      })
+      .catch(fail);
   });
 
   // [3] 후원 금액 앵커
