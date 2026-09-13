@@ -227,7 +227,7 @@
         '<span class="hw-asof">' + HW_CONFIG.LAW.asOf + "</span></div>" +
         "<ul>" + lis + "</ul>" +
         '<div class="hw-note">' + HW_CONFIG.LAW.notice +
-        ' &nbsp;→&nbsp; <a href="consult.html" style="color:inherit">무료 상담 신청</a></div>';
+        ' &nbsp;→&nbsp; <a href="/consult.html" style="color:inherit">무료 상담 신청</a></div>';
       if (mode === "append") { box.style.margin = "18px auto"; box.style.maxWidth = "760px"; host.appendChild(box); }
       else { host.parentNode.insertBefore(box, host); }
     }
