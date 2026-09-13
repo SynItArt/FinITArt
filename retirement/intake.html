@@ -86,7 +86,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <meta name="twitter:description" content="상속·증여를 사전·사후 축으로 나눠 기한과 세금, 다음 행동까지 안내합니다. 재무설계사 신대식(AFPK).">
 <meta name="twitter:image" content="https://finitart.com/og/og-default.png">
 </head>
-<body>
+<body data-law="off" data-tool="노후진단접수">
 
 <div class="topbar">
   <div class="topbar-l">
@@ -292,5 +292,6 @@ function submitIntake(){
   document.getElementById('statusMsg').textContent='저장 완료! 시트에 업데이트되었습니다.';
 }
 </script>
+<script src="/heirwise-common.js" defer></script>
 </body>
 </html>

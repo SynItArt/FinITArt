@@ -10,6 +10,10 @@
  * 각 페이지에는 </body> 바로 앞에 아래 한 줄만 넣으면 됩니다.
  *   <script src="heirwise-common.js" defer></script>
  *
+ * 페이지별 옵션 (<body> 속성, 없으면 기본 동작)
+ *   data-tool="노후진단"  GA4 tool 값을 파일명 대신 이 값으로 기록
+ *   data-law="off"       적용 법령 기준일 칩·안내 상자를 넣지 않음
+ *
  * 설정은 아래 HW_CONFIG 한 곳만 고치면 전 페이지에 반영됩니다.
  */
 (function () {
@@ -198,6 +202,9 @@
 
   function injectLawUI() {
     injectLawStyles();
+
+    // <body data-law="off"> — 상증법과 무관한 페이지(노후 진단 등)는 법령 UI를 넣지 않음
+    if (d.body && d.body.getAttribute("data-law") === "off") return;
 
     // (1) 헤더 lawbar에 기준일 칩 추가
     var bar = d.querySelector("header.hd .lawbar");
