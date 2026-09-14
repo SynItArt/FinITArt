@@ -383,8 +383,7 @@ footer{background:var(--navy);color:#3A5068;text-align:center;padding:18px 16px;
 </footer>
 
 <script>
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwcgtbX_685BwUrylnqEBua73PEaJICd73MjBG5D2AapXDEweWp7eq1b2vykvBB4uM/exec';
-const SECRET_KEY = 'b8b7190746adc6c981b2b30fd9e83481';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec';
 
 const urlParams = new URLSearchParams(window.location.search);
 const referrer = urlParams.get('ref') || '';
@@ -534,9 +533,9 @@ function submitAll(){
 
   const payload={
     action:'save_client',
-    secretKey:SECRET_KEY,
+    type:'lead',tool:'노후진단상세',axis:'retirement',source:'retirement',campaign:'세부상담_detail',
     timestamp:new Date().toLocaleString('ko-KR'),
-    name:str(D.name),phone:str(D.phone)||'없음',email:str(D.email)||'없음',
+    name:str(D.name),phone:str(D.phone),email:str(D.email),
     consultDateTime:str(consultDateTime),
     age:num(D.age),gender:str(D.gender)||'미선택',spouse:str(D.spouse)||'미선택',
     retireAge:num(retireAge),
@@ -554,12 +553,11 @@ function submitAll(){
     depAge:gap>0?Math.round(retireAge+(netAsset>0?netAsset*10000/(gap*12*10000):0)):'소진없음',
     riskLevel:str(D.risk)||'미선택',memo:str(D.concern),
     privacyAgree:true,
+    consent:true,
     marketingAgree:document.getElementById('mktAgree').checked,
-    source:'세부상담_detail',
     strategy:JSON.stringify(strategies),
     referrer:str(referrer),
-    contactMethod:'',
-    sendEmail:'profinitart@gmail.com'
+    contactMethod:''
   };
 
   const old=document.getElementById('_sif');if(old)old.remove();

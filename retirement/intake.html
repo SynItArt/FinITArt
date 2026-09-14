@@ -201,7 +201,6 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 <script>
 const SHEET_URL='https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec';
-const SECRET_KEY='b8b7190746adc6c981b2b30fd9e83481';
 
 const p=new URLSearchParams(window.location.search);
 const clientName=p.get('name')||'';
@@ -236,11 +235,10 @@ function markFilled(el){
 function submitIntake(){
   const payload={
     action:'save_client',
-    secretKey:SECRET_KEY,
     timestamp:new Date().toLocaleString('ko-KR'),
     name:str(clientName),
-    phone:str(clientPhone)||'없음',
-    email:str(clientEmail)||'없음',
+    phone:str(clientPhone),
+    email:str(clientEmail),
     age:num(clientAge),
     gender:str(clientGender),
     income:num(clientIncome),
@@ -258,12 +256,11 @@ function submitIntake(){
     netAsset:num(document.getElementById('fFinancial').value)+num(document.getElementById('fRealEstate').value)-num(document.getElementById('fDebt').value),
     riskLevel:str(document.getElementById('fRisk').value),
     memo:str(document.getElementById('fMemo').value),
-    type:'lead', tool:'은퇴설계인테이크', axis:'both',
-    source:'AFPK_통화수집',
+    type:'lead', tool:'노후진단접수', axis:'retirement',
+    source:'retirement', campaign:'AFPK_통화수집',
     referrer:str(clientRef),
     contactMethod:'',
-    privacyAgree:true,marketingAgree:false,
-    sendEmail:'profinitart@gmail.com'
+    privacyAgree:true,consent:true,marketingAgree:false
   };
 
   // 연금합계·갭 자동 계산

@@ -650,7 +650,6 @@ footer{background:var(--navy);color:#3A5068;text-align:center;
 
 <script>
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec";
-const SECRET_KEY = "b8b7190746adc6c981b2b30fd9e83481";
 
 const D = { age:52, income:400, target:280, gender:'' };
 let C = {};
@@ -821,9 +820,9 @@ function submitConsult(){
 
   const payload={
     action:'save_client',
-    secretKey:SECRET_KEY,
+    type:'lead',tool:'노후진단',axis:'retirement',source:'retirement',campaign:'간이진단',
     timestamp:new Date().toLocaleString('ko-KR'),
-    name:str(name),phone:str(phone)||'없음',email:str(email)||'없음',
+    name:str(name),phone:str(phone),email:str(email),
     consultDateTime:str(consultDateTime),
     age:num(D.age),gender:str(D.gender)||'미선택',
     spouse:'',retireAge:0,income:num(D.income),expense:0,target:num(D.target),
@@ -835,12 +834,11 @@ function submitConsult(){
     depAge:C.depAge||'소진없음',
     riskLevel:'',memo:'',
     privacyAgree:true,
+    consent:true,
     marketingAgree:document.getElementById('mktAgree').checked,
-    source:'간이진단',
     strategy:'',
     referrer:str(referrer),
-    contactMethod:str(contactMethod),
-    sendEmail:'profinitart@gmail.com'
+    contactMethod:str(contactMethod)
   };
 
   const old=document.getElementById('_sif');if(old)old.remove();
@@ -877,9 +875,10 @@ function submitExtra(){
   const contactTime=document.querySelector('input[name="contactTime"]:checked')?.value||'';
 
   const extra={
-    action:'save_client',secretKey:SECRET_KEY,
+    action:'save_client',
+    type:'lead',tool:'노후진단',axis:'retirement',source:'retirement',campaign:'간이진단_추가입력',
     timestamp:new Date().toLocaleString('ko-KR'),
-    name:str(name),phone:str(phone)||'없음',email:str(email)||'없음',
+    name:str(name),phone:str(phone),email:str(email),
     consultDateTime:str(contactTime)||'미지정',
     age:num(D.age),gender:str(D.gender)||'미선택',
     spouse:'',retireAge:0,
@@ -893,12 +892,11 @@ function submitExtra(){
     riskLevel:qRisk,
     memo:'[추가입력] 국민연금:'+qPension+' / 퇴직연금:'+qRetire+' / 투자성향:'+qRisk,
     privacyAgree:true,
+    consent:true,
     marketingAgree:document.getElementById('mktAgree').checked,
-    source:'간이진단_추가입력',
     strategy:'',
     referrer:str(referrer),
-    contactMethod:str(contactMethod),
-    sendEmail:'profinitart@gmail.com'
+    contactMethod:str(contactMethod)
   };
 
   const old=document.getElementById('_sif2');if(old)old.remove();

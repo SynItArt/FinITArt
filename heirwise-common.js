@@ -56,7 +56,7 @@
      ② T-01 — GA4 계측
      이벤트 6종: calc_view / calc_start / calc_complete / lead_submit
                  axis_select / sim_reach
-     모든 이벤트에 tool(계산기명)·axis(pre=증여, post=상속) 파라미터를 붙입니다.
+     모든 이벤트에 tool(계산기명)·axis(pre=증여, post=상속, both=공통, retirement=노후, accident=사고 — AXIS_LABEL) 파라미터를 붙입니다.
      ============================================================ */
 
   // 페이지 식별 — body[data-tool] > #lead[data-tool] > 파일명 순으로 판정
@@ -74,13 +74,21 @@
     "index":               { tool: "홈",             axis: "both" }
   };
 
+  // 축(axis) 허용값 — 목록에 없는 값은 "both" 로 본다. 메일 폴백의 축 표기도 여기서 가져간다
+  var AXIS_LABEL = {
+    pre: "사전축·증여", post: "사후축·상속", both: "공통",
+    retirement: "노후", accident: "사고"
+  };
+  function normAxis(a) { return Object.prototype.hasOwnProperty.call(AXIS_LABEL, a) ? a : "both"; }
+
   function detectPage() {
     var b = d.body || {};
     var ds = b.dataset || {};
-    if (ds.tool) return { tool: ds.tool, axis: ds.axis || "both" };
+    if (ds.tool) return { tool: ds.tool, axis: normAxis(ds.axis) };
     var slug = (location.pathname.split("/").pop() || "index.html")
                  .replace(/\.html?$/i, "") || "index";
-    return PAGE_AXIS[slug] || { tool: slug, axis: "both" };
+    var hit = PAGE_AXIS[slug];
+    return hit ? { tool: hit.tool, axis: normAxis(hit.axis) } : { tool: slug, axis: "both" };
   }
   var PAGE = detectPage();
 
@@ -392,7 +400,7 @@
   function mailFallback(p, msg) {
     var body =
       "[HeirWise 상담신청]\n\n" +
-      "계산기: " + p.tool + " (" + (p.axis === "pre" ? "사전축·증여" : p.axis === "post" ? "사후축·상속" : "공통") + ")\n" +
+      "계산기: " + p.tool + " (" + (AXIS_LABEL[p.axis] || AXIS_LABEL.both) + ")\n" +
       "성함: " + p.name + "\n연락처: " + p.phone + "\n이메일: " + (p.email || "-") + "\n\n" +
       "계산결과: " + p.result + "\n\n" +
       "입력값: " + JSON.stringify(p.inputs) + "\n" +
