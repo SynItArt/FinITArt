@@ -399,6 +399,8 @@ const D = {
 
 function num(v){return(v!==undefined&&v!==null&&!isNaN(v))?Number(v):0}
 function str(v){return(v!==undefined&&v!==null)?String(v):''}
+// innerHTML에 들어가는 URL·입력값 이스케이프
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
 function loadFromURL(){
   const p=urlParams;
@@ -421,10 +423,10 @@ function loadFromURL(){
   if(gap||crev||pension){
     document.getElementById('summaryBanner').style.display='block';
     document.getElementById('sbKpis').innerHTML=[
-      [p.get('age')+'세','현재 나이'],
-      [p.get('income')+'만원','월 소득'],
+      [esc(p.get('age'))+'세','현재 나이'],
+      [esc(p.get('income'))+'만원','월 소득'],
       [(+gap>0?'-':'+')+Math.abs(+gap)+'만원','월 갭'],
-      [(+crev>0?crev+'년':'없음'),'크레바스'],
+      [(+crev>0?esc(crev)+'년':'없음'),'크레바스'],
     ].map(([v,l])=>'<div class="sb-kpi"><div class="sb-kpi-v">'+v+'</div><div class="sb-kpi-l">'+l+'</div></div>').join('');
   }
 }
@@ -573,7 +575,7 @@ function submitAll(){
 
   document.getElementById('s3').style.display='none';
   document.getElementById('sDone').style.display='block';
-  document.getElementById('doneSub').innerHTML='<strong>'+D.name+'</strong>님의 연금 현황이 접수되었습니다.<br>희망하신 방법으로 연락드리겠습니다.';
+  document.getElementById('doneSub').innerHTML='<strong>'+esc(D.name)+'</strong>님의 연금 현황이 접수되었습니다.<br>희망하신 방법으로 연락드리겠습니다.';
 
   const fmt=v=>v>=10000?(v/10000).toFixed(1)+'억원':v.toLocaleString()+'만원';
   document.getElementById('doneSummary').innerHTML=[
@@ -584,7 +586,7 @@ function submitAll(){
     ['월 갭',gap>0?'-'+gap+'만원 부족':'+'+Math.abs(gap)+'만원 여유'],
     ['크레바스',crevYears>0?crevYears+'년':'없음'],
     ['투자 성향',D.risk]
-  ].map(([k,v])=>'<div class="dc-row"><span class="dc-k">'+k+'</span><span class="dc-v">'+v+'</span></div>').join('');
+  ].map(([k,v])=>'<div class="dc-row"><span class="dc-k">'+k+'</span><span class="dc-v">'+esc(v)+'</span></div>').join('');
 
   scrollTo({top:0,behavior:'smooth'});
 }

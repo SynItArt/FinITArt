@@ -263,6 +263,8 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
   // 본책자 신청(type:'book') — book-gate.gs: 시트 기록 후 { ok, url } 반환 (기존 리드 스크립트로도 전달)
   var BOOK_GATE_ENDPOINT = "https://script.google.com/macros/s/AKfycbyp39GsO9Q3rw25JXAJ70Uykn1pjzSKKJBw8YE2o3XCDdmj01xERPcgXk857w4bpa78/exec";
   var $ = function(id){ return document.getElementById(id); };
+  // innerHTML에 들어가는 사용자 입력값 이스케이프
+  var esc = function(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
   var PAGE = "book";
 
   // 넙죽 인사 캐릭터 (직접 그린 원본 SVG · 저작권 없음)
@@ -358,7 +360,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
     $('confirmBox').innerHTML =
       '<div style="text-align:center; padding:10px 0">'+
       '<div class="bowwrap">'+BOW_SVG+'</div>'+
-      '<p style="font-size:19px; font-weight:800; color:var(--amber-ink)">고맙습니다, '+depositor+'님 🙇</p>'+
+      '<p style="font-size:19px; font-weight:800; color:var(--amber-ink)">고맙습니다, '+esc(depositor)+'님 🙇</p>'+
       '<p class="note">입금 확인 후 감사 인사와 상담 크레딧 코드를 이메일로 보내드리겠습니다.</p></div>';
     toast('응원 감사합니다');
   });

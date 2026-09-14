@@ -401,7 +401,7 @@ function renderDays(days) {
     var b = document.createElement('button'); b.type = 'button';
     var p = d.label.match(/^(\d+\/\d+)\((.)\)$/) || [null, d.label, ''];
     b.className = 'day' + (d.dow === 6 ? ' sat' : '') + (d.slots.length ? '' : ' off');
-    b.innerHTML = '<div class="d">' + p[1] + '</div><div class="w">' + p[2] + '</div><div class="c">' + (d.slots.length ? d.slots.length + '자리' : '마감') + '</div>';
+    b.innerHTML = '<div class="d">' + esc(p[1]) + '</div><div class="w">' + esc(p[2]) + '</div><div class="c">' + (d.slots.length ? d.slots.length + '자리' : '마감') + '</div>';
     if (d.slots.length) { b.addEventListener('click', function () { pickDay(d, b); }); if (!first) first = { d: d, b: b }; }
     box.appendChild(b);
   });
@@ -411,7 +411,7 @@ function pickDay(d, btn) {
   document.querySelectorAll('.day').forEach(function (x) { x.classList.remove('on'); }); btn.classList.add('on');
   state.curDay = d; var t = $('times'); t.innerHTML = '';
   d.slots.forEach(function (tm) {
-    var b = document.createElement('button'); b.type = 'button'; b.className = 'time'; b.innerHTML = tm + '<span class="rank"></span>';
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'time'; b.innerHTML = esc(tm) + '<span class="rank"></span>';
     b.addEventListener('click', function () { togglePick(d, tm); });
     t.appendChild(b);
   });
@@ -436,7 +436,7 @@ function renderPicks() {
   box.style.display = 'block'; list.innerHTML = '';
   state.picks.forEach(function (p, i) {
     var row = document.createElement('div'); row.className = 'row';
-    row.innerHTML = '<span><b>' + (i + 1) + '순위</b>' + p.label + ' ' + p.time + '</span>';
+    row.innerHTML = '<span><b>' + (i + 1) + '순위</b>' + esc(p.label) + ' ' + esc(p.time) + '</span>';
     var x = document.createElement('button'); x.type = 'button'; x.textContent = '빼기'; x.addEventListener('click', function () { togglePick({ date: p.date, label: p.label }, p.time); });
     row.appendChild(x); list.appendChild(row);
   });
@@ -446,7 +446,7 @@ function renderSummary() {
   if (state.waitlist) return;
   var s = $('summary');
   if (!state.picks.length) { s.innerHTML = '희망 시간을 고르시면 여기에 정리해 드립니다.'; return; }
-  s.innerHTML = '<b>' + state.picks.map(function (p, i) { return (i + 1) + '순위 ' + p.label + ' ' + p.time; }).join(' · ') + '</b><br>' + state.method + ' 상담 (약 50분)' + (state.topics.length ? ' · ' + state.topics.join(', ') : '');
+  s.innerHTML = '<b>' + state.picks.map(function (p, i) { return (i + 1) + '순위 ' + esc(p.label) + ' ' + esc(p.time); }).join(' · ') + '</b><br>' + state.method + ' 상담 (약 50분)' + (state.topics.length ? ' · ' + esc(state.topics.join(', ')) : '');
 }
 function scrollToBook() { (state.picks.length || state.waitlist ? $('formSec') : $('days')).scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 function showErr(m) { var e = $('err'); e.textContent = m; e.classList.add('show'); e.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
@@ -491,10 +491,10 @@ function postViaIframe(endpoint, payload, sinkId) {
 function showDone(d, j, unconfirmed) {
   $('bookWrap').style.display = 'none'; $('done').style.display = 'block';
   var promise = j.replyBy || replyPromise();
-  $('doneLead').textContent = d.waitlist ? '자리가 나는 대로 제가 먼저 연락드리겠습니다.' : esc(d.name) + '님, 편한 시간을 알려주셔서 고맙습니다.';
-  var rows = d.waitlist ? '<div><span>신청</span><b>대기 (자리 나면 우선 연락)</b></div>' : d.choices.map(function (c, i) { return '<div><span>' + (i + 1) + '순위</span><b>' + c.label + ' ' + c.time + '</b></div>'; }).join('');
+  $('doneLead').textContent = d.waitlist ? '자리가 나는 대로 제가 먼저 연락드리겠습니다.' : d.name + '님, 편한 시간을 알려주셔서 고맙습니다.';
+  var rows = d.waitlist ? '<div><span>신청</span><b>대기 (자리 나면 우선 연락)</b></div>' : d.choices.map(function (c, i) { return '<div><span>' + (i + 1) + '순위</span><b>' + esc(c.label) + ' ' + esc(c.time) + '</b></div>'; }).join('');
   $('doneBox').innerHTML = '<h3>남겨주신 내용</h3>' + rows + '<div><span>방식</span><b>' + d.method + '</b></div><div><span>연락처</span><b>' + esc(d.phone) + '</b></div>' + (d.topics.length ? '<div><span>주제</span><b>' + esc(d.topics.join(', ')) + '</b></div>' : '');
-  $('doneNext').innerHTML = '<b>다음은 이렇게 됩니다</b><br>① <b>' + promise + '</b>에 제가 문자 또는 전화로 확정 시간을 알려드립니다.<br>② 확정된 시간에 ' + (d.method === '방문' ? '안산사무소에서 뵙겠습니다. 주차 가능합니다.' : d.method === '카톡' ? '카카오톡 보이스톡으로 연락드립니다.' : '010-2088-5383 번호로 전화드립니다. 저장해 두시면 낯선 번호로 뜨지 않습니다.') + '<br>③ 사정이 생기면 문자 한 줄만 주세요. 다시 잡아드리면 됩니다.';
+  $('doneNext').innerHTML = '<b>다음은 이렇게 됩니다</b><br>① <b>' + esc(promise) + '</b>에 제가 문자 또는 전화로 확정 시간을 알려드립니다.<br>② 확정된 시간에 ' + (d.method === '방문' ? '안산사무소에서 뵙겠습니다. 주차 가능합니다.' : d.method === '카톡' ? '카카오톡 보이스톡으로 연락드립니다.' : '010-2088-5383 번호로 전화드립니다. 저장해 두시면 낯선 번호로 뜨지 않습니다.') + '<br>③ 사정이 생기면 문자 한 줄만 주세요. 다시 잡아드리면 됩니다.';
   var prep = d.topics.map(function (t) { return PREP[t]; }).filter(Boolean);
   if (prep.length) { $('donePrep').style.display = 'block'; $('donePrep').innerHTML = '<b>준비하실 것은 거의 없습니다</b>' + prep.map(function (p) { return '· ' + p; }).join('<br>'); }
   else { $('donePrep').style.display = 'block'; $('donePrep').innerHTML = '<b>준비하실 것은 없습니다</b>궁금한 점을 편하게 말씀해 주시면 제가 순서대로 정리해 드립니다.'; }
@@ -502,7 +502,7 @@ function showDone(d, j, unconfirmed) {
   document.querySelector('.bar .book').textContent = '📅 다른 시간 추가'; document.querySelector('.bar .book').onclick = function () { location.reload(); };
   window.scrollTo({ top: 0, behavior: 'smooth' }); track('booking_done');
 }
-function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 function track(ev) { try { if (window.gtag) gtag('event', ev, { source: SOURCE, method: state.method, picks: state.picks.length }); } catch (e) {} }
 </script>
 <script src="heirwise-common.js" defer></script>
