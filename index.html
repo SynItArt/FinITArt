@@ -5,15 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- ═══════════════════════════════════════════════════════════
-     HeirWise — finitart.com  index.html  v2.3 (GEO-first + N26 리스킨 + 사례 썸네일/모달 + 영상)
+     HeirWise — finitart.com  index.html  v2.4 (GEO-first + N26 리스킨 + 사례 썸네일/모달)
      제작: Syn Dae Sik (申大湜), AFPK®
      법령 기준일: 상증법 법률 제21065호(2026.1.2 시행), 민법 2026.3.17 시행
      보안등급: 공개용
      리스킨 메모(2026-09-11): 단일 딥틸(teal) 액션 컬러로 통일, 그림자 제거(보더 대비로 위계 표현),
        히어로 배경 그라데이션 단순화. 콘텐츠·구조화 데이터는 변경 없음(랜딩 한정 리스킨).
      v2.2: 사례 카드 9종 썸네일(/case/*.jpg) + 확대 모달, G1 계측 셀렉터 버그 수정.
-     v2.3: 히어로 아래 #video-check 섹션(/video/chuseok-check.mp4 · 40초 · 무음 자동재생 + 소리 켜기).
-       #chuseok과 같은 data-season="chuseok-2026" — 추석 뒤 두 섹션 함께 제거.
+     v2.4(2026-09-17): 홈의 추석 시즌 섹션(#video-check·#chuseok)과 메뉴·히어로의 추석 링크 제거.
+       추석 안내는 heirwise-common.js 시즌 모듈(상단 띠 + 하단 카드, 10.02 자동 종료)로,
+       영상(/video/chuseok-check.mp4)은 chuseok.html로 옮김.
      ═══════════════════════════════════════════════════════════ -->
 
 <title>상속이 시작됐을 때 무엇부터 해야 하나 — HeirWise | AFPK® 자격인증자 신대식</title>
@@ -479,7 +480,6 @@ footer a:hover{color:var(--ink);text-decoration:underline}
   <div class="wrap nav">
     <a class="logo" href="/index.html">Heir<em>Wise</em> <small>상속·증여 재무설계</small></a>
     <ul>
-      <li><a href="/chuseok.html">추석 전에</a></li>
       <li><a href="#deadline">기한부터</a></li>
       <li><a href="#situations">실제 사례</a></li>
       <li><a href="#answers">자주 묻는 것</a></li>
@@ -513,7 +513,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
       <a class="btn btn-ghost" href="#room">이름 없이 질문 남기기</a>
     </div>
 
-    <p class="hero-note">연락처를 남기지 않아도 질문하실 수 있습니다. 답은 이 페이지에 올려 드립니다. · <a href="/chuseok.html" style="font-weight:800">추석 전에 볼 다섯 가지 →</a></p>
+    <p class="hero-note">연락처를 남기지 않아도 질문하실 수 있습니다. 답은 이 페이지에 올려 드립니다.</p>
 
     <!-- AI 검색이 통째로 인용하기 좋은 자체 완결 정의 문단 -->
     <p class="definition">
@@ -526,86 +526,6 @@ footer a:hover{color:var(--ink);text-decoration:underline}
     </p>
   </div>
 </section>
-
-<!-- ══════════════════ 영상 · 명절 전 상속 체크 (시즌 블록 · 추석 뒤 #chuseok과 함께 제거 가능) ══════════════════ -->
-<section id="video-check" data-season="chuseok-2026" aria-labelledby="videoCheckTitle">
-  <div class="wrap">
-    <div class="vid-wrap">
-      <p class="sec-label">40초로 보는</p>
-      <h2 id="videoCheckTitle">명절 전 상속 체크</h2>
-      <div class="vid-frame">
-        <video id="checkVideo"
-               src="/video/chuseok-check.mp4"
-               poster="/video/chuseok-check-poster.jpg"
-               muted playsinline preload="metadata" controls
-               width="1280" height="720"
-               aria-label="명절 전 상속 체크 — 40초 안내 영상 (자막 포함)">
-          <p>브라우저가 영상 재생을 지원하지 않습니다. <a href="/video/chuseok-check.mp4">영상 파일 열기</a></p>
-        </video>
-        <button type="button" class="vid-sound" id="checkVideoSound" aria-pressed="false">
-          <span class="vid-sound-ic" aria-hidden="true">🔊</span><span class="vid-sound-txt">소리 켜기</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-<style>
-#video-check{padding:6px 0 44px;border-top:none}
-.vid-wrap{max-width:960px;margin:0 auto}
-.vid-wrap .sec-label{margin-bottom:8px}
-.vid-wrap h2{margin-bottom:18px}
-.vid-frame{
-  position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;
-  border:1px solid var(--line-strong);background:#0B1A17;
-}
-.vid-frame video{width:100%;height:100%;display:block;object-fit:cover;background:#0B1A17}
-.vid-sound{
-  position:absolute;top:14px;right:14px;z-index:2;
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:17px;font-weight:800;line-height:1;
-  padding:12px 18px;border-radius:999px;cursor:pointer;
-  background:rgba(11,26,23,.88);color:#FFFFFF;border:2px solid #54CFA8;
-  transition:background .12s ease,transform .12s ease;
-}
-.vid-sound:hover{background:#0C5C48;transform:translateY(-1px)}
-.vid-sound:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.vid-sound[aria-pressed="true"]{background:#0C5C48;border-color:#7FE0C0}
-@media(max-width:520px){.vid-sound{font-size:15px;padding:10px 14px;top:10px;right:10px}}
-@media (prefers-reduced-motion: reduce){.vid-sound{transition:none}}
-</style>
-
-<!-- ══════════════════ 추석 (시즌 블록 · 추석 뒤 통째로 제거 가능) ══════════════════ -->
-<section id="chuseok" data-season="chuseok-2026">
-  <div class="wrap">
-    <div class="season">
-      <div class="season-txt">
-        <p class="sec-label" style="color:var(--amber-ink)">2026 추석 · 가족이 모이기 전에</p>
-        <h2>추석 전에, 다섯 가지만 확인하세요</h2>
-        <p class="sec-intro" style="margin-bottom:14px">
-          명절에 재산 이야기를 꺼내는 사람은 미움을 받습니다. 그래서 사람 대신 이 사이트가 말합니다.
-          <strong>상속인은 누구인지 · 미리 받은 재산 · 빚과 보증 · 유언장 형식 · 법인 대표라면</strong> —
-          모이기 전에 하나만 보고 가셔도 자리에서 싸울 일이 줄어듭니다.
-        </p>
-        <div class="hero-cta" style="margin-top:0">
-          <a class="btn btn-primary" href="/chuseok.html">다섯 가지 보기 · 1분</a>
-          <a class="btn btn-ghost" href="/chuseok.html#get">인쇄용 한 장 받기</a>
-        </div>
-      </div>
-      <a class="season-card" href="/chuseok.html" aria-label="추석 전에 다섯 가지만 확인하세요 — 체크리스트 열기">
-        <img src="/og/og-chuseok.png" alt="추석 전에, 다섯 가지만 확인하세요 — 부모님 재산 이야기, 싸우지 않고 꺼내는 법" width="1200" height="630" loading="lazy">
-      </a>
-    </div>
-  </div>
-</section>
-<style>
-#chuseok{padding:8px 0 4px}
-.season{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:center;
-  background:var(--amber-soft);border:1.5px solid var(--amber);border-radius:var(--radius);padding:28px 30px}
-.season h2{margin:0 0 10px}
-.season-card{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--line-strong);box-shadow:var(--shadow-lg);line-height:0}
-.season-card img{width:100%;height:auto;display:block}
-@media(max-width:860px){.season{grid-template-columns:1fr;padding:22px 20px}}
-</style>
 
 <!-- ══════════════════ 기한 ══════════════════ -->
 <section id="deadline">
@@ -1312,51 +1232,6 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
     Array.prototype.forEach.call(modal.querySelectorAll('[data-modal-close]'), function(el){
       el.addEventListener('click', closeModal);
     });
-  }
-
-  /* 명절 전 상속 체크 영상 — 화면에 보이면 무음 자동재생, 벗어나면 일시정지, 버튼으로 소리 켜기 */
-  var vid = document.getElementById('checkVideo');
-  var soundBtn = document.getElementById('checkVideoSound');
-  if (vid && soundBtn){
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var completed = false;
-
-    function setSoundUI(on){
-      soundBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      soundBtn.querySelector('.vid-sound-ic').textContent = on ? '🔇' : '🔊';
-      soundBtn.querySelector('.vid-sound-txt').textContent = on ? '소리 끄기' : '소리 켜기';
-    }
-
-    soundBtn.addEventListener('click', function(){
-      if (vid.muted){
-        vid.muted = false;
-        vid.currentTime = 0;              /* 소리를 켜면 처음부터 — 내레이션을 앞에서부터 듣게 */
-        var p = vid.play(); if (p && p.catch) p.catch(function(){});
-        setSoundUI(true);
-        track('video_unmute', { video: 'chuseok-check' });
-      } else {
-        vid.muted = true;
-        setSoundUI(false);
-      }
-    });
-
-    vid.addEventListener('volumechange', function(){ setSoundUI(!vid.muted); });
-    vid.addEventListener('ended', function(){
-      if (!completed){ completed = true; track('video_complete', { video: 'chuseok-check', muted: vid.muted }); }
-    });
-
-    if (!reduceMotion && 'IntersectionObserver' in window){
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(en){
-          if (en.isIntersecting && en.intersectionRatio >= 0.5){
-            if (vid.paused && !vid.ended){ var p2 = vid.play(); if (p2 && p2.catch) p2.catch(function(){}); }
-          } else if (!vid.paused && vid.muted){
-            vid.pause();                   /* 소리가 켜진 상태(사용자가 직접 켠 것)는 스크롤해도 끊지 않음 */
-          }
-        });
-      }, { threshold: [0, 0.5] });
-      io.observe(vid);
-    }
   }
 })();
 

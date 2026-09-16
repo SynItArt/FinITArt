@@ -125,8 +125,28 @@ ol.five p strong{color:var(--ink)}
 .disc{margin:34px 0 0; background:var(--surface-2); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; font-size:14.5px; line-height:1.8; color:var(--ink-2)}
 .disc b{color:var(--ink)}
 footer.ft{margin:36px 0 60px; text-align:center; font-size:14px; color:var(--ink-2); line-height:1.9}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-@media print{header.top,.gate,.talk,footer.ft{display:none} body{background:#fff}}
+/* 영상 — 명절 전 상속 체크 (index.html v2.3에서 옮겨 옴) */
+.vid-wrap .sec-label{margin-bottom:8px}
+.vid-frame{
+  position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line-strong);background:#0B1A17;
+}
+.vid-frame video{width:100%;height:100%;display:block;object-fit:cover;background:#0B1A17}
+.vid-sound{
+  position:absolute;top:14px;right:14px;z-index:2;
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;
+  font-size:17px;font-weight:800;line-height:1;font-family:inherit;
+  padding:12px 18px;border-radius:999px;cursor:pointer;
+  background:rgba(11,26,23,.88);color:#FFFFFF;border:2px solid #54CFA8;
+  transition:background .12s ease,transform .12s ease;
+}
+.vid-sound:hover{background:#0C5C48;transform:translateY(-1px)}
+.vid-sound:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.vid-sound[aria-pressed="true"]{background:#0C5C48;border-color:#7FE0C0}
+@media(max-width:520px){.vid-sound{font-size:15px;padding:10px 14px;top:10px;right:10px}}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} .vid-sound{transition:none}}
+@media print{header.top,.gate,.talk,footer.ft,#video-check{display:none} body{background:#fff}}
 </style>
 </head>
 <body data-tool="추석체크리스트" data-axis="pre">
@@ -150,6 +170,26 @@ footer.ft{margin:36px 0 60px; text-align:center; font-size:14px; color:var(--ink
       아래 다섯 가지를 <strong>모이기 전에</strong> 한 번 보고 가시면, 자리에서 싸울 일이 많이 줄어듭니다.
       전부 법 조문에 근거를 두었고, 각 항목마다 1분짜리 계산기가 붙어 있습니다.
     </p>
+  </div>
+</section>
+
+<section class="sec" id="video-check" aria-labelledby="videoCheckTitle">
+  <div class="wrap vid-wrap">
+    <p class="sec-label">40초로 보는</p>
+    <h2 id="videoCheckTitle">명절 전 상속 체크</h2>
+    <div class="vid-frame">
+      <video id="checkVideo"
+             src="/video/chuseok-check.mp4"
+             poster="/video/chuseok-check-poster.jpg"
+             muted playsinline preload="metadata" controls
+             width="1280" height="720"
+             aria-label="명절 전 상속 체크 — 40초 안내 영상 (자막 포함)">
+        <p>브라우저가 영상 재생을 지원하지 않습니다. <a href="/video/chuseok-check.mp4">영상 파일 열기</a></p>
+      </video>
+      <button type="button" class="vid-sound" id="checkVideoSound" aria-pressed="false">
+        <span class="vid-sound-ic" aria-hidden="true">🔊</span><span class="vid-sound-txt">소리 켜기</span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -296,6 +336,54 @@ footer.ft{margin:36px 0 60px; text-align:center; font-size:14px; color:var(--ink
     var w = window.open(PDF, '_blank');
     if(!w){ msg.innerHTML = '<a href="'+PDF+'" target="_blank" rel="noopener">여기를 눌러 체크리스트를 여세요 →</a>'; }
   });
+})();
+
+/* 명절 전 상속 체크 영상 — 화면에 보이면 무음 자동재생, 벗어나면 일시정지, 버튼으로 소리 켜기.
+   prefers-reduced-motion이면 자동재생하지 않음. 계측은 heirwise-common.js의 hwTrack만 사용 */
+(function(){
+  var vid = document.getElementById('checkVideo');
+  var soundBtn = document.getElementById('checkVideoSound');
+  if (!vid || !soundBtn) return;
+  function track(name, params){ if (typeof window.hwTrack === 'function') window.hwTrack(name, params); }
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var completed = false;
+
+  function setSoundUI(on){
+    soundBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    soundBtn.querySelector('.vid-sound-ic').textContent = on ? '🔇' : '🔊';
+    soundBtn.querySelector('.vid-sound-txt').textContent = on ? '소리 끄기' : '소리 켜기';
+  }
+
+  soundBtn.addEventListener('click', function(){
+    if (vid.muted){
+      vid.muted = false;
+      vid.currentTime = 0;              /* 소리를 켜면 처음부터 — 내레이션을 앞에서부터 듣게 */
+      var p = vid.play(); if (p && p.catch) p.catch(function(){});
+      setSoundUI(true);
+      track('video_unmute', { video: 'chuseok-check' });
+    } else {
+      vid.muted = true;
+      setSoundUI(false);
+    }
+  });
+
+  vid.addEventListener('volumechange', function(){ setSoundUI(!vid.muted); });
+  vid.addEventListener('ended', function(){
+    if (!completed){ completed = true; track('video_complete', { video: 'chuseok-check', muted: vid.muted }); }
+  });
+
+  if (!reduceMotion && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting && en.intersectionRatio >= 0.5){
+          if (vid.paused && !vid.ended){ var p2 = vid.play(); if (p2 && p2.catch) p2.catch(function(){}); }
+        } else if (!vid.paused && vid.muted){
+          vid.pause();                   /* 소리가 켜진 상태(사용자가 직접 켠 것)는 스크롤해도 끊지 않음 */
+        }
+      });
+    }, { threshold: [0, 0.5] });
+    io.observe(vid);
+  }
 })();
 </script>
 <script src="/heirwise-common.js" defer></script>

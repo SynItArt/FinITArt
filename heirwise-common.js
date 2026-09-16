@@ -6,6 +6,7 @@
  *   T-01  GA4 계측 (이벤트 6종)
  *   T-04  상담 폼 통일 (이메일 필드 추가 + 유입 계산기 기록)
  *   T-06  적용 법령 기준일 UI 표시 (프로젝트 규칙 5-3)
+ *   시즌  명절 안내 상단 띠 + 하단 카드 (HW_CONFIG.SEASON, endAt 뒤 자동 종료)
  *
  * 각 페이지에는 </body> 바로 앞에 아래 한 줄만 넣으면 됩니다.
  *   <script src="heirwise-common.js" defer></script>
@@ -13,6 +14,7 @@
  * 페이지별 옵션 (<body> 속성, 없으면 기본 동작)
  *   data-tool="노후진단"  GA4 tool 값을 파일명 대신 이 값으로 기록
  *   data-law="off"       적용 법령 기준일 칩·안내 상자를 넣지 않음
+ *   data-season="off"    시즌 띠·카드를 넣지 않음 (SEASON.href 페이지 자신에도 넣지 않음)
  *
  * 설정은 아래 HW_CONFIG 한 곳만 고치면 전 페이지에 반영됩니다.
  */
@@ -45,7 +47,18 @@
 
     CONTACT: { tel: "010-2088-5383", email: "itart@finitart.com" },
 
-    DEBUG: false                   // true면 발생 이벤트를 콘솔에 출력
+    // 시즌 안내 — 상단 띠 + 하단 카드. 시각은 한국 시간(+09:00) ISO로 적고 Date.parse로 비교합니다.
+    // endAt이 지나면 아무것도 넣지 않습니다. 페이지에서 끄려면 <body data-season="off">
+    SEASON: {
+      id: "chuseok-2026",
+      holiday: "2026-09-25T00:00:00+09:00",      // 추석 당일
+      holidayStart: "2026-09-24T00:00:00+09:00", // 연휴 시작
+      holidayEnd: "2026-09-26T23:59:59+09:00",   // 연휴 끝
+      endAt: "2026-10-02T23:59:59+09:00",        // 자동 종료
+      href: "/chuseok.html"
+    },
+
+    DEBUG: false                   // true면 발생 이벤트를 콘솔에 출력 · URL ?hw_now=ISO 로 시즌 시각 덮어쓰기
   };
   window.HW_CONFIG = HW_CONFIG;
 
@@ -417,11 +430,285 @@
   }
 
   /* ============================================================
-     ⑤ 실행
+     ⑤ 시즌 안내 — 상단 띠 + 하단 카드
+     · 구간: pre(연휴 전, D-n) / holiday(연휴) / post(연휴 뒤 ~ endAt) / 그 뒤 null(넣지 않음)
+     · D-n은 한국 시간 자정 기준 날짜 차이. 사용자 기기 시간대와 무관
+     · 띠 닫기: sessionStorage hw_season_banner_closed (그 브라우저 세션 동안)
+     · 카드 닫기: localStorage hw_season_card_hide_until (ISO, 7일)
+     · 색: 페이지마다 CSS 변수가 달라 index.html 변수 값을 --hws-* 로 옮겨 씀.
+       다크 여부는 페이지 실제 배경 밝기로 판정(다크 모드가 없는 페이지에 다크 띠가 뜨지 않게)
+     ============================================================ */
+  var KST_MS = 9 * 3600 * 1000, DAY_MS = 86400000;
+
+  function seasonNow() {
+    var t = Date.now();
+    if (HW_CONFIG.DEBUG) {
+      // 검증용 — ?hw_now=2026-09-20T10:00:00+09:00 ('+'가 공백으로 바뀐 경우도 복원)
+      var m = /[?&]hw_now=([^&#]+)/.exec(location.search);
+      if (m) {
+        var p = Date.parse(decodeURIComponent(m[1]).replace(/ /g, "+"));
+        if (!isNaN(p)) t = p;
+      }
+    }
+    return t;
+  }
+
+  function kstDay(t) { return Math.floor((t + KST_MS) / DAY_MS); }
+
+  function seasonPhase(S, now) {
+    if (now >= Date.parse(S.endAt) + 1000) return null;       // 23:59:59 초 단위 끝까지 포함
+    if (now < Date.parse(S.holidayStart)) return "pre";
+    if (now < Date.parse(S.holidayEnd) + 1000) return "holiday";
+    return "post";
+  }
+
+  function seasonDaysLeft(S, now) { return kstDay(Date.parse(S.holiday)) - kstDay(now); }
+
+  var SEASON_COPY = {
+    pre: {
+      chip: function (n) { return "추석까지 D-" + n; }, chipHidden: false,
+      bar: "가족이 모이기 전에 볼 다섯 가지",
+      title: "추석 전에, 다섯 가지만 확인하세요",
+      desc: "상속인·미리 받은 재산·빚과 보증·유언장·법인 대표. 우리 집에 해당하는 것부터 하나씩 보시면 됩니다."
+    },
+    holiday: {
+      chip: function () { return "연휴"; }, chipHidden: true,
+      bar: "가족이 모인 자리에서 볼 다섯 가지",
+      title: "가족이 모인 자리에서, 다섯 가지만 확인하세요",
+      desc: "말로 꺼내기 어려우면 이 화면을 함께 보세요. 우리 집에 해당하는 것부터 하나씩 보시면 됩니다."
+    },
+    post: {
+      chip: function () { return "정리"; }, chipHidden: true,
+      bar: "연휴에 나눈 이야기, 이렇게 정리하세요",
+      title: "연휴에 나눈 이야기, 이렇게 정리하세요",
+      desc: "다섯 가지에 맞춰 하나씩 짚어 보세요."
+    }
+  };
+
+  function injectSeasonStyles() {
+    if ($("hw-season-style")) return;
+    var st = d.createElement("style");
+    st.id = "hw-season-style";
+    st.textContent = [
+      ".hws-bar,.hws-card{--hws-bg:#FDF1D6;--hws-ink:#1B1B1B;--hws-ink2:#4A453D;--hws-edge:#8A5A00;",
+      "--hws-act:#0C5C48;--hws-act-hover:#094536;--hws-act-ink:#FFFFFF;--hws-focus:#0C5C48;",
+      "box-sizing:border-box;font-family:inherit;line-height:1.5;letter-spacing:normal;word-break:keep-all;overflow-wrap:anywhere;",
+      "background:var(--hws-bg);color:var(--hws-ink)}",
+      ".hws-bar[data-hws-scheme=dark],.hws-card[data-hws-scheme=dark]{--hws-bg:#302713;--hws-ink:#F3F0EA;--hws-ink2:#B6BDCA;",
+      "--hws-edge:#FFC64D;--hws-act:#54CFA8;--hws-act-hover:#7FE0C0;--hws-act-ink:#14161B;--hws-focus:#FFC64D}",
+      ".hws-bar *,.hws-card *{box-sizing:border-box}",
+      /* 상단 띠 */
+      ".hws-bar{border-bottom:2px solid var(--hws-edge)}",
+      ".hws-bar .hws-bar-in{max-width:1120px;margin:0 auto;padding:0 4px 0 16px;display:flex;align-items:center;gap:8px;min-height:48px}",
+      ".hws-bar .hws-bar-link{flex:1 1 auto;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;min-height:48px;padding:8px 0;",
+      "color:var(--hws-ink);text-decoration:none;font-size:18px;font-weight:700;line-height:1.4;border-radius:8px}",
+      ".hws-bar .hws-bar-link:hover .hws-bar-txt{text-decoration:underline;text-underline-offset:4px}",
+      ".hws-chip{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border:2px solid var(--hws-edge);",
+      "border-radius:999px;font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}",
+      /* 닫기 버튼 (띠·카드 공통) */
+      ".hws-bar .hws-x,.hws-card .hws-x{flex:none;width:44px;height:44px;min-width:44px;margin:0;padding:0;display:inline-grid;place-items:center;",
+      "border:2px solid transparent;border-radius:8px;background:transparent;color:var(--hws-ink);font:inherit;font-size:22px;line-height:1;cursor:pointer;",
+      "transition:border-color 150ms ease-out}",
+      ".hws-bar .hws-x:hover,.hws-card .hws-x:hover{border-color:var(--hws-edge)}",
+      ".hws-bar a:focus-visible,.hws-bar button:focus-visible,.hws-card a:focus-visible,.hws-card button:focus-visible{outline:3px solid var(--hws-focus);outline-offset:2px}",
+      /* 하단 카드 — 모달 아님(오버레이·포커스 가두기 없음) */
+      ".hws-card{position:fixed;right:24px;bottom:24px;z-index:55;width:calc(100% - 48px);max-width:380px;margin:0;",
+      "border:2px solid var(--hws-edge);border-radius:16px;padding:20px;",
+      "transition:opacity 150ms ease-out,transform 150ms ease-out}",
+      ".hws-card[data-hws-enter]{opacity:0;transform:translateY(12px)}",
+      ".hws-card .hws-x{position:absolute;top:8px;right:8px}",
+      ".hws-card .hws-card-t{margin:0 48px 8px 0;font-size:22px;font-weight:800;line-height:1.35;letter-spacing:-.02em;text-wrap:balance;color:var(--hws-ink)}",
+      ".hws-card .hws-card-d{margin:0 0 16px;font-size:18px;line-height:1.6;color:var(--hws-ink2);text-wrap:pretty}",
+      ".hws-card .hws-card-b{display:grid;gap:8px}",
+      ".hws-card .hws-btn{display:flex;align-items:center;justify-content:center;min-height:48px;padding:8px 16px;border-radius:8px;",
+      "font-size:18px;font-weight:800;line-height:1.3;text-align:center;text-decoration:none;",
+      "transition:background-color 150ms ease-out,border-color 150ms ease-out,transform 150ms ease-out}",
+      ".hws-card .hws-btn:active{transform:scale(.97)}",
+      ".hws-card .hws-btn-p{background:var(--hws-act);color:var(--hws-act-ink);border:2px solid var(--hws-act)}",
+      ".hws-card .hws-btn-p:hover{background:var(--hws-act-hover);border-color:var(--hws-act-hover)}",
+      ".hws-card .hws-btn-g{background:transparent;color:var(--hws-ink);border:2px solid var(--hws-ink2)}",
+      ".hws-card .hws-btn-g:hover{border-color:var(--hws-ink)}",
+      "@media (max-width:599.98px){.hws-card{left:0;right:0;bottom:0;width:auto;max-width:none;border-width:2px 0 0;",
+      "border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}",
+      ".hws-card .hws-x{top:6px;right:6px}.hws-card[data-hws-enter]{transform:translateY(100%)}}",
+      /* 확대(400%) 등 세로가 짧은 화면 — 떠 있는 카드가 본문을 덮지 않게 문서 흐름 안으로 */
+      "@media (max-height:480px){.hws-card{position:static;width:auto;max-width:none;margin:16px;border-radius:16px;border-width:2px}}",
+      "@media (prefers-reduced-motion:reduce){.hws-card,.hws-card .hws-btn,.hws-bar .hws-x,.hws-card .hws-x{transition:none}",
+      ".hws-card[data-hws-enter]{transform:none}.hws-card .hws-btn:active{transform:none}}",
+      "@media print{.hws-bar,.hws-card{display:none!important}}"
+    ].join("");
+    d.head.appendChild(st);
+  }
+
+  // 페이지 실제 배경이 어두운지 — body → html 순으로 불투명한 배경색을 찾음
+  function pageIsDark() {
+    var els = [d.body, d.documentElement];
+    for (var i = 0; i < els.length; i++) {
+      var m = /rgba?\(([^)]+)\)/.exec(getComputedStyle(els[i]).backgroundColor || "");
+      if (!m) continue;
+      var p = m[1].split(",").map(parseFloat);
+      if (p.length === 4 && p[3] === 0) continue;
+      return (0.2126 * p[0] + 0.7152 * p[1] + 0.0722 * p[2]) / 255 < 0.5;
+    }
+    return false;
+  }
+
+  function nextFocusableAfter(el) {
+    var list = d.querySelectorAll("a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex='-1'])");
+    for (var i = 0; i < list.length; i++) {
+      var c = list[i];
+      if (el.contains(c)) continue;
+      if (el.compareDocumentPosition(c) & Node.DOCUMENT_POSITION_FOLLOWING && c.getClientRects().length) return c;
+    }
+    return null;
+  }
+
+  function injectSeason() {
+    var S = HW_CONFIG.SEASON;
+    if (!S || !d.body) return;
+    if (d.body.getAttribute("data-season") === "off") return;
+    var norm = function (p) { return (p || "").replace(/\.html?$/i, "").replace(/\/$/, ""); };
+    if (norm(location.pathname) === norm(S.href)) return;       // 안내 대상 페이지 자신에는 넣지 않음
+
+    var now = seasonNow();
+    var phase = seasonPhase(S, now);
+    if (!phase) return;                                         // endAt 이후 — DOM에 아무것도 넣지 않음
+
+    var copy = SEASON_COPY[phase];
+    var chipText = copy.chip(seasonDaysLeft(S, now));
+    var base = { season: S.id, phase: phase };
+    function ev(name, btn) {
+      var p = { season: base.season, phase: base.phase };
+      if (btn) p.btn = btn;
+      hwTrack(name, p);
+    }
+
+    injectSeasonStyles();
+    var themed = [];
+    function applyScheme() {
+      var s = pageIsDark() ? "dark" : "light";
+      themed.forEach(function (el) { el.setAttribute("data-hws-scheme", s); });
+    }
+    // 테마 전환 버튼(data-theme)·OS 설정 변경을 따라감
+    new MutationObserver(applyScheme).observe(d.documentElement, { attributes: true, attributeFilter: ["data-theme", "class"] });
+    if (window.matchMedia) {
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (mq.addEventListener) mq.addEventListener("change", applyScheme);
+      else if (mq.addListener) mq.addListener(applyScheme);
+    }
+
+    /* (1) 상단 띠 */
+    var barClosed = false;
+    try { barClosed = sessionStorage.getItem("hw_season_banner_closed") === "1"; } catch (e) {}
+    if (!barClosed) {
+      var bar = d.createElement("div");
+      bar.className = "hws-bar";
+      bar.innerHTML =
+        '<div class="hws-bar-in">' +
+          '<a class="hws-bar-link" href="' + S.href + '">' +
+            '<span class="hws-chip"' + (copy.chipHidden ? ' aria-hidden="true"' : "") + ">" + chipText + "</span>" +
+            '<span class="hws-bar-txt">' + copy.bar + ' <span aria-hidden="true">→</span></span>' +
+          "</a>" +
+          '<button type="button" class="hws-x" aria-label="추석 안내 닫기"><span aria-hidden="true">✕</span></button>' +
+        "</div>";
+      var first = d.body.firstElementChild;
+      if (first && first.matches("a.skip, a.skip-link, a[href='#main']")) first = first.nextElementSibling;
+      d.body.insertBefore(bar, first);
+      themed.push(bar);
+
+      bar.querySelector(".hws-bar-link").addEventListener("click", function () { ev("season_banner_click", "bar"); });
+      bar.querySelector(".hws-x").addEventListener("click", function () {
+        var next = nextFocusableAfter(bar);
+        try { sessionStorage.setItem("hw_season_banner_closed", "1"); } catch (e) {}
+        ev("season_banner_close", "x");
+        bar.remove();
+        if (next) next.focus({ preventScroll: true });
+      });
+      ev("season_banner_view");
+    }
+
+    /* (2) 하단 카드 — 스크롤 30% 또는 8초 중 먼저 오는 시점에 1회 */
+    var hideUntil = NaN;
+    try { hideUntil = Date.parse(localStorage.getItem("hw_season_card_hide_until") || ""); } catch (e) {}
+    if (!isNaN(hideUntil) && hideUntil > now) { applyScheme(); return; }
+
+    var shown = false, timer = 0;
+    function onScroll() {
+      var h = d.documentElement.scrollHeight - window.innerHeight;
+      if (h > 0 && window.scrollY / h >= 0.3) showCard();
+    }
+    function showCard() {
+      if (shown) return;
+      shown = true;
+      clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
+
+      var card = d.createElement("div");
+      card.className = "hws-card";
+      card.setAttribute("data-hws-enter", "");
+      card.innerHTML =
+        '<p class="hws-card-t">' + copy.title + "</p>" +
+        '<p class="hws-card-d">' + copy.desc + "</p>" +
+        '<div class="hws-card-b">' +
+          '<a class="hws-btn hws-btn-p" data-btn="five" href="' + S.href + '">다섯 가지 보기 · 1분</a>' +
+          '<a class="hws-btn hws-btn-g" data-btn="print" href="' + S.href + '#get">인쇄용 한 장 받기</a>' +
+        "</div>" +
+        '<button type="button" class="hws-x" aria-label="추석 안내 카드 닫기"><span aria-hidden="true">✕</span></button>';
+      d.body.appendChild(card);
+      themed.push(card);
+      applyScheme();
+
+      // 화면 아래에 붙은 고정 막대(예: booking.html 하단 버튼 줄)가 있으면 그 위로 띄움
+      function avoidBottomBars() {
+        if (getComputedStyle(card).position !== "fixed") { card.style.marginBottom = ""; return; }
+        var vh = window.innerHeight, lift = 0, all = d.body.getElementsByTagName("*");
+        for (var i = 0; i < all.length; i++) {
+          var el = all[i];
+          if (el === card || card.contains(el) || getComputedStyle(el).position !== "fixed") continue;
+          var r = el.getBoundingClientRect();
+          if (r.height > 0 && r.bottom >= vh - 2 && r.top > vh / 2 && r.width >= window.innerWidth / 2) lift = Math.max(lift, vh - r.top);
+        }
+        card.style.marginBottom = lift ? lift + "px" : "";
+      }
+      avoidBottomBars();
+      window.addEventListener("resize", avoidBottomBars);
+
+      requestAnimationFrame(function () { requestAnimationFrame(function () { card.removeAttribute("data-hws-enter"); }); });
+
+      function closeCard(btn) {
+        try { localStorage.setItem("hw_season_card_hide_until", new Date(seasonNow() + 7 * DAY_MS).toISOString()); } catch (e) {}
+        ev("season_card_close", btn);
+        if (card.contains(d.activeElement)) d.activeElement.blur();
+        d.removeEventListener("keydown", onKey);
+        window.removeEventListener("resize", avoidBottomBars);
+        card.remove();
+      }
+      function onKey(e) {
+        if (e.key !== "Escape" && e.key !== "Esc") return;
+        // 페이지의 진짜 모달(예: 사례 이미지 확대)이 열려 있으면 그쪽 Esc에 양보
+        var modals = d.querySelectorAll("[aria-modal='true']");
+        for (var i = 0; i < modals.length; i++) { if (modals[i].getClientRects().length) return; }
+        closeCard("esc");
+      }
+      d.addEventListener("keydown", onKey);
+      card.querySelector(".hws-x").addEventListener("click", function () { closeCard("x"); });
+      Array.prototype.forEach.call(card.querySelectorAll("a[data-btn]"), function (a) {
+        a.addEventListener("click", function () { ev("season_card_click", a.getAttribute("data-btn")); });
+      });
+      ev("season_card_view");
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    timer = setTimeout(showCard, 8000);
+    applyScheme();
+  }
+
+  /* ============================================================
+     ⑥ 실행
      ============================================================ */
   function boot() {
     try { injectLawUI(); }    catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { unifyLeadForm(); }  catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { injectSeason(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
   }
 
   if (d.readyState === "loading") {
