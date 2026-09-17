@@ -51,6 +51,7 @@ p{text-wrap:pretty}
 .nw-head nav a:hover{background:var(--surface-2);color:var(--ink)}
 .iconbtn{background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);width:44px;height:44px;border-radius:10px;cursor:pointer;font-size:18px}
 @media (max-width:640px){.nw-head .wrap{flex-wrap:wrap;gap:0 8px}.nw-head nav{order:3;width:100%;margin:0 0 4px;flex-wrap:nowrap;overflow-x:auto}.nw-head nav a{padding:0 12px;font-size:16px;white-space:nowrap}.iconbtn{margin-left:auto}.nw-logo{font-size:20px}}
+@media (max-width:480px){.nw-head nav{display:grid;grid-template-columns:1fr 1fr;gap:4px;overflow:visible}.nw-head nav a{justify-content:center;white-space:normal;text-align:center}}
 
 /* 머리 */
 .nw-hero{padding:40px 0 24px}
