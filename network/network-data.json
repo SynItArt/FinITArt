@@ -1,0 +1,119 @@
+{
+  "version": "2026-09-17",
+  "basis": "HeirWise_PRD_v3.0 §5.7 · 발전방향 v3.1 §9.2 + 분야 개정안 v3.2(2026-09-17, 추가 4분야)",
+  "groups": [
+    {
+      "id": "A", "title": "상속·가사 절차",
+      "situation": "상속 승인·포기, 유언, 재산 분할을 법 절차대로 밟아야 할 때",
+      "fields": ["변호사(가사·상속)", "법무사", "행정사", "공증인(유언공정증서)", "유언집행자"],
+      "verticals": ["HeirWise"],
+      "tools": ["/inheritdebt.html"]
+    },
+    {
+      "id": "B", "title": "세금·회계·평가",
+      "situation": "상속세·증여세 신고, 재산 평가, 해외 재산이 얽혔을 때",
+      "fields": ["세무사", "공인회계사", "감정평가사", "국제조세 세무사", "해외 상속 절차(현지 전문가)", "번역·아포스티유"],
+      "verticals": ["HeirWise"],
+      "tools": ["/calculator.html"]
+    },
+    {
+      "id": "C", "title": "자산 처분·관리",
+      "situation": "물려받은 부동산·선박을 팔거나 정리할 때",
+      "fields": ["공인중개사", "경매 권리분석", "선박·어선 중개"],
+      "verticals": ["HeirWise", "SeaBogo"],
+      "tools": []
+    },
+    {
+      "id": "D", "title": "금융",
+      "situation": "상속세 낼 돈, 남은 가족의 생활비를 준비할 때",
+      "fields": ["보험·연금·신탁·펀드", "은행 신탁부", "증권사"],
+      "verticals": ["HeirWise"],
+      "tools": ["/insurance-two-faces.html"]
+    },
+    {
+      "id": "E", "title": "기업·노무·안전",
+      "situation": "회사를 운영하는 대표님의 유고·중대재해에 대비할 때",
+      "fields": ["공인노무사", "산업안전·보건지도사", "안전관리전문기관", "중대재해 전문 변호사"],
+      "verticals": ["HeirWise", "NOusafe"],
+      "tools": ["/ceo-diagnosis.html"]
+    },
+    {
+      "id": "F", "title": "회생·파산·채권",
+      "situation": "물려받은 빚이 더 많거나, 서류의 진위를 다퉈야 할 때",
+      "fields": ["회생파산 변호사", "회생파산 법무사", "신용회복 상담기관", "문서감정(필적·인영)"],
+      "verticals": ["HeirWise", "LegalitArt"],
+      "tools": ["/inheritdebt.html"]
+    },
+    {
+      "id": "G", "title": "사고 보상",
+      "situation": "교통사고·산업재해·화재로 가족을 잃었을 때",
+      "fields": ["손해사정사", "산재 노무사", "교통사고 변호사"],
+      "verticals": ["HeirWise"],
+      "tools": ["/car-accident.html", "/industrial-accident.html", "/fire-accident.html"]
+    },
+    {
+      "id": "H", "title": "돌봄·후견·복지",
+      "situation": "남은 가족을 돌봐야 하거나, 마음이 무너졌을 때",
+      "fields": ["성년후견인", "사회복지사", "장기요양기관", "장애인 신탁 기관", "유족 심리·애도 상담기관"],
+      "verticals": ["HeirWise"],
+      "tools": ["/disability-trust.html"]
+    },
+    {
+      "id": "I", "title": "부의의전·장례",
+      "situation": "장례와 유품, 온라인 계정을 정리할 때",
+      "fields": ["장례지도사", "유품정리", "디지털 유산 정리"],
+      "verticals": ["HeirWise"],
+      "tools": ["/natural-death.html"]
+    },
+    {
+      "id": "J", "title": "농어촌·스마트팜",
+      "situation": "농지·어선 등 농어촌 재산을 이어받았을 때",
+      "fields": ["농지·귀농 상담", "스마트팜 설비·유통"],
+      "verticals": ["SynBerry"],
+      "tools": []
+    },
+    {
+      "id": "K", "title": "리걸테크·AI",
+      "situation": "많은 서류와 디지털 증거를 정리해야 할 때",
+      "fields": ["소송 문서 자동화", "데이터 분석", "디지털포렌식(증거 보전)"],
+      "verticals": ["소송의기술"],
+      "tools": []
+    },
+    {
+      "id": "L", "title": "공공조달",
+      "situation": "공공기관과 함께 사업하거나 입찰할 때",
+      "fields": ["조달 파트너", "공동 입찰 기업"],
+      "verticals": ["SynItArt"],
+      "tools": []
+    },
+    {
+      "id": "M", "title": "교육·콘텐츠",
+      "situation": "강연·세미나·출판으로 함께 알릴 때",
+      "fields": ["강연", "공동 세미나", "출판·영상"],
+      "verticals": ["HeirWise"],
+      "tools": ["/book.html"]
+    }
+  ],
+  "field_rules": {
+    "변호사(가사·상속)": { "hold": true, "basis": "변호사법 §34 · 대한변호사협회 변호사 광고에 관한 규정 [확인 필요]" },
+    "중대재해 전문 변호사": { "hold": true, "basis": "변호사법 §34 · 대한변호사협회 광고 규정 [확인 필요]" },
+    "회생파산 변호사": { "hold": true, "basis": "변호사법 §34 · 대한변호사협회 광고 규정 [확인 필요]" },
+    "교통사고 변호사": { "hold": true, "basis": "변호사법 §34 · 대한변호사협회 광고 규정 [확인 필요]" },
+    "법무사": { "hold": true, "basis": "법무사법 · 대한법무사협회 규정 [확인 필요]" },
+    "회생파산 법무사": { "hold": true, "basis": "법무사법 · 대한법무사협회 규정 [확인 필요]" },
+    "세무사": { "hold": true, "basis": "세무사법 · 한국세무사회 규정 [확인 필요]" },
+    "국제조세 세무사": { "hold": true, "basis": "세무사법 · 한국세무사회 규정 [확인 필요]" },
+    "공인회계사": { "hold": true, "basis": "공인회계사법 · 한국공인회계사회 규정 [확인 필요]" },
+    "감정평가사": { "hold": true, "basis": "감정평가법 · 한국감정평가사협회 규정 [확인 필요]" },
+    "공인노무사": { "hold": true, "basis": "공인노무사법 · 한국공인노무사회 규정 [확인 필요]" },
+    "산재 노무사": { "hold": true, "basis": "공인노무사법 · 한국공인노무사회 규정 [확인 필요]" },
+    "공인중개사": { "hold": true, "basis": "공인중개사법 [확인 필요]" },
+    "손해사정사": { "hold": true, "basis": "보험업법 [확인 필요]" },
+    "공증인(유언공정증서)": { "hold": true, "basis": "공증인법 [확인 필요]" },
+    "보험·연금·신탁·펀드": { "hold": true, "basis": "금융소비자보호법 §22 광고 규제 · 상담 3트랙 T3 분리 [확인 필요]" },
+    "은행 신탁부": { "hold": true, "basis": "금융소비자보호법 §22 [확인 필요]" },
+    "증권사": { "hold": true, "basis": "금융소비자보호법 §22 [확인 필요]" },
+    "유족 심리·애도 상담기관": { "hold": false, "basis": "이용자 건강정보는 받지 않음 (개인정보보호법 §23 민감정보)" }
+  },
+  "partners": []
+}

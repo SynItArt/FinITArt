@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>분야 지도 | HeirWise 함께 보는 사람들</title>
+<meta name="description" content="상속·사고·법인 문제에 필요한 전문가 분야를 한눈에 보는 협업 네트워크 지도.">
+<link rel="stylesheet" href="/network/network.css">
+<script src="/heirwise-common.js" defer></script>
+<script src="/network/network.js" defer></script>
+</head>
+<body data-nw="map" data-law="off" data-season="off" data-tool="협업네트워크">
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="nw-head">
+  <div class="wrap">
+    <a class="nw-logo" href="/index.html">Heir<em>Wise</em></a>
+    <nav aria-label="협업 네트워크">
+      <a href="/network/index.html" aria-current="page">분야 지도</a>
+      <a href="/network/principles.html">운영 원칙</a>
+      <a href="/network/join.html">협업 제안</a>
+    </nav>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button>
+  </div>
+</header>
+<main id="main">
+  <section class="nw-hero">
+    <div class="wrap">
+      <p class="nw-draft">준비 중인 화면 · 검색에 노출되지 않습니다</p>
+      <h1>함께 보는 사람들</h1>
+      <p class="lead">필요한 분야를 찾아보세요. 연결은 동의하신 뒤에만 합니다. <a href="/network/principles.html">운영 원칙 보기</a></p>
+      <form class="nw-filter" role="search" aria-label="분야 좁혀 보기" onsubmit="return false">
+        <label for="fGroup">분야 묶음
+          <select id="fGroup"><option value="">전체 13묶음</option></select>
+        </label>
+        <label for="fRegion">내 지역
+          <select id="fRegion"><option value="">고르지 않음</option></select>
+        </label>
+        <p class="nw-count" id="count" aria-live="polite"></p>
+      </form>
+      <nav aria-label="묶음 바로가기"><ul class="nw-jump" id="jump"></ul></nav>
+    </div>
+  </section>
+  <div class="wrap" id="groups" aria-live="polite">
+    <p class="nw-count">목록을 불러오는 중입니다…</p>
+  </div>
+  <div class="wrap">
+    <div class="note">
+      <p><strong>「게재 규정 확인 중」 표시</strong>가 붙은 분야는 해당 직역의 광고·알선 규정을 확인한 뒤에 기관을 싣습니다.</p>
+      <p>기관이 이 네트워크에 실리려고 돈을 내는 일은 없고, 연결했다고 대가를 받지도 않습니다.</p>
+    </div>
+  </div>
+</main>
+<footer class="nw-foot">
+  <div class="wrap">
+    <p><strong>SynItArt</strong> | 대표 Syn Dae Sik (申大湜) · <a href="https://www.finitart.com">www.finitart.com</a> · <a href="mailto:itart@finitart.com">itart@finitart.com</a> · <a href="tel:+821020885383">010-2088-5383</a></p>
+    <p>안산사무소: 경기 안산시 단원구 정왕천동로30번길 2(성곡동, 4바 858호 2층)</p>
+    <p>이 네트워크는 전문가 분야를 안내하고, 동의하신 경우에만 연결합니다. 법률·세무 판단은 해당 전문가의 상담이 필요하며, 금융상품 권유는 이 화면에서 하지 않습니다.</p>
+  </div>
+</footer>
+</body>
+</html>
