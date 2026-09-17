@@ -1,5 +1,5 @@
 /* HeirWise 협업 네트워크 — 공통 스크립트 (2026-09-17)
- * 페이지: <body data-nw="map|principles|join|connect">
+ * 페이지: <body data-nw="map|principles|partners|join|connect">
  * 규칙: 이벤트는 heirwise-common.js 의 hwTrack 만 사용 · localStorage 는 try/catch · 전송 로직 없음(1단계)
  * 노출 규칙(PRD v3.0 §5.7): status=listed 만 · 같은 분야 안에서 지역 일치 → 무작위 · 유료 상단 노출 없음
  */
@@ -324,7 +324,7 @@
   function start() {
     initTheme();
     var page = d.body.getAttribute("data-nw");
-    if (page === "principles") { track("network_view", { sub: "principles" }, true); return; }
+    if (page === "principles" || page === "partners") { track("network_view", { sub: page }, true); return; }
     var box = d.getElementById("groups") || d.getElementById("formBox");
     loadData().then(function (data) {
       if (page === "map") renderMap(data);
