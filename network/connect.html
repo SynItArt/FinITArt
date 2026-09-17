@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>전문가 연결 요청 | HeirWise 함께 보는 사람들</title>
+<meta name="description" content="동의 후 협업 기관 연결 요청서.">
+<link rel="stylesheet" href="/network/network.css">
+<script src="/heirwise-common.js" defer></script>
+<script src="/network/network.js" defer></script>
+</head>
+<body data-nw="connect" data-law="off" data-season="off" data-tool="협업네트워크">
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="nw-head">
+  <div class="wrap">
+    <a class="nw-logo" href="/index.html">Heir<em>Wise</em></a>
+    <nav aria-label="협업 네트워크">
+      <a href="/network/index.html">분야 지도</a>
+      <a href="/network/principles.html">운영 원칙</a>
+      <a href="/network/join.html">협업 제안</a>
+    </nav>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button>
+  </div>
+</header>
+<main id="main">
+  <section class="nw-hero">
+    <div class="wrap narrow">
+      <p class="nw-draft">준비 중인 화면 · 검색에 노출되지 않습니다</p>
+      <h1>전문가 연결 요청</h1>
+      <p class="lead">상황을 짧게 남겨 주시면, 맞는 분야의 협업 기관을 골라 동의하신 범위 안에서만 전해 드립니다.</p>
+      <div class="note warn" role="note"><p><strong>연결 요청 접수는 아직 열리지 않았습니다.</strong> 지금은 전화 <a href="tel:+821020885383">010-2088-5383</a> 으로 말씀해 주세요.</p></div>
+    </div>
+  </section>
+  <div class="wrap narrow" id="formBox">
+    <form id="connForm" class="form" novalidate>
+      <div class="fld"><label for="group">필요한 분야 묶음 <span class="req">*</span></label>
+        <select id="group" name="group" aria-describedby="cg-e" required><option value="">묶음을 고르세요</option></select><p class="err" id="cg-e"></p></div>
+      <div class="fld"><label for="field">분야 <span class="opt">(모르면 비워 두세요)</span></label>
+        <select id="field" name="field"></select></div>
+      <div class="fld"><label for="summary">상황 요약 <span class="req">*</span></label>
+        <textarea id="summary" name="summary" rows="5" aria-describedby="sum-h sumCount sum-e" required></textarea>
+        <p class="hint" id="sum-h">예: 아버지가 8월에 돌아가셨고 빚이 있는지 모릅니다. 형제 3명입니다. — 주민등록번호·진단명·병력은 적지 마세요.</p>
+        <p class="counter" id="sumCount" aria-live="polite"></p><p class="err" id="sum-e"></p></div>
+      <div class="fld"><label for="region">지역 <span class="req">*</span></label>
+        <select id="region" name="region" aria-describedby="cr-e" required><option value="">지역을 고르세요</option></select><p class="err" id="cr-e"></p></div>
+      <div class="fld"><label for="name">부르실 이름 <span class="opt">(선택)</span></label>
+        <input type="text" id="name" name="name" autocomplete="name"></div>
+      <div class="fld"><label for="tel">연락받을 전화 <span class="req">*</span></label>
+        <input type="tel" id="tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="010-1234-5678" aria-describedby="ct-e" required><p class="err" id="ct-e"></p></div>
+      <div class="fld">
+        <label class="check consent"><input type="checkbox" id="agree_collect" name="agree_collect" aria-describedby="ac-e">
+          <span>개인정보 수집·이용에 동의합니다 <span class="req">(필수)</span>
+          <details><summary>무엇을 받나요</summary>항목: 분야·상황 요약·지역·이름(선택)·전화 / 목적: 맞는 기관 선정과 연결, 30일 뒤 결과 확인 / 보관: 연결 종료 후 1년</details></span></label>
+        <p class="err" id="ac-e"></p></div>
+      <div class="fld">
+        <label class="check consent"><input type="checkbox" id="agree_third" name="agree_third" aria-describedby="at-e">
+          <span>연결할 기관에 제공하는 것에 동의합니다 <span class="req">(필수)</span>
+          <details><summary>누구에게 무엇을</summary>받는 곳: 운영자가 고른 협업 기관 1곳 (보내기 전에 기관명을 전화로 알려 드리고, 원하지 않으시면 보내지 않습니다) / 항목: 상황 요약·지역·이름·전화 / 목적: 상담 연락 / 기관 보관: 상담 종료 후 1년 또는 기관 법정 보관기간 / 동의하지 않으시면 기관 연결은 할 수 없고, 운영자 상담은 가능합니다.</details></span></label>
+        <p class="err" id="at-e"></p></div>
+      <div class="actions" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn btn-ghost" id="connCheck">입력 확인</button>
+        <button type="submit" class="btn" disabled aria-disabled="true">접수 준비 중</button>
+        <a class="btn btn-primary" href="tel:+821020885383">전화로 말하기</a>
+      </div>
+      <p class="status" id="connStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</main>
+<footer class="nw-foot">
+  <div class="wrap">
+    <p><strong>SynItArt</strong> | 대표 Syn Dae Sik (申大湜) · <a href="https://www.finitart.com">www.finitart.com</a> · <a href="mailto:itart@finitart.com">itart@finitart.com</a> · <a href="tel:+821020885383">010-2088-5383</a></p>
+    <p>안산사무소: 경기 안산시 단원구 정왕천동로30번길 2(성곡동, 4바 858호 2층)</p>
+    <p>이 네트워크는 전문가 분야를 안내하고, 동의하신 경우에만 연결합니다. 법률·세무 판단은 해당 전문가의 상담이 필요하며, 금융상품 권유는 이 화면에서 하지 않습니다.</p>
+  </div>
+</footer>
+</body>
+</html>
