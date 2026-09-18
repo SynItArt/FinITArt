@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
 <title>개인정보처리방침 | Heirwise</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,10 +32,26 @@
   th{background:#EBF3FA;color:var(--navy);font-weight:700}
   footer{background:#11243f;color:#9fb2c8;font-size:14px;padding:30px 0;text-align:center}
   footer a{color:#cfe0f2}
+
+/* 브랜드 로고 (2026-09-18, 상표출원 40-2026-0196992 / 등록 전 ™) */
+.logo,.nw-logo{align-items:center}
+.logo-img{height:28px;width:auto;display:block}
+@media(min-width:640px){.logo-img{height:32px}}
+.logo-img.is-dark{display:none}
+html[data-theme="dark"] .logo-img.is-light{display:none}
+html[data-theme="dark"] .logo-img.is-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
+.logo-mark{display:inline-flex;align-items:flex-start;margin-right:4px}
+.logo .tm,.nw-logo .tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px;vertical-align:top}
+
+/* 어두운 네이비 띠(.top)에는 항상 다크판 로고 — #54CFA8/#1A3C6D 5.69:1 (라이트판은 1.38:1로 불가) */
+.top .logo-img.is-light{display:none}
+.top .logo-img.is-dark{display:block}
+.top .logo .tm{color:#fff}
 </style>
 </head>
 <body data-season="off" data-tool="개인정보처리방침" data-axis="both">
-<div class="top"><div class="wrap"><a class="logo" href="index.html">HeirWise</a><a class="home" href="index.html">← 홈으로</a></div></div>
+<div class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span></a><a class="home" href="index.html">← 홈으로</a></div></div>
 
 <main>
   <div class="wrap">

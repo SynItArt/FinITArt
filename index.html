@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
 
 <!-- ═══════════════════════════════════════════════════════════
      HeirWise — finitart.com  index.html  v2.4 (GEO-first + N26 리스킨 + 사례 썸네일/모달)
@@ -55,7 +56,7 @@
       "@id": "https://finitart.com/#website",
       "url": "https://finitart.com/",
       "name": "HeirWise",
-      "alternateName": ["헤어와이즈", "신대식의 상속수업"],
+      "alternateName": ["에어와이즈", "헤어와이즈", "신대식의 상속수업"],
       "description": "상속·증여 재무설계 안내 사이트. 법정 기한 관리, 상속세 개략 추정, 납부 재원 진단.",
       "inLanguage": "ko-KR",
       "publisher": { "@id": "https://finitart.com/#person" }
@@ -92,6 +93,8 @@
       "@type": "FinancialService",
       "@id": "https://finitart.com/#service",
       "name": "HeirWise 상속·증여 재무설계",
+      "logo": "https://finitart.com/img/brand/heirwise-logo-h.png",
+      "image": "https://finitart.com/img/brand/heirwise-logo-h.png",
       "provider": { "@id": "https://finitart.com/#person" },
       "areaServed": [ { "@type": "AdministrativeArea", "name": "서울특별시" }, { "@type": "AdministrativeArea", "name": "경기도" }, { "@type": "AdministrativeArea", "name": "인천광역시" } ],
       "url": "https://finitart.com/",
@@ -474,6 +477,17 @@ footer a:hover{color:var(--ink);text-decoration:underline}
 @media (prefers-reduced-motion: reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+
+/* 브랜드 로고 (2026-09-18, 상표출원 40-2026-0196992 / 등록 전 ™) */
+.logo,.nw-logo{align-items:center}
+.logo-img{height:28px;width:auto;display:block}
+@media(min-width:640px){.logo-img{height:32px}}
+.logo-img.is-dark{display:none}
+html[data-theme="dark"] .logo-img.is-light{display:none}
+html[data-theme="dark"] .logo-img.is-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
+.logo-mark{display:inline-flex;align-items:flex-start;margin-right:4px}
+.logo .tm,.nw-logo .tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px;vertical-align:top}
 </style>
 </head>
 <body>
@@ -482,7 +496,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
 
 <header>
   <div class="wrap nav">
-    <a class="logo" href="/index.html">Heir<em>Wise</em> <small>상속·증여 재무설계</small></a>
+    <a class="logo" href="/index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span> <small>상속·증여 재무설계</small></a>
     <ul>
       <li><a href="#deadline">기한부터</a></li>
       <li><a href="#situations">실제 사례</a></li>
@@ -521,7 +535,7 @@ footer a:hover{color:var(--ink);text-decoration:underline}
 
     <!-- AI 검색이 통째로 인용하기 좋은 자체 완결 정의 문단 -->
     <p class="definition">
-      <strong>HeirWise(헤어와이즈)</strong>는 AFPK® 자격인증자(재무설계사) <strong>신대식(Syn Dae Sik, 申大湜)</strong>이
+      <strong>HeirWise(에어와이즈)</strong>는 AFPK® 자격인증자(재무설계사) <strong>신대식(Syn Dae Sik, 申大湜)</strong>이
       서울·경기·인천에서 활동하며 운영하는 상속·증여 재무설계 안내 사이트입니다.
       상속 개시 후 <strong>3개월(상속포기·한정승인)</strong>과 <strong>6개월(상속세 신고)</strong>의 법정 기한 관리,
       상속세 개략 추정, 세금을 낼 현금이 있는지 보는 <strong>납부 재원 진단</strong>,
@@ -1075,7 +1089,7 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <h4>HeirWise</h4>
+        <h4>HeirWise™</h4>
         <p style="color:var(--ink-2);max-width:38ch;margin:0">
           상속·증여 재무설계 안내. AFPK® 자격인증자(재무설계사) 신대식이 운영합니다.
         </p>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
 <title>무료 상담 신청 | Heirwise</title>
 <meta name="description" content="상속·증여 설계 무료 상담 신청. AFPK® 자격인증자·RC, 상속·증여 전문 재무설계사 Syn Dae Sik.">
 <!-- Open Graph · 카카오톡/페이스북 공유 미리보기 -->
@@ -66,10 +67,26 @@
   footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);border-radius:7px;padding:4px 10px;display:inline-block;margin-bottom:10px;font-size:14.5px}
   @media(max-width:640px){footer .fgrid{grid-template-columns:1fr;gap:22px}}
   @media(max-width:640px){body{font-size:17px}.hero h1{font-size:27px}}
+
+/* 브랜드 로고 (2026-09-18, 상표출원 40-2026-0196992 / 등록 전 ™) */
+.logo,.nw-logo{align-items:center}
+.logo-img{height:28px;width:auto;display:block}
+@media(min-width:640px){.logo-img{height:32px}}
+.logo-img.is-dark{display:none}
+html[data-theme="dark"] .logo-img.is-light{display:none}
+html[data-theme="dark"] .logo-img.is-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
+.logo-mark{display:inline-flex;align-items:flex-start;margin-right:4px}
+.logo .tm,.nw-logo .tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px;vertical-align:top}
+
+/* 어두운 네이비 띠(.top)에는 항상 다크판 로고 — #54CFA8/#1A3C6D 5.69:1 (라이트판은 1.38:1로 불가) */
+.top .logo-img.is-light{display:none}
+.top .logo-img.is-dark{display:block}
+.top .logo .tm{color:#fff}
 </style>
 </head>
 <body data-season="off" data-tool="상담신청" data-axis="both">
-<div class="top"><div class="wrap"><a class="logo" href="index.html">HeirWise</a><a class="home" href="index.html">← 홈으로</a></div></div>
+<div class="top"><div class="wrap"><a class="logo" href="index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span></a><a class="home" href="index.html">← 홈으로</a></div></div>
 
 <header class="hero">
   <div class="wrap">
@@ -196,7 +213,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <h4>HeirWise</h4>
+        <h4>HeirWise™</h4>
         <p style="color:var(--f-ink2);max-width:38ch;margin:0">상속·증여 재무설계 안내. AFPK® 자격인증자 신대식이 운영합니다.</p>
         <p style="color:var(--f-ink2);margin:14px 0 0">☎ 010-2088-5383<br>✉ <a href="mailto:itart@finitart.com">itart@finitart.com</a><br>경기 안산시 단원구 정왕천동로 30번길 2</p>
       </div>
