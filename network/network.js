@@ -1,6 +1,7 @@
 /* HeirWise 협업 네트워크 — 공통 스크립트 (2026-09-17)
  * 페이지: <body data-nw="map|principles|partners|join|connect">
- * 규칙: 이벤트는 heirwise-common.js 의 hwTrack 만 사용 · localStorage 는 try/catch · 전송 로직 없음(1단계)
+ * 규칙: 이벤트는 heirwise-common.js 의 hwTrack 만 사용 · localStorage 는 try/catch
+ * 전송: join 만 연결(2026-09-18 · A-11). connect 는 전송 미연결 — 개인정보 수집 범위를 좁게 시작한다.
  * 노출 규칙(PRD v3.0 §5.7): status=listed 만 · 같은 분야 안에서 지역 일치 → 무작위 · 유료 상단 노출 없음
  */
 (function () {
@@ -235,7 +236,63 @@
     else done(false);
   }
 
-  /* ── 합류 신청 (join) — 전송 없음 ── */
+  /* ── 합류 신청 (join) ── */
+
+  /* join.html 은 JS 가 없을 때를 위해 「온라인 접수는 준비 중」 상태로 남겨 둔다.
+     이 함수가 그 화면을 접수 가능 상태로 바꿈다.
+
+     loadData() 를 기다리지 않고 defer 스크립트 실행 시점에 곷바로 부르는 것이 핵심이다.
+     initJoin 안에 두면 network-data.json 왕복이 끝날 때까지(실측 815ms 이상)
+     「준비 중」 경고 박스가 그대로 읽히다가 바뀜다 — 저시력 이용자에게는 깜빡임이 아니라
+     서로 모순되는 안내를 연달아 읽는 일이 된다. 첫 그리기 전에 끝내야 한다. */
+  var joinSend = null;                       // initJoin 이 데이터를 받은 뒤 채운다
+  function openJoinIntake() {
+    var f = d.getElementById("joinForm");
+    if (!f || !CFG.NETWORK_ENDPOINT) return;  // 엔드포인트가 없으면 「준비 중」 화면을 그대로 둔다
+    var status = d.getElementById("joinStatus");
+
+    /* 상단 배지 — 「준비 중인 화면」이 바로 아래 「접수가 열렸습니다」와 부딪힌다.
+       검색 미노출(noindex)은 그대로 사실이므로 그 뜻은 남긴다. 이 페이지에서만 바꾼다. */
+    var draft = d.querySelector(".nw-hero .nw-draft");
+    if (draft) draft.textContent = "링크를 받으신 분만 보실 수 있는 화면입니다 · 검색에는 노출되지 않습니다";
+
+    var note = d.querySelector(".nw-hero .note.warn");
+    if (note) {
+      note.className = "note";                // warn(빨강) → 보통 안내
+      note.innerHTML = "";
+      note.appendChild(el("p", {}, [
+        el("strong", { text: "온라인 접수가 열렸습니다." }),
+        " 입력을 마치고 「합류 신청 보내기」를 누르시면 접수됩니다. 2~3일 안에 회신드립니다."
+      ]));
+    }
+
+    /* 허니팟 — 사람 눈에도 보조기기에도 걸리지 않게. 값이 차 있으면 봇으로 본다.
+       display:none 은 일부 봇이 건너뛰므로 화면 밖으로 밀어낸다. */
+    var hp = el("div", { "aria-hidden": "true" }, [
+      el("label", { "for": "website", text: "웹사이트 (적지 마세요)" }),
+      el("input", { type: "text", id: "website", name: "website", tabindex: "-1", autocomplete: "off" })
+    ]);
+    hp.style.cssText = "position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden";
+    f.insertBefore(hp, f.firstChild);
+
+    var send = f.querySelector('button[type="submit"]');
+    if (send) {
+      send.disabled = false;
+      send.removeAttribute("aria-disabled");
+      send.className = "btn btn-primary";
+      send.textContent = "합류 신청 보내기";
+    }
+    var copy = d.getElementById("joinCopy");
+    if (copy) copy.className = "btn btn-ghost";   // 으뜼미 버튼은 「보내기」 하나뿐이어야 한다
+
+    /* 목록을 불러오기 전에 눌러도 페이지가 새로 뜨지 않게 막고, 이유를 알린다. */
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (joinSend) joinSend();
+      else if (status) status.textContent = "분야 목록을 불러오는 중입니다. 잠시만 기다려 주세요.";
+    });
+  }
+
   function initJoin(data) {
     var f = d.getElementById("joinForm");
     var g = f.elements.group, fld = f.elements.field;
@@ -245,6 +302,7 @@
     REGIONS.forEach(function (r) { d.getElementById("regionList").appendChild(el("label", { class: "check" }, [el("input", { type: "checkbox", name: "region", value: r }), r])); });
     counter(f.elements.intro, d.getElementById("introCount"), 300);
     var status = d.getElementById("joinStatus");
+    var sendBtn = f.querySelector('button[type="submit"]');
 
     function validate() {
       var ok = true, first = null;
@@ -268,11 +326,9 @@
       if (first) first.focus();
       return ok ? { regions: regions.map(function (x) { return x.value; }), modes: modes.map(function (x) { return x.value; }) } : null;
     }
-    f.addEventListener("submit", function (e) { e.preventDefault(); });
-    d.getElementById("joinCheck").addEventListener("click", function () {
-      var v = validate();
-      if (!v) { status.textContent = "빠진 곳을 채워 주세요. 표시된 칸부터 확인하시면 됩니다."; return; }
-      var text = [
+
+    function summary(v) {
+      return [
         "[HeirWise 협업 네트워크 합류 신청]",
         "기관명: " + f.elements.org.value.trim(),
         "담당자: " + f.elements.person.value.trim(),
@@ -284,9 +340,131 @@
         "소개:", f.elements.intro.value.trim(),
         "동의: 개인정보 수집·이용 ✔ / 소개 대가 없음 원칙 ✔"
       ].join("\n");
-      d.getElementById("joinCopy").hidden = false;
-      d.getElementById("joinCopy").onclick = function () { copyText(text, status); };
-      status.textContent = "입력 형식이 모두 맞습니다. 온라인 접수는 준비 중이라, 아래 버튼으로 내용을 복사해 " + MAIL + " 으로 보내 주세요.";
+    }
+
+    /* 기기 구분용 짧은 지문. 개인 식별에는 쓰지 않으며 원문은 보내지 않는다. */
+    function uaHash() {
+      var s = String(navigator.userAgent || ""), h = 5381;
+      for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+      return h.toString(36);
+    }
+
+    function body(v) {
+      return {
+        type: "network_join",            // 배포된 06_network-join.gs 의 분기값
+        org: f.elements.org.value.trim(),
+        person: f.elements.person.value.trim(),
+        email: f.elements.email.value.trim(),
+        tel: f.elements.tel.value.trim(),
+        group: g.value,
+        field: fld.value,
+        credential: f.elements.credential.value.trim(),
+        region: v.regions,
+        modes: v.modes,
+        intro: f.elements.intro.value.trim(),
+        agree_privacy: true,
+        agree_nofee: true,
+        page: location.pathname,
+        ua_hash: uaHash(),
+        website: (f.elements.website && f.elements.website.value.trim()) || ""
+      };
+    }
+
+    /* 화면 교체만 한다. 측정은 하지 않는다 — 허니팟에 걸린 제출에도 이 화면을 보여 주지만
+       접수 건수로 세면 봇이 지표를 부풀리고 「성공 시 1회」 기준이 무너진다. */
+    function showDone() {
+      var box = d.getElementById("formBox");
+      box.innerHTML = "";
+      box.setAttribute("tabindex", "-1");
+      box.appendChild(el("div", { class: "note", role: "status" }, [
+        el("p", {}, [el("strong", { text: "접수되었습니다. 2~3일 안에 회신드립니다." })]),
+        el("p", { text: "자격과 게재 규정을 확인한 뒤 연락드립니다. 분야 지도 게재는 규정 확인이 끝난 뒤에 이뤄집니다." }),
+        el("p", {}, ["더 하실 말씀이 있으시면 ", el("a", { href: "tel:+82" + TEL.replace(/^0/, "").replace(/-/g, ""), text: TEL }), " 로 전화 주셔도 됩니다."])
+      ]));
+      try { box.focus(); } catch (e) {}
+    }
+
+    /* 실제로 접수된 경우에만 부른다. 측정 1회 + 화면 교체. */
+    function succeed(group) {
+      track("network_join_submit", { group: group }, true);
+      showDone();
+    }
+
+    /* 실패해도 입력값은 절대 지우지 않는다 — 다시 적게 하는 것이 가장 큰 손실. */
+    function failed(msg, v) {
+      status.textContent = msg + " 급하시면 전화 " + TEL + " 로 말씀해 주세요. 적으신 내용은 그대로 두었습니다.";
+      var copy = d.getElementById("joinCopy");
+      if (copy && v) {
+        var text = summary(v);
+        copy.hidden = false;
+        copy.textContent = "메일로 보낼 내용 복사";
+        copy.onclick = function () { copyText(text, status); };
+      }
+    }
+
+    var sending = false;
+    joinSend = function () {
+      if (sending) return;                                  // 이중 제출 잠금
+      var v = validate();
+      if (!v) { status.textContent = "빠진 곳을 채워 주세요. 표시된 칸부터 확인하시면 됩니다."; return; }
+      var p = body(v);
+      if (p.website) { showDone(); return; }                // 허니팟: 보내지도, 세지도 않고 성공한 척 끝낸다
+
+      sending = true;
+      sendBtn.disabled = true;
+      sendBtn.setAttribute("aria-busy", "true");
+      sendBtn.textContent = "보내는 중…";
+
+      /* Apps Script 는 잠들었다 깨어날 때 20초 가까이 걸린다(2026-09-18 실측 17.9초).
+         그동안 화면이 한 글자도 바뀌지 않으면 멈춘 것으로 읽힌다 — 단계별로 알린다.
+         status 줄은 aria-live="polite" 라 바뀔 때마다 읽어 준다.
+
+         타임아웃은 두지 않는다. 서버가 행을 이미 쓴 뒤에 화면만 실패로 바꾸면
+         이용자가 다시 눌러 중복 접수가 된다. 기다리게 하는 편이 낫다. */
+      var WAIT = [
+        "보내는 중입니다. 잠시만 기다려 주세요.",
+        "접수처를 깨우는 중입니다. 20초쯤 걸릴 수 있습니다.",
+        "아직 기다리는 중입니다. 창을 닫지 마세요."
+      ];
+      /* 문구마다 줄 수가 달라 아래 내용이 밀리면 그것도 깜빡임으로 보인다.
+         가장 높은 문구에 맞춰 자리를 미리 잡아 둔다. 한 프레임 안에 끝나 화면에는 안 보인다. */
+      var maxH = 0;
+      WAIT.forEach(function (t) { status.textContent = t; maxH = Math.max(maxH, status.offsetHeight); });
+      status.style.minHeight = maxH + "px";
+      status.textContent = WAIT[0];
+      var waitA = setTimeout(function () { status.textContent = WAIT[1]; }, 8000);
+      var waitB = setTimeout(function () { status.textContent = WAIT[2]; }, 20000);
+      function stopWait() { clearTimeout(waitA); clearTimeout(waitB); }
+
+      function restore() {
+        stopWait();
+        sending = false;
+        sendBtn.disabled = false;
+        sendBtn.removeAttribute("aria-busy");
+        sendBtn.textContent = "합류 신청 보내기";
+      }
+
+      fetch(CFG.NETWORK_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },   // Apps Script 프리플라이트 회피
+        body: JSON.stringify(p)
+      }).then(function (r) { return r.json(); }).then(function (res) {
+        if (res && res.ok) { stopWait(); succeed(p.group); return; } // 성공 시 폼이 사라지므로 복구하지 않는다
+        restore();
+        failed(res && res.error === "rate"
+          ? "짧은 사이에 여러 번 접수되어 잠시 막혔습니다. 10분 뒤에 다시 눌러 주세요."
+          : "접수 중 문제가 생겼습니다. 다시 한 번 눌러 주세요.", v);
+      }).catch(function () {
+        restore();
+        failed("접수처에 닿지 못했습니다. 인터넷 상태를 확인하고 다시 눌러 주세요.", v);
+      });
+    };
+
+    d.getElementById("joinCheck").addEventListener("click", function () {
+      var v = validate();
+      status.textContent = v
+        ? "입력 형식이 모두 맞습니다. 「합류 신청 보내기」를 눌러 주세요."
+        : "빠진 곳을 채워 주세요. 표시된 칸부터 확인하시면 됩니다.";
     });
   }
 
@@ -326,6 +504,7 @@
     var page = d.body.getAttribute("data-nw");
     if (page === "principles" || page === "partners") { track("network_view", { sub: page }, true); return; }
     var box = d.getElementById("groups") || d.getElementById("formBox");
+    if (page === "join") openJoinIntake();   // 첫 그리기 전에 — 「준비 중」 문구가 스쳤다 바뀜지 않도록
     loadData().then(function (data) {
       if (page === "map") renderMap(data);
       else if (page === "join") initJoin(data);

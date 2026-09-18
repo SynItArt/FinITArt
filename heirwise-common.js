@@ -33,6 +33,11 @@
     // mailto 폴백으로만 나가 유실되고 있었습니다. calculator.html 의 배포 URL 로 연결합니다.
     LEAD_ENDPOINT: "https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec",
 
+    // 협업 네트워크 합류 신청 엔드포인트 (2026.09.18 · 부록 A-11).
+    // 리드·북게이트와 **분리된 별도 웹앱**입니다 — 09.14 book-gate 교훈에 따라
+    // 한쪽 배포가 다른 쪽 접수를 끊지 않도록 엔드포인트를 섞지 않습니다.
+    NETWORK_ENDPOINT: "https://script.google.com/macros/s/AKfycbxMMgjuTGVML2PYeFjCwk1nJ2LOLjidPaZ16fYor1RYkIRq6dIz356-m8MG4W0qCrqj/exec",
+
     // 적용 법령 기준일 (프로젝트 규칙 5-3)
     LAW: {
       asOf: "2026.09.07",
