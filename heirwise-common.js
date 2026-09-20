@@ -724,20 +724,30 @@
      - privacy.html 자신에는 넣지 않음
      ------------------------------------------------------------ */
   function injectPrivacyLink() {
-    if (/\/privacy\.html$/.test(location.pathname)) return;
-    if (d.querySelector('a[href$="privacy.html"]')) return;
     if ($("hw-privacy-line")) return;
 
+    var inNetwork = location.pathname.indexOf("/network/") === 0;
+    var onPrivacy = /\/privacy\.html$/.test(location.pathname);
+    var needPrivacy = !onPrivacy && !d.querySelector('a[href$="privacy.html"]');
+    var needPartner = !inNetwork && !d.querySelector('a[href*="for-partners"]');
+    if (!needPrivacy && !needPartner) return;
+
+    var css = "color:inherit;text-decoration:underline;padding:8px 12px;display:inline-block;min-height:44px;box-sizing:border-box";
     var line = d.createElement("div");
     line.id = "hw-privacy-line";
     line.style.cssText =
       "margin:18px auto 0;padding:14px 16px 20px;max-width:900px;text-align:center;" +
       "font-size:16px;line-height:1.7;opacity:.95";
-    var a = d.createElement("a");
-    a.href = "/privacy.html";
-    a.textContent = "개인정보처리방침";
-    a.style.cssText = "color:inherit;text-decoration:underline;padding:8px 12px;display:inline-block;min-height:44px;box-sizing:border-box";
-    line.appendChild(a);
+
+    function add(href, text, ev) {
+      if (line.childNodes.length) line.appendChild(d.createTextNode(" · "));
+      var a = d.createElement("a");
+      a.href = href; a.textContent = text; a.style.cssText = css;
+      if (ev) a.setAttribute("data-ev", ev);
+      line.appendChild(a);
+    }
+    if (needPrivacy) add("/privacy.html", "개인정보처리방침");
+    if (needPartner) add("/network/for-partners.html", "전문가·기관이신가요?", "partners_from_footer");
 
     var foot = d.querySelector("footer");
     if (foot) { foot.appendChild(line); }
