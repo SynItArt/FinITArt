@@ -191,3 +191,7 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
 .logo-mark{display:inline-flex;align-items:flex-start;margin-right:4px}
 .logo .tm,.nw-logo .tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px;vertical-align:top}
+
+/* 빈자리 카드 — 모집 중 상태에서도 이용자가 막히지 않게 (2026-09-21) */
+.vacant-user{margin-top:8px;font-size:16px;line-height:1.7;color:var(--muted,#5F5E5A)}
+.vacant-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}

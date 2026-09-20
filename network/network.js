@@ -111,9 +111,11 @@
     var href = "/network/join.html?group=" + encodeURIComponent(g.id) + (field ? "&field=" + encodeURIComponent(field) : "");
     var a = el("a", { class: "btn btn-ghost", href: href, text: "협업 제안하기" });
     a.addEventListener("click", function () { track("network_join_click", { group: g.id }); });
+    var tel = el("a", { class: "btn btn-ghost", href: "tel:+82" + TEL.replace(/[^0-9]/g, "").slice(1), text: "전화로 먼저 묻기" });
     return el("div", { class: "vacant" }, [
       el("p", {}, ["이 분야의 협업 기관을 모시고 있습니다", el("br"), el("small", { text: field ? field : g.fields.join(" · ") })]),
-      a
+      el("p", { class: "vacant-user" }, ["기관이 정해지기 전까지는 운영자가 상황을 먼저 정리해 드리고, 필요한 곳을 알려 드립니다."]),
+      el("div", { class: "vacant-acts" }, [a, tel])
     ]);
   }
   function partnerCard(p, g) {
@@ -192,7 +194,7 @@
         });
         grid.appendChild(vacantCard(g));
       });
-      count.textContent = "분야 묶음 " + shown + "개" + (orgs ? " · 게재 기관 " + orgs + "곳" : " · 아직 게재된 기관은 없습니다");
+      count.textContent = "분야 묶음 " + shown + "개" + (orgs ? " · 게재 기관 " + orgs + "곳" : " · 기관을 모시는 중입니다 · 지금은 운영자가 직접 정리해 드립니다");
     }
     selG.addEventListener("change", function () { if (selG.value) track("network_group_open", { group: selG.value }); paint(); });
     selR.addEventListener("change", paint);
