@@ -58,6 +58,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   background:#FAFBFD;resize:vertical;min-height:60px}
 .memo-box:focus{border-color:var(--sky);background:#F0F6FF}
 
+.agree-row{display:flex;gap:10px;align-items:flex-start;min-height:44px;padding:8px 4px;font-size:16px;line-height:1.6;cursor:pointer}
+.agree-row input{width:22px;height:22px;margin-top:3px;flex:0 0 auto}
+.agree-warn{margin:6px 4px 0;font-size:16px;font-weight:700;color:#B3261E}
 .btn-submit{width:100%;padding:16px;border-radius:12px;border:none;
   background:linear-gradient(135deg,var(--gold),#F5B833);color:var(--navy);
   font-size:17px;font-weight:900;cursor:pointer;font-family:inherit;
@@ -195,6 +198,14 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     <textarea class="memo-box" id="fMemo" placeholder="통화 중 특이사항, 고객 요청사항 등"></textarea>
   </div>
 
+  <!-- 개인정보 동의 (상담원 확인) -->
+  <div class="section">
+    <div class="sec-title">개인정보 동의 확인</div>
+    <label class="agree-row"><input type="checkbox" id="agreePrivacy"><span><b>(필수)</b> 고객에게 개인정보 수집·이용 동의를 받았습니다. 수집 항목과 보유 기간(마지막 상담일부터 1년)을 안내했습니다. <a href="/privacy.html" target="_blank" rel="noopener">처리방침</a></span></label>
+    <label class="agree-row"><input type="checkbox" id="agreeMarketing"><span>(선택) 새 안내 자료를 받아 보시는 데에도 동의를 받았습니다.</span></label>
+    <div class="agree-warn" id="agreeWarn" hidden>필수 동의 확인란에 체크해야 저장됩니다.</div>
+  </div>
+
   <button class="btn-submit" onclick="submitIntake()">저장하기</button>
   <div class="status-msg" id="statusMsg"></div>
 
@@ -233,7 +244,21 @@ function markFilled(el){
   else el.classList.remove('has-val');
 }
 
+const RRN_RE=/\b\d{6}\s*-?\s*[1-8]\d{6}\b/;
 function submitIntake(){
+  const agreeP=document.getElementById('agreePrivacy').checked;
+  const agreeM=document.getElementById('agreeMarketing').checked;
+  const warn=document.getElementById('agreeWarn');
+  if(!agreeP){ warn.hidden=false; document.getElementById('agreePrivacy').focus(); return; }
+  warn.hidden=true;
+  const memoVal=str(document.getElementById('fMemo').value);
+  if(RRN_RE.test(memoVal)){
+    const s=document.getElementById('statusMsg');
+    s.style.color='#B3261E';
+    s.textContent='메모에 주민등록번호로 보이는 숫자가 있습니다. 지우고 다시 저장해 주세요.';
+    document.getElementById('fMemo').focus();
+    return;
+  }
   const payload={
     action:'save_client',
     timestamp:new Date().toLocaleString('ko-KR'),
@@ -261,7 +286,8 @@ function submitIntake(){
     source:'retirement', campaign:'AFPK_통화수집',
     referrer:str(clientRef),
     contactMethod:'',
-    privacyAgree:true,consent:true,marketingAgree:false
+    privacyAgree:agreeP,consent:agreeP,marketingAgree:agreeM,
+    consentAt:new Date().toISOString()
   };
 
   // 연금합계·갭 자동 계산
