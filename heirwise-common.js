@@ -97,6 +97,12 @@
     pre: "사전축·증여", post: "사후축·상속", both: "공통",
     retirement: "노후", accident: "사고"
   };
+
+  /* 주민등록번호 입력 차단 (2026-09-21) — 전화번호·날짜는 통과 */
+  var HW_RRN_RE = /\b\d{6}\s*-?\s*[1-8]\d{6}\b/;
+  function hwHasRRN(v) { return HW_RRN_RE.test(String(v == null ? "" : v)); }
+  window.hwHasRRN = hwHasRRN;
+
   function normAxis(a) { return Object.prototype.hasOwnProperty.call(AXIS_LABEL, a) ? a : "both"; }
 
   function detectPage() {
@@ -345,6 +351,9 @@
         return fail("이메일 형식을 확인해 주세요.");
       }
       if (!agree) { return fail("개인정보 수집·이용 동의가 필요합니다."); }
+      if (hwHasRRN(name) || hwHasRRN(mail)) {
+        return fail("주민등록번호는 적지 말아 주세요. 지우고 다시 보내 주세요.");
+      }
 
       var payload = {
         type: "lead",
@@ -707,6 +716,34 @@
     applyScheme();
   }
 
+
+  /* ------------------------------------------------------------
+     개인정보처리방침 링크 (2026-09-21)
+     페이지마다 푸터 구조가 달라, 없는 곳에만 공통으로 한 줄 넣는다.
+     - 이미 /privacy.html 링크가 있으면 아무것도 하지 않음
+     - privacy.html 자신에는 넣지 않음
+     ------------------------------------------------------------ */
+  function injectPrivacyLink() {
+    if (/\/privacy\.html$/.test(location.pathname)) return;
+    if (d.querySelector('a[href$="privacy.html"]')) return;
+    if ($("hw-privacy-line")) return;
+
+    var line = d.createElement("div");
+    line.id = "hw-privacy-line";
+    line.style.cssText =
+      "margin:18px auto 0;padding:14px 16px 20px;max-width:900px;text-align:center;" +
+      "font-size:16px;line-height:1.7;opacity:.95";
+    var a = d.createElement("a");
+    a.href = "/privacy.html";
+    a.textContent = "개인정보처리방침";
+    a.style.cssText = "color:inherit;text-decoration:underline;padding:8px 12px;display:inline-block;min-height:44px;box-sizing:border-box";
+    line.appendChild(a);
+
+    var foot = d.querySelector("footer");
+    if (foot) { foot.appendChild(line); }
+    else { (d.querySelector("main") || d.body).appendChild(line); }
+  }
+
   /* ============================================================
      ⑥ 실행
      ============================================================ */
@@ -714,6 +751,7 @@
     try { injectLawUI(); }    catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { unifyLeadForm(); }  catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectSeason(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { injectPrivacyLink(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
   }
 
   if (d.readyState === "loading") {

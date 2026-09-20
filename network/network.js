@@ -203,6 +203,8 @@
 
   /* ── 폼 공통 ── */
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  /* 주민등록번호 차단 (2026-09-21): 붙여 쓴 13자리·공백·외국인등록번호 5~8까지 */
+  var RRN = /\b\d{6}\s*-?\s*[1-8]\d{6}\b/;
   var TEL_RE = /^0\d{1,2}-?\d{3,4}-?\d{4}$/;
   function setErr(input, msg) {
     var id = input.getAttribute("aria-describedby") || "";
@@ -320,7 +322,7 @@
       var modes = [].slice.call(f.querySelectorAll('input[name=modes]:checked'));
       chk(d.getElementById("modesBox"), modes.length ? "" : "협업 방식을 하나 이상 골라 주세요.");
       var intro = f.elements.intro.value.trim();
-      chk(f.elements.intro, !intro ? "소개를 적어 주세요." : (intro.length > 300 ? "300자 안으로 줄여 주세요." : (intro.split(/\n/).length > 3 ? "세 줄 안으로 줄여 주세요." : "")));
+      chk(f.elements.intro, !intro ? "소개를 적어 주세요." : (intro.length > 300 ? "300자 안으로 줄여 주세요." : (intro.split(/\n/).length > 3 ? "세 줄 안으로 줄여 주세요." : (RRN.test(intro) ? "주민등록번호는 적지 말아 주세요. 지워 주시면 됩니다." : ""))));
       chk(f.elements.agree_privacy, f.elements.agree_privacy.checked ? "" : "개인정보 수집·이용에 동의해 주셔야 검토할 수 있습니다.");
       chk(f.elements.agree_nofee, f.elements.agree_nofee.checked ? "" : "소개 대가를 주고받지 않는 원칙에 동의해 주셔야 합류할 수 있습니다.");
       if (first) first.focus();
@@ -478,7 +480,6 @@
     REGIONS.forEach(function (r) { f.elements.region.appendChild(el("option", { value: r, text: r })); });
     counter(f.elements.summary, d.getElementById("sumCount"), 500);
     var status = d.getElementById("connStatus");
-    var RRN = /\d{6}\s*-\s*[1-4]\d{6}/;
     f.addEventListener("submit", function (e) { e.preventDefault(); });
     d.getElementById("connCheck").addEventListener("click", function () {
       var ok = true, first = null;
