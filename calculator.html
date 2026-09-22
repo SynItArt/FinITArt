@@ -612,7 +612,7 @@ function saveResult(){
       var ifr=document.createElement('iframe');
       ifr.id='_hwSink'; ifr.name='_hwSink'; ifr.style.display='none';
       document.body.appendChild(ifr);
-      var f=document.createElement('form');
+      var f=document.createElement('form'); f.acceptCharset = "UTF-8";
       f.method='POST'; f.action=ENDPOINT; f.target='_hwSink'; f.style.display='none';
       var i=document.createElement('input');
       i.type='hidden'; i.name='data'; i.value=JSON.stringify(data);

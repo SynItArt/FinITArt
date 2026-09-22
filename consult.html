@@ -269,7 +269,7 @@ function submitConsult(){
       var ifr=document.createElement('iframe');
       ifr.id='_hwSink'; ifr.name='_hwSink'; ifr.style.display='none';
       document.body.appendChild(ifr);
-      var fm=document.createElement('form');
+      var fm=document.createElement('form'); fm.acceptCharset = "UTF-8";
       fm.method='POST'; fm.action=ENDPOINT; fm.target='_hwSink'; fm.style.display='none';
       var hid=document.createElement('input');
       hid.type='hidden'; hid.name='data'; hid.value=JSON.stringify(data);

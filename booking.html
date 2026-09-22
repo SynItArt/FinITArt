@@ -494,7 +494,7 @@ function postViaIframe(endpoint, payload, sinkId) {
   try {
     var old = $(sinkId); if (old) old.remove();
     var ifr = document.createElement('iframe'); ifr.id = sinkId; ifr.name = sinkId; ifr.style.display = 'none'; document.body.appendChild(ifr);
-    var fm = document.createElement('form'); fm.method = 'POST'; fm.action = endpoint; fm.target = sinkId; fm.style.display = 'none';
+    var fm = document.createElement('form'); fm.acceptCharset = "UTF-8"; fm.method = 'POST'; fm.action = endpoint; fm.target = sinkId; fm.style.display = 'none';
     var hid = document.createElement('input'); hid.type = 'hidden'; hid.name = 'data'; hid.value = JSON.stringify(payload);
     fm.appendChild(hid); document.body.appendChild(fm); fm.submit();
     setTimeout(function () { try { fm.remove(); } catch (e) {} }, 3000);

@@ -564,7 +564,7 @@ function submitAll(){
   const iframe=document.createElement('iframe');
   iframe.id='_sif';iframe.name='_sif';iframe.style.display='none';
   document.body.appendChild(iframe);
-  const form=document.createElement('form');
+  const form=document.createElement('form'); form.acceptCharset = "UTF-8";
   form.method='POST';form.action=SHEET_URL;form.target='_sif';form.style.display='none';
   const inp=document.createElement('input');
   inp.type='hidden';inp.name='data';inp.value=JSON.stringify(payload);

@@ -400,7 +400,7 @@
       ifr.id = "_hwSink"; ifr.name = "_hwSink"; ifr.style.display = "none";
       d.body.appendChild(ifr);
 
-      var f = d.createElement("form");
+      var f = d.createElement("form"); f.acceptCharset = "UTF-8";
       f.method = "POST"; f.action = HW_CONFIG.LEAD_ENDPOINT;
       f.target = "_hwSink"; f.style.display = "none";
 

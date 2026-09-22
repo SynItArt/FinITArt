@@ -343,7 +343,7 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
       var old=document.getElementById('_hwSink'); if(old) old.remove();
       var ifr=document.createElement('iframe'); ifr.id='_hwSink'; ifr.name='_hwSink'; ifr.style.display='none';
       document.body.appendChild(ifr);
-      var f=document.createElement('form'); f.method='POST'; f.action=ENDPOINT; f.target='_hwSink'; f.style.display='none';
+      var f=document.createElement('form'); f.acceptCharset = "UTF-8"; f.method='POST'; f.action=ENDPOINT; f.target='_hwSink'; f.style.display='none';
       var i=document.createElement('input'); i.type='hidden'; i.name='data'; i.value=JSON.stringify(data);
       f.appendChild(i); document.body.appendChild(f); f.submit();
       setTimeout(function(){ f.remove(); }, 3000);
