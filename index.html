@@ -440,8 +440,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--coral);outline:none;b
 @media(max-width:700px){.author{grid-template-columns:1fr}}
 .avatar{width:104px;height:104px;border-radius:22px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;font-size:30px;font-weight:800;border:1px solid var(--line-strong);overflow:hidden;flex:none}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.creds{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.creds-group{margin-top:16px}
+.creds-group+.creds-group{margin-top:14px}
+.creds-label{font-size:12.5px;font-weight:800;letter-spacing:.04em;color:var(--ink-2);margin:0 0 8px}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
 .creds li{font-size:14.5px;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--ink-2)}
+.creds--navy li{background:var(--navy-soft);border-color:var(--navy);color:var(--navy)}
 
 /* ── 최종 CTA ── */
 .finale{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:46px 38px;text-align:center;box-shadow:var(--shadow-lg)}
@@ -654,6 +658,7 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 .imgModal-caption{font-size:15px;color:var(--ink-2);margin:12px 4px 2px;line-height:1.6}
 /* 대표님 배너 */
 .ceolead{margin-top:44px;padding-top:30px;border-top:2px solid var(--line)}
+/* gift 입구 한 줄 (v1.8 Y2-6 ①, D-0923) */
 .ceolead h3{margin:0 0 10px;font-size:clamp(22px,3vw,28px);line-height:1.35;letter-spacing:-.02em}
 .ceolead p{margin:0;max-width:70ch;color:var(--ink-2);line-height:1.75}
 .ceocta{margin-top:24px;text-align:center}
@@ -751,6 +756,45 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
         <span class="sit-book">장애인 신탁 · <a href="/retirement/index.html" style="color:inherit">노후자금 진단</a></span>
       </div>
 
+      <div class="sitcard sitcard--box c-teal" data-entry="부모님께 받는 돈·질문형">
+        <div class="sit-head">
+          <p class="sit-src">국민일보 2026.7.10 보도</p>
+          <button type="button" class="sit-thumb" data-img="/case/gift-question.jpg" data-caption="작년에만 7,552억 — 부모님께 받은 돈, 신고하셨나요?" aria-label="사진 크게 보기 — 부모님께 받은 돈, 신고하셨나요">
+            <img src="/case/gift-question.jpg" alt="20~30대 자녀가 부모님께 받은 돈을 정리하는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
+        <h3>작년에만 7,552억 — 부모님께 받은 돈, 신고하셨나요?</h3>
+        <p>혼인 증여재산공제 이용액이 1년 새 두 배(2024년 3,708억 원 → 2025년 7,552억 원, +103.7%)로 늘었습니다. 결혼·출산 자금을 받으셨다면 신고 대상인지부터 확인해 보세요.</p>
+        <a class="sit-go" href="/gift/">받는 돈, 세금부터 확인 →</a>
+        <span class="sit-book">상속세 및 증여세법 §53의2</span>
+      </div>
+
+      <div class="sitcard sitcard--box c-amber" data-entry="부모님께 받는 돈·손실회피형">
+        <div class="sit-head">
+          <p class="sit-src">상증법 §53의2·§68①</p>
+          <button type="button" class="sit-thumb" data-img="/case/gift-loss.jpg" data-caption="모르고 놓치는 공제, 1년 새 두 배로 늘었습니다" aria-label="사진 크게 보기 — 모르고 놓치는 공제">
+            <img src="/case/gift-loss.jpg" alt="공제 신청 기한을 달력에 표시하는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
+        <h3>모르고 놓치는 공제, 1년 새 두 배로 늘었습니다</h3>
+        <p>혼인·출산 증여재산공제를 활용하는 사람이 1년 만에 크게 늘었습니다. 신고 기한(받은 날이 속한 달 말일부터 3개월) 안에 확인하지 않으면 최대 1억 원 공제를 그냥 흘려보낼 수 있습니다.</p>
+        <a class="sit-go" href="/gift/">놓치기 전에 확인 →</a>
+        <span class="sit-book">상속세 및 증여세법 §53의2 · §68①</span>
+      </div>
+
+      <div class="sitcard sitcard--box c-crimson" data-entry="부모님께 받는 돈·경고형">
+        <div class="sit-head">
+          <p class="sit-src">상속세 및 증여세법 §68①</p>
+          <button type="button" class="sit-thumb" data-img="/case/gift-warning.jpg" data-caption="결혼 자금 받고 신고 안 하셨다면, 지금 확인하세요" aria-label="사진 크게 보기 — 결혼 자금 받고 신고 안 하셨다면">
+            <img src="/case/gift-warning.jpg" alt="신고 기한이 표시된 달력과 서류를 확인하는 손" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+          </button>
+        </div>
+        <h3>결혼 자금 받고 신고 안 하셨다면, 지금 확인하세요</h3>
+        <p>증여세 신고 기한은 받은 날이 속한 달 말일부터 3개월입니다. 세금이 0원이어도 기한 안에 신고하면 받은 날짜와 금액이 신고서로 남습니다.</p>
+        <a class="sit-go" href="/gift/">지금 확인하기 →</a>
+        <span class="sit-book">상속세 및 증여세법 §68①</span>
+      </div>
+
     </div>
 
     <div class="ceolead">
@@ -803,6 +847,33 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
     </div>
 
     <p class="ceocta"><a class="btn btn-primary" href="/ceo-diagnosis.html">세 가지를 한 번에 진단하기 →</a></p>
+  </div>
+</section>
+
+<!-- ══════════════════ 도구 ══════════════════ -->
+<section id="tools">
+  <div class="wrap">
+    <p class="sec-label">도구 전체</p>
+    <h2>계산기는 열한 개가 있습니다</h2>
+    <p class="sec-intro">
+      위에서 상황을 고르시면 맞는 계산기로 바로 갑니다. 곧장 원하는 것을 여시려면 아래에서 고르세요.
+      전부 연락처 없이 결과까지 보실 수 있습니다.
+    </p>
+
+    <div class="toollist">
+      <a href="/calculator.html"><b>상속 종합 계산기</b><span>상속분 · 유류분 · 상속세를 한 번에</span></a>
+      <a href="/natural-death.html"><b>부모님이 남기신 재산</b><span>자연사망 상속의 재산 구성과 기한</span></a>
+      <a href="/inheritdebt.html"><b>상속채무 진단기</b><span>빚이 더 많을 때 · 3개월 기한 · 한정승인과 포기</span></a>
+      <a href="/ceo-diagnosis.html"><b>대표님 진단</b><span>법인 · 연대보증 · 승계를 한 화면에</span></a>
+      <a href="/car-accident.html"><b>교통사고 보상</b><span>일실수입 · 위자료 개략 산정</span></a>
+      <a href="/industrial-accident.html"><b>산재 보상</b><span>유족급여와 별도 청구 가능 범위</span></a>
+      <a href="/fire-accident.html"><b>화재 보상</b><span>실화책임법과 보험 구조</span></a>
+      <a href="/disability-trust.html"><b>장애인 신탁</b><span>아픈 아이에게 남기는 구조</span></a>
+      <a href="/insurance-two-faces.html"><b>유류분 — 청구와 방어</b><span>받을 사람과 지킬 사람, 두 방향</span></a>
+      <a href="/retirement/index.html"><b>노후자금 진단</b><span>남길 돈보다 쓸 돈이 먼저</span></a>
+      <a href="/gift/"><b>부모님께 받는 돈</b><span>결혼·출산 공제 · 증여세 · 신고기한</span></a>
+      <a href="/book.html"><b>『상속설계의 기술』</b><span>136쪽 안내서 · 30장 + 부록 A~E</span></a>
+    </div>
   </div>
 </section>
 
@@ -898,32 +969,6 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
         </div>
       </article>
 
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ 도구 ══════════════════ -->
-<section id="tools">
-  <div class="wrap">
-    <p class="sec-label">도구 전체</p>
-    <h2>계산기는 아홉 개가 있습니다</h2>
-    <p class="sec-intro">
-      위에서 상황을 고르시면 맞는 계산기로 바로 갑니다. 곧장 원하는 것을 여시려면 아래에서 고르세요.
-      전부 연락처 없이 결과까지 보실 수 있습니다.
-    </p>
-
-    <div class="toollist">
-      <a href="/calculator.html"><b>상속 종합 계산기</b><span>상속분 · 유류분 · 상속세를 한 번에</span></a>
-      <a href="/natural-death.html"><b>부모님이 남기신 재산</b><span>자연사망 상속의 재산 구성과 기한</span></a>
-      <a href="/inheritdebt.html"><b>상속채무 진단기</b><span>빚이 더 많을 때 · 3개월 기한 · 한정승인과 포기</span></a>
-      <a href="/ceo-diagnosis.html"><b>대표님 진단</b><span>법인 · 연대보증 · 승계를 한 화면에</span></a>
-      <a href="/car-accident.html"><b>교통사고 보상</b><span>일실수입 · 위자료 개략 산정</span></a>
-      <a href="/industrial-accident.html"><b>산재 보상</b><span>유족급여와 별도 청구 가능 범위</span></a>
-      <a href="/fire-accident.html"><b>화재 보상</b><span>실화책임법과 보험 구조</span></a>
-      <a href="/disability-trust.html"><b>장애인 신탁</b><span>아픈 아이에게 남기는 구조</span></a>
-      <a href="/insurance-two-faces.html"><b>유류분 — 청구와 방어</b><span>받을 사람과 지킬 사람, 두 방향</span></a>
-      <a href="/retirement/index.html"><b>노후자금 진단</b><span>남길 돈보다 쓸 돈이 먼저</span></a>
-      <a href="/book.html"><b>『상속설계의 기술』</b><span>136쪽 안내서 · 30장 + 부록 A~E</span></a>
     </div>
   </div>
 </section>
@@ -1050,11 +1095,24 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
           그 막막함을 줄이려고 이 사이트를 만들었습니다.
           2026년에는 김·장 법률사무소 상속법 마스터 과정을 수료했습니다.
         </p>
-        <ul class="creds">
-          <li>AFPK® 자격인증자</li><li>생명·손해·변액보험</li><li>펀드·신탁·부동산 투자권유대행인</li>
-          <li>퇴직연금 모집인</li><li>산업안전기사(2026)</li><li>소방설비기사 전기·기계</li><li>소방기술자 중급</li>
-          <li>상속법 마스터 과정 수료(2026)</li><li>의용소방대 7년</li>
-        </ul>
+        <div class="creds-group">
+          <p class="creds-label">재무·보험</p>
+          <ul class="creds creds--navy">
+            <li>AFPK® 자격인증자</li><li>생명·손해·변액보험</li><li>펀드·신탁·부동산 투자권유대행인</li><li>퇴직연금 모집인</li>
+          </ul>
+        </div>
+        <div class="creds-group">
+          <p class="creds-label">안전관리</p>
+          <ul class="creds">
+            <li>산업안전기사(2026)</li><li>소방설비기사 전기·기계</li><li>소방기술자 중급</li>
+          </ul>
+        </div>
+        <div class="creds-group">
+          <p class="creds-label">전문성·활동</p>
+          <ul class="creds">
+            <li>상속법 마스터 과정 수료(2026)</li><li>의용소방대 7년</li>
+          </ul>
+        </div>
         <p style="margin-top:20px"><a class="btn btn-ghost btn-sm" href="/about.html">더 자세한 이야기 보기</a></p>
       </div>
     </div>
