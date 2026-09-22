@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>부모님께 받는 돈, 증여세 얼마? 결혼·출산 공제 계산 | HeirWise™</title>
+<meta name="description" content="부모님께 결혼·출산 자금을 받을 때 세금 없이 받을 수 있는 한도와 신고기한을 3단계로 확인해요. 상속세 및 증여세법(법률 제21065호) 기준 개략 계산.">
+<link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
+<meta name="color-scheme" content="light dark">
+<script>try{var t=localStorage.getItem('hw-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="stylesheet" href="/gift/gift.css">
+<script src="/heirwise-common.js" defer></script>
+<script src="/gift/gift.js" defer></script>
+</head>
+<body data-tool="증여세" data-axis="pre" data-season="off">
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="gf-head">
+  <div class="wrap">
+    <a class="gf-logo" href="/index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="28"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="28"><sup class="tm">™</sup></span></a>
+    <a class="home" href="/index.html">처음 화면</a>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <section class="hero">
+    <!-- V1 여정 띠 -->
+    <ol class="journey" id="journey" aria-label="받는 돈의 흐름">
+      <li data-j="before" aria-current="step"><span class="dot" aria-hidden="true">1</span>받기 전<span class="here">지금 여기</span></li>
+      <li data-j="day"><span class="dot" aria-hidden="true">2</span>받는 날</li>
+      <li data-j="report"><span class="dot" aria-hidden="true">3</span>3개월 안 신고</li>
+      <li data-j="ten"><span class="dot" aria-hidden="true">4</span>10년 뒤</li>
+    </ol>
+    <h1>부모님께 받는 돈,<br>세금 먼저 확인해 보세요</h1>
+    <p class="lead">얼마까지 세금 없이 받을 수 있는지, 언제까지 신고하는지, 10년 뒤 얼마가 되는지 3단계로 확인해 보세요.</p>
+  </section>
+
+  <!-- V2 단계 표시 -->
+  <ol class="steps" id="steps" aria-label="진행 단계">
+    <li data-s="1" aria-current="step">1/3 누구에게</li>
+    <li data-s="2">2/3 언제·얼마</li>
+    <li data-s="3">3/3 결과</li>
+  </ol>
+
+  <div id="stepCards">
+    <!-- ① 누구에게 -->
+    <section class="card" id="step1" aria-labelledby="s1h">
+      <h2 id="s1h">1. 누구에게 받나요?</h2>
+      <div class="choices" role="group" aria-label="주는 사람">
+        <button type="button" class="choice" data-giver="parent" aria-pressed="false">부모님</button>
+        <button type="button" class="choice" data-giver="in_law" aria-pressed="false">배우자의 부모님</button>
+        <button type="button" class="choice" data-giver="grand" aria-pressed="false">조부모님</button>
+        <button type="button" class="choice" data-giver="other" aria-pressed="false">그 밖의 친척</button>
+      </div>
+      <div id="grandNote" class="notice" hidden>
+        <p><strong>세대를 건너뛴 증여는 세금이 30~40% 더 붙어서(§57) 이 계산기로는 정확히 안 나와요.</strong></p>
+        <p>조부모님께 받는 경우는 따로 여쭤봐 주세요. 받는 날과 금액을 기준으로 같이 정리해 드려요.</p>
+        <div class="row"><button type="button" class="btn primary" data-open-ask="grand">내 경우 물어보기</button></div>
+      </div>
+      <div id="adultBox">
+        <p class="q" id="adultQ">받는 날 기준 만 19세 이상인가요?</p>
+        <div class="choices" role="group" aria-labelledby="adultQ">
+          <button type="button" class="choice" data-adult="yes" aria-pressed="false">예</button>
+          <button type="button" class="choice" data-adult="no" aria-pressed="false">아니오</button>
+        </div>
+        <p class="sub" style="margin-top:8px">그 밖의 친척은 4촌 이내 혈족·3촌 이내 인척을 말해요.</p>
+      </div>
+      <p class="err" id="e1" role="alert"></p>
+      <div class="row"><button type="button" class="btn primary wide" id="go2">다음</button></div>
+    </section>
+
+    <!-- ② 언제·얼마 -->
+    <section class="card" id="step2" aria-labelledby="s2h" hidden>
+      <h2 id="s2h">2. 언제, 얼마를 받나요?</h2>
+      <p class="q" id="occQ">어떤 때 받나요?</p>
+      <div class="choices c3" role="group" aria-labelledby="occQ">
+        <button type="button" class="choice" data-occ="marriage" aria-pressed="false">결혼 앞뒤</button>
+        <button type="button" class="choice" data-occ="birth" aria-pressed="false">아이 출산·입양 뒤</button>
+        <button type="button" class="choice" data-occ="none" aria-pressed="false">특별한 일 없이</button>
+      </div>
+      <div class="fld" id="evFld" hidden>
+        <label for="evDate" id="evLabel">혼인신고일(예정일)</label>
+        <input type="date" id="evDate">
+        <p class="hint" id="evHint">혼인관계증명서에 적히는 신고일 기준이에요. 아직이면 예정일을 넣어 보세요.</p>
+      </div>
+      <div class="fld">
+        <label for="gDate">받는 날 (예정일)</label>
+        <input type="date" id="gDate">
+      </div>
+      <div class="fld">
+        <label for="amt">얼마를 받나요?</label>
+        <div class="money"><input type="text" id="amt" inputmode="numeric" autocomplete="off" placeholder="예: 15000" aria-describedby="amtEcho"><span class="unit">만원</span></div>
+        <p class="echo" id="amtEcho" aria-live="polite"></p>
+      </div>
+      <p class="q" id="priorQ">최근 10년 안에 같은 쪽에서 받은 돈이 있나요?</p>
+      <p class="sub">아버지·어머니는 한 사람으로 봐요. 배우자의 부모님이면 그분들께 받은 돈만요.</p>
+      <div class="choices" role="group" aria-labelledby="priorQ" style="margin-top:8px">
+        <button type="button" class="choice" data-prior="no" aria-pressed="true">없어요</button>
+        <button type="button" class="choice" data-prior="yes" aria-pressed="false">있어요</button>
+      </div>
+      <div class="fld" id="priorFld" hidden>
+        <label for="priorAmt">그동안 받은 돈 합계</label>
+        <div class="money"><input type="text" id="priorAmt" inputmode="numeric" autocomplete="off" aria-describedby="priorEcho"><span class="unit">만원</span></div>
+        <p class="echo" id="priorEcho" aria-live="polite"></p>
+      </div>
+      <div id="spBox">
+        <p class="q" id="spQ">결혼·출산 공제를 이미 쓴 적 있나요?</p>
+        <div class="choices" role="group" aria-labelledby="spQ">
+          <button type="button" class="choice" data-sp="no" aria-pressed="true">없어요</button>
+          <button type="button" class="choice" data-sp="yes" aria-pressed="false">있어요</button>
+        </div>
+        <div class="fld" id="spFld" hidden>
+          <label for="spAmt">이미 쓴 결혼·출산 공제</label>
+          <div class="money"><input type="text" id="spAmt" inputmode="numeric" autocomplete="off" aria-describedby="spEcho"><span class="unit">만원</span></div>
+          <p class="echo" id="spEcho" aria-live="polite"></p>
+        </div>
+      </div>
+      <p class="err" id="e2" role="alert"></p>
+      <div class="row">
+        <button type="button" class="btn line" id="back1">이전</button>
+        <button type="button" class="btn primary" id="goRes">결과 보기</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ③ 결과 (id="result" 쓰지 않음 — 공통 계측 자동 인식과 겹치지 않게) -->
+  <section class="res" id="giftRes" aria-labelledby="rh" hidden tabindex="-1">
+    <h2 id="rh" style="margin-top:8px">3. 결과</h2>
+
+    <!-- 1 · V3 결과 신호 카드 -->
+    <div class="signal" id="sig">
+      <div class="top"><span>예상 증여세</span><span class="badge">개략 추정</span></div>
+      <p class="big"><span class="ic" id="sigIc" aria-hidden="true">✓</span><span id="sigTxt">0원</span></p>
+      <p class="sub" id="sigSub" style="margin-top:6px"></p>
+    </div>
+
+    <!-- 2 · 시점 비교 한 줄 + V5 -->
+    <p class="compare" id="cmp" hidden></p>
+    <div class="tl card" id="tl" hidden>
+      <svg id="tlSvg" viewBox="0 0 600 70" role="img" aria-label=""></svg>
+      <p class="say" id="tlSay"></p>
+      <p class="dates" id="tlDates"></p>
+    </div>
+
+    <!-- 3 · V4 공제 막대 + 공제 내역 표 -->
+    <h2>공제 내역</h2>
+    <div class="bar" id="bar" role="img" aria-label=""><span class="b"></span><span class="s"></span><span class="t"></span></div>
+    <ul class="legend" id="legend"></ul>
+    <table class="tb" id="dedTb"><caption class="sr">공제 내역 표</caption><tbody></tbody></table>
+    <p class="sub" id="prevTaxNote" style="margin-top:8px" hidden>이전 증여 때 낸 세금은 빼 드리지 못했어요. 실제 세금은 이보다 적을 수 있어요(§58).</p>
+
+    <!-- 4 · V6 신고기한 카드 -->
+    <h2>신고기한</h2>
+    <div class="due" id="due">
+      <div class="cal" aria-hidden="true"><b></b><span id="dueM"></span><strong id="dueD"></strong></div>
+      <div class="txt"><p class="d1" id="dueT1"></p><p class="d2" id="dueT2"></p></div>
+    </div>
+    <p class="fact">세금이 0원이어도 신고기한 안에 신고하면, 받은 날짜와 금액이 신고서로 남아요.</p>
+    <p class="noprint"><button type="button" class="linkbtn" id="alertOnlyBtn">신고기한 알림만 받기</button></p>
+
+    <!-- 5 · 받은 돈, 10년 뒤 (T1 정보 — L2) -->
+    <h2>받은 돈, 10년 뒤</h2>
+    <div class="ten" id="ten">
+      <table class="tb"><thead><tr><th scope="col">가정 연수익률</th><th scope="col">10년 뒤 (세전·복리 예시)</th></tr></thead><tbody id="tenBody"></tbody></table>
+      <p class="fix">예시 계산이에요. 원금이나 수익을 약속하지 않고, 어떤 상품도 권하지 않아요.</p>
+    </div>
+
+    <!-- V7 상담 카드 -->
+    <div class="ask" id="askCard">
+      <h3>이 결과, 같이 한 번 볼까요?</h3>
+      <p id="askLine">받은 돈을 어디에 먼저 둘지, 신고는 어떻게 할지 정리해 드려요.</p>
+      <div class="row">
+        <button type="button" class="btn primary" data-open-ask="card">내 경우 물어보기</button>
+        <a class="btn line" href="tel:01020885383" data-call="card">☎ 전화하기</a>
+      </div>
+    </div>
+
+    <!-- Y1-9 짧은 문의 창 -->
+    <section class="askpanel" id="askPanel" hidden aria-labelledby="apH" tabindex="-1">
+      <h3 id="apH">내 경우 물어보기</h3>
+      <p class="sub" id="apSub">이름은 받지 않아요. 연락드릴 방법 하나만 알려 주세요.</p>
+      <fieldset>
+        <legend>연락 받을 방법<span class="req">필수</span></legend>
+        <div class="choices c3" role="group">
+          <button type="button" class="choice" data-how="전화" aria-pressed="false">전화</button>
+          <button type="button" class="choice" data-how="문자" aria-pressed="false">문자</button>
+          <button type="button" class="choice" data-how="이메일" aria-pressed="false">이메일</button>
+        </div>
+      </fieldset>
+      <div class="fld" id="contactFld" hidden>
+        <label for="contact" id="contactLb">연락처<span class="req">필수</span></label>
+        <input type="tel" id="contact" autocomplete="tel" inputmode="tel">
+      </div>
+      <fieldset id="timeSet">
+        <legend>편한 시간 (선택)</legend>
+        <div class="choices c3" role="group">
+          <button type="button" class="choice" data-time="평일 낮" aria-pressed="false">평일 낮</button>
+          <button type="button" class="choice" data-time="평일 저녁" aria-pressed="false">평일 저녁</button>
+          <button type="button" class="choice" data-time="주말" aria-pressed="false">주말</button>
+        </div>
+      </fieldset>
+      <div class="fld" id="qFld">
+        <label for="qText">궁금한 점 한 줄 (선택 · 60자 안)</label>
+        <input type="text" id="qText" maxlength="60" placeholder="전세 보증금에 보태도 되는지 궁금해요">
+        <p class="hint">주민등록번호·계좌번호는 적지 말아 주세요.</p>
+      </div>
+      <label class="check" id="attachRow"><input type="checkbox" id="attach"><span>방금 계산한 결과(계기·금액 구간·예상 세액·신고기한)를 같이 보낼게요</span></label>
+      <div class="fld" id="attachFld" hidden>
+        <label for="attachTxt">같이 보낼 내용 (보고 지우거나 고칠 수 있어요)</label>
+        <textarea id="attachTxt" rows="4"></textarea>
+      </div>
+      <label class="check"><input type="checkbox" id="agree"><span>연락과 답변 준비에만 쓰고 1년 뒤 지웁니다 <a href="/privacy.html" target="_blank" rel="noopener">[처리방침]</a><span class="req">필수</span></span></label>
+      <label class="check"><input type="checkbox" id="alertOk"><span>신고기한 30일·7일 전에 알려 드릴게요 (선택 · 알림을 위해 연락처를 신고기한까지 씁니다)</span></label>
+      <p class="err" id="e3" role="alert"></p>
+      <p class="sub" id="sendState" aria-live="polite"></p>
+      <div class="row"><button type="button" class="btn primary wide" id="sendBtn">보내기</button></div>
+    </section>
+    <div class="done-box" id="doneBox" hidden tabindex="-1" role="status"></div>
+
+    <!-- 6 · 법령 기준일 — .hw-lawbase가 이미 있으면 공통 스크립트가 따로 넣지 않는다 -->
+    <div class="hw-lawbase" id="lawbase">
+      <div class="hw-h">적용 법령 기준일 <span id="lawAsOf">2026.09.07</span></div>
+      <ul id="lawList"><li>상속세 및 증여세법 — 법률 제21065호 (2026. 1. 2. 시행)</li></ul>
+    </div>
+    <p class="disc">정확한 세액은 세무전문가 상담이 필요합니다. 국내 거주자 기준이에요. 이 화면의 계산은 개략 추정이며 세무·법률 자문이 아닙니다.</p>
+
+    <!-- 7 · 결과 저장 -->
+    <div class="row noprint">
+      <button type="button" class="btn line" id="printBtn">인쇄 · PDF로 저장</button>
+      <button type="button" class="btn line" id="againBtn">다시 계산</button>
+    </div>
+  </section>
+</main>
+
+<footer class="gf-foot">
+  <div class="wrap">
+    <p>HeirWise™ 신대식 · ☎ <a href="tel:01020885383">010-2088-5383</a> · <a href="mailto:itart@finitart.com">itart@finitart.com</a></p>
+    <p>경기 안산시 단원구 정왕천동로30번길 2 · <a href="/privacy.html">개인정보처리방침</a></p>
+  </div>
+</footer>
+
+<!-- V7 모바일 하단 바 -->
+<div class="gbar" id="gbar" hidden>
+  <button type="button" class="btn primary" data-open-ask="bar">내 경우 물어보기</button>
+  <a class="call" href="tel:01020885383" data-call="bar" aria-label="전화하기">☎</a>
+  <button type="button" class="x" id="barX" aria-label="하단 바 닫기">✕</button>
+</div>
+
+<script>
+/* gift/ 화면 — 계산은 HWGift(gift.js 순수 함수)만 쓴다. 금액·날짜 원값은 GA4·주소창에 보내지 않는다. */
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  var G = window.HWGift, d = document;
+  if (!G) return;
+  var $ = function (id) { return d.getElementById(id); };
+  var MAN = 10000;
+  var S = { giver: null, adult: null, occ: null, prior: false, sp: false, how: null, time: "", place: "card", alertOnly: false, from10y: false, viewed10y: false, result: null, sent: false };
+  var cfg = window.HW_CONFIG || {};
+
+  function track(name, p, once) { try { if (window.hwTrack) window.hwTrack(name, p || {}, once); } catch (e) {} }
+
+  /* 한국 날짜 */
+  function kstToday() { var t = new Date(Date.now() + 9 * 3600000); return t.toISOString().slice(0, 10); }
+  function fmtDate(ymd) { var p = ymd.split("-"); return p[0] + "년 " + (+p[1]) + "월 " + (+p[2]) + "일"; }
+  function dotDate(ymd) { return ymd.replace(/-/g, "."); }
+  var today = kstToday();
+  $("gDate").value = today;
+
+  /* 테마 */
+  $("themeBtn").addEventListener("click", function () {
+    var root = d.documentElement;
+    var now = root.getAttribute("data-theme") || (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    var next = now === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("hw-theme", next); } catch (e) {}
+  });
+
+  /* 법령 기준일 — 공통 설정 값 사용 */
+  if (cfg.LAW) {
+    $("lawAsOf").textContent = cfg.LAW.asOf;
+    $("lawList").innerHTML = "";
+    cfg.LAW.full.forEach(function (t) { var li = d.createElement("li"); li.textContent = t; $("lawList").appendChild(li); });
+  }
+
+  /* 선택 버튼 공통 */
+  function pick(attr, val) {
+    d.querySelectorAll("[" + attr + "]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute(attr) === val ? "true" : "false"); });
+  }
+  function onPick(attr, fn) {
+    d.querySelectorAll("[" + attr + "]").forEach(function (b) {
+      b.addEventListener("click", function () { var v = b.getAttribute(attr); pick(attr, v); fn(v); });
+    });
+  }
+
+  /* 금액 입력: 숫자만, 만원 단위 한글 병기 */
+  function num(id) { return parseInt(String($(id).value).replace(/[^\d]/g, ""), 10) || 0; }
+  function bindMoney(id, echo) {
+    $(id).addEventListener("input", function () {
+      var raw = String($(id).value).replace(/[^\d]/g, "").slice(0, 7);
+      $(id).value = raw ? (+raw).toLocaleString("ko-KR") : "";
+      $(echo).textContent = raw ? G.formatWon(+raw * MAN) : "";
+    });
+  }
+  bindMoney("amt", "amtEcho"); bindMoney("priorAmt", "priorEcho"); bindMoney("spAmt", "spEcho");
+
+  /* 단계 표시 · 여정 띠 */
+  function setStep(n) {
+    d.querySelectorAll("#steps li").forEach(function (li) {
+      var s = +li.getAttribute("data-s");
+      li.classList.toggle("done", s < n);
+      if (s === n) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
+    });
+  }
+  function setJourney(key) {
+    d.querySelectorAll("#journey li").forEach(function (li) {
+      var on = li.getAttribute("data-j") === key;
+      var here = li.querySelector(".here");
+      if (on) { li.setAttribute("aria-current", "step"); if (!here) { here = d.createElement("span"); here.className = "here"; here.textContent = "지금 여기"; li.appendChild(here); } }
+      else { li.removeAttribute("aria-current"); if (here) here.remove(); }
+    });
+  }
+
+  /* ① */
+  var started = false;
+  onPick("data-giver", function (v) {
+    S.giver = v;
+    if (!started) { started = true; track("gift_start", { giver: v }, true); }
+    $("grandNote").hidden = v !== "grand";
+    $("adultBox").hidden = v === "grand";
+    $("go2").hidden = v === "grand";
+    $("e1").textContent = "";
+  });
+  onPick("data-adult", function (v) { S.adult = v === "yes"; });
+  $("go2").addEventListener("click", function () {
+    if (!S.giver) { $("e1").textContent = "누구에게 받는지 먼저 골라 주세요."; return; }
+    if (S.adult === null) { $("e1").textContent = "만 19세 이상인지 골라 주세요."; return; }
+    $("step1").hidden = true; $("step2").hidden = false; setStep(2);
+    $("spBox").hidden = S.giver !== "parent";
+    track("gift_step2", { occasion: S.occ || "none" }, true);
+    $("step2").scrollIntoView({ block: "start" });
+  });
+  $("back1").addEventListener("click", function () { $("step2").hidden = true; $("step1").hidden = false; setStep(1); });
+
+  /* ② */
+  onPick("data-occ", function (v) {
+    S.occ = v;
+    $("evFld").hidden = v === "none";
+    if (v === "marriage") { $("evLabel").textContent = "혼인신고일(예정일)"; $("evHint").textContent = "혼인관계증명서에 적히는 신고일 기준이에요. 아직이면 예정일을 넣어 보세요."; }
+    if (v === "birth") { $("evLabel").textContent = "출생일 또는 입양신고일"; $("evHint").textContent = "출생신고서상 출생일, 입양이면 입양신고일이에요. 이날부터 2년 안에 받은 돈이 대상이에요."; }
+    if (S.giver !== "parent" && v !== "none") $("evHint").textContent += " 결혼·출산 공제는 부모님께 받을 때만 적용돼요.";
+  });
+  onPick("data-prior", function (v) { S.prior = v === "yes"; $("priorFld").hidden = !S.prior; });
+  onPick("data-sp", function (v) { S.sp = v === "yes"; $("spFld").hidden = !S.sp; });
+
+  $("goRes").addEventListener("click", function () {
+    var e = $("e2"); e.textContent = "";
+    if (!S.occ) { e.textContent = "어떤 때 받는지 골라 주세요."; return; }
+    if (S.occ !== "none" && !G.parseYmd($("evDate").value)) { e.textContent = (S.occ === "marriage" ? "혼인신고일(예정일)" : "출생일 또는 입양신고일") + "을 넣어 주세요."; return; }
+    if (!G.parseYmd($("gDate").value)) { e.textContent = "받는 날을 넣어 주세요."; return; }
+    var amt = num("amt");
+    if (!amt) { e.textContent = "받는 금액을 만원 단위로 넣어 주세요. (예: 1억 5천만원이면 15000)"; return; }
+    if (S.prior && !num("priorAmt")) { e.textContent = "그동안 받은 돈 합계를 넣어 주세요. 모르면 「없어요」를 눌러 주세요."; return; }
+    var r = G.calcGift({
+      giver: S.giver, adult: S.adult, occasion: S.occ, eventDate: $("evDate").value, giftDate: $("gDate").value,
+      amount: amt * MAN, prior10y: S.prior ? num("priorAmt") * MAN : 0,
+      priorSpecialUsed: (S.giver === "parent" && S.sp) ? num("spAmt") * MAN : 0, today: today
+    });
+    if (!r.supported) { e.textContent = "이 경우는 계산하지 않아요."; return; }
+    S.result = r;
+    render(r);
+  });
+
+  /* ③ 결과 */
+  var tenIO = null, sigIO = null;
+  function render(r) {
+    $("stepCards").hidden = true; setStep(3);
+    d.querySelectorAll("[data-gh]").forEach(function (c) { c.hidden = false; c.removeAttribute("data-gh"); });
+    $("askPanel").hidden = true;
+    var res = $("giftRes"); res.hidden = false;
+
+    // V3
+    var sig = $("sig");
+    sig.className = "signal " + (r.zero ? "zero" : "tax");
+    $("sigIc").textContent = r.zero ? "✓" : "!";
+    $("sigTxt").textContent = r.zero ? "0원" : G.formatTaxApprox(r.finalTax);
+    $("sigSub").textContent = r.zero
+      ? "받는 금액 " + G.formatWon(r.amount) + "은 공제 안에 들어가요."
+      : "받는 금액 " + G.formatWon(r.amount) + " 중 " + G.formatWon(r.taxablePortion) + "에 세금이 붙어요. (산출세액 " + r.calcTax.toLocaleString("ko-KR") + "원 − 신고세액공제 3% " + r.reportCredit.toLocaleString("ko-KR") + "원)";
+
+    // 시점 비교 + V5
+    var cmp = $("cmp"), tl = $("tl");
+    cmp.hidden = true; tl.hidden = true;
+    if (r.occasion !== "none" && r.window) {
+      var what = r.occasion === "marriage" ? "혼인신고" : "출생·입양";
+      if (r.compare && r.compare.withSpecial !== r.compare.withoutSpecial) {
+        cmp.hidden = false;
+        cmp.innerHTML = "";
+        var a = d.createElement("span"); a.className = "z"; a.textContent = what + " 2년 안에 받으면 " + (r.compare.withSpecial ? G.formatTaxApprox(r.compare.withSpecial) : "0원");
+        var b = d.createElement("span"); b.className = "t"; b.textContent = (r.occasion === "marriage" ? "그 밖에 받으면 " : "2년 지나서 받으면 ") + (r.compare.withoutSpecial ? G.formatTaxApprox(r.compare.withoutSpecial) : "0원");
+        cmp.appendChild(a); cmp.appendChild(d.createTextNode(" · ")); cmp.appendChild(b);
+      }
+      drawTimeline(r);
+      tl.hidden = false;
+    }
+
+    // V4 + 표
+    var bA = r.basicNow, sA = r.specialNow, tA = r.taxablePortion, tot = Math.max(1, bA + sA + tA);
+    var spans = $("bar").querySelectorAll("span");
+    [bA, sA, tA].forEach(function (v, i) { spans[i].style.width = "0"; spans[i].hidden = v <= 0; });
+    requestAnimationFrame(function () { requestAnimationFrame(function () {
+      [bA, sA, tA].forEach(function (v, i) { spans[i].style.width = (v / tot * 100) + "%"; });
+    }); });
+    var lg = $("legend"); lg.innerHTML = "";
+    function li(cls, text) { var x = d.createElement("li"); x.className = cls; x.innerHTML = '<i aria-hidden="true"></i>'; x.appendChild(d.createTextNode(text)); lg.appendChild(x); }
+    if (bA) li("b", "기본 공제 " + G.formatWon(bA));
+    if (sA) li("s", (r.occasion === "birth" ? "출산 공제 " : "결혼 공제 ") + G.formatWon(sA));
+    if (tA) li("t", "세금 붙는 부분 " + G.formatWon(tA));
+    $("bar").setAttribute("aria-label", "받는 금액 " + G.formatWon(r.amount) + ": " + Array.prototype.map.call(lg.children, function (c) { return c.textContent; }).join(", "));
+
+    var rows = [
+      ["기본 공제 한도 (§53)", G.formatWon(r.basicLimit) + (r.basicUsedBefore ? " (이미 쓴 " + G.formatWon(r.basicUsedBefore) + ", 남은 " + G.formatWon(r.basicAvail) + ")" : "")],
+      ["이번에 쓰는 기본 공제", G.formatWon(r.basicNow)],
+      ["결혼·출산 공제 (§53의2)", r.giver !== "parent" ? "해당 없음 (부모님께 받을 때만)" : (r.occasion === "none" ? "해당 없음" : (r.specialEligible ? G.formatWon(r.specialNow) : "0원 (2년 기간 밖)"))],
+      ["10년 합산 (§47②)", r.aggregatedNote === "합산" ? "합산 — 그동안 받은 돈 포함 과세가액 " + G.formatWon(r.grossBase) : (r.aggregatedNote === "합산 안 함" ? "합산 안 함 (합계 1천만원 미만)" : "없음")],
+      ["과세표준", G.formatWon(r.taxBase) + (r.taxBase > 0 && r.taxBase < 500000 ? " (50만원 미만 → 세금 없음, §55②)" : "")],
+      ["남은 공제 한도", "기본 " + G.formatWon(r.basicLeft) + (r.giver === "parent" ? " · 결혼·출산 " + G.formatWon(r.specialLeft) : "")],
+      ["공제가 다시 생기는 날", r.renewDate ? fmtDate(r.renewDate) + " 이후 (이번 받은 돈 기준 10년)" : "-"]
+    ];
+    var tb = $("dedTb").querySelector("tbody"); tb.innerHTML = "";
+    rows.forEach(function (rw) {
+      var tr = d.createElement("tr"), th = d.createElement("th"), td = d.createElement("td");
+      th.scope = "row"; th.textContent = rw[0]; td.textContent = rw[1]; tr.appendChild(th); tr.appendChild(td); tb.appendChild(tr);
+    });
+    $("prevTaxNote").hidden = !r.priorTaxNotCredited;
+
+    // V6
+    var due = $("due"), p = r.deadline.split("-");
+    due.className = "due" + (r.overdue ? " late" : (r.daysLeft <= 30 ? " soon" : ""));
+    $("dueM").textContent = (+p[1]) + "월"; $("dueD").textContent = +p[2];
+    $("dueT1").textContent = fmtDate(r.deadline) + "까지 신고";
+    $("dueT2").textContent = r.overdue ? "✕ 기한 지남 (" + (-r.daysLeft) + "일)" : (r.daysLeft === 0 ? "오늘까지" : "D-" + r.daysLeft);
+    $("askLine").textContent = r.overdue ? "늦었어도 방법이 있는지 물어보세요." : "받은 돈을 어디에 먼저 둘지, 신고는 어떻게 할지 정리해 드려요.";
+    $("alertOnlyBtn").parentNode.hidden = r.overdue;
+
+    // 10년
+    var tbody = $("tenBody"); tbody.innerHTML = "";
+    G.tenYear(r.amount).forEach(function (t) {
+      var tr = d.createElement("tr");
+      tr.innerHTML = "<td></td><td class='n'></td>";
+      tr.children[0].textContent = t.rate === 0 ? "연 0% (그대로 둘 때)" : "연 " + t.rate + "%";
+      tr.children[1].textContent = t.rate === 0 ? G.formatWon(t.value) + " (그대로)" : "약 " + G.formatWon(t.value) + " (× " + t.factor + ")";
+      tbody.appendChild(tr);
+    });
+
+    // 여정 띠
+    var gd = G.daysBetween(today, $("gDate").value);
+    setJourney(gd > 0 ? "before" : (gd === 0 ? "day" : "report"));
+
+    // 계측 — 결과 표시 1회만
+    track("gift_complete", { tax_zero: r.zero, amount_band: G.amountBand(r.amount) }, true);
+    watch();
+    res.focus({ preventScroll: true });
+    res.scrollIntoView({ block: "start" });
+  }
+
+  function drawTimeline(r) {
+    var w = r.window, svg = $("tlSvg");
+    var s = G.parseYmd(w.start), e = G.parseYmd(w.end), g = G.parseYmd($("gDate").value), ev = G.parseYmd($("evDate").value);
+    var lo = Math.min(s, g), hi = Math.max(e, g), pad = (hi - lo) * 0.08 + 10;
+    lo -= pad; hi += pad;
+    function x(n) { return 20 + (n - lo) / (hi - lo) * 560; }
+    var mkOut = w.inside ? "" : " out";
+    svg.innerHTML =
+      '<line class="axis" x1="10" y1="50" x2="590" y2="50"/>' +
+      '<rect class="band" x="' + x(s) + '" y="34" width="' + Math.max(2, x(e) - x(s)) + '" height="32" rx="6"/>' +
+      '<line class="ev" x1="' + x(ev) + '" y1="28" x2="' + x(ev) + '" y2="70"/>' +
+      '<path class="mk' + mkOut + '" d="M' + (x(g) - 12) + ',4 L' + (x(g) + 12) + ',4 L' + x(g) + ',28 Z"/>';
+    var say = $("tlSay");
+    if (w.inside) { say.className = "say in"; say.textContent = "✓ 받는 날이 공제 구간 안이에요."; }
+    else { say.className = "say out"; say.textContent = "! 받는 날이 공제 구간을 " + w.daysOutside + "일 벗어났어요."; }
+    svg.setAttribute("aria-label", w.inside ? "받는 날이 공제 구간 안에 있습니다" : "받는 날이 공제 구간을 " + w.daysOutside + "일 벗어났습니다");
+    $("tlDates").textContent = "공제 구간 " + dotDate(w.start) + " ~ " + dotDate(w.end) + " (띠) · " +
+      (r.occasion === "marriage" ? "혼인신고일 " : "출생·입양일 ") + dotDate($("evDate").value) + " (세로선) · 받는 날 " + dotDate($("gDate").value) + " (▼)";
+  }
+
+  /* 화면 관찰: 10년 표 50% · 신호 카드 → 하단 바 */
+  var barClosed = false, barShown = false;
+  function watch() {
+    if (!("IntersectionObserver" in window)) return;
+    if (!tenIO) {
+      tenIO = new IntersectionObserver(function (en) {
+        en.forEach(function (x) { if (x.isIntersecting) { S.viewed10y = true; track("gift_10y_view", {}, true); tenIO.disconnect(); } });
+      }, { threshold: 0.5 });
+      tenIO.observe($("ten"));
+    }
+    if (!sigIO) {
+      sigIO = new IntersectionObserver(function (en) {
+        en.forEach(function (x) { if (x.isIntersecting) { showBar(); sigIO.disconnect(); } });
+      }, { threshold: 0.3 });
+      sigIO.observe($("sig"));
+    }
+  }
+  function showBar() {
+    if (barClosed || S.sent || !$("askPanel").hidden) return;
+    if (window.matchMedia && matchMedia("(min-width:1024px)").matches) return;
+    $("gbar").hidden = false; d.body.classList.add("has-bar");
+    if (!barShown) { barShown = true; track("gift_cta_bar_view", {}, true); }
+  }
+  function hideBar() { $("gbar").hidden = true; d.body.classList.remove("has-bar"); }
+  $("barX").addEventListener("click", function () { barClosed = true; hideBar(); });
+
+  /* 전화 */
+  d.querySelectorAll("[data-call]").forEach(function (a) {
+    a.addEventListener("click", function () { track("gift_call_click", { place: a.getAttribute("data-call") }); });
+  });
+
+  /* 문의 창 열기 */
+  function summary() {
+    var r = S.result;
+    if (!r) return "대상: 조부모님 (계산 범위 밖)";
+    return "계기: " + ({ marriage: "결혼", birth: "출산·입양", none: "없음" })[r.occasion] + " · 금액 구간: " + G.amountBand(r.amount) +
+      " · 예상 세액: " + (r.zero ? "0원" : G.formatTaxApprox(r.finalTax)) + "(개략) · 신고기한: " + dotDate(r.deadline) +
+      (r.overdue ? " (지남)" : " (D-" + r.daysLeft + ")");
+  }
+  function openAsk(place, alertOnly) {
+    S.place = place; S.alertOnly = !!alertOnly;
+    if (place === "card" || place === "bar") S.from10y = S.viewed10y && place === "card";
+    if (place === "card") track("gift_consult_click", { from: "gift" });
+    if (place === "bar") track("gift_cta_bar_click", {});
+    track("gift_lead_open", { place: place === "grand" ? "card" : place });
+    var pnl = $("askPanel");
+    if (place === "grand") {
+      // 결과 화면이 없으므로 문의 창을 ① 카드 아래로 옮겨 연다
+      $("giftRes").hidden = false;
+      Array.prototype.forEach.call($("giftRes").children, function (c) { if (c !== pnl && c.id !== "doneBox" && c.id !== "lawbase" && !c.classList.contains("disc") && !c.hidden) { c.hidden = true; c.setAttribute("data-gh", "1"); } });
+    }
+    $("apH").textContent = S.alertOnly ? "신고기한 알림 받기" : "내 경우 물어보기";
+    $("qFld").hidden = S.alertOnly; $("timeSet").hidden = S.alertOnly; $("attachRow").hidden = S.alertOnly || !S.result;
+    if (S.alertOnly) $("alertOk").checked = true;
+    pnl.hidden = false; hideBar();
+    pnl.focus({ preventScroll: true }); pnl.scrollIntoView({ block: "start" });
+  }
+  d.querySelectorAll("[data-open-ask]").forEach(function (b) {
+    b.addEventListener("click", function () { openAsk(b.getAttribute("data-open-ask"), false); });
+  });
+  $("alertOnlyBtn").addEventListener("click", function () { openAsk("card", true); });
+
+  onPick("data-how", function (v) {
+    S.how = v; $("contactFld").hidden = false;
+    var c = $("contact");
+    if (v === "이메일") { c.type = "email"; c.setAttribute("inputmode", "email"); c.setAttribute("autocomplete", "email"); c.placeholder = "예: name@example.com"; $("contactLb").firstChild.textContent = "이메일 주소"; }
+    else { c.type = "tel"; c.setAttribute("inputmode", "tel"); c.setAttribute("autocomplete", "tel"); c.placeholder = "예: 010-1234-5678"; $("contactLb").firstChild.textContent = "휴대폰 번호"; }
+  });
+  onPick("data-time", function (v) { S.time = v; });
+  $("attach").addEventListener("change", function () {
+    $("attachFld").hidden = !this.checked;
+    if (this.checked) { $("attachTxt").value = summary(); track("gift_attach_on", {}, true); }
+  });
+
+  /* 전송 — 기존 LEAD_ENDPOINT, type="lead" (B1·B2). 숨은 iframe + form POST */
+  var sending = false;
+  $("sendBtn").addEventListener("click", function () {
+    if (sending || S.sent) return;
+    var e3 = $("e3"); e3.textContent = "";
+    function fail(t) { e3.textContent = t; }
+    var contact = $("contact").value.trim();
+    var q = S.alertOnly ? "" : $("qText").value.trim();
+    var att = (!S.alertOnly && $("attach").checked) ? $("attachTxt").value.trim() : "";
+    if (!S.how) return fail("연락 받을 방법을 골라 주세요.");
+    if (S.how === "이메일") { if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(contact)) return fail("이메일 주소 형식을 확인해 주세요."); }
+    else if (!/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(contact.replace(/\s/g, ""))) return fail("휴대폰 번호 형식을 확인해 주세요. (예: 010-1234-5678)");
+    var rrn = window.hwHasRRN || G.hasRRN;
+    if (rrn(q) || rrn(att) || rrn(contact)) return fail("주민등록번호는 적지 말아 주세요. 지우고 다시 보내 주세요.");
+    if (!$("agree").checked) return fail("「연락과 답변 준비에만 쓰고 1년 뒤 지웁니다」에 체크해 주세요.");
+
+    var alert = $("alertOk").checked;
+    var ctx = { giver: S.giver, occasion: S.occ, result: S.result, question: q, alertOnly: S.alertOnly, from10y: S.from10y, viewed10y: S.viewed10y, alert: alert };
+    var cls = G.classifyLead(ctx);
+    var tag = G.leadTag(ctx, cls);
+    var r = S.result;
+    /* N18 — 전화·문자일 때 숫자만 뽑아 하이픈 형식으로. 10~11자리만, 그 밖은 입력값 그대로 */
+    var digits = contact.replace(/\D/g, "");
+    var phoneOut = contact;
+    if (S.how !== "이메일") {
+      if (digits.length === 11) {
+        phoneOut = digits.slice(0, 3) + "-" + digits.slice(3, 7) + "-" + digits.slice(7);
+      } else if (digits.length === 10) {
+        phoneOut = digits.slice(0, 2) === "02"
+          ? "02-" + digits.slice(2, 6) + "-" + digits.slice(6)
+          : digits.slice(0, 3) + "-" + digits.slice(3, 6) + "-" + digits.slice(6);
+      }
+    }
+    var payload = {
+      type: "lead", tool: "증여세", source: "gift", campaign: "gift_2030", axis: "pre",
+      name: "", phone: S.how === "이메일" ? "" : phoneOut, email: S.how === "이메일" ? contact : "",
+      consent: true,
+      result: tag,
+      inputs: {
+        question: q, occasion: S.occ || (S.giver === "grand" ? "grand" : ""), amount_band: r ? G.amountBand(r.amount) : "",
+        giver: S.giver, time: S.time, contact_method: S.how, alert: alert, alert_only: S.alertOnly, attach_summary: att,
+        route: cls.route, priority: cls.priority
+      },
+      lawAsOf: cfg.LAW ? cfg.LAW.asOf : "",
+      page: location.origin + location.pathname, referrer: d.referrer || "", ts: new Date().toISOString()
+    };
+    if (!cfg.LEAD_ENDPOINT) return fail("지금은 온라인 전송이 안 돼요. ☎ 010-2088-5383 으로 연락 주세요.");
+    sending = true; $("sendBtn").disabled = true; $("sendState").textContent = "보내는 중이에요…";
+
+    var old = $("_gfSink"); if (old) old.remove();
+    var ifr = d.createElement("iframe"); ifr.id = "_gfSink"; ifr.name = "_gfSink"; ifr.style.display = "none"; d.body.appendChild(ifr);
+    var f = d.createElement("form"); f.method = "POST"; f.action = cfg.LEAD_ENDPOINT; f.target = "_gfSink"; f.style.display = "none";
+    f.acceptCharset = "UTF-8";
+    var i = d.createElement("input"); i.type = "hidden"; i.name = "data"; i.value = JSON.stringify(payload); f.appendChild(i); d.body.appendChild(f);
+    var settled = false;
+    var t1 = setTimeout(function () { if (!settled) $("sendState").textContent = "조금만 기다려 주세요. 처음 보낼 때는 20초쯤 걸릴 수 있어요."; }, 8000);
+    ifr.addEventListener("load", function () {
+      if (settled) return; settled = true; clearTimeout(t1); S.sent = true;
+      track(S.alertOnly ? "gift_alert_submit" : "gift_lead_submit", { route: cls.route, priority: cls.priority });
+      $("askPanel").hidden = true; hideBar();
+      var box = $("doneBox"); box.hidden = false;
+      var how = S.how === "이메일" ? "이메일로" : (S.how === "문자" ? "문자로" : "전화로");
+      box.textContent = S.alertOnly
+        ? "받았어요. 신고기한 30일·7일 전에 " + how + " 알려 드릴게요."
+        : "받았어요. " + (S.time ? S.time + "에 " : "편한 시간에 ") + how + " 연락드릴게요. 첫 연락은 " + cls.sla + " 드리는 것을 목표로 해요.";
+      box.focus({ preventScroll: true });
+    });
+    f.submit();
+    setTimeout(function () { try { f.remove(); } catch (x) {} }, 3000);
+    setTimeout(function () {
+      if (settled) return; settled = true; sending = false;
+      $("sendState").textContent = "";
+      fail("전송 확인이 되지 않았어요. 다시 누르기 전에 ☎ 010-2088-5383 또는 itart@finitart.com 으로 알려 주시면 바로 확인할게요.");
+    }, 30000);
+  });
+
+  /* 인쇄 · 다시 계산 */
+  $("printBtn").addEventListener("click", function () { track("gift_print", {}); window.print(); });
+  $("againBtn").addEventListener("click", function () {
+    $("giftRes").hidden = true; $("stepCards").hidden = false; $("step1").hidden = true; $("step2").hidden = false;
+    setStep(2); setJourney("before"); hideBar(); $("step2").scrollIntoView({ block: "start" });
+  });
+});
+</script>
+</body>
+</html>

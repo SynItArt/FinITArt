@@ -1,0 +1,218 @@
+/* HeirWise™ gift/ — 부모님께 받는 돈 (2026-10, 작업지시서 v1.8.5 Y1-5·Y1-8)
+   기본 토큰은 network.css·index.html과 같은 이름·값. 새 토큰은 --gift-* 5개(Y1-8 ①)뿐.
+   원칙: 색은 의미를 거들 뿐, 의미는 글자가 전한다 — 모든 색 요소 옆에 글자·아이콘. 10년 표에 초록 금지(L2). */
+:root{
+  --bg:#FAF8F5; --surface:#FFFFFF; --surface-2:#F4EEE3;
+  --ink:#1B1B1B; --ink-2:#4A453D; --line:#E2D8C8; --line-strong:#B7A98F;
+  --navy:#173863; --amber:#F9A825; --amber-soft:#FDF1D6; --accent-ink:#5C4300;
+  --coral:#0C5C48; --on-coral:#FFFFFF; --danger-ink:#8A1220;
+  --gift-zero:#0B6E4F; --gift-tax:#9A4B00; --gift-info:#1D4ED8; --gift-neutral:#4B5563; --gift-late:#B91C1C;
+  --on-info:#FFFFFF; --band:rgba(11,110,79,.16);
+  --radius:14px; --maxw:760px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111827; --surface:#1B2332; --surface-2:#243044;
+    --ink:#F3F0EA; --ink-2:#C7CDD8; --line:#334155; --line-strong:#5B6780;
+    --navy:#8FB4E8; --amber:#FFC64D; --amber-soft:#302713; --accent-ink:#FFC64D;
+    --coral:#54CFA8; --on-coral:#14161B; --danger-ink:#FF8593;
+    --gift-zero:#4ADE80; --gift-tax:#FBBF24; --gift-info:#93C5FD; --gift-neutral:#D1D5DB; --gift-late:#FCA5A5;
+    --on-info:#111827; --band:rgba(74,222,128,.18);
+  }
+}
+html[data-theme="dark"]{
+  --bg:#111827; --surface:#1B2332; --surface-2:#243044;
+  --ink:#F3F0EA; --ink-2:#C7CDD8; --line:#334155; --line-strong:#5B6780;
+  --navy:#8FB4E8; --amber:#FFC64D; --amber-soft:#302713; --accent-ink:#FFC64D;
+  --coral:#54CFA8; --on-coral:#14161B; --danger-ink:#FF8593;
+  --gift-zero:#4ADE80; --gift-tax:#FBBF24; --gift-info:#93C5FD; --gift-neutral:#D1D5DB; --gift-late:#FCA5A5;
+  --on-info:#111827; --band:rgba(74,222,128,.18);
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+  font-size:18px;line-height:1.7;letter-spacing:-.01em;word-break:keep-all;overflow-wrap:break-word;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gift-info);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+.skip{position:absolute;left:-9999px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip:focus{left:12px;top:12px;z-index:200;background:var(--gift-info);color:var(--on-info);padding:12px 16px;border-radius:8px}
+h1,h2,h3{text-wrap:balance;line-height:1.35;margin:0}
+p{margin:0;text-wrap:pretty}
+.sub{font-size:16px;color:var(--ink-2)}
+
+/* 헤더 */
+.gf-head{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.gf-head .wrap{display:flex;align-items:center;gap:12px;min-height:60px;max-width:1120px}
+.gf-logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+.logo-mark{display:inline-flex;align-items:flex-start}
+.logo-img{height:28px;width:auto;display:block}
+.logo-img.is-dark{display:none}
+html[data-theme="dark"] .logo-img.is-light{display:none}
+html[data-theme="dark"] .logo-img.is-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
+.tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px}
+.gf-head .home{margin-left:auto;font-size:16px;font-weight:600;color:var(--ink-2);min-height:44px;display:inline-flex;align-items:center;padding:0 10px;text-decoration:none;border-radius:8px}
+.iconbtn{background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);width:44px;height:44px;border-radius:10px;cursor:pointer;font-size:18px}
+
+/* V1 여정 띠 */
+.journey{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;position:relative}
+.journey::before{content:"";position:absolute;left:12.5%;right:12.5%;top:21px;height:2px;background:var(--line-strong)}
+.journey li{position:relative;text-align:center;font-size:16px;line-height:1.35;color:var(--ink-2)}
+.journey .dot{display:flex;align-items:center;justify-content:center;width:44px;height:44px;margin:0 auto 6px;border-radius:50%;
+  background:var(--surface);border:2px solid var(--line-strong);font-weight:800;color:var(--ink-2);position:relative}
+.journey li[aria-current="step"]{color:var(--ink);font-weight:800}
+.journey li[aria-current="step"] .dot{border:4px solid var(--gift-info);color:var(--ink)}
+.journey .here{display:block;font-size:16px;color:var(--gift-info);font-weight:800}
+
+/* 머리 */
+.hero{padding:24px 0 8px}
+.hero h1{font-size:30px;font-weight:800;margin-top:20px}
+.hero .lead{font-size:19px;color:var(--ink-2);margin-top:10px}
+
+/* V2 단계 표시 */
+.steps{list-style:none;display:flex;gap:6px;margin:24px 0 12px;padding:0}
+.steps li{flex:1;font-size:16px;font-weight:700;color:var(--ink-2);padding:8px 6px;border-top:5px solid var(--line);text-align:center;line-height:1.3}
+.steps li.done{border-top-color:var(--gift-neutral);color:var(--ink)}
+.steps li.done::before{content:"✓ "}
+.steps li[aria-current="step"]{border-top-color:var(--gift-info);color:var(--ink)}
+
+/* 입력 카드 */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 16px;margin:12px 0}
+.card h2{font-size:22px;font-weight:800;margin-bottom:12px}
+.q{font-size:19px;font-weight:700;margin:18px 0 10px}
+.q:first-of-type{margin-top:0}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choices.c3{grid-template-columns:1fr}
+@media(min-width:560px){.choices.c3{grid-template-columns:repeat(3,1fr)}}
+.choice{min-height:56px;padding:10px 12px;border-radius:12px;border:2px solid var(--line-strong);background:var(--surface);
+  color:var(--ink);font:inherit;font-size:18px;font-weight:700;cursor:pointer;text-align:center;line-height:1.3}
+.choice[aria-pressed="true"]{border-color:var(--gift-info);background:var(--surface-2);box-shadow:inset 0 0 0 2px var(--gift-info)}
+.choice[aria-pressed="true"]::before{content:"✓ "}
+.fld{margin:14px 0}
+.fld label{display:block;font-size:17px;font-weight:700;margin-bottom:6px}
+.fld .hint{font-size:16px;color:var(--ink-2);margin-top:4px}
+.fld input[type=text],.fld input[type=date],.fld input[type=tel],.fld input[type=email],.fld textarea{
+  width:100%;min-height:52px;padding:10px 14px;border-radius:10px;border:2px solid var(--line-strong);
+  background:var(--surface);color:var(--ink);font:inherit;font-size:18px}
+.fld textarea{min-height:88px;resize:vertical}
+.money{display:flex;align-items:center;gap:8px}
+.money input{flex:1}
+.money .unit{font-weight:700;font-size:18px}
+.echo{font-size:18px;font-weight:800;color:var(--gift-info);margin-top:6px;min-height:1.7em}
+.err{color:var(--danger-ink);font-weight:700;font-size:16px;margin-top:8px}
+.err:empty{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:56px;padding:0 20px;border-radius:12px;
+  font:inherit;font-size:18px;font-weight:800;cursor:pointer;text-decoration:none;border:2px solid var(--gift-info)}
+.btn.primary{background:var(--gift-info);color:var(--on-info)}
+.btn.line{background:var(--surface);color:var(--ink)}
+.btn.wide{width:100%}
+.btn[disabled]{opacity:.55;cursor:default}
+.row{display:flex;gap:10px;margin-top:18px}
+.row .btn{flex:1}
+.linkbtn{background:none;border:0;padding:8px 0;min-height:44px;font:inherit;font-size:16px;font-weight:700;color:var(--gift-info);text-decoration:underline;cursor:pointer}
+.check{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:17px;line-height:1.55;cursor:pointer}
+.check input{width:24px;height:24px;margin-top:2px;flex:none;accent-color:var(--gift-info)}
+.notice{border-left:6px solid var(--gift-tax);background:var(--surface-2);padding:14px 16px;border-radius:10px;margin-top:14px}
+.notice p+p{margin-top:8px}
+
+/* 결과 */
+.res h2{font-size:22px;font-weight:800;margin:28px 0 10px}
+.badge{display:inline-block;font-size:16px;font-weight:800;padding:2px 10px;border-radius:999px;border:2px solid currentColor}
+/* V3 결과 신호 카드 */
+.signal{border:4px solid var(--gift-info);border-radius:18px;padding:20px 18px;background:var(--surface);margin-top:8px}
+.signal .top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:17px;font-weight:700;color:var(--ink-2)}
+.signal .big{display:flex;align-items:center;gap:12px;font-size:36px;font-weight:900;line-height:1.2;margin-top:10px}
+.signal .ic{flex:none;display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;
+  font-size:28px;font-weight:900;color:var(--surface)}
+.signal.zero{border-color:var(--gift-zero)} .signal.zero .big{color:var(--gift-zero)} .signal.zero .ic{background:var(--gift-zero)}
+.signal.tax{border-color:var(--gift-tax)} .signal.tax .big{color:var(--gift-tax)} .signal.tax .ic{background:var(--gift-tax)}
+.compare{margin-top:12px;font-size:19px;font-weight:800;line-height:1.5}
+.compare .z{color:var(--gift-zero)} .compare .t{color:var(--gift-tax)}
+/* V5 2년 창 타임라인 */
+.tl svg{display:block;width:100%;height:auto;margin-top:6px}
+.tl .band{fill:var(--band);stroke:var(--gift-zero);stroke-width:3}
+.tl .axis{stroke:var(--line-strong);stroke-width:3}
+.tl .ev{stroke:var(--ink);stroke-width:4}
+.tl .mk{fill:var(--gift-info)}
+.tl .mk.out{fill:var(--gift-tax)}
+.tl .say{font-size:19px;font-weight:800;margin-top:6px}
+.tl .say.in{color:var(--gift-zero)} .tl .say.out{color:var(--gift-tax)}
+.tl .dates{font-size:16px;color:var(--ink-2)}
+/* V4 공제 막대 */
+.bar{display:flex;height:40px;border-radius:10px;overflow:hidden;border:2px solid var(--line-strong);background:var(--surface-2)}
+.bar span{display:block;height:100%;width:0;transition:width .4s ease-out}
+.bar .b{background:var(--gift-info)} .bar .s{background:var(--gift-zero)} .bar .t{background:var(--gift-tax);
+  background-image:repeating-linear-gradient(45deg,transparent 0 8px,rgba(0,0,0,.18) 8px 12px)}
+.legend{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:6px;font-size:16px}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend i{flex:none;width:20px;height:20px;border-radius:4px;border:1px solid var(--line-strong)}
+.legend .b i{background:var(--gift-info)} .legend .s i{background:var(--gift-zero)} .legend .t i{background:var(--gift-tax)}
+@media (prefers-reduced-motion: reduce){.bar span{transition:none}}
+table.tb{width:100%;border-collapse:collapse;margin-top:14px;font-size:17px}
+.tb th,.tb td{border:1px solid var(--line-strong);padding:10px 10px;text-align:left;vertical-align:top}
+.tb th{background:var(--surface-2);font-weight:800}
+.tb td.n{text-align:right;white-space:nowrap;font-weight:700}
+@media(max-width:480px){.tb td.n{white-space:normal}.tb th,.tb td{padding:8px}}
+.tb caption{text-align:left;font-weight:800;font-size:17px;padding-bottom:6px}
+/* V6 신고기한 카드 */
+.due{display:flex;gap:14px;align-items:stretch;border:3px solid var(--gift-info);border-radius:16px;padding:16px;background:var(--surface)}
+.due .cal{flex:none;width:88px;border:2px solid currentColor;border-radius:10px;text-align:center;overflow:hidden;color:var(--gift-info)}
+.due .cal b{display:block;background:currentColor;height:14px}
+.due .cal span{display:block;font-size:17px;font-weight:800;padding:6px 0 0}
+.due .cal strong{display:block;font-size:30px;font-weight:900;line-height:1.1;padding-bottom:6px}
+.due .txt .d1{font-size:22px;font-weight:900}
+.due .txt .d2{font-size:20px;font-weight:900;color:var(--gift-info)}
+.due.soon{border-color:var(--gift-tax)} .due.soon .cal,.due.soon .d2{color:var(--gift-tax)}
+.due.late{border-color:var(--gift-late)} .due.late .cal,.due.late .d2{color:var(--gift-late)}
+.fact{margin-top:12px;font-size:18px;font-weight:700}
+/* 10년 표 — 초록 금지 */
+.ten td.n{color:var(--gift-neutral)}
+.ten .fix{margin-top:10px;font-size:16px;color:var(--ink-2)}
+/* V7 상담 카드 */
+.ask{border:3px solid var(--gift-info);border-radius:16px;padding:20px 16px;background:var(--surface);margin-top:18px}
+.ask h3{font-size:22px;font-weight:800}
+.ask p{margin-top:6px}
+.ask .row{flex-wrap:wrap}
+.ask .row .btn{flex:1 1 180px}
+.hw-lawbase{margin-top:16px;padding:14px 16px;border:1.5px solid var(--line-strong);border-radius:12px;background:var(--surface);font-size:16px;line-height:1.6}
+.hw-lawbase .hw-h{font-size:16px;font-weight:800;margin-bottom:4px}
+/* 공통 스크립트가 나중에 넣는 .hw-lawbase 스타일(13.5px)보다 앞서도록 id로 고정 — 본문 16px 이상 */
+#lawbase.hw-lawbase,#lawbase li,#lawbase .hw-h{font-size:16px;line-height:1.6;color:var(--ink)}
+#lawbase.hw-lawbase{background:var(--surface);border-color:var(--line-strong)}
+.hw-lawbase ul{margin:0;padding-left:20px}
+.disc{font-size:16px;color:var(--ink-2);margin-top:10px}
+
+/* 짧은 문의 창 (Y1-9) — id="lead" 사용 금지(B7) */
+.askpanel{border:3px solid var(--gift-info);border-radius:16px;padding:20px 16px;background:var(--surface);margin-top:18px}
+.askpanel h3{font-size:22px;font-weight:800}
+.askpanel fieldset{border:0;padding:0;margin:14px 0}
+.askpanel legend{font-size:17px;font-weight:700;margin-bottom:6px;padding:0}
+.req{font-size:14px;font-weight:800;color:var(--danger-ink);margin-left:6px}
+.done-box{border:3px solid var(--gift-zero);border-radius:16px;padding:20px 16px;background:var(--surface);margin-top:18px;font-size:19px;font-weight:700}
+
+/* 모바일 하단 바 (V7) — 입력 단계에서는 안 띄움, 1024px 이상 표시 안 함 */
+.gbar{position:fixed;left:0;right:0;bottom:0;z-index:60;height:64px;display:flex;align-items:center;gap:8px;padding:0 10px;
+  background:var(--surface);border-top:2px solid var(--gift-info);box-shadow:0 -4px 16px rgba(0,0,0,.12)}
+.gbar .btn{flex:1;min-height:48px;font-size:18px}
+.gbar .call,.gbar .x{flex:none;width:48px;height:48px;border-radius:10px;border:2px solid var(--line-strong);background:var(--surface);
+  color:var(--ink);font-size:20px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer}
+body.has-bar{padding-bottom:72px}
+@media(min-width:1024px){.gbar{display:none!important}body.has-bar{padding-bottom:0}}
+
+footer.gf-foot{margin-top:40px;padding:24px 0 32px;border-top:1px solid var(--line);font-size:16px;color:var(--ink-2)}
+footer.gf-foot p+p{margin-top:6px}
+
+@media(min-width:1024px){.hero h1{font-size:36px}.signal .big{font-size:42px}}
+
+@media print{
+  .gf-head .home,.iconbtn,.journey,.steps,#stepCards,.gbar,.ask,.askpanel,.done-box,.noprint,#hw-privacy-line{display:none!important}
+  body{background:#fff;color:#000;font-size:14pt}
+  .signal,.due,.card,.hw-lawbase{border-color:#000!important;background:#fff!important;break-inside:avoid}
+  .signal .big,.compare .z,.compare .t,.due .d2,.tl .say{color:#000!important}
+  .signal .ic{background:#000!important;color:#fff!important}
+  .bar span{transition:none}
+}
