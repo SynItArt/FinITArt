@@ -417,6 +417,11 @@ td strong{color:var(--ink)}
 .scope li:last-child{border-bottom:none}
 .scope .can li::before{content:"○";position:absolute;left:4px;color:var(--teal);font-weight:800}
 .scope .cant li::before{content:"→";position:absolute;left:2px;color:var(--ink-2);font-weight:800}
+.scope .expert-links a{color:inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.scope .expert-links a:hover{color:var(--ink)}
+.expert-acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:16px 0 0}
+.expert-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border-radius:10px;background:var(--coral,#0C5C48);color:var(--on-coral,#fff);font-weight:700;font-size:17px;text-decoration:none}
+.expert-join{font-size:15.5px;color:var(--ink-2);text-underline-offset:4px}
 
 /* ── 질문방 ── */
 .room{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:38px 34px;box-shadow:var(--shadow-lg);margin-top:32px}
@@ -997,14 +1002,19 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
       </div>
       <div>
         <h3 style="color:var(--ink-2)">이건 전문가에게 연결해 드립니다</h3>
-        <ul class="cant">
-          <li>법률 자문, 소송, 서면 작성 — 변호사</li>
-          <li>상속세·증여세 신고 대리 — 세무사</li>
-          <li>등기, 한정승인 신청 서류 — 법무사</li>
-          <li>재산 평가를 위한 감정 — 감정평가사</li>
+        <!-- v3.3 (2026-09-23): 각 줄 → 협업 네트워크 분야 지도(해당 분야로 이동). 순서는 data-order 로 페이지별 조정 가능 -->
+        <ul class="cant expert-links">
+          <li data-order="1"><a href="/network/index.html?group=A&amp;field=%EB%B3%80%ED%98%B8%EC%82%AC(%EA%B0%80%EC%82%AC%C2%B7%EC%83%81%EC%86%8D)" data-expert-field="변호사(가사·상속)">법률 자문, 소송, 서면 작성 — 변호사</a></li>
+          <li data-order="2"><a href="/network/index.html?group=B&amp;field=%EC%84%B8%EB%AC%B4%EC%82%AC" data-expert-field="세무사">상속세·증여세 신고 대리 — 세무사</a></li>
+          <li data-order="3"><a href="/network/index.html?group=A&amp;field=%EB%B2%95%EB%AC%B4%EC%82%AC" data-expert-field="법무사">등기, 한정승인 신청 서류 — 법무사</a></li>
+          <li data-order="4"><a href="/network/index.html?group=B&amp;field=%EA%B0%90%EC%A0%95%ED%8F%89%EA%B0%80%EC%82%AC" data-expert-field="감정평가사">재산 평가를 위한 감정 — 감정평가사</a></li>
         </ul>
         <p style="font-size:15.5px;color:var(--ink-2);margin:16px 0 0">
           연결에 별도 수수료를 받지 않습니다. 정리가 끝난 상태로 넘어가면 그쪽 비용도 줄어듭니다.
+        </p>
+        <p class="expert-acts">
+          <a class="expert-cta" href="/network/connect.html">전문가 연결 요청하기</a>
+          <a class="expert-join" href="/network/join.html">이 자리에 함께할 전문가를 찾습니다 →</a>
         </p>
       </div>
     </div>
