@@ -38,6 +38,11 @@
     // 한쪽 배포가 다른 쪽 접수를 끊지 않도록 엔드포인트를 섞지 않습니다.
     NETWORK_ENDPOINT: "https://script.google.com/macros/s/AKfycbxMMgjuTGVML2PYeFjCwk1nJ2LOLjidPaZ16fYor1RYkIRq6dIz356-m8MG4W0qCrqj/exec",
 
+    // 연결 요청(connect) 온라인 접수 스위치 (v3.3, 2026-09-23).
+    // 원장 v2(.gs)를 배포하고 개인정보처리방침에 「협업 연결 기록」을 넣은 뒤에만 true 로 바꾼다.
+    // false 인 동안 connect.html 은 입력 확인 + 전화 안내만 한다(9.17 동작 그대로).
+    NETWORK_CONNECT_OPEN: false,
+
     // 적용 법령 기준일 (프로젝트 규칙 5-3)
     LAW: {
       asOf: "2026.09.07",
