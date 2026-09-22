@@ -195,3 +195,13 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
 /* 빈자리 카드 — 모집 중 상태에서도 이용자가 막히지 않게 (2026-09-21) */
 .vacant-user{margin-top:8px;font-size:16px;line-height:1.7;color:var(--muted,#5F5E5A)}
 .vacant-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+/* ── v3.3 (2026-09-23) 사다리 3단계 · 연결번호 ── */
+.badge.founding{color:#FFFFFF;background:#1E6FD9;border-color:#1E6FD9;font-size:16px}
+.vacant-user.waiting{color:var(--ink)}
+.vacant-user.waiting strong{color:var(--coral)}
+.chip.is-target{border:3px solid var(--coral);background:var(--surface-2);font-weight:800}
+.nw-ladder{margin:16px 0 0;padding-left:1.4em;font-size:17px;line-height:1.7;color:var(--ink-2)}
+.nw-ladder li{margin:4px 0}
+.nw-ladder strong{color:var(--ink)}
+.ledger-id{font-size:clamp(22px,6.4vw,28px);white-space:nowrap;max-width:100%;box-sizing:border-box;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--ink);margin:12px 0 4px;padding:12px 16px;border:2px solid var(--coral);border-radius:10px;background:var(--surface);display:inline-block}

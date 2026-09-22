@@ -3,6 +3,9 @@
  * 규칙: 이벤트는 heirwise-common.js 의 hwTrack 만 사용 · localStorage 는 try/catch
  * 전송: join 만 연결(2026-09-18 · A-11). connect 는 전송 미연결 — 개인정보 수집 범위를 좁게 시작한다.
  * 노출 규칙(PRD v3.0 §5.7): status=listed 만 · 같은 분야 안에서 지역 일치 → 무작위 · 유료 상단 노출 없음
+ * v3.3(2026-09-23): 사다리 3단계. 공개 카드는 tier 2 이상 + 공개 동의만. 1단계(비공개)는 group_counts 숫자로만 보인다.
+ *   서면 협약 대신 합류 신청 체크 3개(무대가·비밀유지·정보처리)가 협약을 갈음한다.
+ *   connect 전송은 HW_CONFIG.NETWORK_CONNECT_OPEN 이 true 일 때만.
  */
 (function () {
   "use strict";
@@ -94,7 +97,13 @@
   }
   function isShowable(p, rules) {
     if (!p || p.status !== "listed") return false;
-    if (!p.agreement || p.agreement.signed !== true || p.agreement.no_referral_fee !== true) return false;
+    if (Number(p.tier || 0) < 2 || p.public_consent !== true) {           // v3.3: 1단계는 절대 카드로 나가지 않는다
+      if (CFG.DEBUG && window.console) console.warn("[network] 공개 불가 항목(tier<2 또는 공개 미동의):", p.id);
+      return false;
+    }
+    var ag = p.agreement || {};
+    if (ag.no_referral_fee !== true) return false;                        // 레드라인 — 소개 대가 없음
+    if (ag.signed !== true && !ag.consented_at) return false;             // 서면 협약 또는 체크 동의 시각
     var rule = rules && rules[p.field];
     if (rule && rule.hold && !p.field_rule_checked_at) return false; // 직역별 게재 규정 확인 전 보류
     return true;
@@ -107,14 +116,16 @@
   window.HW_NETWORK = { orderPartners: orderPartners, isShowable: isShowable }; // 검수용
 
   /* ── 카드 ── */
-  function vacantCard(g, field) {
+  function vacantCard(g, field, waiting) {
     var href = "/network/join.html?group=" + encodeURIComponent(g.id) + (field ? "&field=" + encodeURIComponent(field) : "");
     var a = el("a", { class: "btn btn-ghost", href: href, text: "협업 제안하기" });
     a.addEventListener("click", function () { track("network_join_click", { group: g.id }); });
     var tel = el("a", { class: "btn btn-ghost", href: "tel:+82" + TEL.replace(/[^0-9]/g, "").slice(1), text: "전화로 먼저 묻기" });
     return el("div", { class: "vacant" }, [
       el("p", {}, ["이 분야의 협업 기관을 모시고 있습니다", el("br"), el("small", { text: field ? field : g.fields.join(" · ") })]),
-      el("p", { class: "vacant-user" }, ["기관이 정해지기 전까지는 운영자가 상황을 먼저 정리해 드리고, 필요한 곳을 알려 드립니다."]),
+      waiting > 0
+        ? el("p", { class: "vacant-user waiting" }, [el("strong", { text: "함께하는 전문가 " + waiting + "명이 연결을 기다리고 있습니다." }), " 공개 카드는 아직 없지만, 연결 요청을 남기시면 운영자가 직접 이어 드립니다."])
+        : el("p", { class: "vacant-user" }, ["기관이 정해지기 전까지는 운영자가 상황을 먼저 정리해 드리고, 필요한 곳을 알려 드립니다."]),
       el("div", { class: "vacant-acts" }, [a, tel])
     ]);
   }
@@ -122,6 +133,7 @@
     var badges = el("p", { class: "meta" });
     if (p.credential_verified_at) badges.appendChild(el("span", { class: "badge verified", text: "✔ 자격 확인 " + p.credential_verified_at }));
     if (p.affiliate) { badges.appendChild(d.createTextNode(" ")); badges.appendChild(el("span", { class: "badge affiliate", text: "SynItArt 계열" })); }
+    if (Number(p.tier) >= 3) { badges.appendChild(d.createTextNode(" ")); badges.appendChild(el("span", { class: "badge founding", text: "창립 멤버" })); }
     var dl = el("dl", {}, [
       el("dt", { text: "자격" }), el("dd", { text: p.credential || "—" }),
       el("dt", { text: "지역" }), el("dd", { text: (p.region || []).join(", ") || "—" }),
@@ -158,7 +170,7 @@
       var chips = el("ul", { class: "chips", "aria-label": g.title + " 분야" });
       g.fields.forEach(function (f) {
         var rule = data.field_rules && data.field_rules[f];
-        chips.appendChild(el("li", { class: "chip" }, [f, rule && rule.hold ? el("span", { class: "hold", title: rule.basis, text: "· 게재 규정 확인 중" }) : null]));
+        chips.appendChild(el("li", { class: "chip", "data-field": f }, [f, rule && rule.hold ? el("span", { class: "hold", title: rule.basis, text: "· 게재 규정 확인 중" }) : null]));
       });
       var tools = null;
       if (g.tools && g.tools.length) {
@@ -192,7 +204,8 @@
           if (!byField[f]) return;
           orderPartners(byField[f], rsel).forEach(function (p) { grid.appendChild(partnerCard(p, g)); orgs++; any = true; });
         });
-        grid.appendChild(vacantCard(g));
+        var gc = (data.group_counts && data.group_counts[g.id]) || {};
+        grid.appendChild(vacantCard(g, null, Number(gc.waiting || 0)));
       });
       count.textContent = "분야 묶음 " + shown + "개" + (orgs ? " · 게재 기관 " + orgs + "곳" : " · 기관을 모시는 중입니다 · 지금은 운영자가 직접 정리해 드립니다");
     }
@@ -200,6 +213,15 @@
     selR.addEventListener("change", paint);
     var g0 = qs("group"); if (g0 && data.groups.some(function (g) { return g.id === g0; })) selG.value = g0;
     paint();
+    /* v3.3 — 메인 화면 「전문가에게 연결해 드립니다」 카드에서 ?group=A&field=… 로 들어온 경우 */
+    var f0 = qs("field");
+    if (g0 && f0) {
+      var sec0 = d.getElementById("g-" + g0);
+      var chip0 = sec0 && [].slice.call(sec0.querySelectorAll(".chip")).filter(function (c) { return c.getAttribute("data-field") === f0; })[0];
+      if (chip0) { chip0.classList.add("is-target"); chip0.setAttribute("aria-current", "true"); }
+      if (sec0) { try { sec0.scrollIntoView({ block: "start" }); } catch (e) {} }
+      track("expert_card_click", { field: f0, has_partner: data.partners.some(function (p) { return p.field === f0 && isShowable(p, data.field_rules); }) ? "yes" : "no" }, true);
+    }
     track("network_view", {}, true);
   }
 
@@ -208,6 +230,9 @@
   /* 주민등록번호 차단 (2026-09-21): 붙여 쓴 13자리·공백·외국인등록번호 5~8까지 */
   var RRN = /\b\d{6}\s*-?\s*[1-8]\d{6}\b/;
   var TEL_RE = /^0\d{1,2}-?\d{3,4}-?\d{4}$/;
+  /* 동의 문구 버전 (v3.3). 문구를 고치면 버전도 올린다 — 원장에 어느 문구에 동의했는지 남기기 위함. */
+  var JOIN_CONSENT_VERSION = "J-2026-09-v1";
+  var CONNECT_CONSENT_VERSION = "C-2026-09-v1";
   function setErr(input, msg) {
     var id = input.getAttribute("aria-describedby") || "";
     var errEl = id.split(" ").map(function (x) { return d.getElementById(x); }).filter(function (x) { return x && x.classList.contains("err"); })[0];
@@ -327,6 +352,8 @@
       chk(f.elements.intro, !intro ? "소개를 적어 주세요." : (intro.length > 300 ? "300자 안으로 줄여 주세요." : (intro.split(/\n/).length > 3 ? "세 줄 안으로 줄여 주세요." : (RRN.test(intro) ? "주민등록번호는 적지 말아 주세요. 지워 주시면 됩니다." : ""))));
       chk(f.elements.agree_privacy, f.elements.agree_privacy.checked ? "" : "개인정보 수집·이용에 동의해 주셔야 검토할 수 있습니다.");
       chk(f.elements.agree_nofee, f.elements.agree_nofee.checked ? "" : "소개 대가를 주고받지 않는 원칙에 동의해 주셔야 합류할 수 있습니다.");
+      if (f.elements.agree_confidential) chk(f.elements.agree_confidential, f.elements.agree_confidential.checked ? "" : "연결받은 이용자 정보의 비밀 유지에 동의해 주셔야 합류할 수 있습니다.");
+      if (f.elements.referred_by) { var rb = f.elements.referred_by.value.trim(); chk(f.elements.referred_by, rb.length > 40 ? "40자 안으로 적어 주세요." : ""); }
       if (first) first.focus();
       return ok ? { regions: regions.map(function (x) { return x.value; }), modes: modes.map(function (x) { return x.value; }) } : null;
     }
@@ -342,7 +369,9 @@
         "활동 지역: " + v.regions.join(", "),
         "협업 방식: " + v.modes.map(function (m) { return MODE_LABEL[m]; }).join(", "),
         "소개:", f.elements.intro.value.trim(),
-        "동의: 개인정보 수집·이용 ✔ / 소개 대가 없음 원칙 ✔"
+        "추천한 분: " + ((f.elements.referred_by && f.elements.referred_by.value.trim()) || "(없음)"),
+        "사이트 공개: " + (f.elements.public_consent && f.elements.public_consent.checked ? "동의" : "비공개로 연결만"),
+        "동의(" + JOIN_CONSENT_VERSION + "): 개인정보 수집·이용 ✔ / 소개 대가 없음 ✔ / 비밀 유지 ✔"
       ].join("\n");
     }
 
@@ -368,6 +397,10 @@
         intro: f.elements.intro.value.trim(),
         agree_privacy: true,
         agree_nofee: true,
+        agree_confidential: !!(f.elements.agree_confidential && f.elements.agree_confidential.checked),
+        public_consent: !!(f.elements.public_consent && f.elements.public_consent.checked),
+        referred_by: (f.elements.referred_by && f.elements.referred_by.value.trim()) || "",
+        consent_version: JOIN_CONSENT_VERSION,
         page: location.pathname,
         ua_hash: uaHash(),
         website: (f.elements.website && f.elements.website.value.trim()) || ""
@@ -382,7 +415,7 @@
       box.setAttribute("tabindex", "-1");
       box.appendChild(el("div", { class: "note", role: "status" }, [
         el("p", {}, [el("strong", { text: "접수되었습니다. 2~3일 안에 회신드립니다." })]),
-        el("p", { text: "자격과 게재 규정을 확인한 뒤 연락드립니다. 분야 지도 게재는 규정 확인이 끝난 뒤에 이뤄집니다." }),
+        el("p", { text: "자격을 확인하면 먼저 1단계(비공개)로 연결을 받으실 수 있습니다. 사이트 공개 카드는 해당 직역 게재 규정 확인이 끝난 뒤에 올립니다." }),
         el("p", {}, ["더 하실 말씀이 있으시면 ", el("a", { href: "tel:+82" + TEL.replace(/^0/, "").replace(/-/g, ""), text: TEL }), " 로 전화 주셔도 됩니다."])
       ]));
       try { box.focus(); } catch (e) {}
@@ -482,8 +515,11 @@
     REGIONS.forEach(function (r) { f.elements.region.appendChild(el("option", { value: r, text: r })); });
     counter(f.elements.summary, d.getElementById("sumCount"), 500);
     var status = d.getElementById("connStatus");
-    f.addEventListener("submit", function (e) { e.preventDefault(); });
-    d.getElementById("connCheck").addEventListener("click", function () {
+    var OPEN = !!(CFG.NETWORK_ENDPOINT && CFG.NETWORK_CONNECT_OPEN);
+    var cv = d.getElementById("connConsentVer"); if (cv) cv.textContent = "동의 문구 버전 " + CONNECT_CONSENT_VERSION;
+    var sendBtn = f.querySelector('button[type="submit"]');
+    if (OPEN) openConnectIntake(f, sendBtn);
+    function validateConn() {
       var ok = true, first = null;
       function chk(input, msg) { if (!setErr(input, msg)) { ok = false; first = first || input; } }
       chk(g, g.value ? "" : "필요한 분야 묶음을 골라 주세요.");
@@ -494,11 +530,93 @@
       chk(f.elements.tel, !tel ? "연락받을 전화번호를 적어 주세요." : (TEL_RE.test(tel) ? "" : "전화번호 형식을 확인해 주세요. 예: 010-1234-5678"));
       chk(f.elements.agree_collect, f.elements.agree_collect.checked ? "" : "수집·이용에 동의해 주셔야 연결할 수 있습니다.");
       chk(f.elements.agree_third, f.elements.agree_third.checked ? "" : "기관에 전달하려면 제3자 제공 동의가 필요합니다.");
+      if (f.elements.email) { var em = f.elements.email.value.trim(); chk(f.elements.email, em && !EMAIL_RE.test(em) ? "이메일 형식을 확인해 주세요. 예: name@example.com" : ""); }
       if (first) first.focus();
-      status.textContent = ok
-        ? "입력 형식이 모두 맞습니다. 연결 요청 접수는 아직 열리지 않았습니다. 지금은 전화 " + TEL + " 로 말씀해 주세요."
-        : "빠진 곳을 채워 주세요. 표시된 칸부터 확인하시면 됩니다.";
+      return ok;
+    }
+    d.getElementById("connCheck").addEventListener("click", function () {
+      var ok = validateConn();
+      status.textContent = !ok ? "빠진 곳을 채워 주세요. 표시된 칸부터 확인하시면 됩니다."
+        : OPEN ? "입력 형식이 모두 맞습니다. 「연결 요청 보내기」를 눌러 주세요."
+        : "입력 형식이 모두 맞습니다. 연결 요청 접수는 아직 열리지 않았습니다. 지금은 전화 " + TEL + " 로 말씀해 주세요.";
     });
+
+    var sending = false;
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!OPEN || sending) return;
+      if (!validateConn()) { status.textContent = "빠진 곳을 채워 주세요. 표시된 칸부터 확인하시면 됩니다."; return; }
+      var p = {
+        type: "connect_request",
+        group: g.value, field: fld.value || "",
+        summary: f.elements.summary.value.trim(),
+        region: f.elements.region.value,
+        name: f.elements.name.value.trim(),
+        tel: f.elements.tel.value.trim(),
+        email: (f.elements.email && f.elements.email.value.trim()) || "",
+        agree_collect: true, agree_third: true,
+        consent_version: CONNECT_CONSENT_VERSION,
+        parent_id: qs("parent") || "",
+        page: location.pathname,
+        website: (f.elements.website && f.elements.website.value.trim()) || ""
+      };
+      if (p.website) { showLedger(""); return; }            // 허니팟
+      sending = true; sendBtn.disabled = true; sendBtn.setAttribute("aria-busy", "true"); sendBtn.textContent = "보내는 중…";
+      status.textContent = "보내는 중입니다. 20초쯤 걸릴 수 있습니다. 창을 닫지 마세요.";
+      fetch(CFG.NETWORK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(p) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res && res.ok) { track("connect_request", { group: p.group }, true); showLedger(res.ledger_id || res.id || ""); return; }
+          sending = false; sendBtn.disabled = false; sendBtn.removeAttribute("aria-busy"); sendBtn.textContent = "연결 요청 보내기";
+          var why = res && (res.error === "rrn" || (res.fields || []).indexOf("rrn") >= 0) ? "주민등록번호는 적지 말아 주세요. 지우고 다시 보내 주세요."
+            : res && res.error === "rate" ? "짧은 사이에 여러 번 접수되어 잠시 막혔습니다. 10분 뒤에 다시 눌러 주세요."
+            : "접수 중 문제가 생겼습니다. 다시 한 번 눌러 주세요.";
+          status.textContent = why + " 급하시면 전화 " + TEL + " 로 말씀해 주세요. 적으신 내용은 그대로 두었습니다.";
+        })
+        .catch(function () {
+          sending = false; sendBtn.disabled = false; sendBtn.removeAttribute("aria-busy"); sendBtn.textContent = "연결 요청 보내기";
+          status.textContent = "접수처에 닿지 못했습니다. 인터넷 상태를 확인하고 다시 눌러 주세요. 급하시면 전화 " + TEL + ".";
+        });
+    });
+  }
+
+  /* 연결 요청 접수 화면으로 바꾼다 (NETWORK_CONNECT_OPEN = true 일 때만) */
+  function openConnectIntake(f, sendBtn) {
+    var draft = d.querySelector(".nw-hero .nw-draft");
+    if (draft) draft.textContent = "링크를 받으신 분만 보실 수 있는 화면입니다 · 검색에는 노출되지 않습니다";
+    var note = d.querySelector(".nw-hero .note.warn");
+    if (note) {
+      note.className = "note"; note.innerHTML = "";
+      note.appendChild(el("p", {}, [el("strong", { text: "온라인 접수가 열렸습니다." }),
+        " 보내시면 연결번호가 바로 나옵니다. 운영자가 맞는 전문가를 고른 뒤, 보내기 전에 기관명을 먼저 알려 드립니다."]));
+    }
+    var hp = el("div", { "aria-hidden": "true" }, [el("label", { "for": "website", text: "웹사이트 (적지 마세요)" }),
+      el("input", { type: "text", id: "website", name: "website", tabindex: "-1", autocomplete: "off" })]);
+    hp.style.cssText = "position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden";
+    f.insertBefore(hp, f.firstChild);
+    if (sendBtn) { sendBtn.disabled = false; sendBtn.removeAttribute("aria-disabled"); sendBtn.className = "btn btn-primary"; sendBtn.textContent = "연결 요청 보내기"; }
+  }
+
+  /* 접수 완료 — 연결번호를 크게 보여 주고 복사할 수 있게 한다 */
+  function showLedger(id) {
+    var box = d.getElementById("formBox");
+    box.innerHTML = ""; box.setAttribute("tabindex", "-1");
+    var kids = [el("p", {}, [el("strong", { text: "연결 요청을 받았습니다." })])];
+    if (id) {
+      var st = el("p", { class: "status", role: "status", "aria-live": "polite" });
+      var cp = el("button", { type: "button", class: "btn btn-ghost", text: "연결번호 복사" });
+      cp.addEventListener("click", function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(id).then(function () { st.textContent = "복사했습니다."; }, function () { st.textContent = "복사하지 못했습니다. 번호를 메모해 주세요."; });
+        else st.textContent = "복사하지 못했습니다. 번호를 메모해 주세요.";
+      });
+      kids.push(el("p", { class: "ledger-id", text: id }));
+      kids.push(el("p", { text: "이 연결번호를 메모해 두세요. 전문가와 첫 통화 때 말씀해 주시면 됩니다." }));
+      kids.push(cp); kids.push(st);
+    }
+    kids.push(el("p", { text: "운영자가 맞는 전문가를 고른 뒤, 보내기 전에 기관명을 먼저 알려 드립니다. 원하지 않으시면 보내지 않습니다." }));
+    kids.push(el("p", {}, ["HeirWise는 이 연결로 이용자와 전문가 누구에게서도 대가를 받지 않습니다. 문의 ", el("a", { href: "tel:+82" + TEL.replace(/^0/, "").replace(/-/g, ""), text: TEL })]));
+    box.appendChild(el("div", { class: "note", role: "status" }, kids));
+    try { box.focus(); } catch (e) {}
   }
 
   /* ── 시작 ── */
