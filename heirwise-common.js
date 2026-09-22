@@ -43,6 +43,8 @@
     // 전제: NETWORK_ENDPOINT 에 원장 v2(06_network-join_v2.gs)가 새 버전으로 배포되어 있어야 한다.
     // 문제가 생기면 false 로 되돌리면 connect.html 은 입력 확인 + 전화 안내로 돌아간다.
     NETWORK_CONNECT_OPEN: true,
+    // 연결 요청 화면·완료 화면에 보여 줄 응답 약속. 지킬 수 없는 기간에는 비우면("") 문구가 사라진다.
+    NETWORK_REPLY_NOTE: "추석 연휴에도 운영자가 직접 봅니다. 받은 날 하루 안에 먼저 전화드립니다.",
 
     // 적용 법령 기준일 (프로젝트 규칙 5-3)
     LAW: {
@@ -548,6 +550,7 @@
       ".hws-card .hws-btn-p:hover{background:var(--hws-act-hover);border-color:var(--hws-act-hover)}",
       ".hws-card .hws-btn-g{background:transparent;color:var(--hws-ink);border:2px solid var(--hws-ink2)}",
       ".hws-card .hws-btn-g:hover{border-color:var(--hws-ink)}",
+      ".hws-card .hws-ask{display:flex;align-items:center;min-height:44px;margin-top:6px;font-size:16px;font-weight:800;color:var(--hws-ink);text-decoration:underline;text-underline-offset:4px}",
       "@media (max-width:599.98px){.hws-card{left:0;right:0;bottom:0;width:auto;max-width:none;border-width:2px 0 0;",
       "border-radius:16px 16px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}",
       ".hws-card .hws-x{top:6px;right:6px}.hws-card[data-hws-enter]{transform:translateY(100%)}}",
@@ -673,6 +676,8 @@
           '<a class="hws-btn hws-btn-p" data-btn="five" href="' + S.href + '">다섯 가지 보기 · 1분</a>' +
           '<a class="hws-btn hws-btn-g" data-btn="print" href="' + S.href + '#get">인쇄용 한 장 받기</a>' +
         "</div>" +
+        (phase !== "pre" ? '<a class="hws-ask" data-btn="ask" href="/network/connect.html?src=season-' + phase + '">' +
+          (phase === "post" ? "나눈 이야기, 우리 집 경우 물어보기 →" : "가족이 모인 김에, 우리 집 경우 물어보기 →") + "</a>" : "") +
         '<button type="button" class="hws-x" aria-label="추석 안내 카드 닫기"><span aria-hidden="true">✕</span></button>';
       d.body.appendChild(card);
       themed.push(card);

@@ -220,7 +220,7 @@
       var chip0 = sec0 && [].slice.call(sec0.querySelectorAll(".chip")).filter(function (c) { return c.getAttribute("data-field") === f0; })[0];
       if (chip0) { chip0.classList.add("is-target"); chip0.setAttribute("aria-current", "true"); }
       if (sec0) { try { sec0.scrollIntoView({ block: "start" }); } catch (e) {} }
-      track("expert_card_click", { field: f0, has_partner: data.partners.some(function (p) { return p.field === f0 && isShowable(p, data.field_rules); }) ? "yes" : "no" }, true);
+      track("expert_card_click", { field: f0, source: qs("src") || "main", has_partner: data.partners.some(function (p) { return p.field === f0 && isShowable(p, data.field_rules); }) ? "yes" : "no" }, true);
     }
     track("network_view", {}, true);
   }
@@ -558,6 +558,7 @@
         consent_version: CONNECT_CONSENT_VERSION,
         parent_id: qs("parent") || "",
         page: location.pathname,
+        source: "connect.html" + (qs("src") ? "?src=" + String(qs("src")).slice(0, 30) : ""),
         website: (f.elements.website && f.elements.website.value.trim()) || ""
       };
       if (p.website) { showLedger(""); return; }            // 허니팟
@@ -566,7 +567,7 @@
       fetch(CFG.NETWORK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(p) })
         .then(function (r) { return r.json(); })
         .then(function (res) {
-          if (res && res.ok) { track("connect_request", { group: p.group }, true); showLedger(res.ledger_id || res.id || ""); return; }
+          if (res && res.ok) { track("connect_request", { group: p.group, source: qs("src") || "" }, true); showLedger(res.ledger_id || res.id || ""); return; }
           sending = false; sendBtn.disabled = false; sendBtn.removeAttribute("aria-busy"); sendBtn.textContent = "연결 요청 보내기";
           var why = res && (res.error === "rrn" || (res.fields || []).indexOf("rrn") >= 0) ? "주민등록번호는 적지 말아 주세요. 지우고 다시 보내 주세요."
             : res && res.error === "rate" ? "짧은 사이에 여러 번 접수되어 잠시 막혔습니다. 10분 뒤에 다시 눌러 주세요."
@@ -589,6 +590,7 @@
       note.className = "note"; note.innerHTML = "";
       note.appendChild(el("p", {}, [el("strong", { text: "온라인 접수가 열렸습니다." }),
         " 보내시면 연결번호가 바로 나옵니다. 운영자가 맞는 전문가를 고른 뒤, 보내기 전에 기관명을 먼저 알려 드립니다."]));
+      if (CFG.NETWORK_REPLY_NOTE) note.appendChild(el("p", {}, [el("strong", { class: "reply-note", text: CFG.NETWORK_REPLY_NOTE })]));
     }
     var hp = el("div", { "aria-hidden": "true" }, [el("label", { "for": "website", text: "웹사이트 (적지 마세요)" }),
       el("input", { type: "text", id: "website", name: "website", tabindex: "-1", autocomplete: "off" })]);
@@ -613,6 +615,7 @@
       kids.push(el("p", { text: "이 연결번호를 메모해 두세요. 전문가와 첫 통화 때 말씀해 주시면 됩니다." }));
       kids.push(cp); kids.push(st);
     }
+    if (CFG.NETWORK_REPLY_NOTE) kids.push(el("p", {}, [el("strong", { class: "reply-note", text: CFG.NETWORK_REPLY_NOTE })]));
     kids.push(el("p", { text: "운영자가 맞는 전문가를 고른 뒤, 보내기 전에 기관명을 먼저 알려 드립니다. 원하지 않으시면 보내지 않습니다." }));
     kids.push(el("p", {}, ["HeirWise는 이 연결로 이용자와 전문가 누구에게서도 대가를 받지 않습니다. 문의 ", el("a", { href: "tel:+82" + TEL.replace(/^0/, "").replace(/-/g, ""), text: TEL })]));
     box.appendChild(el("div", { class: "note", role: "status" }, kids));
