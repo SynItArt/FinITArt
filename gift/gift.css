@@ -209,10 +209,18 @@ footer.gf-foot p+p{margin-top:6px}
 @media(min-width:1024px){.hero h1{font-size:36px}.signal .big{font-size:42px}}
 
 @media print{
-  .gf-head .home,.iconbtn,.journey,.steps,#stepCards,.gbar,.ask,.askpanel,.done-box,.noprint,#hw-privacy-line{display:none!important}
+  .gf-head .home,.iconbtn,.journey,.steps,#stepCards,.gbar,.ask,.askpanel,.done-box,.faq,.noprint,#hw-privacy-line{display:none!important}
   body{background:#fff;color:#000;font-size:14pt}
   .signal,.due,.card,.hw-lawbase{border-color:#000!important;background:#fff!important;break-inside:avoid}
   .signal .big,.compare .z,.compare .t,.due .d2,.tl .say{color:#000!important}
   .signal .ic{background:#000!important;color:#fff!important}
   .bar span{transition:none}
 }
+
+/* Y2-3 자주 묻는 질문 — 정적 본문, 본문 18px · 제목 20px 이상 */
+.faq{margin:36px 0 24px;padding-top:24px;border-top:1.5px solid var(--line-strong)}
+.faq h2{font-size:22px;font-weight:800;margin-bottom:8px}
+.faq-item{padding:14px 0;border-bottom:1px solid var(--line)}
+.faq-item h3{font-size:20px;font-weight:800;margin-bottom:6px}
+.faq-item p{font-size:18px;line-height:1.7}
+.faq-law{margin-top:14px}
