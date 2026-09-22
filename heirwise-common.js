@@ -39,9 +39,10 @@
     NETWORK_ENDPOINT: "https://script.google.com/macros/s/AKfycbxMMgjuTGVML2PYeFjCwk1nJ2LOLjidPaZ16fYor1RYkIRq6dIz356-m8MG4W0qCrqj/exec",
 
     // 연결 요청(connect) 온라인 접수 스위치 (v3.3, 2026-09-23).
-    // 원장 v2(.gs)를 배포하고 개인정보처리방침에 「협업 연결 기록」을 넣은 뒤에만 true 로 바꾼다.
-    // false 인 동안 connect.html 은 입력 확인 + 전화 안내만 한다(9.17 동작 그대로).
-    NETWORK_CONNECT_OPEN: false,
+    // 2026.09.24 열림 — 처리방침 9.24 시행 판(협업 연결 요청·연결 사실 기록)과 같은 날.
+    // 전제: NETWORK_ENDPOINT 에 원장 v2(06_network-join_v2.gs)가 새 버전으로 배포되어 있어야 한다.
+    // 문제가 생기면 false 로 되돌리면 connect.html 은 입력 확인 + 전화 안내로 돌아간다.
+    NETWORK_CONNECT_OPEN: true,
 
     // 적용 법령 기준일 (프로젝트 규칙 5-3)
     LAW: {
