@@ -30,7 +30,12 @@
     <div class="wrap narrow">
       <p class="nw-draft">준비 중인 화면 · 검색에 노출되지 않습니다</p>
       <h1>협업 제안하기</h1>
-      <p class="lead">기관 소개를 남겨 주시면 운영자가 자격과 게재 규정을 확인한 뒤 연락드립니다. 게재 비용은 없습니다.</p>
+      <p class="lead">기관 소개를 남겨 주시면 운영자가 자격을 확인한 뒤 연락드립니다. 게재 비용도, 소개 대가도 없습니다.</p>
+      <ol class="nw-ladder" aria-label="함께하는 세 단계">
+        <li><strong>1단계 · 함께하는 전문가</strong> 자격 확인만 끝나면 바로 연결을 받습니다. 사이트에는 이름이 나가지 않습니다.</li>
+        <li><strong>2단계 · 공개 파트너</strong> 원하시면 분야 지도에 카드를 올립니다. 직역별 게재 규정을 확인한 뒤에 올립니다.</li>
+        <li><strong>3단계 · 창립 멤버 20인</strong> 연결 2건 이상, 이용자 후기 「도움됨」이 쌓이면 배지와 공동 글·공동 상담 기회를 드립니다.</li>
+      </ol>
       <div class="note warn" role="note"><p><strong>온라인 접수는 준비 중입니다.</strong> 입력을 마치고 「입력 확인」을 누르면 보낼 내용을 복사할 수 있습니다. 지금은 <a href="mailto:itart@finitart.com">itart@finitart.com</a> 으로 보내 주세요.</p></div>
     </div>
   </section>
@@ -63,15 +68,26 @@
       <div class="fld"><label for="intro">소개 (세 줄, 300자 안) <span class="req">*</span></label>
         <textarea id="intro" name="intro" rows="3" aria-describedby="introCount intro-e" required></textarea>
         <p class="counter" id="introCount" aria-live="polite"></p><p class="err" id="intro-e"></p></div>
+      <div class="fld"><label for="referred_by">추천해 주신 분 <span class="opt">(선택)</span></label>
+        <input type="text" id="referred_by" name="referred_by" maxlength="40" aria-describedby="rb-h rb-e">
+        <p class="hint" id="rb-h">이미 함께하는 전문가의 소개로 오셨다면 그분 성함이나 기관명을 적어 주세요. 확인 절차가 짧아집니다.</p><p class="err" id="rb-e"></p></div>
       <div class="fld">
         <label class="check consent"><input type="checkbox" id="agree_privacy" name="agree_privacy" aria-describedby="ap-e">
           <span>개인정보 수집·이용에 동의합니다 <span class="req">(필수)</span>
-          <details><summary>무엇을 받나요</summary>항목: 기관명·담당자·이메일·전화·자격·지역·소개 / 목적: 합류 검토와 연락 / 보관: 검토 종료 후 1년, 게재 시 게재 종료 후 1년 / 동의하지 않으시면 합류 검토를 할 수 없습니다.</details></span></label>
+          <details><summary>무엇을 받나요</summary>항목: 기관명·담당자·이메일·전화·자격·지역·소개·추천인·공개 여부 / 목적: 자격 확인과 합류 검토, 연결 요청 전달, 연결 결과 확인과 월간 기록 안내 / 보관: 미합류 시 신청일부터 1년, 합류 시 활동 종료 후 1년, 동의 기록(소개 대가 없음·비밀 유지)은 활동 종료 후 3년 / 동의하지 않으시면 합류 검토를 할 수 없습니다.</details></span></label>
         <p class="err" id="ap-e"></p></div>
       <div class="fld">
         <label class="check consent"><input type="checkbox" id="agree_nofee" name="agree_nofee" aria-describedby="an-e">
           <span>소개 대가를 주고받지 않는 원칙에 동의합니다 <span class="req">(필수)</span> · <a href="/network/principles.html" target="_blank" rel="noopener">운영 원칙</a></span></label>
         <p class="err" id="an-e"></p></div>
+      <div class="fld">
+        <label class="check consent"><input type="checkbox" id="agree_confidential" name="agree_confidential" aria-describedby="ak-e">
+          <span>연결로 알게 된 이용자 정보는 상담 목적 밖으로 쓰지 않고 비밀을 지킵니다 <span class="req">(필수)</span></span></label>
+        <p class="err" id="ak-e"></p></div>
+      <div class="fld">
+        <label class="check"><input type="checkbox" id="public_consent" name="public_consent">
+          <span>분야 지도에 제 카드를 공개하는 데 동의합니다 <span class="opt">(선택)</span> — 동의하지 않으셔도 1단계로 연결은 받으실 수 있습니다. 공개는 해당 직역 게재 규정 확인 뒤에 합니다.</span></label></div>
+      <p class="hint">동의 문구 버전 J-2026-09-v1</p>
       <div class="actions" style="display:flex;gap:8px;flex-wrap:wrap">
         <button type="button" class="btn btn-ghost" id="joinCheck">입력 확인</button>
         <button type="button" class="btn btn-primary" id="joinCopy" hidden>보낼 내용 복사</button>
