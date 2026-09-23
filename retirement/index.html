@@ -876,6 +876,7 @@ function submitExtra(){
   const qRetire=document.querySelector('input[name="q_retire"]:checked')?.value||'';
   const qRisk=document.querySelector('input[name="q_risk"]:checked')?.value||'';
   if(!qPension&&!qRetire&&!qRisk){showToast('하나 이상 선택해주세요','#D35400');return}
+  if(!document.getElementById('pvAgree')?.checked){showToast('개인정보 동의가 필요합니다!','#D35400');return}  // 2026-09-24 보안 점검: 추가 정보도 동의 확인 후에만 전송
 
   const name=document.getElementById('cName').value.trim();
   const phone=document.getElementById('cPhone').value.trim();
