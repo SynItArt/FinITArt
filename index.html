@@ -556,6 +556,35 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
 </section>
 
 <!-- ══════════════════ 기한 ══════════════════ -->
+<!-- ══════════════════ v1.9 · 누가 나와 비슷해요? (인생 변곡점 얼굴 띠) ══════════════════ -->
+<style>
+.faces-grid{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.face{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:10px 10px 14px;text-decoration:none;color:var(--ink);transition:border-color .12s ease,transform .12s ease}
+.face:hover{border-color:var(--teal);transform:translateY(-2px)}
+.face:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.face img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:var(--surface-2)}
+.face-n{font-size:17px;font-weight:800;margin-top:10px}
+.face-q{font-size:16px;line-height:1.5;color:var(--ink-2);margin-top:4px;flex:1}
+.face-go{font-size:18px;font-weight:800;color:var(--teal);margin-top:6px}
+.faces-note{font-size:14px;color:var(--ink-2);margin-top:14px}
+@media (prefers-reduced-motion:reduce){.face{transition:none}.face:hover{transform:none}}
+</style>
+<section id="faces" aria-labelledby="facesH">
+  <div class="wrap">
+    <p class="sec-label">누가 나와 비슷해요?</p>
+    <h2 id="facesH">한 집안, 세 세대 — 지금 내 자리를 골라 보세요</h2>
+    <ul class="faces-grid">
+      <li><a class="face" href="/gift/#toon" onclick="if(window.gtag)gtag('event','face_pick',{who:'hanul'})"><img src="/img/face/hanul.jpg" alt="27세 신하늘. 단발머리에 초록 니트를 입고 웃는 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">하늘 · 27</span><span class="face-q">결혼 자금을 받았어요</span><span class="face-go" aria-hidden="true">→</span></a></li>
+      <li><a class="face" href="/insurance-two-faces.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'yeonseon'})"><img src="/img/face/yeonseon.jpg" alt="42세 신연선. 머리를 뒤로 묶고 코랄색 블라우스를 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">연선 · 42</span><span class="face-q">가족 보험, 이대로 괜찮을까요</span><span class="face-go" aria-hidden="true">→</span></a></li>
+      <li><a class="face" href="/calculator.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'yeongjae'})"><img src="/img/face/yeongjae.jpg" alt="45세 신영재. 짧은 머리에 네이비 셔츠를 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">영재 · 45</span><span class="face-q">부모님 재산, 미리 알아 두고 싶어요</span><span class="face-go" aria-hidden="true">→</span></a></li>
+      <li><a class="face" href="/retirement/index.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'mihyang'})"><img src="/img/face/mihyang.jpg" alt="68세 허미향. 은회색 파마머리에 앰버색 카디건을 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">미향 · 68</span><span class="face-q">노후자금, 얼마나 남을까요</span><span class="face-go" aria-hidden="true">→</span></a></li>
+      <li><a class="face" href="/book.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'haenam'})"><img src="/img/face/haenam.jpg" alt="72세 신해남. 흰머리에 안경을 쓰고 초록 조끼를 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">해남 · 72</span><span class="face-q">유언·증여, 차근차근 준비하고 싶어요</span><span class="face-go" aria-hidden="true">→</span></a></li>
+      <li><a class="face" href="/inheritdebt.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'family'})"><img src="/img/face/family.jpg" alt="검은 정장을 입고 나란히 선 남매. 가슴에 흰 국화" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">남은 가족</span><span class="face-q">장례를 막 치렀어요 — 3개월 안에 할 일</span><span class="face-go" aria-hidden="true">→</span></a></li>
+    </ul>
+    <p class="faces-note">AI로 만든 이미지 · 이야기 속 가족입니다. 실제 상담 사례가 아닙니다.</p>
+  </div>
+</section>
+
 <section id="deadline">
   <div class="wrap">
     <p class="sec-label">먼저 볼 것</p>
@@ -815,7 +844,7 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
         <div class="sit-head">
           <p class="sit-src">법률 제17907호 · 2024. 1. 27. 확대</p>
           <button type="button" class="sit-thumb" data-img="/case/ceo-jungdaejaehae.jpg" data-caption="5명만 넘어도 대표가 형사처벌을 받습니다" aria-label="사진 크게 보기 — 중대재해처벌법">
-            <img src="/case/ceo-jungdaejaehae.jpg" alt="공장이 내려다보이는 사무실에서 서류를 든 대표의 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
+            <img src="/case/ceo-jungdaejaehae.jpg" alt="공장이 내려다보이는 사무실 책상 위의 안전모와 점검 서류" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
           </button>
         </div>
         <h3>5명만 넘어도 대표가 형사처벌을 받습니다</h3>

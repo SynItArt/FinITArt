@@ -224,3 +224,16 @@ footer.gf-foot p+p{margin-top:6px}
 .faq-item h3{font-size:20px;font-weight:800;margin-bottom:6px}
 .faq-item p{font-size:18px;line-height:1.7}
 .faq-law{margin-top:14px}
+
+/* v1.9 · 인생 변곡점 카툰 띠 */
+.toon{margin:8px 0 20px}
+.toon h2{font-size:22px;font-weight:800;line-height:1.35;margin-bottom:10px}
+.toon-sub{display:inline-block;font-size:16px;font-weight:700;color:var(--ink-2);margin-left:6px}
+.toon-strip{list-style:none;margin:0;padding:0 0 10px;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.toon-strip:focus-visible{outline:3px solid var(--coral);outline-offset:3px}
+.toon-cut{flex:0 0 92%;scroll-snap-align:start}
+.toon-cut img{display:block;width:100%;height:auto;border:2px solid var(--line-strong);border-radius:12px;background:var(--surface-2)}
+.toon-hint{font-size:17px;color:var(--ink-2);margin-top:4px}
+.toon-go{font-weight:800;color:var(--coral)}
+.toon-note{font-size:15px;color:var(--ink-2);margin-top:4px}
+@media print{.toon{display:none}}
