@@ -215,6 +215,9 @@
   --coral-hover:#094536;
   --crimson:#B31729;
   --crimson-soft:#FBE7E9;
+  --violet:#5D2281;      /* 인생 변곡점 지도 배너 전용 강조색 — 대비 9.3:1 */
+  --violet-ink:#FFFFFF;
+  --violet-soft:#F1E7F9;
   --shadow:none;         /* N26 톤 — 그림자 대신 보더 대비로 위계 표현 */
   --shadow-lg:none;
   --radius:14px;
@@ -229,6 +232,7 @@
     --teal:#54CFA8; --teal-soft:#12302A;
     --coral:#54CFA8; --coral-hover:#7FE0C0;
     --crimson:#FF8593; --crimson-soft:#33161B;
+    --violet:#CC98EB; --violet-ink:#1D0B28; --violet-soft:#312340;
     --shadow:none;
     --shadow-lg:none;
   }
@@ -239,6 +243,7 @@ html[data-theme="light"]{
   --navy:#173863; --navy-soft:#EAF0F8; --amber:#F9A825; --amber-ink:#8A5A00;
   --amber-soft:#FDF1D6; --teal:#0C5C48; --teal-soft:#E2F2ED;
   --coral:#0C5C48; --coral-hover:#094536; --crimson:#B31729; --crimson-soft:#FBE7E9;
+  --violet:#5D2281; --violet-ink:#FFFFFF; --violet-soft:#F1E7F9;
 }
 html[data-theme="dark"]{
   --bg:#13161C; --surface:#1B1F27; --surface-2:#232833;
@@ -246,6 +251,7 @@ html[data-theme="dark"]{
   --navy:#8FB4E8; --navy-soft:#1D2836; --amber:#FFC64D; --amber-ink:#FFC64D;
   --amber-soft:#302713; --teal:#54CFA8; --teal-soft:#12302A;
   --coral:#54CFA8; --coral-hover:#7FE0C0; --crimson:#FF8593; --crimson-soft:#33161B;
+  --violet:#CC98EB; --violet-ink:#1D0B28; --violet-soft:#312340;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -422,7 +428,9 @@ td strong{color:var(--ink)}
 .scope .expert-links a:hover{color:var(--ink)}
 .expert-acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:16px 0 0}
 .expert-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border-radius:10px;background:var(--coral,#0C5C48);color:var(--on-coral,#fff);font-weight:700;font-size:17px;text-decoration:none}
-.expert-join{font-size:15.5px;color:var(--ink-2);text-underline-offset:4px}
+.expert-join{display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border-radius:10px;
+  border:2px solid var(--navy);color:var(--navy);font-weight:800;font-size:16px;text-decoration:none}
+.expert-join:hover{background:var(--navy-soft)}
 
 /* ── 질문방 ── */
 .room{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:38px 34px;box-shadow:var(--shadow-lg);margin-top:32px}
@@ -552,6 +560,36 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
       교통사고·산재·화재 보상 개략 산정을 무료 계산 도구와 익명 질문방으로 제공합니다.
       법률 자문과 세무 신고 대리는 수행하지 않으며, 필요한 시점에 변호사·세무사에게 연결합니다.
     </p>
+  </div>
+</section>
+
+<!-- ══════════════════ v3.4 · 인생 변곡점 지도 배너 ══════════════════ -->
+<style>
+.lifemap-band{margin:0 0 8px}
+.lifemap-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
+  background:var(--violet-soft);border:1.5px solid var(--violet);border-radius:var(--radius);
+  padding:22px 26px;text-decoration:none;color:var(--ink);transition:transform .12s ease,border-color .12s ease}
+.lifemap-card:hover{transform:translateY(-2px);border-color:var(--violet)}
+.lifemap-card:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+.lifemap-txt{max-width:680px}
+.lifemap-eyebrow{display:inline-block;font-size:13.5px;font-weight:800;letter-spacing:.02em;color:var(--violet-ink);
+  background:var(--violet);border-radius:999px;padding:3px 12px;margin:0 0 10px}
+.lifemap-card h2{font-size:21px;line-height:1.4;margin:0 0 8px;color:var(--ink)}
+.lifemap-card p{font-size:16px;line-height:1.6;color:var(--ink-2);margin:0}
+.lifemap-go{flex:none;font-size:17px;font-weight:900;color:var(--violet-ink);background:var(--violet);
+  border-radius:12px;padding:0 20px;min-height:48px;display:inline-flex;align-items:center}
+@media(prefers-color-scheme:dark){.lifemap-eyebrow{color:var(--violet-ink)}}
+</style>
+<section id="lifemap-banner" class="lifemap-band" aria-labelledby="lifemapBannerH">
+  <div class="wrap">
+    <a class="lifemap-card" href="/lifemap/" onclick="if(window.gtag)gtag('event','lifemap_home_click')">
+      <div class="lifemap-txt">
+        <span class="lifemap-eyebrow">새로 만든 도구 · 준비 중</span>
+        <h2 id="lifemapBannerH">인생 변곡점 지도 — 지금 내 나이에 준비할 돈, 만날 사람</h2>
+        <p>20대부터 70대 이후까지, 나이대별 변곡점과 그때 확보할 재정을 한 화면에서 확인하세요.</p>
+      </div>
+      <span class="lifemap-go" aria-hidden="true">지도 보러 가기 →</span>
+    </a>
   </div>
 </section>
 
@@ -1044,7 +1082,7 @@ a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
         </p>
         <p class="expert-acts">
           <a class="expert-cta" href="/network/connect.html">전문가 연결 요청하기</a>
-          <a class="expert-join" href="/network/join.html">이 자리에 함께할 전문가를 찾습니다 →</a>
+          <a class="expert-join" href="/network/for-partners.html">협업 전문가이신가요? 지원 안내 보기 →</a>
         </p>
       </div>
     </div>

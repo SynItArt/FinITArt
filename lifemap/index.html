@@ -16,11 +16,34 @@
   --green:#54CFA8; --green-ink:#0F3B30; --amber:#FFC64D; --amber-ink:#4A3200;
   --blue:#93C5FD; --blue-ink:#0F2A5C; --red:#FCA5A5; --red-ink:#5C1111;
   --focus:#FFC64D;
+  /* 나이대 색 리듬(20→70) — "생전 축적 → 사후 정리"의 흐름을 보라→로즈 한 계열로 표현.
+     초록(hw)·파랑(pro)·빨강(warn)·호박(조작) 색과는 색상환에서 충분히 떨어뜨려 기존 의미와 겹치지 않게 함.
+     명암비: 배경 대비 7.2:1 이상, 잉크(글자) 대비 7.6:1 이상(WCAG 상대휘도 계산, AAA) */
+  --b20:#A998EB; --b20i:#110B28; --b20s:#2B2540;
+  --b30:#B998EB; --b30i:#170B28; --b30s:#2E2440;
+  --b40:#CC98EB; --b40i:#1D0B28; --b40s:#312340;
+  --b50:#DE98EB; --b50i:#230B28; --b50s:#342340;
+  --b60:#EB98E7; --b60i:#280B26; --b60s:#372340;
+  --b70:#EB98D4; --b70i:#280B20; --b70s:#372338;
 }
 @media (prefers-color-scheme: light){
   :root{ --bg:#FBF9F4; --card:#FFFFFF; --card2:#F1EEE6; --line:#CFC9BC; --ink:#161A20; --muted:#3B4350; --sub:#4B5563;
-         --green:#0C5C48; --green-ink:#FFFFFF; --amber:#8A5A00; --amber-ink:#FFFFFF; --blue:#1D4ED8; --blue-ink:#FFFFFF; --red:#B91C1C; --red-ink:#FFFFFF; --focus:#1D4ED8; }
+         --green:#0C5C48; --green-ink:#FFFFFF; --amber:#8A5A00; --amber-ink:#FFFFFF; --blue:#1D4ED8; --blue-ink:#FFFFFF; --red:#B91C1C; --red-ink:#FFFFFF; --focus:#1D4ED8;
+         --b20:#352281; --b20i:#FFFFFF; --b20s:#EDE7F9;
+         --b30:#482281; --b30i:#FFFFFF; --b30s:#EFE7F9;
+         --b40:#5D2281; --b40i:#FFFFFF; --b40s:#F1E7F9;
+         --b50:#712281; --b50i:#FFFFFF; --b50s:#F3E7F8;
+         --b60:#81227C; --b60i:#FFFFFF; --b60s:#F5E7F5;
+         --b70:#812266; --b70i:#FFFFFF; --b70s:#F5E7EE;
+  }
 }
+/* 나이대별 현재 색(--stripe)을 body 전체에 내려보내 슬라이더·버튼·카드·카툰 자리를 한 색으로 묶는다 */
+body[data-band="20"]{ --stripe:var(--b20); --stripe-ink:var(--b20i); --stripe-soft:var(--b20s); }
+body[data-band="30"]{ --stripe:var(--b30); --stripe-ink:var(--b30i); --stripe-soft:var(--b30s); }
+body[data-band="40"]{ --stripe:var(--b40); --stripe-ink:var(--b40i); --stripe-soft:var(--b40s); }
+body[data-band="50"]{ --stripe:var(--b50); --stripe-ink:var(--b50i); --stripe-soft:var(--b50s); }
+body[data-band="60"]{ --stripe:var(--b60); --stripe-ink:var(--b60i); --stripe-soft:var(--b60s); }
+body[data-band="70"]{ --stripe:var(--b70); --stripe-ink:var(--b70i); --stripe-soft:var(--b70s); }
 *{box-sizing:border-box} html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 "Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif;-webkit-text-size-adjust:100%}
 a{color:inherit}
@@ -37,22 +60,25 @@ h1{font-size:clamp(26px,4.6vw,38px);line-height:1.3;margin:34px 0 10px}
 /* 나이 선택 */
 .age{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px 18px}
 .age label{display:block;font-weight:800;font-size:20px;margin-bottom:8px}
-.age .now{font-size:44px;font-weight:900;line-height:1;color:var(--amber)}
+.age .now{font-size:44px;font-weight:900;line-height:1;color:var(--stripe,var(--amber))}
 .age .now small{font-size:20px;color:var(--ink);font-weight:700;margin-left:6px}
 input[type=range]{width:100%;height:44px;margin:8px 0 6px;accent-color:var(--amber);cursor:pointer}
 .ticks{display:flex;justify-content:space-between;font-size:15px;color:var(--sub);font-weight:700;margin-bottom:14px}
 .bands{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .bands button{min-height:48px;border-radius:12px;border:2px solid var(--line);background:var(--card2);color:var(--ink);font:inherit;font-weight:800;font-size:17px;cursor:pointer}
-.bands button[aria-pressed=true]{background:var(--amber);color:var(--amber-ink);border-color:var(--amber)}
+.bands button[aria-pressed=true]{background:var(--stripe,var(--amber));color:var(--stripe-ink,var(--amber-ink));border-color:var(--stripe,var(--amber))}
 @media (max-width:560px){.bands{grid-template-columns:repeat(3,1fr)}}
 
 /* 변곡점 카드 */
 .stage{margin:34px 0 8px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .stage h2{font-size:26px;margin:0}
-.stage .axis{font-size:15px;font-weight:800;border-radius:999px;padding:4px 12px;background:var(--card2);border:1px solid var(--line)}
+.stage .axis{font-size:15px;font-weight:800;border-radius:999px;padding:4px 12px;background:var(--stripe,var(--card2));color:var(--stripe-ink,var(--ink));border:1px solid var(--line)}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px}
-.card .toon{aspect-ratio:4/3;border-radius:12px;background:var(--card2);border:1px dashed var(--line);display:grid;place-items:center;color:var(--sub);font-size:15px;text-align:center;padding:10px}
+.card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--stripe,var(--line));border-radius:18px;padding:18px 18px 16px 16px;display:flex;flex-direction:column;gap:10px}
+.card .toon{aspect-ratio:4/3;border-radius:12px;background:var(--stripe-soft,var(--card2));border:1.5px dashed var(--stripe,var(--line));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--sub);font-size:15px;text-align:center;padding:10px}
+.card .toon .cap{font-weight:800;font-size:15px;color:var(--stripe,var(--ink))}
+.card .toon .no{font-size:14px;font-weight:700;color:var(--sub)}
+.card .toon .ev{font-size:14px;color:var(--sub)}
 .card h3{font-size:21px;margin:2px 0 0;line-height:1.35}
 .card .money{font-size:16px;color:var(--muted)}
 .card .who{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
@@ -78,13 +104,21 @@ input[type=range]{width:100%;height:44px;margin:8px 0 6px;accent-color:var(--amb
 .who-am-i{margin:44px 0 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
 .who-am-i h2{font-size:22px;margin:0 0 8px}
 .who-am-i p{margin:6px 0;color:var(--muted);font-size:16px}
+
+/* 협업 전문가 지원창 — 파랑(전문가) 의미를 그대로 써서 나이대 색과 헷갈리지 않게 분리 */
+.partner-cta{margin:20px 0 0;background:var(--blue);color:var(--blue-ink);border-radius:18px;padding:22px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.partner-cta .txt{max-width:640px}
+.partner-cta .eyebrow{font-weight:900;font-size:14px;letter-spacing:.02em;margin:0 0 6px}
+.partner-cta h2{font-size:21px;margin:0 0 8px;color:inherit}
+.partner-cta p{margin:0;font-size:16px;color:inherit;opacity:.94}
+.partner-cta .go{flex:none;min-height:52px;padding:0 22px;display:inline-flex;align-items:center;border-radius:12px;background:var(--blue-ink);color:var(--blue);font-weight:900;font-size:17px;text-decoration:none}
 footer{margin:40px 0 60px;font-size:15px;color:var(--sub);border-top:1px solid var(--line);padding-top:16px}
 footer p{margin:6px 0}
 .sr{position:absolute;left:-9999px}
-@media print{.age,.cta,header.top a.tel{display:none}.detail{display:block}body{background:#fff;color:#000}}
+@media print{.age,.cta,.partner-cta,header.top a.tel{display:none}.detail{display:block}body{background:#fff;color:#000}}
 </style>
 </head>
-<body data-season="off" data-law="off" data-tool="인생변곡점지도">
+<body data-season="off" data-law="off" data-tool="인생변곡점지도" data-band="30">
 <div class="wrap">
   <header class="top">
     <a class="brand" href="/">HeirWise<sup>™</sup></a>
@@ -114,6 +148,15 @@ footer p{margin:6px 0}
     <h2>답하는 사람</h2>
     <p><strong>신대식</strong> — AFPK<sup>®</sup> 자격인증자 · 생명/손해/제3보험설계사 · 변액보험판매관리사 · 투자권유대행인(펀드·신탁·부동산) · 퇴직연금제도모집인 · 산업안전기사 · 소방설비기사(기계·전기) · 부동산 경공매 권리분석사 · 어선중개업</p>
     <p>초록 표시 분야는 제가 직접 응답합니다. 파란 표시 분야는 제가 상황을 먼저 정리한 뒤 해당 전문가에게 연결하며, 법률 판단과 세액 확정은 전문가의 일입니다. 연결에 대가는 없습니다.</p>
+  </section>
+
+  <section class="partner-cta" aria-labelledby="partnerCtaH">
+    <div class="txt">
+      <p class="eyebrow">협업 전문가이신가요?</p>
+      <h2 id="partnerCtaH">이 지도의 파란 표시 자리, 함께해 주실 분을 찾습니다</h2>
+      <p>변호사·세무사·법무사·감정평가사 등 — 게재는 무료이고 소개 대가는 주고받지 않습니다.</p>
+    </div>
+    <a class="go" href="/network/for-partners.html">협업기관 안내 보기 →</a>
   </section>
 
   <footer>
@@ -177,6 +220,12 @@ var MAP = {
 };
 var LABEL = { hw: "hw", intake: "pro", pro: "pro" };
 
+/* 카툰 제작 진행 표시용 전체 번호(20→70대 순서, 총 18편) */
+var TOTAL_CARDS = 0;
+[20,30,40,50,60,70].forEach(function(band){
+  MAP[band].cards.forEach(function(c){ TOTAL_CARDS++; c.no = TOTAL_CARDS; });
+});
+
 var range = document.getElementById("ageRange"), now = document.getElementById("ageNow"), cards = document.getElementById("cards");
 var stageTitle = document.getElementById("stageTitle"), stageAxis = document.getElementById("stageAxis");
 var bandBtns = Array.prototype.slice.call(document.querySelectorAll(".bands button"));
@@ -187,6 +236,7 @@ function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&
 
 function render(band){
   if (band === current) return; current = band;
+  document.body.dataset.band = String(band);
   var d = MAP[band];
   stageTitle.textContent = d.title; stageAxis.textContent = d.axis;
   bandBtns.forEach(function(b){ b.setAttribute("aria-pressed", String(Number(b.dataset.band) === band)); });
@@ -194,7 +244,7 @@ function render(band){
     var who = c.who.map(function(w){ return '<span class="tag ' + LABEL[w[0]] + '">' + esc(w[1]) + '</span>'; }).join("");
     var checks = c.check.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("");
     return '<article class="card" data-ev="' + esc(c.ev) + '">' +
-      '<div class="toon" aria-hidden="true">4컷 카툰 자리<br>(' + esc(c.h.split(" — ")[0]) + ')</div>' +
+      '<div class="toon" aria-hidden="true"><span class="cap">카툰 제작 중</span><span class="no">' + c.no + ' / ' + TOTAL_CARDS + '편</span><span class="ev">(' + esc(c.h.split(" — ")[0]) + ')</span></div>' +
       '<h3>' + esc(c.h) + '</h3>' +
       '<p class="money"><strong>지금 확보할 재정</strong> · ' + esc(c.money) + '</p>' +
       '<div class="who">' + who + '</div>' +
