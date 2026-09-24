@@ -76,6 +76,8 @@ input[type=range]{width:100%;height:44px;margin:8px 0 6px;accent-color:var(--amb
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 .card{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--stripe,var(--line));border-radius:18px;padding:18px 18px 16px 16px;display:flex;flex-direction:column;gap:10px}
 .card .toon{aspect-ratio:4/3;border-radius:12px;background:var(--stripe-soft,var(--card2));border:1.5px dashed var(--stripe,var(--line));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--sub);font-size:15px;text-align:center;padding:10px}
+.card .toon.has-img{padding:0;border-style:solid;overflow:hidden;display:block}
+.card .toon.has-img img{display:block;width:100%;height:100%;object-fit:cover}
 .card .toon .cap{font-weight:800;font-size:15px;color:var(--stripe,var(--ink))}
 .card .toon .no{font-size:14px;font-weight:700;color:var(--sub)}
 .card .toon .ev{font-size:14px;color:var(--sub)}
@@ -168,6 +170,7 @@ footer p{margin:6px 0}
 
 <script>
 /* ── 데이터: v3.4 §2-2 · 한 카드 = 카툰 4컷 한 편. who: hw = 본부장 직접, intake = 1차 정리 후 연결, pro = 전문가 ── */
+/* img: 게시 결정된 편만 '/img/toon/<no>_<ev>/cut1.webp' (1200×900). 없으면 '카툰 제작 중' 자리. alt는 대본 1컷 요약 */
 var MAP = {
   20: { axis: "생전 축 · 축적", title: "20대의 변곡점", cards: [
     { ev: "first_job", h: "취업·독립 — 첫 월급이 들어왔다", money: "비상자금 3~6개월분, 첫 적립(연금저축·IRP)",
@@ -191,7 +194,7 @@ var MAP = {
     { ev: "biz_risk", h: "사업 확장 — 중대재해 한 건이 상속공제를 되돌린다", money: "사업장 안전관리 체계, 가업상속공제 사후관리 요건, 대표 연대보증 정리",
       who: [["hw","산업안전·소방 — 직접 응답"],["intake","가업 승계 1차 정리 → 세무사·회계사"]], check: ["안전관리 체계 점검(선임·교육·점검 기록)","대표 개인 연대보증 목록","가업승계 요건 사전 확인"], calc: "진단: <a href='/ceo-diagnosis.html'>법인 대표 진단</a>", ask: "/network/connect.html?src=lifemap&age=40&ev=biz_risk" },
     { ev: "debt", h: "빚이 더 많은 상속을 받게 된다면", money: "한정승인·포기 3개월 기한, 채무 초과 판단, 상속 부동산 근저당 확인",
-      who: [["intake","회생·파산·한정승인 1차 정리 → 변호사·법무사"],["hw","경공매 권리분석 — 직접 응답"]], check: ["상속 개시를 안 날부터 3개월 계산(민법 §1019①)","빚이 더 많은 걸 나중에 알았다면 안 날부터 3개월 안 특별한정승인(§1019③·④)","재산·채무 목록과 등기부 확인, 한정승인 전 재산 처분 금지"], calc: "진단: <a href='/inheritdebt.html'>상속채무 진단</a>", ask: "/network/connect.html?src=lifemap&age=40&ev=debt" }
+      who: [["intake","회생·파산·한정승인 1차 정리 → 변호사·법무사"],["hw","경공매 권리분석 — 직접 응답"]], check: ["상속 개시를 안 날부터 3개월 계산(민법 §1019①)","빚이 더 많은 걸 나중에 알았다면 그 사실을 안 날부터 3개월 안 특별한정승인(§1019③)","재산·채무 목록과 등기부 확인, 한정승인 전 재산 처분 금지"], calc: "진단: <a href='/inheritdebt.html'>상속채무 진단</a>", ask: "/network/connect.html?src=lifemap&age=40&ev=debt" }
   ]},
   50: { axis: "생전 축 · 보전 → 이전", title: "50대의 변곡점", cards: [
     { ev: "retire_prep", h: "은퇴 준비 — 연금 인출 순서가 세금을 정한다", money: "퇴직연금·IRP·국민연금 인출 설계, 건강보험료 영향, 은퇴 후 현금흐름표",
@@ -244,7 +247,9 @@ function render(band){
     var who = c.who.map(function(w){ return '<span class="tag ' + LABEL[w[0]] + '">' + esc(w[1]) + '</span>'; }).join("");
     var checks = c.check.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("");
     return '<article class="card" data-ev="' + esc(c.ev) + '">' +
-      '<div class="toon" aria-hidden="true"><span class="cap">카툰 제작 중</span><span class="no">' + c.no + ' / ' + TOTAL_CARDS + '편</span><span class="ev">(' + esc(c.h.split(" — ")[0]) + ')</span></div>' +
+      (c.img
+        ? '<div class="toon has-img"><img src="' + esc(c.img) + '" alt="' + esc(c.alt || (c.h + ' — 4컷 카툰 1컷')) + '" loading="lazy" width="1200" height="900"></div>'
+        : '<div class="toon" aria-hidden="true"><span class="cap">카툰 제작 중</span><span class="no">' + c.no + ' / ' + TOTAL_CARDS + '편</span><span class="ev">(' + esc(c.h.split(" — ")[0]) + ')</span></div>') +
       '<h3>' + esc(c.h) + '</h3>' +
       '<p class="money"><strong>지금 확보할 재정</strong> · ' + esc(c.money) + '</p>' +
       '<div class="who">' + who + '</div>' +
