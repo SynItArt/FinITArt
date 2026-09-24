@@ -78,6 +78,18 @@ input[type=range]{width:100%;height:44px;margin:8px 0 6px;accent-color:var(--amb
 .card .toon{aspect-ratio:4/3;border-radius:12px;background:var(--stripe-soft,var(--card2));border:1.5px dashed var(--stripe,var(--line));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--sub);font-size:15px;text-align:center;padding:10px}
 .card .toon.has-img{aspect-ratio:16/11;padding:0;border-style:solid;overflow:hidden;display:block}
 .card .toon.has-img img{display:block;width:100%;height:100%;object-fit:cover}
+.card .toon.has-img{position:relative;cursor:zoom-in;width:100%;font:inherit;color:inherit}
+.card .toon.has-img:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.card .toon .view4{position:absolute;right:10px;bottom:10px;background:var(--stripe,var(--ink));color:var(--stripe-ink,var(--bg));font-weight:800;font-size:15px;padding:7px 12px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+dialog.toon4{width:min(960px,100vw);max-width:100vw;max-height:100dvh;margin:auto;padding:0;border:0;border-radius:16px;background:var(--bg);color:var(--ink)}
+dialog.toon4::backdrop{background:rgba(0,0,0,.78)}
+.toon4 .bar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:var(--card);border-bottom:1px solid var(--line);z-index:1}
+.toon4 .bar h2{font-size:18px;margin:0;line-height:1.35}
+.toon4 .close{min-width:48px;min-height:48px;border-radius:12px;border:2px solid var(--line);background:var(--card2);color:var(--ink);font:inherit;font-size:17px;font-weight:800;cursor:pointer;flex:none}
+.toon4 ol{list-style:none;margin:0;padding:12px 12px 4px;display:grid;gap:12px}
+.toon4 img{display:block;width:100%;height:auto;border-radius:10px;background:var(--card2)}
+.toon4 .note{font-size:14px;color:var(--sub);padding:4px 16px 16px;margin:0}
+@media (max-width:600px){dialog.toon4{border-radius:0;height:100dvh}}
 .card .toon .cap{font-weight:800;font-size:15px;color:var(--stripe,var(--ink))}
 .card .toon .no{font-size:14px;font-weight:700;color:var(--sub)}
 .card .toon .ev{font-size:14px;color:var(--sub)}
@@ -168,6 +180,11 @@ footer p{margin:6px 0}
   </footer>
 </div>
 
+<dialog class="toon4" id="toon4" aria-labelledby="toon4T">
+  <div class="bar"><h2 id="toon4T">4컷 카툰</h2><button type="button" class="close" id="toon4X" aria-label="닫기">닫기 ✕</button></div>
+  <ol id="toon4L"></ol>
+  <p class="note">AI로 만든 이미지 · 이야기 속 가족입니다. 개략 안내이며 법률·세무 자문이 아닙니다.</p>
+</dialog>
 <script>
 /* ── 데이터: v3.4 §2-2 · 한 카드 = 카툰 4컷 한 편. who: hw = 본부장 직접, intake = 1차 정리 후 연결, pro = 전문가 ── */
 /* img: 게시 결정된 편만 '/img/toon/<no>_<ev>/cut1.webp' (1200×825 = 완성 1컷 전체, 16:11). 없으면 '카툰 제작 중' 자리. alt는 대본 1컷 요약 */
@@ -248,7 +265,7 @@ function render(band){
     var checks = c.check.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("");
     return '<article class="card" data-ev="' + esc(c.ev) + '">' +
       (c.img
-        ? '<div class="toon has-img"><img src="' + esc(c.img) + '" alt="' + esc(c.alt || (c.h + ' — 4컷 카툰 1컷')) + '" loading="lazy" width="1200" height="825"></div>'
+        ? '<button type="button" class="toon has-img" data-toon="' + esc(c.img.replace(/cut1\.webp$/, '')) + '" data-title="' + esc(c.h) + '" aria-haspopup="dialog"><img src="' + esc(c.img) + '" alt="' + esc(c.alt || (c.h + ' — 4컷 카툰 1컷')) + '" loading="lazy" width="1200" height="825"><span class="view4">4컷 전체 보기</span></button>'
         : '<div class="toon" aria-hidden="true"><span class="cap">카툰 제작 중</span><span class="no">' + c.no + ' / ' + TOTAL_CARDS + '편</span><span class="ev">(' + esc(c.h.split(" — ")[0]) + ')</span></div>') +
       '<h3>' + esc(c.h) + '</h3>' +
       '<p class="money"><strong>지금 확보할 재정</strong> · ' + esc(c.money) + '</p>' +
@@ -269,7 +286,25 @@ range.addEventListener("input", function(){ now.textContent = range.value; rende
 bandBtns.forEach(function(b){ b.addEventListener("click", function(){
   var band = Number(b.dataset.band); range.value = band === 70 ? 75 : band + 5; now.textContent = range.value; render(band);
 }); });
+var t4 = document.getElementById("toon4"), t4L = document.getElementById("toon4L"), t4T = document.getElementById("toon4T"), t4From = null;
+var STEP = ["1 · 상황", "2 · 착각", "3 · 사실", "4 · 지금 할 일"];
+function openToon(btn){
+  var dir = btn.dataset.toon, title = btn.dataset.title; t4From = btn;
+  t4T.textContent = title + " — 4컷 카툰";
+  t4L.innerHTML = [1,2,3,4].map(function(n){
+    return '<li><img src="' + esc(dir + 'cut' + n + '.webp') + '" alt="' + esc(title + ' — 4컷 중 ' + STEP[n-1] + ' (AI로 만든 이미지)') + '" width="1200" height="825"' + (n > 1 ? ' loading="lazy"' : '') + '></li>';
+  }).join("");
+  if (typeof t4.showModal === "function") t4.showModal(); else t4.setAttribute("open", "");
+  t4.scrollTop = 0; document.getElementById("toon4X").focus();
+  ga("lifemap_toon_open", { age_band: String(current), event: btn.closest(".card").dataset.ev });
+}
+function closeToon(){ if (t4.open) { if (typeof t4.close === "function") t4.close(); else t4.removeAttribute("open"); } }
+document.getElementById("toon4X").addEventListener("click", closeToon);
+t4.addEventListener("click", function(e){ if (e.target === t4) closeToon(); });
+t4.addEventListener("close", function(){ t4L.innerHTML = ""; if (t4From) t4From.focus(); });
 cards.addEventListener("click", function(e){
+  var tb = e.target.closest("button.toon");
+  if (tb) { openToon(tb); return; }
   var open = e.target.closest("button.open");
   if (open) {
     var d = document.getElementById(open.getAttribute("aria-controls")), on = !d.classList.contains("on");
