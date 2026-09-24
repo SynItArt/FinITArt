@@ -231,8 +231,8 @@
   var RRN = /\b\d{6}\s*-?\s*[1-8]\d{6}\b/;
   var TEL_RE = /^0\d{1,2}-?\d{3,4}-?\d{4}$/;
   /* 동의 문구 버전 (v3.3). 문구를 고치면 버전도 올린다 — 원장에 어느 문구에 동의했는지 남기기 위함. */
-  var JOIN_CONSENT_VERSION = "J-2026-09-v1";
-  var CONNECT_CONSENT_VERSION = "C-2026-09-v1";
+  var JOIN_CONSENT_VERSION = "J-2026-09-v2";   // v3.4: 「서로 먼저 연결하기」(agree_mutual) 추가
+  var CONNECT_CONSENT_VERSION = "C-2026-09-v2";   // 2026-09-24 법령 대조: 제3자 제공 「받는 곳」에 이어 연결 전문가 특정(개인정보 보호법 §17②1)
   function setErr(input, msg) {
     var id = input.getAttribute("aria-describedby") || "";
     var errEl = id.split(" ").map(function (x) { return d.getElementById(x); }).filter(function (x) { return x && x.classList.contains("err"); })[0];
@@ -371,6 +371,7 @@
         "소개:", f.elements.intro.value.trim(),
         "추천한 분: " + ((f.elements.referred_by && f.elements.referred_by.value.trim()) || "(없음)"),
         "사이트 공개: " + (f.elements.public_consent && f.elements.public_consent.checked ? "동의" : "비공개로 연결만"),
+        "서로 먼저 연결하기: " + (f.elements.agree_mutual && f.elements.agree_mutual.checked ? "동의" : "해당 없음"),
         "동의(" + JOIN_CONSENT_VERSION + "): 개인정보 수집·이용 ✔ / 소개 대가 없음 ✔ / 비밀 유지 ✔"
       ].join("\n");
     }
@@ -399,6 +400,7 @@
         agree_nofee: true,
         agree_confidential: !!(f.elements.agree_confidential && f.elements.agree_confidential.checked),
         public_consent: !!(f.elements.public_consent && f.elements.public_consent.checked),
+        agree_mutual: !!(f.elements.agree_mutual && f.elements.agree_mutual.checked),   // v3.4 상호 우선연결(선택)
         referred_by: (f.elements.referred_by && f.elements.referred_by.value.trim()) || "",
         consent_version: JOIN_CONSENT_VERSION,
         page: location.pathname,
@@ -505,10 +507,55 @@
     });
   }
 
-  /* ── 연결 요청서 (connect) — 2단계 공개 전, 전송 없음 ── */
+  /* ── 연결 요청서 (connect) ──
+   * v3.4(2026-09-24) 유입 파라미터:
+   *   ?src=lifemap&age=30&ev=first_home  → 변곡점 지도. age_band·life_event 를 원장에 기록(개인정보 아님)
+   *   ?partner=<합류 id>                  → 파트너 의뢰 모드. 전문가가 운영자에게 묻는 역방향. requester_partner_id 기록.
+   *   ?fc=<분야 코드>                      → field_code (46분야 코드 확정 후 사용). 없으면 서버가 분야·요약 키워드로 배정.
+   * 배정(HW_FIRST·HW_INTAKE·PARTNER_FIRST)은 서버(06_network-join_v3.gs)가 정한다. 화면은 값만 실어 보낸다. */
+  var LIFE_EVENT_LABEL = { first_job: "취업·독립", gift_parent: "부모님께 받는 돈", marriage_prep: "결혼 준비", first_home: "첫 집", birth: "출산", startup: "창업",
+    parent_care: "부모 부양", biz_risk: "사업 확장·안전", debt: "빚이 더 많은 상속", retire_prep: "은퇴 준비", inherit_now: "부모 상속 발생", succession: "가업 승계",
+    retired: "은퇴", my_estate: "내 상속 설계", disability_family: "장애 가족", illness: "질병·사고", handover: "어선·가업 물려주기", after: "사후 절차" };
+  function partnerMode() { var p = qs("partner"); return p && /^[A-M]-\d{12}$|^P-UNKNOWN$/.test(p) ? p : ""; }
+
+  function applyPartnerMode(f, pid) {
+    var h1 = d.querySelector(".nw-hero h1"), lead = d.querySelector(".nw-hero .lead");
+    if (h1) h1.textContent = "운영자에게 의뢰하기";
+    if (lead) lead.textContent = "함께하는 전문가께서 의뢰인의 재무·보험·연금·신탁·안전 등 운영자 자격 범위의 물음을 넘기시는 화면입니다. " + (pid === "P-UNKNOWN" ? "합류 번호를 모르시면 기관명과 연락처로 운영자가 찾아 기록합니다." : "합류 번호 " + pid + " 로 기록됩니다.");
+    var sumH = d.getElementById("sum-h");
+    if (sumH) sumH.textContent = "예: 의뢰인이 상속세 재원으로 종신보험을 검토 중, 배우자 60대. — 의뢰인의 이름·주민등록번호·병력은 적지 마세요. 연락은 선생님께 먼저 드립니다.";
+    var nameL = d.querySelector('label[for="name"]'); if (nameL) nameL.innerHTML = '선생님 성함 <span class="opt">(선택)</span>';
+    var telL = d.querySelector('label[for="tel"]'); if (telL) telL.innerHTML = '선생님 연락처 <span class="req">*</span>';
+    var emL = d.querySelector('label[for="email"]'); if (emL) emL.innerHTML = '선생님 이메일 <span class="opt">(선택 · 확인서 수신)</span>';
+    var ac = d.querySelector('label[for="agree_collect"], #agree_collect'); ac = ac && ac.closest ? ac.closest("label") : null;
+    if (ac) ac.querySelector("span").innerHTML = '위 내용을 HeirWise 운영자에게 전달하는 데 동의합니다 <span class="req">(필수)</span><details><summary>무엇을 받나요</summary>항목: 합류 번호·선생님 연락처·분야·상황 요약(의뢰인 식별정보 없음) / 목적: 운영자가 자격 범위 안에서 직접 응답하거나 맞는 전문가에게 연결 / 보관: 연결 종료 후 1년 / 개인정보처리방침 1항 「협업 파트너 의뢰」</details>';
+    var at = d.getElementById("agree_third"); at = at && at.closest ? at.closest("label") : null;
+    if (at) at.querySelector("span").innerHTML = '의뢰인에게 아래 표준 문구 이상으로 알렸고, 의뢰인이 <b>동의했거나 직접 요청</b>했습니다 <span class="req">(필수)</span><details><summary>표준 문구 (P-2026-09-v2)</summary>「HeirWise 운영자 신대식(AFPK® 자격인증자)에게 성함·연락처와 상황 요약을 전달해 보험·연금·신탁 등 재무 정리 응답을 받도록 해도 될까요? 운영자는 이 정보를 응답 목적으로만 쓰고 연결 종료 후 1년이 지나면 지웁니다. 원하지 않으시면 전달하지 않고, 저와의 상담에는 영향이 없습니다.」 — 개인정보 보호법 제17조 제3자 제공: 받는 자·목적·항목·보유기간·거부 권리를 구분해 알려야 합니다. 동의·요청이 없으면 상황만 적고 연락처는 선생님 것만 적어 주세요.</details>';
+    var hint = el("p", { class: "hint", text: "이 의뢰는 대가 없이 처리됩니다. 운영자가 48시간 안에 선생님께 먼저 연락하고, 다른 전문가에게 이어 연결할 때는 별도 연결번호로 기록됩니다. 금융상품 상담·유료 정리 용역은 이용자가 요청할 때만, 연결과 별개 계약으로 진행됩니다." });
+    var cv = d.getElementById("connConsentVer"); if (cv && cv.parentNode) cv.parentNode.insertBefore(hint, cv);
+  }
+
+  function applyServicesNote() {
+    var svc = qs("svc"); if (!/^(SV|ED)$/.test(svc || "")) return;
+    var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
+    lead.parentNode.insertBefore(el("p", { class: "hint", text: svc === "SV"
+      ? "재산 현황 정리표·생애 현금흐름표 작성 용역 신청입니다. 정액 용역이며 세액·법률·금융상품 판단은 포함되지 않습니다. 운영자가 연락드려 용역계약서를 안내합니다."
+      : "강의·세미나 문의입니다. 대상·인원·일정을 상황 요약에 적어 주세요." }), lead.nextSibling);
+  }
+
+  function applyLifemapNote() {
+    var age = qs("age"), ev = qs("ev");
+    if (!age && !ev) { applyServicesNote(); return; }
+    var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
+    var label = (age ? age + "대" : "") + (ev && LIFE_EVENT_LABEL[ev] ? " · " + LIFE_EVENT_LABEL[ev] : "");
+    if (label) lead.parentNode.insertBefore(el("p", { class: "hint", text: "인생 변곡점 지도에서 오셨습니다 (" + label + "). 상황 요약에 지금 고민을 한두 줄 적어 주시면 됩니다." }), lead.nextSibling);
+  }
+
   function initConnect(data) {
     var f = d.getElementById("connForm");
     var g = f.elements.group, fld = f.elements.field;
+    var PID = partnerMode();
+    if (PID) applyPartnerMode(f, PID); else applyLifemapNote();
     fillGroups(g, data, qs("group"));
     fillFields(fld, data, g.value, qs("field"));
     g.addEventListener("change", function () { fillFields(fld, data, g.value); });
@@ -558,7 +605,13 @@
         consent_version: CONNECT_CONSENT_VERSION,
         parent_id: qs("parent") || "",
         page: location.pathname,
-        source: "connect.html" + (qs("src") ? "?src=" + String(qs("src")).slice(0, 30) : ""),
+        source: PID ? "partner" : (qs("src") === "lifemap" ? "lifemap" : "connect.html" + (qs("src") ? "?src=" + String(qs("src")).slice(0, 30) : "")),
+        requester_partner_id: PID,                                                   // v3.4 파트너 의뢰(역방향)
+        field_code: String(qs("fc") || "").slice(0, 10),                             // v3.4 46분야 코드(확정 전 빈값)
+        age_band: /^\d{2}$/.test(qs("age") || "") ? qs("age") : "",                  // v3.4 변곡점 지도 나이대(개인정보 아님)
+        life_event: String(qs("ev") || "").replace(/[^a-z_]/g, "").slice(0, 30),
+        svc: /^(SV|ED)$/.test(qs("svc") || "") ? qs("svc") : "",                     // v3.4 services 페이지 유료 신청(SV 정리표 용역 · ED 강의) — 서버가 HW_FIRST·track=service 로 기록
+        partner_notice_version: PID ? "P-2026-09-v2" : "",                          // v3.2 파트너가 의뢰인에게 알린 표준 문구 버전
         website: (f.elements.website && f.elements.website.value.trim()) || ""
       };
       if (p.website) { showLedger(""); return; }            // 허니팟
@@ -567,7 +620,10 @@
       fetch(CFG.NETWORK_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(p) })
         .then(function (r) { return r.json(); })
         .then(function (res) {
-          if (res && res.ok) { track("connect_request", { group: p.group, source: qs("src") || "" }, true); showLedger(res.ledger_id || res.id || ""); return; }
+          if (res && res.ok) {
+            track("connect_request", { group: p.group, source: p.source, routing: res.routing_rule || "", age_band: p.age_band || "", life_event: p.life_event || "" }, true);
+            showLedger(res.ledger_id || res.id || "", res.routing_rule || "", !!PID); return;
+          }
           sending = false; sendBtn.disabled = false; sendBtn.removeAttribute("aria-busy"); sendBtn.textContent = "연결 요청 보내기";
           var why = res && (res.error === "rrn" || (res.fields || []).indexOf("rrn") >= 0) ? "주민등록번호는 적지 말아 주세요. 지우고 다시 보내 주세요."
             : res && res.error === "rate" ? "짧은 사이에 여러 번 접수되어 잠시 막혔습니다. 10분 뒤에 다시 눌러 주세요."
@@ -600,10 +656,13 @@
   }
 
   /* 접수 완료 — 연결번호를 크게 보여 주고 복사할 수 있게 한다 */
-  function showLedger(id) {
+  function showLedger(id, rule, isPartner) {
     var box = d.getElementById("formBox");
     box.innerHTML = ""; box.setAttribute("tabindex", "-1");
-    var kids = [el("p", {}, [el("strong", { text: "연결 요청을 받았습니다." })])];
+    var kids = [el("p", {}, [el("strong", { text: isPartner ? "의뢰를 받았습니다." : "연결 요청을 받았습니다." })])];
+    /* v3.4: 서버가 운영자 1순위(HW_FIRST·HW_INTAKE)로 배정했으면 누가 연락할지 미리 알린다 */
+    if (rule === "HW_FIRST") kids.push(el("p", { text: "이 요청은 운영자(신대식)가 직접 응답하는 분야입니다. 48시간 안에 먼저 연락드립니다." }));
+    else if (rule === "HW_INTAKE") kids.push(el("p", { text: "운영자가 먼저 상황을 정리한 뒤, 필요한 전문가에게 이어 연결합니다. 48시간 안에 먼저 연락드립니다." }));
     if (id) {
       var st = el("p", { class: "status", role: "status", "aria-live": "polite" });
       var cp = el("button", { type: "button", class: "btn btn-ghost", text: "연결번호 복사" });
@@ -612,11 +671,11 @@
         else st.textContent = "복사하지 못했습니다. 번호를 메모해 주세요.";
       });
       kids.push(el("p", { class: "ledger-id", text: id }));
-      kids.push(el("p", { text: "이 연결번호를 메모해 두세요. 전문가와 첫 통화 때 말씀해 주시면 됩니다." }));
+      kids.push(el("p", { text: "이 연결번호를 메모해 두세요. " + (isPartner || rule === "HW_FIRST" ? "운영자" : "전문가") + "와 첫 통화 때 말씀해 주시면 됩니다." }));
       kids.push(cp); kids.push(st);
     }
     if (CFG.NETWORK_REPLY_NOTE) kids.push(el("p", {}, [el("strong", { class: "reply-note", text: CFG.NETWORK_REPLY_NOTE })]));
-    kids.push(el("p", { text: "운영자가 맞는 전문가를 고른 뒤, 보내기 전에 기관명을 먼저 알려 드립니다. 원하지 않으시면 보내지 않습니다." }));
+    if (rule !== "HW_FIRST") kids.push(el("p", { text: "운영자가 맞는 전문가를 고른 뒤, 보내기 전에 기관명을 먼저 알려 드립니다. 원하지 않으시면 보내지 않습니다." }));
     kids.push(el("p", {}, ["HeirWise는 이 연결로 이용자와 전문가 누구에게서도 대가를 받지 않습니다. 문의 ", el("a", { href: "tel:+82" + TEL.replace(/^0/, "").replace(/-/g, ""), text: TEL })]));
     box.appendChild(el("div", { class: "note", role: "status" }, kids));
     try { box.focus(); } catch (e) {}

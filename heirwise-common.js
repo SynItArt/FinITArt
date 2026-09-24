@@ -43,6 +43,9 @@
     // 전제: NETWORK_ENDPOINT 에 원장 v2(06_network-join_v2.gs)가 새 버전으로 배포되어 있어야 한다.
     // 문제가 생기면 false 로 되돌리면 connect.html 은 입력 확인 + 전화 안내로 돌아간다.
     NETWORK_CONNECT_OPEN: true,
+    // 계산 서버 (v3.4, 2026-09-24 · 계산 로직 비공개 1단계). 07_calc-remote_v1.gs 배포 후 /exec URL 을 넣는다.
+    // 비어 있으면 gift/ 는 지금처럼 로컬(gift.js)로 계산한다. 서버 실패 시에도 로컬로 같은 결과.
+    CALC_ENDPOINT: "",
     // 연결 요청 화면·완료 화면에 보여 줄 응답 약속. 지킬 수 없는 기간에는 비우면("") 문구가 사라진다.
     NETWORK_REPLY_NOTE: "추석 연휴에도 운영자가 직접 봅니다. 받은 날 하루 안에 먼저 전화드립니다.",
 
