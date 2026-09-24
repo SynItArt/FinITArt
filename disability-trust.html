@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <!--
   보안등급: 공유 가능 (자체 제작 도구)
-  버전: v1.0 — 자익/타익신탁 5억 비과세 + 보험 4천만 비과세 + 장애인 상속공제 + 생활 지속성 시뮬
+  버전: v1.0 — 자익/타익신탁 5억 과세가액 불산입 + 보험 4천만 비과세 + 장애인 상속공제 + 생활 지속성 시뮬
   제작: HeirWise_Syn Dae Sik (申大湜)
   연동: finitart.com (Squarespace Code Block / iframe 임베드용 자체완결 파일)
 -->
@@ -170,7 +170,7 @@
   <header class="hd">
     <h1>장애인 신탁·보험 상속설계 계산기</h1>
     <p>장애 자녀에게 세금 없이 얼마를, 어떻게 물려줄 수 있나 — 그리고 <b>내가 없을 때 이 아이의 생활이 얼마나 지속되나</b>까지.</p>
-    <div class="lawbar"><span>상증법 §52의2 (신탁 5억 비과세)</span><span>§46 (보험 연 4천만)</span><span>§20 (장애인 상속공제)</span></div>
+    <div class="lawbar"><span>상증법 §52의2 (신탁 5억 과세가액 불산입)</span><span>§46 (보험 연 4천만)</span><span>§20 (장애인 상속공제)</span></div>
   </header>
 
 <!-- v1.9 · 대표 장면 (AI로 만든 이미지 · 이야기 속 가족) -->
@@ -198,8 +198,8 @@
   </div>
 
   <div class="card hidden" id="track1">
-    <h2><span class="tag">트랙 ①</span> 비과세 증여 설계</h2>
-    <div class="res-row"><span class="k">신탁 비과세 증여 가능액 <span class="hint">(§52의2 · 5억 한도)</span></span><span class="v" id="rExempt">–</span></div>
+    <h2><span class="tag">트랙 ①</span> 과세가액 불산입 신탁 설계</h2>
+    <div class="res-row"><span class="k">증여세 과세가액 불산입 가능액 <span class="hint">(§52의2 · 5억 한도)</span></span><span class="v" id="rExempt">–</span></div>
     <div class="res-row nb"><span class="k">5억 한도 잔여</span><span class="v vmut" id="rRemain">–</span></div>
     <div class="res-row"><span class="k">이만큼 신탁 시 증여세</span><span class="v" style="color:var(--teal)">0원</span></div>
     <div class="res-row"><span class="k">동일액 일반증여 시 증여세 <span class="hint">(직계 5천만 공제 후)</span></span><span class="v" id="rGiftTax">–</span></div>
@@ -239,7 +239,7 @@
     </div>
   </div>
   <div class="disc">
-    <b>면책 안내</b> · 본 계산기는 현행 상증법에 따른 <b>참고용 추정치</b>입니다. 신탁 비과세는 자본시장법상 신탁업자 신탁·장애인 평생 수익자·사망 시까지 신탁 등 <b>법정 요건을 모두 충족</b>해야 하며, 장애 정도·자립도에 따른 신탁 지급방식·후견 설계는 전문가 상담이 필요합니다. 생활 지속성은 가정 수익률 기준 단순 시뮬레이션입니다.<br><br>    <b>적용 법령</b> · 상속세 및 증여세법 §52의2(장애인이 증여받은 재산의 과세가액 불산입 — 자익·타익신탁 합산 5억원 한도, 신탁 불산입분은 §13②에 따라 상속세 합산 배제) / §46(장애인 수익자 보험금 연 4,000만원 비과세) / §20①4호(장애인 상속공제 = 1,000만원 × 통계청 기대여명 연수). 세법상 장애인: 소득세법 시행령 §107. 출처: 국가법령정보센터(law.go.kr)·국세청(nts.go.kr).<br><br>
+    <b>면책 안내</b> · 본 계산기는 현행 상증법에 따른 <b>참고용 추정치</b>입니다. 신탁 과세가액 불산입은 자본시장법상 신탁업자 신탁·장애인 평생 수익자·사망 시까지 신탁 등 <b>법정 요건을 모두 충족</b>해야 하며, 장애 정도·자립도에 따른 신탁 지급방식·후견 설계는 전문가 상담이 필요합니다. 생활 지속성은 가정 수익률 기준 단순 시뮬레이션입니다.<br><br>    <b>적용 법령</b> · 상속세 및 증여세법 §52의2(장애인이 증여받은 재산의 과세가액 불산입 — 자익·타익신탁 합산 5억원 한도, 신탁 불산입분은 §13③에 따라 상속세 합산 배제) / §46(장애인 수익자 보험금 연 4,000만원 비과세) / §20①4호(장애인 상속공제 = 1,000만원 × 통계청 기대여명 연수). 세법상 장애인: 소득세법 시행령 §107. 출처: 국가법령정보센터(law.go.kr)·국세청(nts.go.kr).<br><br>
     제작: HeirWise_Syn Dae Sik &nbsp;|&nbsp; 보안등급: 공유 가능
   </div>
 
@@ -345,7 +345,7 @@
     var rate=Math.max(0,parseFloat($('rate').value)||0)/100;
     var lump=(parseFloat($('lump').value)||0)*M;
 
-    // 트랙1 신탁 비과세
+    // 트랙1 신탁 과세가액 불산입(§52의2)
     var CAP=500000000;
     var remainCap=Math.max(0, CAP - prior);
     var exempt=Math.min(trust, remainCap);
@@ -362,7 +362,7 @@
     // 트랙2 상속공제
     var estateDeduct=10000000*life;
     $('rDeduct').textContent=fmtWon(estateDeduct);
-    $('rEstateNote').innerHTML = '부모 사후 상속 시 장애인 상속공제 <b>'+fmtWon(estateDeduct)+'</b>(1천만×기대여명 '+life+'년)이 적용됩니다. 또한 위 신탁 비과세분은 <b>상속세 과세가액에 합산되지 않아</b>(§13②) 사전증여 합산 부담도 없습니다.'
+    $('rEstateNote').innerHTML = '부모 사후 상속 시 장애인 상속공제 <b>'+fmtWon(estateDeduct)+'</b>(1천만×기대여명 '+life+'년)이 적용됩니다. 다만 일괄공제(5억 원)를 선택하면 기초공제·장애인공제 등은 따로 더해지지 않고, 둘 중 큰 금액으로 공제됩니다(§21①). 또한 위 신탁 불산입분은 <b>상속세 과세가액에 합산되지 않아</b>(§13③) 사전증여 합산 부담도 없습니다.'
        + (view==='self' ? ' (자익신탁: 장애인 본인이 증여받아 신탁한 경우)' : ' (타익신탁: 부모가 위탁자, 장애 자녀가 수익자인 경우)');
 
     // 트랙3 생활 지속성
@@ -390,7 +390,7 @@
     $('rDuration').textContent=dur;
     $('rDurNote').innerHTML=note;
 
-    window.__lastResult='[장애인신탁] 비과세증여 '+fmtWon(exempt)+' / 절세 '+fmtWon(giftIfNormal)+' / 상속공제 '+fmtWon(estateDeduct)+' / 생활 '+dur;
+    window.__lastResult='[장애인신탁] 불산입증여 '+fmtWon(exempt)+' / 절세 '+fmtWon(giftIfNormal)+' / 상속공제 '+fmtWon(estateDeduct)+' / 생활 '+dur;
     window.__lastInputs={view:view,sev:sev,life:life,trust:trust,prior:prior,ins:insY,monthly:monthly,rate:rate};
 
     ['track1','track2','track3','cta'].forEach(function(id){ $(id).classList.remove('hidden'); });
