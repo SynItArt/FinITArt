@@ -16,25 +16,25 @@
   --green:#54CFA8; --green-ink:#0F3B30; --amber:#FFC64D; --amber-ink:#4A3200;
   --blue:#93C5FD; --blue-ink:#0F2A5C; --red:#FCA5A5; --red-ink:#5C1111;
   --focus:#FFC64D;
-  /* 나이대 색 리듬(20→70) — "생전 축적 → 사후 정리"의 흐름을 보라→로즈 한 계열로 표현.
-     초록(hw)·파랑(pro)·빨강(warn)·호박(조작) 색과는 색상환에서 충분히 떨어뜨려 기존 의미와 겹치지 않게 함.
-     명암비: 배경 대비 7.2:1 이상, 잉크(글자) 대비 7.6:1 이상(WCAG 상대휘도 계산, AAA) */
-  --b20:#A998EB; --b20i:#110B28; --b20s:#2B2540;
-  --b30:#B998EB; --b30i:#170B28; --b30s:#2E2440;
-  --b40:#CC98EB; --b40i:#1D0B28; --b40s:#312340;
-  --b50:#DE98EB; --b50i:#230B28; --b50s:#342340;
-  --b60:#EB98E7; --b60i:#280B26; --b60s:#372340;
-  --b70:#EB98D4; --b70i:#280B20; --b70s:#372338;
+  /* 나이대 색 리듬(20→70) — "생전 축적 → 사후 정리"의 흐름을 파랑보라→진분홍 넓은 스펙트럼으로 표현.
+     초록(hw)·파랑(pro, --blue)·빨강(warn)·호박(조작) 색과는 색상환에서 충분히 떨어뜨려 기존 의미와 겹치지 않게 함.
+     명암비: 배경 대비 7.6:1 이상, 잉크(글자) 대비 8.1:1 이상(WCAG 상대휘도 계산, AAA) */
+  --b20:#9BA2F3; --b20i:#090B25; --b20s:#24284C;
+  --b30:#B19BF3; --b30i:#100925; --b30s:#2E244C;
+  --b40:#CE9BF3; --b40i:#190925; --b40s:#3B244C;
+  --b50:#EB9BF3; --b50i:#220925; --b50s:#48244C;
+  --b60:#F39BDD; --b60i:#25091E; --b60s:#4C2442;
+  --b70:#F39BC0; --b70i:#250915; --b70s:#4C2435;
 }
 @media (prefers-color-scheme: light){
   :root{ --bg:#FBF9F4; --card:#FFFFFF; --card2:#F1EEE6; --line:#CFC9BC; --ink:#161A20; --muted:#3B4350; --sub:#4B5563;
          --green:#0C5C48; --green-ink:#FFFFFF; --amber:#8A5A00; --amber-ink:#FFFFFF; --blue:#1D4ED8; --blue-ink:#FFFFFF; --red:#B91C1C; --red-ink:#FFFFFF; --focus:#1D4ED8;
-         --b20:#352281; --b20i:#FFFFFF; --b20s:#EDE7F9;
-         --b30:#482281; --b30i:#FFFFFF; --b30s:#EFE7F9;
-         --b40:#5D2281; --b40i:#FFFFFF; --b40s:#F1E7F9;
-         --b50:#712281; --b50i:#FFFFFF; --b50s:#F3E7F8;
-         --b60:#81227C; --b60i:#FFFFFF; --b60s:#F5E7F5;
-         --b70:#812266; --b70i:#FFFFFF; --b70s:#F5E7EE;
+         --b20:#18228B; --b20i:#FFFFFF; --b20s:#DFE1F6;
+         --b30:#35188B; --b30i:#FFFFFF; --b30s:#E5DFF6;
+         --b40:#5B188B; --b40i:#FFFFFF; --b40s:#ECDFF6;
+         --b50:#81188B; --b50i:#FFFFFF; --b50s:#F4DFF6;
+         --b60:#8B186E; --b60i:#FFFFFF; --b60s:#F6DFF0;
+         --b70:#8B1848; --b70i:#FFFFFF; --b70s:#F6DFE9;
   }
 }
 /* 나이대별 현재 색(--stripe)을 body 전체에 내려보내 슬라이더·버튼·카드·카툰 자리를 한 색으로 묶는다 */
@@ -95,6 +95,21 @@ input[type=range]{width:100%;height:44px;margin:8px 0 6px;accent-color:var(--amb
 .detail li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:16px}
 .detail li::before{content:"☐";font-size:18px;line-height:1.4;color:var(--amber)}
 .detail .calc{font-size:16px;color:var(--muted)}
+
+/* 카드 안 즉석 계산기(시제품 3편: first_job · retire_prep · inherit_now) */
+.mini-calc{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.mini-calc h4{font-size:16px;margin:0 0 8px;color:var(--stripe,var(--amber))}
+.mc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:10px}
+.mc-field{display:flex;flex-direction:column;gap:4px;font-size:14.5px;color:var(--muted)}
+.mc-field input[type=number]{min-height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--card2);color:var(--ink);font:inherit;font-size:16px;padding:0 10px}
+.mc-field.chk{flex-direction:row;align-items:center;gap:8px}
+.mc-field.chk input{width:22px;height:22px}
+.mc-btn{min-height:46px;padding:0 18px;border-radius:10px;border:none;background:var(--stripe,var(--amber));color:var(--stripe-ink,var(--amber-ink));font-weight:800;font-size:16px;cursor:pointer}
+.mc-btn:hover{opacity:.92}
+.mc-result{margin-top:12px;font-size:17px;font-weight:800}
+.mc-flow{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.mc-flow .step{border-left:4px solid var(--stripe,var(--line));background:var(--card2);border-radius:0 10px 10px 0;padding:8px 12px;font-size:15px;line-height:1.5}
+.mc-note{margin-top:8px;font-size:13.5px;color:var(--sub)}
 .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .cta a{flex:1 1 180px;min-height:52px;display:grid;place-items:center;border-radius:12px;text-decoration:none;font-weight:900;font-size:18px}
 .cta a.ask{background:var(--amber);color:var(--amber-ink)}
@@ -220,6 +235,73 @@ var MAP = {
 };
 var LABEL = { hw: "hw", intake: "pro", pro: "pro" };
 
+/* ── 카드 안 즉석 계산기 시제품(3편) ── 단위: 만원. 전부 개략 추정이며 실제 신고·설계는 전문가 확인이 필요합니다. */
+var CALCS = {
+  first_job: {
+    title: "비상자금, 얼마면 될까",
+    fields: [
+      { id: "monthly", label: "월 생활비(만원)", placeholder: "250" },
+      { id: "saved",   label: "지금 모아둔 비상자금(만원)", placeholder: "0" }
+    ],
+    compute: function(v){
+      var m = Math.max(0, v.monthly || 0), saved = Math.max(0, v.saved || 0);
+      var lo = m * 3, hi = m * 6;
+      var result = "권장 비상자금: " + lo.toLocaleString() + "만~" + hi.toLocaleString() + "만원 (월 생활비 3~6개월분)";
+      var steps = [];
+      if (saved < lo) steps.push("지금 모은 " + saved.toLocaleString() + "만원은 권장액에 못 미칩니다 → 비상자금 통장부터 채우기");
+      else if (saved < hi) steps.push("권장 범위 안에 있습니다 → 연금저축·IRP 세액공제 한도부터 채우기");
+      else steps.push("권장 범위를 넘습니다 → 실손보험 점검 후 남는 돈은 투자 검토");
+      return { result: result, steps: steps };
+    }
+  },
+  retire_prep: {
+    title: "은퇴 후, 매달 얼마가 모자랄까",
+    fields: [
+      { id: "need",    label: "은퇴 후 필요한 월 생활비(만원)", placeholder: "250" },
+      { id: "pension", label: "국민연금 예상 월 수령액(만원)", placeholder: "90" },
+      { id: "irp",     label: "퇴직연금·IRP 잔액(만원)", placeholder: "10000" },
+      { id: "years",   label: "예상 인출 기간(년)", placeholder: "20" }
+    ],
+    compute: function(v){
+      var need = Math.max(0, v.need || 0), pension = Math.max(0, v.pension || 0);
+      var irp = Math.max(0, v.irp || 0), years = Math.max(1, v.years || 20);
+      var fromIRP = irp / (years * 12);
+      var gap = need - pension - fromIRP;
+      var result = gap <= 0
+        ? "월 생활비는 현재 자산으로 충당됩니다(여유 약 " + Math.abs(Math.round(gap)).toLocaleString() + "만원)"
+        : "월 약 " + Math.round(gap).toLocaleString() + "만원이 모자랍니다";
+      var steps = [];
+      if (gap <= 0) steps.push("충당 가능 → 인출 순서(국민연금 → IRP → 개인연금)와 세율만 정하면 됩니다");
+      else { steps.push("부족분 발생 → 주택연금 조건 확인"); steps.push("그래도 부족하면 근로소득 연장 또는 지출 조정 검토"); }
+      return { result: result, steps: steps };
+    }
+  },
+  inherit_now: {
+    title: "상속세, 대략 얼마나 나올까",
+    fields: [
+      { id: "estate", label: "상속재산 총액(만원)", placeholder: "100000" },
+      { id: "spouse", label: "배우자가 살아 계심", type: "checkbox" }
+    ],
+    compute: function(v){
+      var estate = Math.max(0, v.estate || 0);
+      var deduction = v.spouse ? 100000 : 50000; // 배우자 10억 / 자녀만 5억 — 상증법 §19·§21·§23의2
+      var taxable = Math.max(0, estate - deduction);
+      var brackets = [ [10000,0.10,0], [50000,0.20,1000], [100000,0.30,6000], [300000,0.40,16000], [Infinity,0.50,46000] ];
+      var tax = 0;
+      for (var i = 0; i < brackets.length; i++){
+        if (taxable <= brackets[i][0]) { tax = Math.max(0, taxable * brackets[i][1] - brackets[i][2]); break; }
+      }
+      var result = tax <= 0
+        ? "공제 안(" + deduction.toLocaleString() + "만원)이라 대략 세금 없음"
+        : "대략 세액 " + Math.round(tax).toLocaleString() + "만원 (누진공제 반영한 개략치)";
+      var steps = [];
+      if (tax <= 0) steps.push("세금이 없어도 6개월 안(상증법 §67①) 상속인·재산 목록은 정리해 두세요");
+      else { steps.push("상속재산 중 현금성 자산이 세액보다 많은지 먼저 확인"); steps.push("현금이 부족하면 연부연납·물납·부동산 처분 검토 → 세무사·감정평가사 연결"); }
+      return { result: result, steps: steps };
+    }
+  }
+};
+
 /* 카툰 제작 진행 표시용 전체 번호(20→70대 순서, 총 18편) */
 var TOTAL_CARDS = 0;
 [20,30,40,50,60,70].forEach(function(band){
@@ -243,6 +325,26 @@ function render(band){
   cards.innerHTML = d.cards.map(function(c, i){
     var who = c.who.map(function(w){ return '<span class="tag ' + LABEL[w[0]] + '">' + esc(w[1]) + '</span>'; }).join("");
     var checks = c.check.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("");
+    var conf = CALCS[c.ev];
+    var calcHtml = "";
+    if (conf) {
+      var fieldsHtml = conf.fields.map(function(f){
+        var fid = "mc-" + c.ev + "-" + f.id;
+        if (f.type === "checkbox") {
+          return '<label class="mc-field chk"><input type="checkbox" id="' + fid + '"><span>' + esc(f.label) + '</span></label>';
+        }
+        return '<label class="mc-field"><span>' + esc(f.label) + '</span><input type="number" inputmode="decimal" id="' + fid + '" placeholder="' + esc(f.placeholder || "") + '"></label>';
+      }).join("");
+      calcHtml =
+        '<div class="mini-calc" data-calc-ev="' + esc(c.ev) + '">' +
+          '<h4>' + esc(conf.title) + '</h4>' +
+          '<div class="mc-grid">' + fieldsHtml + '</div>' +
+          '<button type="button" class="mc-btn">계산하기</button>' +
+          '<div class="mc-result" aria-live="polite"></div>' +
+          '<div class="mc-flow" aria-live="polite"></div>' +
+          '<p class="mc-note">개략 추정입니다. 정확한 세액·설계는 전문가 상담이 필요합니다.</p>' +
+        '</div>';
+    }
     return '<article class="card" data-ev="' + esc(c.ev) + '">' +
       '<div class="toon" aria-hidden="true"><span class="cap">카툰 제작 중</span><span class="no">' + c.no + ' / ' + TOTAL_CARDS + '편</span><span class="ev">(' + esc(c.h.split(" — ")[0]) + ')</span></div>' +
       '<h3>' + esc(c.h) + '</h3>' +
@@ -252,6 +354,7 @@ function render(band){
       '<div class="detail" id="d-' + band + '-' + i + '">' +
         '<h4>이번 달에 할 세 가지</h4><ul>' + checks + '</ul>' +
         (c.calc ? '<p class="calc">' + c.calc + '</p>' : '') +
+        calcHtml +
         '<div class="cta"><a class="ask" href="' + esc(c.ask) + '" data-ev="' + esc(c.ev) + '">내 경우 물어보기</a><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></div>' +
       '</div></article>';
   }).join("");
@@ -273,7 +376,22 @@ cards.addEventListener("click", function(e){
     return;
   }
   var ask = e.target.closest("a.ask");
-  if (ask) ga("lifemap_ask", { age_band: String(current), event: ask.dataset.ev });
+  if (ask) { ga("lifemap_ask", { age_band: String(current), event: ask.dataset.ev }); return; }
+
+  var run = e.target.closest("button.mc-btn");
+  if (run) {
+    var box = run.closest(".mini-calc"), ev = box.dataset.calcEv, conf = CALCS[ev];
+    if (!conf) return;
+    var values = {};
+    conf.fields.forEach(function(f){
+      var el = document.getElementById("mc-" + ev + "-" + f.id);
+      values[f.id] = f.type === "checkbox" ? el.checked : parseFloat(el.value);
+    });
+    var out = conf.compute(values);
+    box.querySelector(".mc-result").textContent = out.result;
+    box.querySelector(".mc-flow").innerHTML = out.steps.map(function(s){ return '<div class="step">' + esc(s) + '</div>'; }).join("");
+    ga("lifemap_calc_run", { age_band: String(current), event: ev });
+  }
 });
 
 /* URL ?age=45 로 진입 시 해당 나이로 */
