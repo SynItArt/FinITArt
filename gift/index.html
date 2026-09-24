@@ -482,15 +482,40 @@ document.addEventListener("DOMContentLoaded", function () {
     var amt = num("amt");
     if (!amt) { e.textContent = "받는 금액을 만원 단위로 넣어 주세요. (예: 1억 5천만원이면 15000)"; return; }
     if (S.prior && !num("priorAmt")) { e.textContent = "그동안 받은 돈 합계를 넣어 주세요. 모르면 「없어요」를 눌러 주세요."; return; }
-    var r = G.calcGift({
+    var input = {
       giver: S.giver, adult: S.adult, occasion: S.occ, eventDate: $("evDate").value, giftDate: $("gDate").value,
       amount: amt * MAN, prior10y: S.prior ? num("priorAmt") * MAN : 0,
       priorSpecialUsed: (S.giver === "parent" && S.sp) ? num("spAmt") * MAN : 0, today: today
+    };
+    compute(input, function (r) {
+      if (!r || !r.supported) { e.textContent = "이 경우는 계산하지 않아요."; return; }
+      S.result = r;
+      render(r);
     });
-    if (!r.supported) { e.textContent = "이 경우는 계산하지 않아요."; return; }
-    S.result = r;
-    render(r);
   });
+
+  /* v3.4(2026-09-24) 계산 위치 — HW_CONFIG.CALC_ENDPOINT 가 있으면 서버(07_calc-remote.gs)에서 계산한다.
+     1단계: 서버 실패(네트워크·콜드 스타트 초과) 시 로컬 gift.js 로 같은 규칙으로 계산 → 결과 동일.
+     2단계(서버 안정 확인 뒤): gift.js 에서 계산 함수를 지우고 이 폴백을 제거한다. 입력값은 서버에 저장되지 않는다. */
+  var calcBusy = false;
+  function compute(input, cb) {
+    var ep = cfg.CALC_ENDPOINT;
+    if (!ep || calcBusy) { cb(G.calcGift(input)); return; }
+    var btn = $("goRes"), e = $("e2"), t0 = Date.now();
+    calcBusy = true; btn.disabled = true; btn.setAttribute("aria-busy", "true"); e.textContent = "계산 중입니다…";
+    var slow = setTimeout(function () { e.textContent = "계산 서버를 깨우는 중입니다. 잠시만요."; }, 4000);
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var kill = setTimeout(function () { if (ctrl) ctrl.abort(); }, 25000);
+    function done(r, where) {
+      clearTimeout(slow); clearTimeout(kill); calcBusy = false; btn.disabled = false; btn.removeAttribute("aria-busy"); e.textContent = "";
+      track("gift_calc_where", { where: where, ms: Date.now() - t0 });
+      cb(r);
+    }
+    fetch(ep, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ fn: "calcGift", input: input }), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { if (j && j.ok && j.result) done(j.result, "server"); else done(G.calcGift(input), "local_fallback"); })
+      .catch(function () { done(G.calcGift(input), "local_fallback"); });
+  }
 
   /* ③ 결과 */
   var tenIO = null, sigIO = null;
