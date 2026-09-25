@@ -17,6 +17,8 @@ const html = fs.readFileSync(SRC, "utf8");
 const m = html.match(/var MAP = (\{[\s\S]*?\n\});/);
 if (!m) { console.error("MAP 데이터를 찾지 못했습니다:", SRC); process.exit(1); }
 const MAP = vm.runInNewContext("(" + m[1] + ")");
+const mm = html.match(/var MORE = (\{[\s\S]*?\n\});/);
+const MORE = mm ? vm.runInNewContext("(" + mm[1] + ")") : {};
 const basis = (html.match(/<p class="basis">([\s\S]*?)<\/p>/) || [,""])[1].trim();
 const BANDS = [20, 30, 40, 50, 60, 70];
 const LABEL = { hw: "hw", intake: "pro", pro: "pro" };
@@ -61,7 +63,7 @@ figure.toon{margin:0 0 16px}figure.toon img{display:block;width:100%;height:auto
 figure.toon figcaption{font-size:15.5px;color:var(--muted);margin-top:8px;line-height:1.6}
 .toon-none{display:flex;align-items:center;justify-content:center;aspect-ratio:1200/825;background:var(--stripe-soft);color:var(--stripe);border:2px dashed var(--stripe);border-radius:12px;font-weight:800;font-size:18px;margin:0 0 16px}
 .money{font-size:17px;margin:0 0 12px}.money strong{color:var(--stripe)}
-.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.tag{font-size:15px;font-weight:800;border-radius:999px;padding:6px 12px;min-height:40px;display:inline-flex;align-items:center;text-decoration:none}a.tag:hover{filter:brightness(1.08)}a.tag:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.more{flex-basis:100%;margin-top:6px}.more summary{cursor:pointer;font-weight:800;font-size:16px;min-height:44px;display:flex;align-items:center}.more .lbl{font-size:14px;margin:8px 0 6px;opacity:.9}.more .row{display:flex;flex-wrap:wrap;gap:8px}.tag.life{background:transparent;color:inherit;border:2px solid currentColor}.tag{font-size:15px;font-weight:800;border-radius:999px;padding:6px 12px;min-height:40px;display:inline-flex;align-items:center;text-decoration:none}a.tag:hover{filter:brightness(1.08)}a.tag:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .tag.hw{background:var(--green);color:var(--green-ink)}.tag.pro{background:var(--blue);color:var(--blue-ink)}
 h3{font-size:18px;margin:14px 0 6px}ul.check{margin:0 0 12px;padding-left:22px}ul.check li{margin:0 0 4px}
 .calc{font-size:16px;margin:0 0 14px}.cta{display:flex;flex-wrap:wrap;gap:10px}
@@ -75,8 +77,10 @@ footer{margin:40px 0 30px;padding-top:20px;border-top:1px solid var(--line);font
 
 var PRO_MAP={"세무사":["B","세무사"],"감정평가사":["B","감정평가사"],"회계사":["B","공인회계사"],"공인회계사":["B","공인회계사"],"변호사":["A","변호사(가사·상속)"],"법무사":["A","법무사"],"공인중개사":["C","공인중개사"],"노무사":["E","공인노무사"]};
 function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag pro" href="'+esc(c.ask)+'">'+esc(txt)+' ›</a>'; } var parts=txt.split(" — "), suffix=parts[1]?(" — "+parts[1]):""; return parts[0].split("·").map(function(n){ n=n.trim(); var m=PRO_MAP[n]; var href=m?"/network/connect.html?src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+m[0]+"&field="+enc(m[1]):c.ask; return '<a class="tag pro" href="'+esc(href)+'">'+esc(n+suffix)+' ›</a>'; }).join(""); }).join(""); }
+var LIFE_G={N:1,O:1,P:1,Q:1,R:1,S:1};
+function moreChips(c, band){ var list=MORE[c.ev]||[]; var enc=encodeURIComponent; var have={}; c.who.forEach(function(w){ w[1].split(" — ")[0].split("·").forEach(function(n){ var m=PRO_MAP[n.trim()]; if(m) have[m[1]]=1; }); }); var pro=[], life=[]; list.forEach(function(x){ if(have[x[1]]) return; var q="src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+x[0]+"&field="+enc(x[1]); if(LIFE_G[x[0]]) life.push('<a class="tag life" href="/network/index.html?'+esc(q)+'">'+esc(x[1])+' ›</a>'); else pro.push('<a class="tag pro" href="/network/connect.html?'+esc(q)+'">'+esc(x[1])+' ›</a>'); }); if(!pro.length&&!life.length) return ""; return '<details class="more"><summary>이때 만날 수 있는 사람 더 보기 ('+(pro.length+life.length)+')</summary>'+(pro.length?'<p class="lbl">전문가 — 누르면 연결 요청 폼이 이 분야로 열립니다</p><div class="row">'+pro.join("")+'</div>':"")+(life.length?'<p class="lbl">생활 파트너 — 모시는 중인 곳을 분야 지도에서 봅니다. 연락처를 넘기지 않습니다</p><div class="row">'+life.join("")+'</div>':"")+'</details>'; }
 function card(c, band) {
-  const who = whoChips(c, band);
+  const who = whoChips(c, band) + moreChips(c, band);
   const checks = c.check.map(x => `<li>${esc(x)}</li>`).join("");
   const toon = c.img
     ? `<figure class="toon"><img src="${esc(c.img)}" alt="${esc(c.alt || c.h + " — 4컷 카툰 1컷")}" loading="lazy" width="1200" height="825" onerror="this.parentNode.outerHTML='<div class=&quot;toon-none&quot;>카툰 제작 중 · ${c.no} / ${TOTAL}편</div>'"><figcaption>${esc(c.alt || "")}</figcaption></figure>`

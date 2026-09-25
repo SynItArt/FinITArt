@@ -179,7 +179,7 @@
       }
       var grid = el("div", { class: "nw-grid", "data-grid": g.id });
       var sec = el("section", { class: "nw-group", id: "g-" + g.id, "aria-labelledby": "h-" + g.id, "data-group": g.id }, [
-        el("header", {}, [el("span", { class: "gid", text: g.id }), el("h2", { id: "h-" + g.id, text: g.title })]),
+        el("header", {}, [el("span", { class: "gid", text: g.id }), el("h2", { id: "h-" + g.id, text: g.title }), g.tier === "life" ? el("span", { class: "tier-life", style: "display:inline-block;margin-left:8px;border:2px solid currentColor;border-radius:999px;padding:2px 10px;font-size:14px;font-weight:800", text: "생활 파트너 · 정보 안내만" }) : null]),
         el("p", { class: "nw-sit", text: g.situation || "" }),
         el("p", { class: "nw-verticals", text: "이어지는 곳: " + (g.verticals || []).join(" · ") }),
         chips, tools, grid
@@ -241,8 +241,9 @@
     return !msg;
   }
   function fillGroups(sel, data, preset) {
-    data.groups.forEach(function (g) { sel.appendChild(el("option", { value: g.id, text: g.id + " " + g.title })); });
-    if (preset && data.groups.some(function (g) { return g.id === preset; })) sel.value = preset;
+    var noLife = sel.form && sel.form.id === "connForm"; /* 생활 파트너(tier:life)는 이용자 정보를 넘기지 않는다 — 연결 요청 폼에서 제외 */
+    data.groups.forEach(function (g) { if (noLife && g.tier === "life") return; sel.appendChild(el("option", { value: g.id, text: g.id + " " + g.title + (g.tier === "life" ? " (생활 파트너)" : "") })); });
+    if (preset && data.groups.some(function (g) { return g.id === preset && !(noLife && g.tier === "life"); })) sel.value = preset;
   }
   function fillFields(sel, data, gid, preset) {
     sel.innerHTML = "";

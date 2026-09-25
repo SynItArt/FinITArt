@@ -106,7 +106,7 @@ dialog.toon4::backdrop{background:rgba(0,0,0,.78)}
 .card .toon .ev{font-size:14px;color:var(--sub)}
 .card h3{font-size:21px;margin:2px 0 0;line-height:1.35}
 .card .money{font-size:16px;color:var(--muted)}
-.card .who{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.card .who{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}.more{flex-basis:100%;margin-top:6px}.more summary{cursor:pointer;font-weight:800;font-size:16px;min-height:44px;display:flex;align-items:center}.more .lbl{font-size:14px;margin:8px 0 6px;opacity:.9}.more .row{display:flex;flex-wrap:wrap;gap:8px}.tag.life{background:transparent;color:inherit;border:2px solid currentColor}
 .tag{font-size:15px;font-weight:800;border-radius:999px;padding:6px 12px;min-height:40px;display:inline-flex;align-items:center;text-decoration:none}a.tag:hover{filter:brightness(1.08)}a.tag:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .tag.hw{background:var(--green);color:var(--green-ink)}
 .tag.pro{background:var(--blue);color:var(--blue-ink)}
@@ -269,6 +269,29 @@ function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&
 
 var PRO_MAP={"세무사":["B","세무사"],"감정평가사":["B","감정평가사"],"회계사":["B","공인회계사"],"공인회계사":["B","공인회계사"],"변호사":["A","변호사(가사·상속)"],"법무사":["A","법무사"],"공인중개사":["C","공인중개사"],"노무사":["E","공인노무사"]};
 function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag pro" href="'+esc(c.ask)+'">'+esc(txt)+' ›</a>'; } var parts=txt.split(" — "), suffix=parts[1]?(" — "+parts[1]):""; return parts[0].split("·").map(function(n){ n=n.trim(); var m=PRO_MAP[n]; var href=m?"/network/connect.html?src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+m[0]+"&field="+enc(m[1]):c.ask; return '<a class="tag pro" href="'+esc(href)+'">'+esc(n+suffix)+' ›</a>'; }).join(""); }).join(""); }
+/* 변곡점마다 「이때 만날 수 있는 사람 더 보기」 — [묶음, 분야]. 분야명은 network-data.json 과 글자까지 같아야 한다. N~S = 생활 파트너 */
+var MORE = {
+  "first_job":[["F","신용회복 상담기관"]],
+  "gift_parent":[["B","공인회계사"],["C","공인중개사"]],
+  "marriage_prep":[["C","공인중개사"],["A","법무사"],["N","결혼정보업체"],["N","웨딩홀·스드메"],["N","혼수·예물"]],
+  "first_home":[["A","법무사"],["B","감정평가사"],["O","이사"],["O","인테리어"],["O","건축사"]],
+  "birth":[["B","세무사"],["P","산후조리원"],["P","육아용품"]],
+  "startup":[["B","세무사"],["B","공인회계사"],["A","행정사"],["E","산업안전·보건지도사"],["E","안전관리전문기관"],["L","조달 파트너"],["Q","소방시설공사"],["Q","인테리어(사업장)"],["Q","간판·옥외광고"]],
+  "parent_care":[["A","변호사(가사·상속)"],["A","공증인(유언공정증서)"],["H","성년후견인"],["H","장기요양기관"],["H","사회복지사"],["R","실버타운·시니어 주거"]],
+  "biz_risk":[["E","공인노무사"],["E","중대재해 전문 변호사"],["E","산업안전·보건지도사"],["E","안전관리전문기관"],["Q","소방시설공사"]],
+  "debt":[["F","회생파산 변호사"],["F","회생파산 법무사"],["F","신용회복 상담기관"],["F","문서감정(필적·인영)"]],
+  "retire_prep":[["B","세무사"],["J","농지·귀농 상담"],["R","재취업·창업 교육"]],
+  "inherit_now":[["A","법무사"],["A","행정사"],["C","공인중개사"],["B","해외 상속 절차(현지 전문가)"],["B","번역·아포스티유"],["I","디지털 유산 정리"],["O","이사"]],
+  "succession":[["B","감정평가사"],["A","변호사(가사·상속)"],["E","공인노무사"]],
+  "retired":[["B","세무사"],["H","장기요양기관"],["H","사회복지사"],["R","실버타운·시니어 주거"],["R","여행·평생교육"]],
+  "my_estate":[["A","공증인(유언공정증서)"],["A","유언집행자"],["B","세무사"],["A","법무사"],["S","상조"]],
+  "disability_family":[["H","장애인 신탁 기관"],["H","성년후견인"],["H","사회복지사"],["B","세무사"]],
+  "illness":[["H","성년후견인"],["A","공증인(유언공정증서)"],["H","장기요양기관"],["H","사회복지사"],["G","손해사정사"],["R","실버타운·시니어 주거"]],
+  "handover":[["B","공인회계사"],["A","법무사"],["J","농지·귀농 상담"]],
+  "after":[["I","장례지도사"],["I","유품정리"],["I","디지털 유산 정리"],["H","유족 심리·애도 상담기관"],["A","행정사"],["G","손해사정사"],["B","해외 상속 절차(현지 전문가)"],["S","상조"],["S","장례식장"],["S","봉안당·수목장"],["S","특수청소"]]
+};
+var LIFE_G={N:1,O:1,P:1,Q:1,R:1,S:1};
+function moreChips(c, band){ var list=(typeof MORE!=="undefined"&&MORE[c.ev])||[]; var enc=encodeURIComponent; var have={}; c.who.forEach(function(w){ w[1].split(" — ")[0].split("·").forEach(function(n){ var m=PRO_MAP[n.trim()]; if(m) have[m[1]]=1; }); }); var pro=[], life=[]; list.forEach(function(x){ if(have[x[1]]) return; var q="src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+x[0]+"&field="+enc(x[1]); if(LIFE_G[x[0]]) life.push('<a class="tag life" href="/network/index.html?'+esc(q)+'">'+esc(x[1])+' ›</a>'); else pro.push('<a class="tag pro" href="/network/connect.html?'+esc(q)+'">'+esc(x[1])+' ›</a>'); }); if(!pro.length&&!life.length) return ""; return '<details class="more"><summary>이때 만날 수 있는 사람 더 보기 ('+(pro.length+life.length)+')</summary>'+(pro.length?'<p class="lbl">전문가 — 누르면 연결 요청 폼이 이 분야로 열립니다</p><div class="row">'+pro.join("")+'</div>':"")+(life.length?'<p class="lbl">생활 파트너 — 모시는 중인 곳을 분야 지도에서 봅니다. 연락처를 넘기지 않습니다</p><div class="row">'+life.join("")+'</div>':"")+'</details>'; }
 function render(band){
   if (band === current) return; current = band;
   document.body.dataset.band = String(band);
@@ -276,7 +299,7 @@ function render(band){
   stageTitle.textContent = d.title; stageAxis.textContent = d.axis;
   bandBtns.forEach(function(b){ b.setAttribute("aria-pressed", String(Number(b.dataset.band) === band)); });
   cards.innerHTML = d.cards.map(function(c, i){
-    var who = whoChips(c, band);
+    var who = whoChips(c, band) + moreChips(c, band);
     var checks = c.check.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("");
     return '<article class="card" data-ev="' + esc(c.ev) + '">' +
       (c.img
