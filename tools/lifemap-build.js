@@ -30,10 +30,14 @@ const CSS = `
 --green:#54CFA8;--green-ink:#0F3B30;--blue:#93C5FD;--blue-ink:#0F2A5C;--amber:#FFC64D;--amber-ink:#4A3200;--focus:#FFC64D;
 --b20:#A998EB;--b20i:#110B28;--b20s:#2B2540;--b30:#B998EB;--b30i:#170B28;--b30s:#2E2440;--b40:#CC98EB;--b40i:#1D0B28;--b40s:#312340;
 --b50:#DE98EB;--b50i:#230B28;--b50s:#342340;--b60:#EB98E7;--b60i:#280B26;--b60s:#372340;--b70:#EB98D4;--b70i:#280B20;--b70s:#372338}
-@media (prefers-color-scheme:light){:root{--bg:#FBF9F4;--card:#FFFFFF;--card2:#F1EEE6;--line:#CFC9BC;--ink:#161A20;--muted:#3B4350;--sub:#4B5563;
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#FBF9F4;--card:#FFFFFF;--card2:#F1EEE6;--line:#CFC9BC;--ink:#161A20;--muted:#3B4350;--sub:#4B5563;
 --green:#0C5C48;--green-ink:#FFFFFF;--blue:#1D4ED8;--blue-ink:#FFFFFF;--amber:#8A5A00;--amber-ink:#FFFFFF;--focus:#1D4ED8;
 --b20:#352281;--b20i:#FFFFFF;--b20s:#EDE7F9;--b30:#482281;--b30i:#FFFFFF;--b30s:#EFE7F9;--b40:#5D2281;--b40i:#FFFFFF;--b40s:#F1E7F9;
 --b50:#712281;--b50i:#FFFFFF;--b50s:#F3E7F8;--b60:#81227C;--b60i:#FFFFFF;--b60s:#F5E7F5;--b70:#812266;--b70i:#FFFFFF;--b70s:#F5E7EE}}
+:root[data-theme="light"]{--bg:#FBF9F4;--card:#FFFFFF;--card2:#F1EEE6;--line:#CFC9BC;--ink:#161A20;--muted:#3B4350;--sub:#4B5563;
+--green:#0C5C48;--green-ink:#FFFFFF;--blue:#1D4ED8;--blue-ink:#FFFFFF;--amber:#8A5A00;--amber-ink:#FFFFFF;--focus:#1D4ED8;
+--b20:#352281;--b20i:#FFFFFF;--b20s:#EDE7F9;--b30:#482281;--b30i:#FFFFFF;--b30s:#EFE7F9;--b40:#5D2281;--b40i:#FFFFFF;--b40s:#F1E7F9;
+--b50:#712281;--b50i:#FFFFFF;--b50s:#F3E7F8;--b60:#81227C;--b60i:#FFFFFF;--b60s:#F5E7F5;--b70:#812266;--b70i:#FFFFFF;--b70s:#F5E7EE}
 body[data-band="20"]{--stripe:var(--b20);--stripe-ink:var(--b20i);--stripe-soft:var(--b20s)}body[data-band="30"]{--stripe:var(--b30);--stripe-ink:var(--b30i);--stripe-soft:var(--b30s)}
 body[data-band="40"]{--stripe:var(--b40);--stripe-ink:var(--b40i);--stripe-soft:var(--b40s)}body[data-band="50"]{--stripe:var(--b50);--stripe-ink:var(--b50i);--stripe-soft:var(--b50s)}
 body[data-band="60"]{--stripe:var(--b60);--stripe-ink:var(--b60i);--stripe-soft:var(--b60s)}body[data-band="70"]{--stripe:var(--b70);--stripe-ink:var(--b70i);--stripe-soft:var(--b70s)}
@@ -42,7 +46,7 @@ a{color:inherit}:focus-visible{outline:3px solid var(--focus);outline-offset:3px
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 header.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
 header.top .brand{font-weight:800;font-size:20px;text-decoration:none}header.top .brand sup{font-size:12px;margin-left:2px}
-header.top a.tel{font-weight:700;text-decoration:none;border:2px solid var(--line);border-radius:999px;padding:8px 14px;font-size:16px}
+header.top button.tel{background:none;color:inherit;cursor:pointer;font:inherit;font-weight:700;border:2px solid var(--line);border-radius:999px;padding:8px 14px;font-size:16px}header.top a.tel{font-weight:700;text-decoration:none;border:2px solid var(--line);border-radius:999px;padding:8px 14px;font-size:16px}
 nav.crumb{font-size:15px;color:var(--sub);margin:18px 0 0}nav.crumb a{text-decoration:none}
 h1{font-size:clamp(26px,4.6vw,38px);line-height:1.3;margin:14px 0 6px}
 .axis{display:inline-block;background:var(--stripe);color:var(--stripe-ink);font-weight:800;font-size:15px;border-radius:999px;padding:4px 14px;margin:0 0 16px}
@@ -115,6 +119,7 @@ function page(band) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 ${robots}<link rel="canonical" href="${url}">
@@ -130,7 +135,7 @@ ${JSON.stringify(ld, null, 1)}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="/">HeirWise<sup>™</sup></a>
-    <a class="tel" href="tel:01020885383">전화로 먼저 묻기</a>
+    <span style="display:flex;gap:8px;align-items:center"><button class="tel" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></span>
   </header>
   <nav class="crumb" aria-label="현재 위치"><a href="/">홈</a> › <a href="/lifemap/">인생 변곡점 지도</a> › ${esc(d.title)}</nav>
   <h1>${esc(d.title)}<br>지금 준비할 돈, 만날 사람</h1>
@@ -155,6 +160,7 @@ ${d.cards.map(c => card(c, band)).join("\n")}
     <p><a href="/privacy.html">개인정보처리방침</a> · <a href="/network/principles.html">협업 네트워크 운영 원칙</a></p>
   </footer>
 </div>
+<script>document.getElementById("themeBtn").addEventListener("click",function(){var r=document.documentElement,now=r.getAttribute("data-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),next=now==="dark"?"light":"dark";r.setAttribute("data-theme",next);try{localStorage.setItem("hw-theme",next);}catch(e){}});</script>
 </body>
 </html>
 `;

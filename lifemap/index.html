@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <title>인생 변곡점 지도 — 지금 내 나이에 준비할 돈과 만날 사람 | HeirWise</title>
 <meta name="description" content="20대부터 60대 이후까지, 나이대별로 겪는 변곡점과 그때 확보해야 할 재정, 지금 만나야 할 사람을 한 화면에서 고릅니다. 세율·공제는 상속세 및 증여세법(법률 제21065호, 2026.1.2 공포) 기준.">
 <meta name="robots" content="noindex">  <!-- 시안 단계. 공개 시 제거 + canonical·og·sitemap 추가 -->
@@ -27,7 +28,7 @@
   --b70:#EB98D4; --b70i:#280B20; --b70s:#372338;
 }
 @media (prefers-color-scheme: light){
-  :root{ --bg:#FBF9F4; --card:#FFFFFF; --card2:#F1EEE6; --line:#CFC9BC; --ink:#161A20; --muted:#3B4350; --sub:#4B5563;
+  :root:not([data-theme="dark"]){ --bg:#FBF9F4; --card:#FFFFFF; --card2:#F1EEE6; --line:#CFC9BC; --ink:#161A20; --muted:#3B4350; --sub:#4B5563;
          --green:#0C5C48; --green-ink:#FFFFFF; --amber:#8A5A00; --amber-ink:#FFFFFF; --blue:#1D4ED8; --blue-ink:#FFFFFF; --red:#B91C1C; --red-ink:#FFFFFF; --focus:#1D4ED8;
          --b20:#352281; --b20i:#FFFFFF; --b20s:#EDE7F9;
          --b30:#482281; --b30i:#FFFFFF; --b30s:#EFE7F9;
@@ -36,6 +37,15 @@
          --b60:#81227C; --b60i:#FFFFFF; --b60s:#F5E7F5;
          --b70:#812266; --b70i:#FFFFFF; --b70s:#F5E7EE;
   }
+}
+:root[data-theme="light"]{ --bg:#FBF9F4; --card:#FFFFFF; --card2:#F1EEE6; --line:#CFC9BC; --ink:#161A20; --muted:#3B4350; --sub:#4B5563;
+         --green:#0C5C48; --green-ink:#FFFFFF; --amber:#8A5A00; --amber-ink:#FFFFFF; --blue:#1D4ED8; --blue-ink:#FFFFFF; --red:#B91C1C; --red-ink:#FFFFFF; --focus:#1D4ED8;
+         --b20:#352281; --b20i:#FFFFFF; --b20s:#EDE7F9;
+         --b30:#482281; --b30i:#FFFFFF; --b30s:#EFE7F9;
+         --b40:#5D2281; --b40i:#FFFFFF; --b40s:#F1E7F9;
+         --b50:#712281; --b50i:#FFFFFF; --b50s:#F3E7F8;
+         --b60:#81227C; --b60i:#FFFFFF; --b60s:#F5E7F5;
+         --b70:#812266; --b70i:#FFFFFF; --b70s:#F5E7EE;
 }
 /* 나이대별 현재 색(--stripe)을 body 전체에 내려보내 슬라이더·버튼·카드·카툰 자리를 한 색으로 묶는다 */
 body[data-band="20"]{ --stripe:var(--b20); --stripe-ink:var(--b20i); --stripe-soft:var(--b20s); }
@@ -136,7 +146,7 @@ footer p{margin:6px 0}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="/">HeirWise<sup>™</sup></a>
-    <a class="tel" href="tel:01020885383">전화로 먼저 묻기</a>
+    <span style="display:flex;gap:8px;align-items:center"><button class="tel" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환" style="background:none;color:inherit;cursor:pointer;font:inherit;font-weight:700;border:2px solid var(--line);border-radius:999px;padding:8px 14px;font-size:16px">◐</button><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></span>
   </header>
 
   <h1>인생 변곡점 지도<br>지금 내 나이에 준비할 돈, 만날 사람</h1>
@@ -321,5 +331,6 @@ cards.addEventListener("click", function(e){
 /* URL ?age=45 로 진입 시 해당 나이로 */
 (function(){ var q = new URLSearchParams(location.search), a = Number(q.get("age")); if (a >= 20 && a <= 80) { range.value = a; now.textContent = a; } render(bandOf(range.value)); })();
 </script>
+<script>document.getElementById("themeBtn").addEventListener("click",function(){var r=document.documentElement,now=r.getAttribute("data-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),next=now==="dark"?"light":"dark";r.setAttribute("data-theme",next);try{localStorage.setItem("hw-theme",next);}catch(e){}});</script>
 </body>
 </html>
