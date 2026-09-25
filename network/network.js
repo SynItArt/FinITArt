@@ -544,7 +544,28 @@
       : "강의·세미나 문의입니다. 대상·인원·일정을 상황 요약에 적어 주세요." }), lead.nextSibling);
   }
 
+  /* 2026-09-26 안전 의무 목록(/ceo/safety.html)에서 온 요청 — 업종·인원 구간만 요약에 미리 채운다(개인정보 아님) */
+  var SAFETY_IND = { mfg: "제조업", "const": "건설업", svc: "도소매·음식·서비스업", etc: "그 밖의 업종" };
+  var SAFETY_N = { lt5: "5명 미만", "5-19": "5~19명", "20-49": "20~49명", "50-299": "50~299명", "300+": "300명 이상" };
+  var SAFETY_AMT = { lt50: "50억 원 미만", "50-120": "50억~120억 원", "120+": "120억 원 이상" };
+  function applySafetyNote() {
+    if (/^(SV|ED)$/.test(qs("svc") || "")) { applyServicesNote(); return; }
+    var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
+    var ev = qs("ev"), tool = ev === "safety_tool";
+    lead.parentNode.insertBefore(el("p", { class: "hint", text: tool
+      ? "안전 기록 서식 도구 공개 알림 신청입니다. 연락처만 남겨 주시면 공개될 때 한 번 알려 드립니다. 비용은 없습니다."
+      : "안전 의무 목록에서 오셨습니다. 운영자가 우리 업종·규모 기준 목록을 정리해 무료로 보내 드립니다. 안전관리자 선임 자격(산업안전기사)으로 제도를 안내하며, 이행 여부의 판단·계획서 작성은 하지 않습니다." }), lead.nextSibling);
+    var ta = d.getElementById("summary");
+    if (ta && !ta.value) {
+      var ind = SAFETY_IND[qs("ind")], n = SAFETY_N[qs("n")], amt = SAFETY_AMT[qs("amt")];
+      ta.value = tool ? "안전 기록 서식 도구가 공개되면 알림을 받고 싶습니다."
+        : "우리 사업장 안전 의무 목록을 받고 싶습니다." + (ind ? " 업종: " + ind + "." : "") + (n ? " 상시 근로자: " + n + "." : "") + (amt ? " 공사금액: " + amt + "." : "");
+      try { ta.dispatchEvent(new Event("input", { bubbles: true })); } catch (e) {}
+    }
+  }
+
   function applyLifemapNote() {
+    if (qs("src") === "safety") { applySafetyNote(); return; }
     var age = qs("age"), ev = qs("ev");
     if (!age && !ev) { applyServicesNote(); return; }
     var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;

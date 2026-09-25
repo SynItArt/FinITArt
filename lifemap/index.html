@@ -216,13 +216,13 @@ var MAP = {
     { ev: "birth", img: "/img/toon/05_birth/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 축하와 함께 온 돈에도 날짜가 있다. 할머니 미향이 손주 앞으로 넣어 둔 돈. 고마운 마음과 별개로, 받은 날짜는 서류가 됩니다.", h: "출산 — 가장의 보장, 아이의 적립", money: "출산 증여 공제(§53의2), 가장 사망·장해 보장, 자녀 교육 적립",
       who: [["hw","보험·펀드 — 직접 응답"]], check: ["출산 후 2년 안 받은 돈 신고 여부","가장 보장 금액 = 남은 대출 + 생활비 N년","아이 이름 적립은 증여 신고와 함께"], calc: "계산기: <a href='/gift/'>부모님께 받는 돈</a>", ask: "/network/connect.html?src=lifemap&age=30&ev=birth" },
     { ev: "startup", img: "/img/toon/06_startup/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 사장이 되는 날, 「사고」도 내 이름이 된다. 서른셋 도윤의 창업. 간판을 올리는 순간부터 사업장의 안전은 사장의 책임입니다.", h: "창업 — 사업장이 생기면 안전이 돈이다", money: "화재·배상책임 보험, 안전관리 의무 확인, 사업자 노후 준비(노란우산·IRP)",
-      who: [["hw","산업안전·소방·보험 — 직접 응답"],["pro","노무사"]], check: ["업종별 안전관리자·소방안전관리자 선임 의무","화재보험·배상책임 가입 여부","개인·사업 자금 분리"], calc: "", ask: "/network/connect.html?src=lifemap&age=30&ev=startup" }
+      who: [["hw","산업안전·소방·보험 — 직접 응답"],["pro","노무사"]], check: ["업종별 안전관리자·소방안전관리자 선임 의무","화재보험·배상책임 가입 여부","개인·사업 자금 분리"], calc: "목록: <a href='/ceo/safety.html?src=lifemap&amp;ind=svc&amp;n=lt5#s1'>우리 사업장 안전 의무 목록</a>", ask: "/network/connect.html?src=lifemap&age=30&ev=startup" }
   ]},
   40: { axis: "생전 축 · 보전", title: "40대의 변곡점", cards: [
     { ev: "parent_care", img: "/img/toon/07_parent_care/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 부양이 시작되는 순간, 부모의 돈 지도가 필요해진다. 마흔다섯 영재. 부모님 댁 고지서 더미 앞에서 처음으로 부모님의 돈을 들여다봅니다.", h: "부모 부양 시작 — 상속은 이미 시작됐다", money: "부모 자산·부채 파악, 사전증여 10년 시계, 상속세 납부 자금 마련 경로 정리",
       who: [["hw","재무설계·보험 — 직접 응답"],["pro","세무사"]], check: ["부모 재산·채무 목록 1장","10년 전 증여부터 합산되는 구조 이해","상속세 신고에 필요한 자금이 얼마쯤일지 공개 계산기로 먼저 보기"], calc: "계산기: <a href='/calculator.html'>상속세 종합</a>", ask: "/network/connect.html?src=lifemap&age=40&ev=parent_care" },
     { ev: "biz_risk", img: "/img/toon/08_biz_risk/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 직원이 늘면, 사장의 책임도 사람 수만큼 는다. 마흔둘 연선, 카페 2호점 오픈 준비. 직원 넷이 새로 합류합니다.", h: "사업 확장 — 대표 한 사람에게 모이는 세 가지", money: "사업장 안전관리 체계, 가업상속공제 사후관리 요건, 대표 연대보증 정리",
-      who: [["hw","산업안전·소방 — 직접 응답"],["intake","가업 승계 1차 정리 → 세무사·회계사"]], check: ["안전관리 체계 점검(선임·교육·점검 기록)","대표 개인 연대보증 목록","가업승계 요건 사전 확인"], calc: "진단: <a href='/ceo-diagnosis.html'>법인 대표 진단</a>", ask: "/network/connect.html?src=lifemap&age=40&ev=biz_risk" },
+      who: [["hw","산업안전·소방 — 직접 응답"],["intake","가업 승계 1차 정리 → 세무사·회계사"]], check: ["안전관리 체계 점검(선임·교육·점검 기록)","대표 개인 연대보증 목록","가업승계 요건 사전 확인"], calc: "진단: <a href='/ceo-diagnosis.html'>법인 대표 진단</a> · 목록: <a href='/ceo/safety.html?src=lifemap&amp;ind=svc&amp;n=5-19#s1'>안전 의무 목록</a>", ask: "/network/connect.html?src=lifemap&age=40&ev=biz_risk" },
     { ev: "debt", img: "/img/toon/09_debt/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 슬픔 위에, 기한이 먼저 온다. 영재의 회사 동료 민호. 장례식장 복도에서 처음 들은 소식입니다.", h: "빚이 더 많은 상속을 받게 된다면", money: "한정승인·포기 3개월 기한, 채무 초과 판단, 상속 부동산 근저당 확인",
       who: [["intake","회생·파산·한정승인 1차 정리 → 변호사·법무사"],["hw","경공매 권리분석 — 직접 응답"]], check: ["상속 개시를 안 날부터 3개월 계산(민법 §1019①)","빚이 더 많은 걸 나중에 알았다면 그 사실을 안 날부터 3개월 안 특별한정승인(§1019③)","재산·채무 목록과 등기부 확인, 한정승인 전 재산 처분 금지"], calc: "진단: <a href='/inheritdebt.html'>상속채무 진단</a>", ask: "/network/connect.html?src=lifemap&age=40&ev=debt" }
   ]},
@@ -232,7 +232,7 @@ var MAP = {
     { ev: "inherit_now", img: "/img/toon/11_inherit_now/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 나누기 전에, 얼마인지부터. 어머니 49재를 마친 시골집. 성호와 두 형이 유품 앞에 앉았습니다.", h: "부모 상속 발생 — 6개월 안에 결정할 것들", money: "상속세 신고 기한: 상속개시일이 속하는 달의 말일부터 6개월(상증법 §67①), 상속 부동산 처분·권리분석, 상속세 재원 마련",
       who: [["hw","경공매 권리분석·보험 — 직접 응답"],["pro","세무사·감정평가사·변호사"]], check: ["상속인·재산 목록 확정","부동산 등기부·근저당 확인","분할 협의 전 세액 개략 계산"], calc: "계산기: <a href='/calculator.html'>상속세 종합</a>", ask: "/network/connect.html?src=lifemap&age=50&ev=inherit_now" },
     { ev: "succession", img: "/img/toon/12_succession/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 「언젠가」에는 세율이 없다. 날짜에는 있다. 쉰여섯 성호, 직원 12명의 작은 제조업체 대표. 큰아들 도현이 묻습니다.", h: "가업 승계 — 순서를 정해야 할 때", money: "사전증여·법인전환·가업상속공제 비교, 지분 이전 설계",
-      who: [["intake","가업 승계 1차 정리 → 세무사·회계사"],["hw","보험·신탁 — 직접 응답"]], check: ["승계 후보와 시기 정하기","지분·부동산·현금 자산 분류","자료 목록 준비"], calc: "", ask: "/network/connect.html?src=lifemap&age=50&ev=succession" }
+      who: [["intake","가업 승계 1차 정리 → 세무사·회계사"],["hw","보험·신탁 — 직접 응답"]], check: ["승계 후보와 시기 정하기","지분·부동산·현금 자산 분류","자료 목록 준비"], calc: "진단: <a href='/ceo-diagnosis.html'>법인 대표 진단</a> · 목록: <a href='/ceo/safety.html?src=lifemap&amp;ind=mfg&amp;n=5-19#s4'>사고 뒤 대표에게 오는 것</a>", ask: "/network/connect.html?src=lifemap&age=50&ev=succession" }
   ]},
   60: { axis: "생전 축 · 이전 → 상속 설계", title: "60대의 변곡점", cards: [
     { ev: "retired", img: "/img/toon/13_retired/cut1.webp", alt: "4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 들어오는 돈은 정해졌고, 나가는 돈은 나이가 정한다. 일흔둘 해남과 예순여덟 미향. 연금은 매달 들어오지만 병원비가 조금씩 늘어납니다.", h: "은퇴 — 매달 들어오는 돈으로 살아가기", money: "연금 인출 실행, 주택연금 검토, 의료·요양 비용 준비",

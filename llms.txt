@@ -55,6 +55,7 @@ AFPK® 자격인증자(한국재무설계협회 IFPK, 舊 한국FPSB) / 생명�
 - [상속세 계산기](https://finitart.com/calculator.html): 부동산·금융재산 기준 상속세 개략 추정.
 - [자연사망 상속 정리](https://finitart.com/natural-death.html): 재산 구성과 기한 정리.
 - [상속채무 진단기](https://finitart.com/inheritdebt.html): 빚이 재산보다 많을 때. 3개월 기한 계산, 한정승인·상속포기·상속재산파산 비교, 개인회생 변제금 추정, 법인 회생·파산 분기, 사전증여 부인권 노출 기간.
+- [우리 사업장 안전 의무 목록](https://finitart.com/ceo/safety.html): 업종·상시 근로자 수를 고르면 중대재해처벌법 시행령 제4조·제5조와 산업안전보건법(2026.8.1. 시행) 제36조·시행령 제16조·제24조·별표3에서 대표가 직접 챙길 항목을 조문과 함께 추린 일반 정보. 사고 뒤 대표 개인에게 오는 책임(형사·가업상속공제 사후관리 90%·연대보증)으로 이어짐. 무료.
 - [대표님 진단](https://finitart.com/ceo-diagnosis.html): 법인 대표 한 사람을 위한 통합 진단. 중대재해처벌법 적용 여부, 법인 회생·파산 갈림길, 대표 연대보증채무의 상속 승계, 남은 가족의 개인회생 가능성.
 - [교통사고 보상 계산](https://finitart.com/car-accident.html): 일실수입·위자료 등 개략 산정.
 - [산재 보상 계산](https://finitart.com/industrial-accident.html): 산재보험 급여와 별도 청구 가능 범위.
