@@ -324,11 +324,11 @@ html[data-theme="dark"] .btn-primary, :root:not([data-theme="light"]) .btn-prima
   margin-bottom:22px;
 }
 .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none}
-h1{
+h1,.hero-h1{
   font-size:clamp(2.1rem,5.2vw,3.35rem);line-height:1.28;letter-spacing:-.035em;
   font-weight:800;margin:0 0 22px;max-width:19ch;
 }
-h1 mark{background:linear-gradient(transparent 58%, color-mix(in srgb,var(--teal) 45%,transparent) 58%);color:inherit;padding:0 2px}
+h1 mark,.hero-h1 mark{background:linear-gradient(transparent 58%, color-mix(in srgb,var(--teal) 45%,transparent) 58%);color:inherit;padding:0 2px}
 .lede{font-size:clamp(1.08rem,2.1vw,1.28rem);color:var(--ink-2);max-width:52ch;margin:0 0 30px;line-height:1.85}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
 .hero-note{font-size:15px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
@@ -515,7 +515,7 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
 
 <header>
   <div class="wrap nav">
-    <a class="logo" href="/index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span> <small>상속·증여 재무설계</small></a>
+    <a class="logo" href="/" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span> <small>상속·증여 재무설계</small></a>
     <ul>
       <li><a href="#deadline">기한부터</a></li>
       <li><a href="#situations">실제 사례</a></li>
@@ -531,12 +531,104 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
 
 <main id="main">
 
+<!-- LIFEMAP-HOME:START — node tools/lifemap-build.js --home 로 생성. 직접 고치지 말 것(원본은 lifemap/index.html 의 MAP) -->
+<style>
+.lm-home{padding:44px 0 36px;border-bottom:1px solid var(--line)}
+.lm-home .lm-eye{display:inline-block;background:var(--violet);color:var(--violet-ink);font-weight:800;font-size:15px;border-radius:999px;padding:4px 14px;margin:0 0 14px}
+.lm-home h1{margin:0 0 12px;max-width:none}
+.lm-home .lm-lede{font-size:clamp(1.05rem,2vw,1.2rem);color:var(--ink-2);max-width:60ch;margin:0 0 22px;line-height:1.8}
+.lm-q{font-weight:800;font-size:18px;margin:0 0 10px}
+.lm-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:0 0 22px}
+.lm-tabs button{min-height:52px;border-radius:12px;border:2px solid var(--line-strong);background:var(--surface);color:var(--ink);font:inherit;font-weight:800;font-size:17px;cursor:pointer}
+.lm-tabs button[aria-selected=true]{background:var(--band);color:var(--band-ink);border-color:var(--band)}
+.lm-tabs button:focus-visible,.lm-c:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+@media(max-width:640px){.lm-tabs{grid-template-columns:repeat(3,1fr)}}
+.lm-pt{font-size:clamp(20px,3vw,24px);margin:0 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.lm-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.lm-c{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1.5px solid var(--line);border-top:6px solid var(--band);border-radius:16px;padding:10px 10px 16px;text-decoration:none;color:var(--ink)}
+.lm-c:hover{border-color:var(--band)}
+.lm-c img,.lm-none{display:block;width:100%;height:auto;aspect-ratio:1200/825;object-fit:cover;border-radius:10px;background:var(--surface-2)}
+.lm-none{display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--ink-2)}
+.lm-t{font-size:19px;font-weight:800;line-height:1.4;margin:12px 4px 6px}
+.lm-m{font-size:16px;line-height:1.6;color:var(--ink-2);margin:0 4px;flex:1}
+.lm-m b{color:var(--ink)}
+.lm-go{font-weight:800;margin:10px 4px 0;color:var(--ink)}
+.lm-all{margin:14px 0 0;font-size:17px;font-weight:800}
+.lm-all a{color:var(--ink)}
+.lm-more{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.lm-more a{min-height:48px;display:inline-flex;align-items:center;padding:0 20px;border-radius:12px;font-weight:800;text-decoration:none;border:2px solid var(--line-strong);color:var(--ink)}
+.lm-more a.pri{background:var(--violet);color:var(--violet-ink);border-color:var(--violet)}
+html.lm-js .lm-p{display:none}html.lm-js .lm-p.on{display:block}
+html:not(.lm-js) .lm-p{margin:0 0 30px}
+</style>
+<section id="lifemap-home" class="lm-home" aria-labelledby="lmhH">
+ <div class="wrap">
+  <span class="lm-eye">인생 변곡점 지도</span>
+  <h1 id="lmhH">지금 내 나이에 준비할 돈, 만날 사람</h1>
+  <p class="lm-lede">살면서 돈이 크게 움직이는 순간은 정해져 있습니다. 나이를 고르면 그 시기의 변곡점 3가지와, 그때 미리 확보해 둘 재정, 지금 물어볼 사람을 보여 드립니다.</p>
+  <p class="lm-q" id="lmQ">나는 지금</p>
+  <div class="lm-tabs" role="tablist" aria-labelledby="lmQ"><button type="button" role="tab" id="lmt-20" aria-controls="lmp-20" data-band="20" aria-selected="false">20대</button><button type="button" role="tab" id="lmt-30" aria-controls="lmp-30" data-band="30" aria-selected="false">30대</button><button type="button" role="tab" id="lmt-40" aria-controls="lmp-40" data-band="40" aria-selected="false">40대</button><button type="button" role="tab" id="lmt-50" aria-controls="lmp-50" data-band="50" aria-selected="false">50대</button><button type="button" role="tab" id="lmt-60" aria-controls="lmp-60" data-band="60" aria-selected="false">60대</button><button type="button" role="tab" id="lmt-70" aria-controls="lmp-70" data-band="70" aria-selected="false">70대 이상</button></div>
+<div class="lm-p" id="lmp-20" role="tabpanel" aria-labelledby="lmt-20" data-band="20">
+  <h2 class="lm-pt">20대의 변곡점 <span class="hw-band-chip" data-band="20">생전 축 · 축적</span></h2>
+  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/20/#first_job"><img src="/img/toon/01_first_job/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 들어온 날은 기쁜데, 나가는 순서는 아무도 안 알려 줬다. 27살 하늘이의 첫 월급날. 통장은 하나, 하고 싶은 건 열 개." loading="lazy" width="1200" height="825"><span class="lm-t">취업·독립 — 첫 월급이 들어왔다</span><span class="lm-m"><b>지금 확보할 재정</b> · 비상자금 3~6개월분, 첫 적립(연금저축·IRP)</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/20/#gift_parent"><img src="/img/toon/02_gift_parent/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 밤, 하늘이가 휴대폰으로 아버지에게서 1억 5천만 원이 들어왔다는 은행 알림을 봅니다." loading="lazy" width="1200" height="825"><span class="lm-t">부모님께 받는 돈 — 세금 먼저 확인</span><span class="lm-m"><b>지금 확보할 재정</b> · 결혼자금 증여 공제(직계존속 1억 원 추가, 상증법 §53의2 · 2024.1.1 시행) 활용 설계</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/20/#marriage_prep"><img src="/img/toon/03_marriage_prep/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 고마운 말 두 마디가, 세무서에는 두 건이다. 상견례 날 저녁. 양가가 나란히 꺼낸 한마디는 각각 다른 서류가 됩니다." loading="lazy" width="1200" height="825"><span class="lm-t">결혼 준비 — 양가에서 받으면</span><span class="lm-m"><b>지금 확보할 재정</b> · 양가 합산 공제 구조, 전세보증금은 빌린 돈인지 받은 돈인지 구분</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
+  <p class="lm-all"><a href="/lifemap/20/">20대 변곡점 전체 보기 →</a></p>
+</div>
+<div class="lm-p" id="lmp-30" role="tabpanel" aria-labelledby="lmt-30" data-band="30">
+  <h2 class="lm-pt">30대의 변곡점 <span class="hw-band-chip" data-band="30">생전 축 · 축적 → 보전</span></h2>
+  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/30/#first_home"><img src="/img/toon/04_first_home/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 집을 고르는 날, 돈의 출처도 같이 정해진다. 5년 뒤, 서른둘의 하늘과 서른셋의 도윤. 모델하우스 창가에서 첫 집을 고릅니다." loading="lazy" width="1200" height="825"><span class="lm-t">첫 집 — 주택자금은 어디서 왔나</span><span class="lm-m"><b>지금 확보할 재정</b> · 주택자금 조달 계획, 차입과 증여의 구분, 자금출처 소명 준비</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/30/#birth"><img src="/img/toon/05_birth/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 축하와 함께 온 돈에도 날짜가 있다. 할머니 미향이 손주 앞으로 넣어 둔 돈. 고마운 마음과 별개로, 받은 날짜는 서류가 됩니다." loading="lazy" width="1200" height="825"><span class="lm-t">출산 — 가장의 보장, 아이의 적립</span><span class="lm-m"><b>지금 확보할 재정</b> · 출산 증여 공제(§53의2), 가장 사망·장해 보장, 자녀 교육 적립</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/30/#startup"><img src="/img/toon/06_startup/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 사장이 되는 날, 「사고」도 내 이름이 된다. 서른셋 도윤의 창업. 간판을 올리는 순간부터 사업장의 안전은 사장의 책임입니다." loading="lazy" width="1200" height="825"><span class="lm-t">창업 — 사업장이 생기면 안전이 돈이다</span><span class="lm-m"><b>지금 확보할 재정</b> · 화재·배상책임 보험, 안전관리 의무 확인, 사업자 노후 준비(노란우산·IRP)</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
+  <p class="lm-all"><a href="/lifemap/30/">30대 변곡점 전체 보기 →</a></p>
+</div>
+<div class="lm-p" id="lmp-40" role="tabpanel" aria-labelledby="lmt-40" data-band="40">
+  <h2 class="lm-pt">40대의 변곡점 <span class="hw-band-chip" data-band="40">생전 축 · 보전</span></h2>
+  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/40/#parent_care"><img src="/img/toon/07_parent_care/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 부양이 시작되는 순간, 부모의 돈 지도가 필요해진다. 마흔다섯 영재. 부모님 댁 고지서 더미 앞에서 처음으로 부모님의 돈을 들여다봅니다." loading="lazy" width="1200" height="825"><span class="lm-t">부모 부양 시작 — 상속은 이미 시작됐다</span><span class="lm-m"><b>지금 확보할 재정</b> · 부모 자산·부채 파악, 사전증여 10년 시계, 상속세 납부 자금 마련 경로 정리</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/40/#biz_risk"><img src="/img/toon/08_biz_risk/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 직원이 늘면, 사장의 책임도 사람 수만큼 는다. 마흔둘 연선, 카페 2호점 오픈 준비. 직원 넷이 새로 합류합니다." loading="lazy" width="1200" height="825"><span class="lm-t">사업 확장 — 대표 한 사람에게 모이는 세 가지</span><span class="lm-m"><b>지금 확보할 재정</b> · 사업장 안전관리 체계, 가업상속공제 사후관리 요건, 대표 연대보증 정리</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/40/#debt"><img src="/img/toon/09_debt/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 슬픔 위에, 기한이 먼저 온다. 영재의 회사 동료 민호. 장례식장 복도에서 처음 들은 소식입니다." loading="lazy" width="1200" height="825"><span class="lm-t">빚이 더 많은 상속을 받게 된다면</span><span class="lm-m"><b>지금 확보할 재정</b> · 한정승인·포기 3개월 기한, 채무 초과 판단, 상속 부동산 근저당 확인</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
+  <p class="lm-all"><a href="/lifemap/40/">40대 변곡점 전체 보기 →</a></p>
+</div>
+<div class="lm-p" id="lmp-50" role="tabpanel" aria-labelledby="lmt-50" data-band="50">
+  <h2 class="lm-pt">50대의 변곡점 <span class="hw-band-chip" data-band="50">생전 축 · 보전 → 이전</span></h2>
+  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/50/#retire_prep"><img src="/img/toon/10_retire_prep/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 퇴직일보다 먼저 정해야 하는 건 「무엇을 먼저 꺼내느냐」 쉰넷 은정, 퇴직까지 2년. 도윤의 어머니입니다." loading="lazy" width="1200" height="825"><span class="lm-t">은퇴 준비 — 연금 인출 순서가 세금을 정한다</span><span class="lm-m"><b>지금 확보할 재정</b> · 퇴직연금·IRP·국민연금 인출 설계, 건강보험료 영향, 은퇴 후 현금흐름표</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/50/#inherit_now"><img src="/img/toon/11_inherit_now/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 나누기 전에, 얼마인지부터. 어머니 49재를 마친 시골집. 성호와 두 형이 유품 앞에 앉았습니다." loading="lazy" width="1200" height="825"><span class="lm-t">부모 상속 발생 — 6개월 안에 결정할 것들</span><span class="lm-m"><b>지금 확보할 재정</b> · 상속세 신고 기한: 상속개시일이 속하는 달의 말일부터 6개월(상증법 §67①), 상속 부동산 처분·권리분석, 상속세 재원 마련</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/50/#succession"><img src="/img/toon/12_succession/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 「언젠가」에는 세율이 없다. 날짜에는 있다. 쉰여섯 성호, 직원 12명의 작은 제조업체 대표. 큰아들 도현이 묻습니다." loading="lazy" width="1200" height="825"><span class="lm-t">가업 승계 — 순서를 정해야 할 때</span><span class="lm-m"><b>지금 확보할 재정</b> · 사전증여·법인전환·가업상속공제 비교, 지분 이전 설계</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
+  <p class="lm-all"><a href="/lifemap/50/">50대 변곡점 전체 보기 →</a></p>
+</div>
+<div class="lm-p" id="lmp-60" role="tabpanel" aria-labelledby="lmt-60" data-band="60">
+  <h2 class="lm-pt">60대의 변곡점 <span class="hw-band-chip" data-band="60">생전 축 · 이전 → 상속 설계</span></h2>
+  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/60/#retired"><img src="/img/toon/13_retired/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 들어오는 돈은 정해졌고, 나가는 돈은 나이가 정한다. 일흔둘 해남과 예순여덟 미향. 연금은 매달 들어오지만 병원비가 조금씩 늘어납니다." loading="lazy" width="1200" height="825"><span class="lm-t">은퇴 — 매달 들어오는 돈으로 살아가기</span><span class="lm-m"><b>지금 확보할 재정</b> · 연금 인출 실행, 주택연금 검토, 의료·요양 비용 준비</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/60/#my_estate"><img src="/img/toon/14_my_estate/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 마음은 하나인데, 문서는 종류가 셋이다. 일흔둘 해남, 편지지 앞에서 펜을 멈췄습니다." loading="lazy" width="1200" height="825"><span class="lm-t">내 상속 설계 — 유언·신탁·사전증여</span><span class="lm-m"><b>지금 확보할 재정</b> · 유언대용신탁, 사전증여 10년 계획, 배우자·자녀 몫 설계</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/60/#disability_family"><img src="/img/toon/15_disability_family/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 가장 오래 미룬 질문이, 가장 먼저 정해야 할 것. 막내 영수는 스스로 재산을 관리하기 어렵습니다. 부모님이 오래 미뤄 온 이야기입니다." loading="lazy" width="1200" height="825"><span class="lm-t">장애 가족에게 남길 때</span><span class="lm-m"><b>지금 확보할 재정</b> · 장애인 신탁·보험금 비과세 요건, 부모 사후 생활비 구조</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
+  <p class="lm-all"><a href="/lifemap/60/">60대 변곡점 전체 보기 →</a></p>
+</div>
+<div class="lm-p" id="lmp-70" role="tabpanel" aria-labelledby="lmt-70" data-band="70">
+  <h2 class="lm-pt">70대 이후의 변곡점 <span class="hw-band-chip" data-band="70">생전 축 → 사후 축</span></h2>
+  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/70/#illness"><img src="/img/toon/16_illness/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 아프기 전에 정해야 하는 건 병명이 아니라 「누가 대신 결정하느냐」 일흔둘 해남, 검사 결과 봉투를 무릎에 올려 두고." loading="lazy" width="1200" height="825"><span class="lm-t">질병·사고 — 결정할 사람을 미리 정하기</span><span class="lm-m"><b>지금 확보할 재정</b> · 의료·요양 비용, 후견·임의대리, 가족이 쓸 수 있는 돈의 위치</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/70/#handover"><img src="/img/toon/17_handover/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 배는 물건이 아니라 「허가」와 함께 움직인다. 일흔둘 해남, 대부도에서 어선 한 척을 부려 왔습니다." loading="lazy" width="1200" height="825"><span class="lm-t">물려주기 — 어선·가업·특수 자산</span><span class="lm-m"><b>지금 확보할 재정</b> · 어선·어업허가·가업 등 평가와 승계 절차, 상속세 재원</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/70/#after"><img src="/img/toon/18_after/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 남긴 사람의 한 장이, 남은 사람의 여섯 달을 정한다. 장례 다음 주. 해남이 남긴 봉투 하나를 가족이 함께 엽니다." loading="lazy" width="1200" height="825"><span class="lm-t">사후 — 남은 가족이 6개월 안에 할 일</span><span class="lm-m"><b>지금 확보할 재정</b> · 상속세 신고: 상속개시일이 속하는 달의 말일부터 6개월(상증법 §67①), 한정승인·포기 3개월(민법 §1019), 유류분·분할 협의</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
+  <p class="lm-all"><a href="/lifemap/70/">70대 이상 변곡점 전체 보기 →</a></p>
+</div>
+  <p class="lm-more"><a class="pri" href="/lifemap/">나이 슬라이더로 지도 전체 보기 →</a><a href="#deadline">상속이 이미 시작됐다면 — 기한부터</a></p>
+ </div>
+</section>
+<script>
+(function(){
+  var root=document.documentElement; root.classList.add("lm-js");
+  var sec=document.getElementById("lifemap-home"), tabs=[].slice.call(sec.querySelectorAll('[role=tab]'));
+  function pick(b, user){
+    tabs.forEach(function(t){var on=t.getAttribute("data-band")===String(b);t.setAttribute("aria-selected",String(on));t.tabIndex=on?0:-1;});
+    [].forEach.call(sec.querySelectorAll(".lm-p"),function(p){p.classList.toggle("on",p.getAttribute("data-band")===String(b));});
+    if(user){ try{localStorage.setItem("hw-lm-band",String(b));}catch(e){} sec.setAttribute("data-lifemap-band",String(b));
+      if(window.hwTrack) window.hwTrack("lifemap_home_band",{band:String(b)}); }
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener("click",function(){pick(t.getAttribute("data-band"),true);});
+    t.addEventListener("keydown",function(e){var k=e.key,j=k==="ArrowRight"?i+1:k==="ArrowLeft"?i-1:-9;if(j===-9)return;e.preventDefault();var n=tabs[(j+tabs.length)%tabs.length];n.focus();n.click();});
+  });
+  var q=Number(new URLSearchParams(location.search).get("age")), saved=null;
+  try{saved=localStorage.getItem("hw-lm-band");}catch(e){}
+  var start=(q>=20&&q<=80)?(q>=70?70:Math.floor(q/10)*10):(saved&&/^[2-7]0$/.test(saved)?saved:40);
+  pick(start,false);
+})();
+</script>
+<!-- LIFEMAP-HOME:END -->
+
 <!-- ══════════════════ 히어로 ══════════════════ -->
 <section class="hero">
   <div class="wrap">
     <span class="eyebrow"><span class="dot"></span>이름 없이 물어보셔도 됩니다</span>
 
-    <h1>상속세가 없어도, <mark>기한은 그대로 갑니다</mark></h1>
+    <h2 class="hero-h1">상속세가 없어도, <mark>기한은 그대로 갑니다</mark></h2>
 
     <p class="lede">
       상속받는 열 집 중 아홉 집은 상속세를 내지 않습니다.
@@ -564,35 +656,6 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
   </div>
 </section>
 
-<!-- ══════════════════ v3.4 · 인생 변곡점 지도 배너 ══════════════════ -->
-<style>
-.lifemap-band{margin:0 0 8px}
-.lifemap-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
-  background:var(--violet-soft);border:1.5px solid var(--violet);border-radius:var(--radius);
-  padding:22px 26px;text-decoration:none;color:var(--ink);transition:transform .12s ease,border-color .12s ease}
-.lifemap-card:hover{transform:translateY(-2px);border-color:var(--violet)}
-.lifemap-card:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
-.lifemap-txt{max-width:680px}
-.lifemap-eyebrow{display:inline-block;font-size:13.5px;font-weight:800;letter-spacing:.02em;color:var(--violet-ink);
-  background:var(--violet);border-radius:999px;padding:3px 12px;margin:0 0 10px}
-.lifemap-card h2{font-size:21px;line-height:1.4;margin:0 0 8px;color:var(--ink)}
-.lifemap-card p{font-size:16px;line-height:1.6;color:var(--ink-2);margin:0}
-.lifemap-go{flex:none;font-size:17px;font-weight:900;color:var(--violet-ink);background:var(--violet);
-  border-radius:12px;padding:0 20px;min-height:48px;display:inline-flex;align-items:center}
-@media(prefers-color-scheme:dark){.lifemap-eyebrow{color:var(--violet-ink)}}
-</style>
-<section id="lifemap-banner" class="lifemap-band" aria-labelledby="lifemapBannerH">
-  <div class="wrap">
-    <a class="lifemap-card" href="/lifemap/" onclick="if(window.gtag)gtag('event','lifemap_home_click')">
-      <div class="lifemap-txt">
-        <span class="lifemap-eyebrow">새로 만든 도구 · 준비 중</span>
-        <h2 id="lifemapBannerH">인생 변곡점 지도 — 지금 내 나이에 준비할 돈, 만날 사람</h2>
-        <p>20대부터 70대 이후까지, 나이대별 변곡점과 그때 확보할 재정을 한 화면에서 확인하세요.</p>
-      </div>
-      <span class="lifemap-go" aria-hidden="true">지도 보러 가기 →</span>
-    </a>
-  </div>
-</section>
 
 <!-- ══════════════════ 기한 ══════════════════ -->
 <!-- ══════════════════ v1.9 · 누가 나와 비슷해요? (인생 변곡점 얼굴 띠) ══════════════════ -->

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* lifemap-build.js — /lifemap/index.html 의 MAP 데이터에서 연령대별 정적 페이지 6장을 만든다.
  * 사용:  node tools/lifemap-build.js            → noindex 상태로 생성(시안·검수용)
+ *        node tools/lifemap-build.js --home     → 홈(index.html) 첫 화면 블록만 갱신 (2026-09-26)
  *        node tools/lifemap-build.js --publish  → noindex 제거(공개 승인 뒤에만)
  * 출력:  lifemap/20/index.html … lifemap/70/index.html
  * 원칙:  내용은 lifemap/index.html 의 MAP 하나만 고친다(두 번 관리 금지). 이 스크립트는 읽기만 하고 MAP을 수정하지 않는다.
@@ -171,6 +172,93 @@ ${d.cards.map(c => card(c, band)).join("\n")}
 </body>
 </html>
 `;
+}
+
+
+/* ── 홈 첫 화면 블록 (2026-09-26) — index.html 의 LIFEMAP-HOME 표시 사이만 바꾼다 ── */
+function homeBlock() {
+  const lab = b => (b === 70 ? "70대 이상" : b + "대");
+  const tabs = BANDS.map(b => `<button type="button" role="tab" id="lmt-${b}" aria-controls="lmp-${b}" data-band="${b}" aria-selected="false">${lab(b)}</button>`).join("");
+  const panels = BANDS.map(b => {
+    const d = MAP[b];
+    const cards = d.cards.map(c => `<li><a class="lm-c" href="/lifemap/${b}/#${esc(c.ev)}">` +
+      (c.img ? `<img src="${esc(c.img)}" alt="${esc(c.alt || c.h + " — 4컷 카툰 1컷")}" loading="lazy" width="1200" height="825">` : `<span class="lm-none">카툰 제작 중</span>`) +
+      `<span class="lm-t">${esc(c.h)}</span><span class="lm-m"><b>지금 확보할 재정</b> · ${esc(strip(c.money))}</span><span class="lm-go">자세히 보기 ›</span></a></li>`).join("");
+    return `<div class="lm-p" id="lmp-${b}" role="tabpanel" aria-labelledby="lmt-${b}" data-band="${b}">
+  <h2 class="lm-pt">${esc(d.title)} <span class="hw-band-chip" data-band="${b}">${esc(d.axis)}</span></h2>
+  <ul class="lm-cards">${cards}</ul>
+  <p class="lm-all"><a href="/lifemap/${b}/">${lab(b)} 변곡점 전체 보기 →</a></p>
+</div>`;
+  }).join("\n");
+  return `<style>
+.lm-home{padding:44px 0 36px;border-bottom:1px solid var(--line)}
+.lm-home .lm-eye{display:inline-block;background:var(--violet);color:var(--violet-ink);font-weight:800;font-size:15px;border-radius:999px;padding:4px 14px;margin:0 0 14px}
+.lm-home h1{margin:0 0 12px;max-width:none}
+.lm-home .lm-lede{font-size:clamp(1.05rem,2vw,1.2rem);color:var(--ink-2);max-width:60ch;margin:0 0 22px;line-height:1.8}
+.lm-q{font-weight:800;font-size:18px;margin:0 0 10px}
+.lm-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:0 0 22px}
+.lm-tabs button{min-height:52px;border-radius:12px;border:2px solid var(--line-strong);background:var(--surface);color:var(--ink);font:inherit;font-weight:800;font-size:17px;cursor:pointer}
+.lm-tabs button[aria-selected=true]{background:var(--band);color:var(--band-ink);border-color:var(--band)}
+.lm-tabs button:focus-visible,.lm-c:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+@media(max-width:640px){.lm-tabs{grid-template-columns:repeat(3,1fr)}}
+.lm-pt{font-size:clamp(20px,3vw,24px);margin:0 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.lm-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.lm-c{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1.5px solid var(--line);border-top:6px solid var(--band);border-radius:16px;padding:10px 10px 16px;text-decoration:none;color:var(--ink)}
+.lm-c:hover{border-color:var(--band)}
+.lm-c img,.lm-none{display:block;width:100%;height:auto;aspect-ratio:1200/825;object-fit:cover;border-radius:10px;background:var(--surface-2)}
+.lm-none{display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--ink-2)}
+.lm-t{font-size:19px;font-weight:800;line-height:1.4;margin:12px 4px 6px}
+.lm-m{font-size:16px;line-height:1.6;color:var(--ink-2);margin:0 4px;flex:1}
+.lm-m b{color:var(--ink)}
+.lm-go{font-weight:800;margin:10px 4px 0;color:var(--ink)}
+.lm-all{margin:14px 0 0;font-size:17px;font-weight:800}
+.lm-all a{color:var(--ink)}
+.lm-more{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.lm-more a{min-height:48px;display:inline-flex;align-items:center;padding:0 20px;border-radius:12px;font-weight:800;text-decoration:none;border:2px solid var(--line-strong);color:var(--ink)}
+.lm-more a.pri{background:var(--violet);color:var(--violet-ink);border-color:var(--violet)}
+html.lm-js .lm-p{display:none}html.lm-js .lm-p.on{display:block}
+html:not(.lm-js) .lm-p{margin:0 0 30px}
+</style>
+<section id="lifemap-home" class="lm-home" aria-labelledby="lmhH">
+ <div class="wrap">
+  <span class="lm-eye">인생 변곡점 지도</span>
+  <h1 id="lmhH">지금 내 나이에 준비할 돈, 만날 사람</h1>
+  <p class="lm-lede">살면서 돈이 크게 움직이는 순간은 정해져 있습니다. 나이를 고르면 그 시기의 변곡점 3가지와, 그때 미리 확보해 둘 재정, 지금 물어볼 사람을 보여 드립니다.</p>
+  <p class="lm-q" id="lmQ">나는 지금</p>
+  <div class="lm-tabs" role="tablist" aria-labelledby="lmQ">${tabs}</div>
+${panels}
+  <p class="lm-more"><a class="pri" href="/lifemap/">나이 슬라이더로 지도 전체 보기 →</a><a href="#deadline">상속이 이미 시작됐다면 — 기한부터</a></p>
+ </div>
+</section>
+<script>
+(function(){
+  var root=document.documentElement; root.classList.add("lm-js");
+  var sec=document.getElementById("lifemap-home"), tabs=[].slice.call(sec.querySelectorAll('[role=tab]'));
+  function pick(b, user){
+    tabs.forEach(function(t){var on=t.getAttribute("data-band")===String(b);t.setAttribute("aria-selected",String(on));t.tabIndex=on?0:-1;});
+    [].forEach.call(sec.querySelectorAll(".lm-p"),function(p){p.classList.toggle("on",p.getAttribute("data-band")===String(b));});
+    if(user){ try{localStorage.setItem("hw-lm-band",String(b));}catch(e){} sec.setAttribute("data-lifemap-band",String(b));
+      if(window.hwTrack) window.hwTrack("lifemap_home_band",{band:String(b)}); }
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener("click",function(){pick(t.getAttribute("data-band"),true);});
+    t.addEventListener("keydown",function(e){var k=e.key,j=k==="ArrowRight"?i+1:k==="ArrowLeft"?i-1:-9;if(j===-9)return;e.preventDefault();var n=tabs[(j+tabs.length)%tabs.length];n.focus();n.click();});
+  });
+  var q=Number(new URLSearchParams(location.search).get("age")), saved=null;
+  try{saved=localStorage.getItem("hw-lm-band");}catch(e){}
+  var start=(q>=20&&q<=80)?(q>=70?70:Math.floor(q/10)*10):(saved&&/^[2-7]0$/.test(saved)?saved:40);
+  pick(start,false);
+})();
+</script>`;
+}
+if (process.argv.includes("--home")) {
+  const IDX = path.join(ROOT, "index.html");
+  const src = fs.readFileSync(IDX, "utf8");
+  const re = /(<!-- LIFEMAP-HOME:START[^>]*-->)[\s\S]*?(<!-- LIFEMAP-HOME:END -->)/;
+  if (!re.test(src)) { console.error("index.html 에 LIFEMAP-HOME 표시가 없습니다"); process.exit(1); }
+  fs.writeFileSync(IDX, src.replace(re, (m, a, b) => a + "\n" + homeBlock() + "\n" + b), "utf8");
+  console.log(`홈 블록 갱신: 나이대 ${BANDS.length} · 카드 ${TOTAL}장 → index.html`);
+  process.exit(0);
 }
 
 for (const b of BANDS) {

@@ -47,7 +47,7 @@
     // 비어 있으면 gift/ 는 지금처럼 로컬(gift.js)로 계산한다. 서버 실패 시에도 로컬로 같은 결과.
     CALC_ENDPOINT: "",
     // 연결 요청 화면·완료 화면에 보여 줄 응답 약속. 지킬 수 없는 기간에는 비우면("") 문구가 사라진다.
-    NETWORK_REPLY_NOTE: "추석 연휴에도 운영자가 직접 봅니다. 받은 날 하루 안에 먼저 전화드립니다.",
+    NETWORK_REPLY_NOTE: "운영자가 직접 봅니다. 받은 날 하루 안에 먼저 전화드립니다.",
 
     // 적용 법령 기준일 (프로젝트 규칙 5-3)
     LAW: {
@@ -70,7 +70,7 @@
       holiday: "2026-09-25T00:00:00+09:00",      // 추석 당일
       holidayStart: "2026-09-24T00:00:00+09:00", // 연휴 시작
       holidayEnd: "2026-09-26T23:59:59+09:00",   // 연휴 끝
-      endAt: "2026-10-02T23:59:59+09:00",        // 자동 종료
+      endAt: "2026-09-26T00:00:00+09:00",        // 09-26 본부장님 결정으로 조기 종료(원래 10.02)
       href: "/chuseok.html"
     },
 
@@ -127,6 +127,50 @@
   }
   var PAGE = detectPage();
 
+  /* ② 페이지 이름표 (2026-09-26) — 위치 띠와 GA4 page_title 이 같은 이름을 쓴다.
+     <title> 문구를 바꿔도 GA4 「페이지 제목」 보고서가 갈라지지 않게 하려는 것. 새 페이지를 만들면 여기에 한 줄 추가. */
+  var TOOLS = ["계산·진단 도구", "/#tools"], TALK = ["상담·운영자", "/about.html"], NET = ["함께 보는 사람들", "/network/"], MAPS = ["인생 변곡점 지도", "/lifemap/"];
+  var PAGE_NAMES = {
+    "/": [null, "홈"],
+    "/lifemap/": [null, "인생 변곡점 지도"],
+    "/calculator.html": [TOOLS, "상속 종합 계산기"],
+    "/inheritdebt.html": [TOOLS, "상속채무 진단"],
+    "/gift/": [TOOLS, "부모님께 받는 돈"],
+    "/retirement/": [TOOLS, "노후자금 진단"],
+    "/retirement/detail.html": [TOOLS, "연금 현황 상세 입력"],
+    "/natural-death.html": [TOOLS, "자연사 상속세 계산기"],
+    "/car-accident.html": [TOOLS, "교통사고 보상금 계산기"],
+    "/fire-accident.html": [TOOLS, "화재 사고 보상금 계산기"],
+    "/industrial-accident.html": [TOOLS, "산재 급여 계산기"],
+    "/disability-trust.html": [TOOLS, "장애인 신탁·보험 계산기"],
+    "/insurance-two-faces.html": [TOOLS, "보험금의 두 얼굴 계산기"],
+    "/ceo-diagnosis.html": [TOOLS, "법인 대표 진단"],
+    "/ceo/safety.html": [TOOLS, "사업장 안전 의무 목록"],
+    "/about.html": [null, "운영자 소개"],
+    "/consult.html": [TALK, "무료 상담 신청"],
+    "/booking.html": [TALK, "상담 예약"],
+    "/services/": [TALK, "운영자가 하는 일"],
+    "/book.html": [null, "책 받기 — 상속설계의 기술"],
+    "/chuseok.html": [null, "추석 전에, 다섯 가지만"],
+    "/network/": [null, "함께 보는 사람들 — 분야 지도"],
+    "/network/connect.html": [NET, "전문가 연결 요청"],
+    "/network/join.html": [NET, "협업 제안"],
+    "/network/for-partners.html": [NET, "협업기관 안내"],
+    "/network/principles.html": [NET, "운영 원칙"],
+    "/privacy.html": [null, "개인정보처리방침"],
+    "/privacy-2026-09-22.html": [null, "개인정보처리방침 (09.22 판)"]
+  };
+  function normPath(p) { return (p || "/").replace(/\/index\.html?$/i, "/"); }
+  function pageName() {
+    var p = normPath(location.pathname), hit = PAGE_NAMES[p];
+    var m = p.match(/^\/lifemap\/(\d0)\/$/);
+    if (m) return [MAPS, (m[1] === "70" ? "70대 이상" : m[1] + "대") + "의 변곡점"];
+    if (hit) return hit;
+    var t = (d.title || "").split(/ [|—] /)[0].trim();
+    return [null, t || p];
+  }
+  var PAGE_NAME = pageName();
+
   // gtag 부트스트랩
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
@@ -138,7 +182,12 @@
     g.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(HW_CONFIG.GA4_ID);
     d.head.appendChild(g);
     gtag("js", new Date());
-    gtag("config", HW_CONFIG.GA4_ID, { send_page_view: true });
+    gtag("config", HW_CONFIG.GA4_ID, {
+      send_page_view: true,
+      // 09-26: /index.html 과 / 를 한 페이지로, 제목은 이름표로 고정 → 「인기 페이지」가 한 줄로 모인다
+      page_title: PAGE_NAME[1],
+      page_location: location.origin + normPath(location.pathname) + location.search
+    });
   }
 
   var fired = {};
@@ -769,6 +818,189 @@
   }
 
   /* ============================================================
+     ⑤-2 위치 띠 · 지도 도장 · 별점 (2026-09-26)
+     - 위치 띠: 모든 페이지 맨 위 「⌂ 홈 › 묶음 › 이 페이지」 + 「인생 변곡점 지도 · 도장 n/6」
+     - 도장: 이 브라우저에서 본 나이대(20~70). localStorage 에만 저장, 서버로 보내지 않음
+     - 별점: 서로 다른 페이지 2곳 이상 본 방문자에게 한 번. GA4 이벤트(hw_rating)로만 — 이름·연락처·자유 입력 없음
+     - 끄기: <body data-crumb="off"> 위치 띠 없음 · <body data-rating="off"> 별점 없음
+     ============================================================ */
+  var TRAIL_KEY = "hw-trail";
+  function trailGet() {
+    var t = null;
+    try { t = JSON.parse(localStorage.getItem(TRAIL_KEY) || "null"); } catch (e) {}
+    if (!t || t.v !== 1) t = { v: 1, pages: [], bands: {}, rated: 0, later: 0, shown: 0 };
+    return t;
+  }
+  function trailSet(t) { try { localStorage.setItem(TRAIL_KEY, JSON.stringify(t)); } catch (e) {} }
+  var TRAIL = trailGet();
+  (function () {
+    var p = normPath(location.pathname);
+    if (TRAIL.pages.indexOf(p) < 0) { TRAIL.pages.push(p); if (TRAIL.pages.length > 40) TRAIL.pages.shift(); trailSet(TRAIL); }
+  })();
+  function stampCount() { var n = 0; for (var k in TRAIL.bands) if (TRAIL.bands[k]) n++; return n; }
+  function stamp(band) {
+    band = String(band);
+    if (!/^[2-7]0$/.test(band) || TRAIL.bands[band]) return;
+    TRAIL.bands[band] = 1; trailSet(TRAIL);
+    hwTrack("lifemap_stamp", { band: band, stamps: stampCount() });
+    var el = $("hw-stamps"); if (el) el.textContent = stampCount() + "/6";
+  }
+  window.hwStamp = stamp;
+
+  function injectNavStyles() {
+    if ($("hw-nav-style")) return;
+    var st = d.createElement("style"); st.id = "hw-nav-style";
+    st.textContent =
+      ".hw-crumb{background:#13161C;color:#F3F0EA;font:16px/1.5 'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;border-bottom:2px solid #3A4350;position:relative;z-index:50}" +
+      ".hw-crumb *{box-sizing:border-box}" +
+      ".hw-crumb-in{max-width:1100px;margin:0 auto;padding:4px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;min-height:52px}" +
+      ".hw-crumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:2px 6px;flex:1 1 auto;min-width:0}" +
+      ".hw-crumb li{display:flex;align-items:center;gap:6px;min-width:0}" +
+      ".hw-crumb li+li::before{content:'›';color:#B6BDCA;font-weight:800}" +
+      ".hw-crumb a{color:#F3F0EA;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:0 6px;border-radius:8px;font-weight:700}" +
+      ".hw-crumb a:hover{text-decoration:underline}" +
+      ".hw-crumb a:focus-visible,.hw-rate button:focus-visible,.hw-rate a:focus-visible{outline:3px solid #FFC64D;outline-offset:2px}" +
+      ".hw-crumb .hw-home{font-weight:800}" +
+      ".hw-crumb [aria-current]{color:#FFE7A8;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60vw}" +
+      ".hw-crumb .hw-map{background:#FFC64D;color:#13161C;padding:0 14px;border-radius:999px;font-weight:800;white-space:nowrap}" +
+      ".hw-crumb .hw-map b{background:#13161C;color:#FFC64D;border-radius:999px;padding:1px 8px;margin-left:8px;font-size:14px}" +
+      "@media(max-width:480px){.hw-crumb{font-size:15px}.hw-crumb-in{padding:4px 10px;gap:2px 6px}.hw-crumb .hw-map{margin-left:auto;padding:0 10px}.hw-crumb .hw-l{display:none}.hw-crumb a{padding:0 4px}}" +
+      ".hw-rate{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(520px,calc(100vw - 20px));z-index:9999;background:#1C2129;color:#F3F0EA;border:2px solid #FFC64D;border-radius:18px;box-shadow:0 10px 36px rgba(0,0,0,.45);padding:18px 18px 16px;font:17px/1.6 'Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;animation:hwUp .25s ease-out}" +
+      "@keyframes hwUp{from{transform:translate(-50%,24px);opacity:0}to{transform:translate(-50%,0);opacity:1}}" +
+      "@media(prefers-reduced-motion:reduce){.hw-rate{animation:none}}" +
+      ".hw-rate h2{font-size:19px;margin:0 44px 4px 0;line-height:1.4}" +
+      ".hw-rate p{margin:0 0 10px;color:#C9CFD9;font-size:15.5px}" +
+      ".hw-rate .x{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:12px;border:2px solid #3A4350;background:#232A34;color:#F3F0EA;font-size:20px;cursor:pointer}" +
+      ".hw-stars{display:flex;gap:6px;margin:4px 0 12px}" +
+      ".hw-stars button{width:52px;height:52px;border-radius:12px;border:2px solid #3A4350;background:#232A34;color:#6B7280;font-size:30px;line-height:1;cursor:pointer}" +
+      ".hw-stars button.on{color:#FFC64D;border-color:#FFC64D}" +
+      ".hw-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}" +
+      ".hw-chips button{min-height:44px;padding:0 14px;border-radius:999px;border:2px solid #3A4350;background:#232A34;color:#F3F0EA;font:inherit;font-size:15.5px;font-weight:700;cursor:pointer}" +
+      ".hw-chips button[aria-pressed=true]{background:#54CFA8;color:#0F3B30;border-color:#54CFA8}" +
+      ".hw-rate .go{display:flex;flex-wrap:wrap;gap:10px}" +
+      ".hw-rate .go button,.hw-rate .go a{min-height:48px;padding:0 20px;border-radius:12px;font:inherit;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;text-decoration:none}" +
+      ".hw-rate .send{background:#FFC64D;color:#13161C;border:0}.hw-rate .send[disabled]{opacity:.45;cursor:not-allowed}" +
+      ".hw-rate .later{background:none;color:#F3F0EA;border:2px solid #3A4350}" +
+      ".hw-rate .badge{display:flex;align-items:center;gap:12px;margin:4px 0 12px}" +
+      ".hw-rate .badge span{flex:none;width:56px;height:56px;border-radius:50%;background:#FFC64D;color:#13161C;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900}" +
+      ".hw-rate .map{background:#FFC64D;color:#13161C}";
+    d.head.appendChild(st);
+  }
+
+  function injectCrumb() {
+    if (!d.body || d.body.getAttribute("data-crumb") === "off" || $("hw-crumb")) return;
+    injectNavStyles();
+    var nav = d.createElement("nav");
+    nav.id = "hw-crumb"; nav.className = "hw-crumb"; nav.setAttribute("aria-label", "현재 위치");
+    var sec = PAGE_NAME[0], here = PAGE_NAME[1], isHome = normPath(location.pathname) === "/";
+    var esc2 = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var html = '<div class="hw-crumb-in"><ol>' +
+      (isHome ? '<li><span aria-current="page">⌂ 홈 · 지금 여기</span></li>'
+              : '<li><a class="hw-home" href="/" data-ev="crumb_home">⌂ 홈</a></li>' +
+                (sec ? '<li><a href="' + sec[1] + '">' + esc2(sec[0]) + '</a></li>' : '') +
+                '<li><span aria-current="page">' + esc2(here) + '</span></li>') +
+      '</ol><a class="hw-map" href="/lifemap/" data-ev="crumb_map" aria-label="인생 변곡점 지도 — 본 나이대 도장 ' + stampCount() + '개 / 6개">🗺 <span class="hw-l">변곡점 </span>지도<b id="hw-stamps">' + stampCount() + '/6</b></a></div>';
+    nav.innerHTML = html;
+    var skip = d.querySelector("a.skip, .skip-link");
+    if (skip && skip.parentNode === d.body) d.body.insertBefore(nav, skip.nextSibling);
+    else d.body.insertBefore(nav, d.body.firstChild);
+    nav.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a[data-ev]");
+      if (a) hwTrack(a.getAttribute("data-ev"), { stamps: stampCount() });
+    });
+    // 나이대 도장: 이 페이지가 나이대를 보여 주면(body 또는 [data-lifemap-band]) 찍는다
+    function readBand() {
+      var el = d.querySelector("[data-lifemap-band]");
+      var b = el ? el.getAttribute("data-lifemap-band") : null;
+      if (!b && /^\/lifemap\//.test(location.pathname)) b = d.body.getAttribute("data-band");
+      if (b) stamp(b);
+    }
+    readBand();
+    try {
+      new MutationObserver(readBand).observe(d.body, { attributes: true, attributeFilter: ["data-band", "data-lifemap-band"], subtree: true });
+    } catch (e) {}
+  }
+
+  var RATE_SKIP = /^\/(consult|booking|privacy|privacy-2026-09-22|book)\.html$|^\/network\/(connect|join)\.html$|^\/retirement\/(detail|intake)\.html$/;
+  var RATE_CHIPS = ["내 나이에 할 일", "계산해 보기", "카툰 이야기", "기한·절차 안내", "아직 잘 모르겠어요"];
+  function maybeRate() {
+    if (!d.body || d.body.getAttribute("data-rating") === "off") return;
+    var p = normPath(location.pathname);
+    if (RATE_SKIP.test(p)) return;
+    if (TRAIL.pages.length < 2 || TRAIL.rated) return;
+    if (TRAIL.later && Date.now() - TRAIL.later < 14 * 864e5) return;
+    var done = false;
+    function fire() {
+      if (done) return;
+      var a = d.activeElement;
+      if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) { setTimeout(fire, 8000); return; }  // 입력 중에는 끼어들지 않음
+      done = true; window.removeEventListener("scroll", onScroll); showRate();
+    }
+    function onScroll() {
+      var h = d.documentElement; if ((h.scrollTop + innerHeight) / h.scrollHeight > 0.6) fire();
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    setTimeout(fire, 20000);
+  }
+  function showRate() {
+    if ($("hw-rate")) return;
+    injectNavStyles();
+    TRAIL.shown = (TRAIL.shown || 0) + 1; trailSet(TRAIL);
+    var box = d.createElement("section");
+    box.id = "hw-rate"; box.className = "hw-rate";
+    box.setAttribute("role", "dialog"); box.setAttribute("aria-modal", "false"); box.setAttribute("aria-labelledby", "hw-rate-h");
+    var stars = "", chips = "";
+    for (var i = 1; i <= 5; i++) stars += '<button type="button" data-s="' + i + '" aria-label="별 ' + i + '개" aria-pressed="false">★</button>';
+    RATE_CHIPS.forEach(function (c) { chips += '<button type="button" aria-pressed="false">' + c + '</button>'; });
+    box.innerHTML =
+      '<button type="button" class="x" aria-label="닫기">✕</button>' +
+      '<h2 id="hw-rate-h">여기까지 ' + TRAIL.pages.length + '곳을 둘러보셨어요. 도움이 됐나요?</h2>' +
+      '<p>별 하나만 눌러도 됩니다. 이름·연락처는 받지 않습니다.</p>' +
+      '<div class="hw-stars" role="group" aria-label="별점">' + stars + '</div>' +
+      '<p style="margin-bottom:6px">무엇이 도움이 됐나요? (여러 개 가능, 선택)</p>' +
+      '<div class="hw-chips" role="group" aria-label="도움이 된 것">' + chips + '</div>' +
+      '<div class="go"><button type="button" class="send" disabled>보내기</button><button type="button" class="later">다음에</button></div>';
+    d.body.appendChild(box);
+    hwTrack("hw_rating_view", { pages: TRAIL.pages.length, stamps: stampCount() });
+    var score = 0;
+    var sb = box.querySelectorAll(".hw-stars button"), send = box.querySelector(".send");
+    Array.prototype.forEach.call(sb, function (b) {
+      b.addEventListener("click", function () {
+        score = +b.getAttribute("data-s");
+        Array.prototype.forEach.call(sb, function (x) { var on = +x.getAttribute("data-s") <= score; x.classList.toggle("on", on); x.setAttribute("aria-pressed", String(+x.getAttribute("data-s") === score)); });
+        send.disabled = false;
+      });
+    });
+    Array.prototype.forEach.call(box.querySelectorAll(".hw-chips button"), function (b) {
+      b.addEventListener("click", function () { b.setAttribute("aria-pressed", String(b.getAttribute("aria-pressed") !== "true")); });
+    });
+    function close(later) {
+      if (later) { TRAIL.later = Date.now(); trailSet(TRAIL); hwTrack("hw_rating_later", { pages: TRAIL.pages.length }); }
+      box.remove();
+    }
+    box.querySelector(".x").addEventListener("click", function () { close(true); });
+    box.querySelector(".later").addEventListener("click", function () { close(true); });
+    box.addEventListener("keydown", function (e) { if (e.key === "Escape") close(true); });
+    send.addEventListener("click", function () {
+      if (!score) return;
+      var picked = Array.prototype.filter.call(box.querySelectorAll(".hw-chips button"), function (b) { return b.getAttribute("aria-pressed") === "true"; })
+        .map(function (b) { return b.textContent; }).join(",");
+      hwTrack("hw_rating", { stars: score, helpful: picked || "(없음)", pages: TRAIL.pages.length, stamps: stampCount() });
+      TRAIL.rated = Date.now(); trailSet(TRAIL);
+      var left = 6 - stampCount();
+      box.innerHTML =
+        '<button type="button" class="x" aria-label="닫기">✕</button>' +
+        '<div class="badge"><span aria-hidden="true">★</span><h2 id="hw-rate-h" tabindex="-1" style="margin:0">고맙습니다 — 「길잡이」 배지를 드렸어요</h2></div>' +
+        '<p>변곡점 지도 도장 <strong style="color:#FFC64D">' + stampCount() + '/6</strong>' +
+        (left > 0 ? ' · 아직 보지 않은 나이대가 ' + left + '곳 있어요.' : ' · 모든 나이대를 둘러보셨어요.') + '</p>' +
+        '<div class="go"><a class="map" href="/lifemap/">변곡점 지도 이어 보기</a><button type="button" class="later">닫기</button></div>';
+      box.querySelector(".x").addEventListener("click", function () { box.remove(); });
+      box.querySelector(".later").addEventListener("click", function () { box.remove(); });
+      try { $("hw-rate-h").focus(); } catch (e) {}
+    });
+  }
+
+  /* ============================================================
      ⑥ 실행
      ============================================================ */
   function boot() {
@@ -776,6 +1008,8 @@
     try { unifyLeadForm(); }  catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectSeason(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectPrivacyLink(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { injectCrumb(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { maybeRate(); }     catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
   }
 
   if (d.readyState === "loading") {
