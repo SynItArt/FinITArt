@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/hw-bands.css">
 <title>50대의 변곡점 — 지금 준비할 돈, 만날 사람 | HeirWise</title>
 <meta name="description" content="50대의 변곡점: 은퇴 준비 · 부모 상속 발생 · 가업 승계. 그때 확보할 재정과 지금 물어볼 사람을 정리했습니다. 생전 축 · 보전 → 이전.">
 <meta name="robots" content="noindex">  <!-- 시안 단계. 공개 시 node tools/lifemap-build.js --publish 로 재생성 -->
@@ -93,16 +94,16 @@
 <style>
 :root{--bg:#13161C;--card:#1C2129;--card2:#232A34;--line:#3A4350;--ink:#F3F0EA;--muted:#C9CFD9;--sub:#B6BDCA;
 --green:#54CFA8;--green-ink:#0F3B30;--blue:#93C5FD;--blue-ink:#0F2A5C;--amber:#FFC64D;--amber-ink:#4A3200;--focus:#FFC64D;
---b20:#A998EB;--b20i:#110B28;--b20s:#2B2540;--b30:#B998EB;--b30i:#170B28;--b30s:#2E2440;--b40:#CC98EB;--b40i:#1D0B28;--b40s:#312340;
---b50:#DE98EB;--b50i:#230B28;--b50s:#342340;--b60:#EB98E7;--b60i:#280B26;--b60s:#372340;--b70:#EB98D4;--b70i:#280B20;--b70s:#372338}
+--b20:var(--band-20);--b20i:var(--band-20-ink);--b20s:var(--band-20-soft);--b30:var(--band-30);--b30i:var(--band-30-ink);--b30s:var(--band-30-soft);--b40:var(--band-40);--b40i:var(--band-40-ink);--b40s:var(--band-40-soft);
+--b50:var(--band-50);--b50i:var(--band-50-ink);--b50s:var(--band-50-soft);--b60:var(--band-60);--b60i:var(--band-60-ink);--b60s:var(--band-60-soft);--b70:var(--band-70);--b70i:var(--band-70-ink);--b70s:var(--band-70-soft)}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#FBF9F4;--card:#FFFFFF;--card2:#F1EEE6;--line:#CFC9BC;--ink:#161A20;--muted:#3B4350;--sub:#4B5563;
 --green:#0C5C48;--green-ink:#FFFFFF;--blue:#1D4ED8;--blue-ink:#FFFFFF;--amber:#8A5A00;--amber-ink:#FFFFFF;--focus:#1D4ED8;
---b20:#352281;--b20i:#FFFFFF;--b20s:#EDE7F9;--b30:#482281;--b30i:#FFFFFF;--b30s:#EFE7F9;--b40:#5D2281;--b40i:#FFFFFF;--b40s:#F1E7F9;
---b50:#712281;--b50i:#FFFFFF;--b50s:#F3E7F8;--b60:#81227C;--b60i:#FFFFFF;--b60s:#F5E7F5;--b70:#812266;--b70i:#FFFFFF;--b70s:#F5E7EE}}
+--b20:var(--band-20);--b20i:var(--band-20-ink);--b20s:var(--band-20-soft);--b30:var(--band-30);--b30i:var(--band-30-ink);--b30s:var(--band-30-soft);--b40:var(--band-40);--b40i:var(--band-40-ink);--b40s:var(--band-40-soft);
+--b50:var(--band-50);--b50i:var(--band-50-ink);--b50s:var(--band-50-soft);--b60:var(--band-60);--b60i:var(--band-60-ink);--b60s:var(--band-60-soft);--b70:var(--band-70);--b70i:var(--band-70-ink);--b70s:var(--band-70-soft)}}
 :root[data-theme="light"]{--bg:#FBF9F4;--card:#FFFFFF;--card2:#F1EEE6;--line:#CFC9BC;--ink:#161A20;--muted:#3B4350;--sub:#4B5563;
 --green:#0C5C48;--green-ink:#FFFFFF;--blue:#1D4ED8;--blue-ink:#FFFFFF;--amber:#8A5A00;--amber-ink:#FFFFFF;--focus:#1D4ED8;
---b20:#352281;--b20i:#FFFFFF;--b20s:#EDE7F9;--b30:#482281;--b30i:#FFFFFF;--b30s:#EFE7F9;--b40:#5D2281;--b40i:#FFFFFF;--b40s:#F1E7F9;
---b50:#712281;--b50i:#FFFFFF;--b50s:#F3E7F8;--b60:#81227C;--b60i:#FFFFFF;--b60s:#F5E7F5;--b70:#812266;--b70i:#FFFFFF;--b70s:#F5E7EE}
+--b20:var(--band-20);--b20i:var(--band-20-ink);--b20s:var(--band-20-soft);--b30:var(--band-30);--b30i:var(--band-30-ink);--b30s:var(--band-30-soft);--b40:var(--band-40);--b40i:var(--band-40-ink);--b40s:var(--band-40-soft);
+--b50:var(--band-50);--b50i:var(--band-50-ink);--b50s:var(--band-50-soft);--b60:var(--band-60);--b60i:var(--band-60-ink);--b60s:var(--band-60-soft);--b70:var(--band-70);--b70i:var(--band-70-ink);--b70s:var(--band-70-soft)}
 body[data-band="20"]{--stripe:var(--b20);--stripe-ink:var(--b20i);--stripe-soft:var(--b20s)}body[data-band="30"]{--stripe:var(--b30);--stripe-ink:var(--b30i);--stripe-soft:var(--b30s)}
 body[data-band="40"]{--stripe:var(--b40);--stripe-ink:var(--b40i);--stripe-soft:var(--b40s)}body[data-band="50"]{--stripe:var(--b50);--stripe-ink:var(--b50i);--stripe-soft:var(--b50s)}
 body[data-band="60"]{--stripe:var(--b60);--stripe-ink:var(--b60i);--stripe-soft:var(--b60s)}body[data-band="70"]{--stripe:var(--b70);--stripe-ink:var(--b70i);--stripe-soft:var(--b70s)}
@@ -126,7 +127,7 @@ figure.toon{margin:0 0 16px}figure.toon img{display:block;width:100%;height:auto
 figure.toon figcaption{font-size:15.5px;color:var(--muted);margin-top:8px;line-height:1.6}
 .toon-none{display:flex;align-items:center;justify-content:center;aspect-ratio:1200/825;background:var(--stripe-soft);color:var(--stripe);border:2px dashed var(--stripe);border-radius:12px;font-weight:800;font-size:18px;margin:0 0 16px}
 .money{font-size:17px;margin:0 0 12px}.money strong{color:var(--stripe)}
-.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.tag{font-size:15px;font-weight:700;border-radius:999px;padding:4px 12px}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.tag{font-size:15px;font-weight:800;border-radius:999px;padding:6px 12px;min-height:40px;display:inline-flex;align-items:center;text-decoration:none}a.tag:hover{filter:brightness(1.08)}a.tag:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .tag.hw{background:var(--green);color:var(--green-ink)}.tag.pro{background:var(--blue);color:var(--blue-ink)}
 h3{font-size:18px;margin:14px 0 6px}ul.check{margin:0 0 12px;padding-left:22px}ul.check li{margin:0 0 4px}
 .calc{font-size:16px;margin:0 0 14px}.cta{display:flex;flex-wrap:wrap;gap:10px}
@@ -154,7 +155,7 @@ footer{margin:40px 0 30px;padding-top:20px;border-top:1px solid var(--line);font
 <figure class="toon"><img src="/img/toon/10_retire_prep/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 퇴직일보다 먼저 정해야 하는 건 「무엇을 먼저 꺼내느냐」 쉰넷 은정, 퇴직까지 2년. 도윤의 어머니입니다." loading="lazy" width="1200" height="825" onerror="this.parentNode.outerHTML='<div class=&quot;toon-none&quot;>카툰 제작 중 · 10 / 18편</div>'"><figcaption>4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 퇴직일보다 먼저 정해야 하는 건 「무엇을 먼저 꺼내느냐」 쉰넷 은정, 퇴직까지 2년. 도윤의 어머니입니다.</figcaption></figure>
 <h2>은퇴 준비 — 연금 인출 순서가 세금을 정한다</h2>
 <p class="money"><strong>지금 확보할 재정</strong> · 퇴직연금·IRP·국민연금 인출 설계, 건강보험료 영향, 은퇴 후 현금흐름표</p>
-<div class="who"><span class="tag hw">퇴직연금·연금·변액 — 직접 응답</span></div>
+<div class="who"><a class="tag hw" href="/consult.html?src=lifemap&age=50&ev=retire_prep">퇴직연금·연금·변액 — 직접 응답 ›</a></div>
 <h3>이번 달에 할 세 가지</h3>
 <ul class="check"><li>연금 3층 잔액 한 장에 모으기</li><li>인출 순서와 세율 비교</li><li>은퇴 후 월 현금흐름표</li></ul>
 <p class="calc">진단: <a href='/retirement/'>노후자금 진단</a></p>
@@ -164,7 +165,7 @@ footer{margin:40px 0 30px;padding-top:20px;border-top:1px solid var(--line);font
 <figure class="toon"><img src="/img/toon/11_inherit_now/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 나누기 전에, 얼마인지부터. 어머니 49재를 마친 시골집. 성호와 두 형이 유품 앞에 앉았습니다." loading="lazy" width="1200" height="825" onerror="this.parentNode.outerHTML='<div class=&quot;toon-none&quot;>카툰 제작 중 · 11 / 18편</div>'"><figcaption>4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 나누기 전에, 얼마인지부터. 어머니 49재를 마친 시골집. 성호와 두 형이 유품 앞에 앉았습니다.</figcaption></figure>
 <h2>부모 상속 발생 — 6개월 안에 결정할 것들</h2>
 <p class="money"><strong>지금 확보할 재정</strong> · 상속세 신고 기한: 상속개시일이 속하는 달의 말일부터 6개월(상증법 §67①), 상속 부동산 처분·권리분석, 상속세 재원 마련</p>
-<div class="who"><span class="tag hw">경공매 권리분석·보험 — 직접 응답</span><span class="tag pro">세무사·감정평가사·변호사</span></div>
+<div class="who"><a class="tag hw" href="/consult.html?src=lifemap&age=50&ev=inherit_now">경공매 권리분석·보험 — 직접 응답 ›</a><a class="tag pro" href="/network/connect.html?src=lifemap&amp;age=50&amp;ev=inherit_now&amp;group=B&amp;field=%EC%84%B8%EB%AC%B4%EC%82%AC">세무사 ›</a><a class="tag pro" href="/network/connect.html?src=lifemap&amp;age=50&amp;ev=inherit_now&amp;group=B&amp;field=%EA%B0%90%EC%A0%95%ED%8F%89%EA%B0%80%EC%82%AC">감정평가사 ›</a><a class="tag pro" href="/network/connect.html?src=lifemap&amp;age=50&amp;ev=inherit_now&amp;group=A&amp;field=%EB%B3%80%ED%98%B8%EC%82%AC(%EA%B0%80%EC%82%AC%C2%B7%EC%83%81%EC%86%8D)">변호사 ›</a></div>
 <h3>이번 달에 할 세 가지</h3>
 <ul class="check"><li>상속인·재산 목록 확정</li><li>부동산 등기부·근저당 확인</li><li>분할 협의 전 세액 개략 계산</li></ul>
 <p class="calc">계산기: <a href='/calculator.html'>상속세 종합</a></p>
@@ -174,7 +175,7 @@ footer{margin:40px 0 30px;padding-top:20px;border-top:1px solid var(--line);font
 <figure class="toon"><img src="/img/toon/12_succession/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 「언젠가」에는 세율이 없다. 날짜에는 있다. 쉰여섯 성호, 직원 12명의 작은 제조업체 대표. 큰아들 도현이 묻습니다." loading="lazy" width="1200" height="825" onerror="this.parentNode.outerHTML='<div class=&quot;toon-none&quot;>카툰 제작 중 · 12 / 18편</div>'"><figcaption>4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 「언젠가」에는 세율이 없다. 날짜에는 있다. 쉰여섯 성호, 직원 12명의 작은 제조업체 대표. 큰아들 도현이 묻습니다.</figcaption></figure>
 <h2>가업 승계 — 순서를 정해야 할 때</h2>
 <p class="money"><strong>지금 확보할 재정</strong> · 사전증여·법인전환·가업상속공제 비교, 지분 이전 설계</p>
-<div class="who"><span class="tag pro">가업 승계 1차 정리 → 세무사·회계사</span><span class="tag hw">보험·신탁 — 직접 응답</span></div>
+<div class="who"><a class="tag pro" href="/network/connect.html?src=lifemap&amp;age=50&amp;ev=succession">가업 승계 1차 정리 → 세무사·회계사 ›</a><a class="tag hw" href="/consult.html?src=lifemap&age=50&ev=succession">보험·신탁 — 직접 응답 ›</a></div>
 <h3>이번 달에 할 세 가지</h3>
 <ul class="check"><li>승계 후보와 시기 정하기</li><li>지분·부동산·현금 자산 분류</li><li>자료 목록 준비</li></ul>
 

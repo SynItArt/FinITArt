@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/hw-bands.css">
 <title>인생 변곡점 지도 — 지금 내 나이에 준비할 돈과 만날 사람 | HeirWise</title>
 <meta name="description" content="20대부터 60대 이후까지, 나이대별로 겪는 변곡점과 그때 확보해야 할 재정, 지금 만나야 할 사람을 한 화면에서 고릅니다. 세율·공제는 상속세 및 증여세법(법률 제21065호, 2026.1.2 공포) 기준.">
 <meta name="robots" content="noindex">  <!-- 시안 단계. 공개 시 제거 + canonical·og·sitemap 추가 -->
@@ -20,32 +21,32 @@
   /* 나이대 색 리듬(20→70) — "생전 축적 → 사후 정리"의 흐름을 보라→로즈 한 계열로 표현.
      초록(hw)·파랑(pro)·빨강(warn)·호박(조작) 색과는 색상환에서 충분히 떨어뜨려 기존 의미와 겹치지 않게 함.
      명암비: 배경 대비 7.2:1 이상, 잉크(글자) 대비 7.6:1 이상(WCAG 상대휘도 계산, AAA) */
-  --b20:#A998EB; --b20i:#110B28; --b20s:#2B2540;
-  --b30:#B998EB; --b30i:#170B28; --b30s:#2E2440;
-  --b40:#CC98EB; --b40i:#1D0B28; --b40s:#312340;
-  --b50:#DE98EB; --b50i:#230B28; --b50s:#342340;
-  --b60:#EB98E7; --b60i:#280B26; --b60s:#372340;
-  --b70:#EB98D4; --b70i:#280B20; --b70s:#372338;
+  --b20:var(--band-20); --b20i:var(--band-20-ink); --b20s:var(--band-20-soft);
+  --b30:var(--band-30); --b30i:var(--band-30-ink); --b30s:var(--band-30-soft);
+  --b40:var(--band-40); --b40i:var(--band-40-ink); --b40s:var(--band-40-soft);
+  --b50:var(--band-50); --b50i:var(--band-50-ink); --b50s:var(--band-50-soft);
+  --b60:var(--band-60); --b60i:var(--band-60-ink); --b60s:var(--band-60-soft);
+  --b70:var(--band-70); --b70i:var(--band-70-ink); --b70s:var(--band-70-soft);
 }
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]){ --bg:#FBF9F4; --card:#FFFFFF; --card2:#F1EEE6; --line:#CFC9BC; --ink:#161A20; --muted:#3B4350; --sub:#4B5563;
          --green:#0C5C48; --green-ink:#FFFFFF; --amber:#8A5A00; --amber-ink:#FFFFFF; --blue:#1D4ED8; --blue-ink:#FFFFFF; --red:#B91C1C; --red-ink:#FFFFFF; --focus:#1D4ED8;
-         --b20:#352281; --b20i:#FFFFFF; --b20s:#EDE7F9;
-         --b30:#482281; --b30i:#FFFFFF; --b30s:#EFE7F9;
-         --b40:#5D2281; --b40i:#FFFFFF; --b40s:#F1E7F9;
-         --b50:#712281; --b50i:#FFFFFF; --b50s:#F3E7F8;
-         --b60:#81227C; --b60i:#FFFFFF; --b60s:#F5E7F5;
-         --b70:#812266; --b70i:#FFFFFF; --b70s:#F5E7EE;
+         --b20:var(--band-20); --b20i:var(--band-20-ink); --b20s:var(--band-20-soft);
+         --b30:var(--band-30); --b30i:var(--band-30-ink); --b30s:var(--band-30-soft);
+         --b40:var(--band-40); --b40i:var(--band-40-ink); --b40s:var(--band-40-soft);
+         --b50:var(--band-50); --b50i:var(--band-50-ink); --b50s:var(--band-50-soft);
+         --b60:var(--band-60); --b60i:var(--band-60-ink); --b60s:var(--band-60-soft);
+         --b70:var(--band-70); --b70i:var(--band-70-ink); --b70s:var(--band-70-soft);
   }
 }
 :root[data-theme="light"]{ --bg:#FBF9F4; --card:#FFFFFF; --card2:#F1EEE6; --line:#CFC9BC; --ink:#161A20; --muted:#3B4350; --sub:#4B5563;
          --green:#0C5C48; --green-ink:#FFFFFF; --amber:#8A5A00; --amber-ink:#FFFFFF; --blue:#1D4ED8; --blue-ink:#FFFFFF; --red:#B91C1C; --red-ink:#FFFFFF; --focus:#1D4ED8;
-         --b20:#352281; --b20i:#FFFFFF; --b20s:#EDE7F9;
-         --b30:#482281; --b30i:#FFFFFF; --b30s:#EFE7F9;
-         --b40:#5D2281; --b40i:#FFFFFF; --b40s:#F1E7F9;
-         --b50:#712281; --b50i:#FFFFFF; --b50s:#F3E7F8;
-         --b60:#81227C; --b60i:#FFFFFF; --b60s:#F5E7F5;
-         --b70:#812266; --b70i:#FFFFFF; --b70s:#F5E7EE;
+         --b20:var(--band-20); --b20i:var(--band-20-ink); --b20s:var(--band-20-soft);
+         --b30:var(--band-30); --b30i:var(--band-30-ink); --b30s:var(--band-30-soft);
+         --b40:var(--band-40); --b40i:var(--band-40-ink); --b40s:var(--band-40-soft);
+         --b50:var(--band-50); --b50i:var(--band-50-ink); --b50s:var(--band-50-soft);
+         --b60:var(--band-60); --b60i:var(--band-60-ink); --b60s:var(--band-60-soft);
+         --b70:var(--band-70); --b70i:var(--band-70-ink); --b70s:var(--band-70-soft);
 }
 /* 나이대별 현재 색(--stripe)을 body 전체에 내려보내 슬라이더·버튼·카드·카툰 자리를 한 색으로 묶는다 */
 body[data-band="20"]{ --stripe:var(--b20); --stripe-ink:var(--b20i); --stripe-soft:var(--b20s); }
@@ -106,7 +107,7 @@ dialog.toon4::backdrop{background:rgba(0,0,0,.78)}
 .card h3{font-size:21px;margin:2px 0 0;line-height:1.35}
 .card .money{font-size:16px;color:var(--muted)}
 .card .who{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
-.tag{font-size:14px;font-weight:800;border-radius:999px;padding:4px 10px}
+.tag{font-size:15px;font-weight:800;border-radius:999px;padding:6px 12px;min-height:40px;display:inline-flex;align-items:center;text-decoration:none}a.tag:hover{filter:brightness(1.08)}a.tag:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .tag.hw{background:var(--green);color:var(--green-ink)}
 .tag.pro{background:var(--blue);color:var(--blue-ink)}
 .tag.warn{background:var(--red);color:var(--red-ink)}
@@ -266,6 +267,8 @@ var current = null;
 function bandOf(age){ age = Number(age); if (age >= 70) return 70; if (age < 20) return 20; return Math.floor(age / 10) * 10; }
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 
+var PRO_MAP={"세무사":["B","세무사"],"감정평가사":["B","감정평가사"],"회계사":["B","공인회계사"],"공인회계사":["B","공인회계사"],"변호사":["A","변호사(가사·상속)"],"법무사":["A","법무사"],"공인중개사":["C","공인중개사"],"노무사":["E","공인노무사"]};
+function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag pro" href="'+esc(c.ask)+'">'+esc(txt)+' ›</a>'; } var parts=txt.split(" — "), suffix=parts[1]?(" — "+parts[1]):""; return parts[0].split("·").map(function(n){ n=n.trim(); var m=PRO_MAP[n]; var href=m?"/network/connect.html?src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+m[0]+"&field="+enc(m[1]):c.ask; return '<a class="tag pro" href="'+esc(href)+'">'+esc(n+suffix)+' ›</a>'; }).join(""); }).join(""); }
 function render(band){
   if (band === current) return; current = band;
   document.body.dataset.band = String(band);
@@ -273,7 +276,7 @@ function render(band){
   stageTitle.textContent = d.title; stageAxis.textContent = d.axis;
   bandBtns.forEach(function(b){ b.setAttribute("aria-pressed", String(Number(b.dataset.band) === band)); });
   cards.innerHTML = d.cards.map(function(c, i){
-    var who = c.who.map(function(w){ return '<span class="tag ' + LABEL[w[0]] + '">' + esc(w[1]) + '</span>'; }).join("");
+    var who = whoChips(c, band);
     var checks = c.check.map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("");
     return '<article class="card" data-ev="' + esc(c.ev) + '">' +
       (c.img

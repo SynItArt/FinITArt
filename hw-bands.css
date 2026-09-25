@@ -1,0 +1,41 @@
+/* hw-bands.css — 연령대 색 토큰 (2026-09-25). 나이대가 나오는 모든 페이지가 이 파일 하나를 쓴다.
+ * 원칙: 나이대 하나 = 색 하나. 색만으로 뜻을 전하지 않고 「20대」 글자 라벨을 항상 같이 둔다.
+ * 명암비(WCAG 2.x 상대휘도): 다크 글자색 vs 카드 #1C2129 ≥ 8.8:1 · 라이트 글자색 vs 배경 #FBF9F4 ≥ 7.2:1
+ * 근거: 비선호 색(자주·보라·갈색·주황 원색) 회피 · 젊은 층 절제색 · 고령층 밝은 유채색 · 브랜드 금색은 40대 */
+:root{
+  --band-20:#5EEAD4; --band-20-ink:#13161C; --band-20-soft:rgba(94,234,212,.16);
+  --band-30:#7DD3FC; --band-30-ink:#13161C; --band-30-soft:rgba(125,211,252,.16);
+  --band-40:#E9C46A; --band-40-ink:#13161C; --band-40-soft:rgba(233,196,106,.18);
+  --band-50:#FDBA74; --band-50-ink:#13161C; --band-50-soft:rgba(253,186,116,.18);
+  --band-60:#F9A8D4; --band-60-ink:#13161C; --band-60-soft:rgba(249,168,212,.18);
+  --band-70:#D9F99D; --band-70-ink:#13161C; --band-70-soft:rgba(217,249,157,.18);
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --band-20:#115E59; --band-20-ink:#FFFFFF; --band-20-soft:#DBF4EE;
+    --band-30:#075985; --band-30-ink:#FFFFFF; --band-30-soft:#DCEFFB;
+    --band-40:#6B4E00; --band-40-ink:#FFFFFF; --band-40-soft:#F7EBC9;
+    --band-50:#7C2D12; --band-50-ink:#FFFFFF; --band-50-soft:#FBE3D3;
+    --band-60:#9D174D; --band-60-ink:#FFFFFF; --band-60-soft:#FBDDEB;
+    --band-70:#365314; --band-70-ink:#FFFFFF; --band-70-soft:#ECF7D8;
+  }
+}
+:root[data-theme="light"]{
+  --band-20:#115E59; --band-20-ink:#FFFFFF; --band-20-soft:#DBF4EE;
+  --band-30:#075985; --band-30-ink:#FFFFFF; --band-30-soft:#DCEFFB;
+  --band-40:#6B4E00; --band-40-ink:#FFFFFF; --band-40-soft:#F7EBC9;
+  --band-50:#7C2D12; --band-50-ink:#FFFFFF; --band-50-soft:#FBE3D3;
+  --band-60:#9D174D; --band-60-ink:#FFFFFF; --band-60-soft:#FBDDEB;
+  --band-70:#365314; --band-70-ink:#FFFFFF; --band-70-soft:#ECF7D8;
+}
+/* 요소에 data-band="20"…"70" 을 붙이면 --band / --band-ink / --band-soft 가 그 나이대 색이 된다 */
+[data-band="20"]{--band:var(--band-20);--band-ink:var(--band-20-ink);--band-soft:var(--band-20-soft)}
+[data-band="30"]{--band:var(--band-30);--band-ink:var(--band-30-ink);--band-soft:var(--band-30-soft)}
+[data-band="40"]{--band:var(--band-40);--band-ink:var(--band-40-ink);--band-soft:var(--band-40-soft)}
+[data-band="50"]{--band:var(--band-50);--band-ink:var(--band-50-ink);--band-soft:var(--band-50-soft)}
+[data-band="60"]{--band:var(--band-60);--band-ink:var(--band-60-ink);--band-soft:var(--band-60-soft)}
+[data-band="70"]{--band:var(--band-70);--band-ink:var(--band-70-ink);--band-soft:var(--band-70-soft)}
+/* 나이대 라벨 칩: <span class="hw-band-chip" data-band="20">20대</span> */
+.hw-band-chip{display:inline-flex;align-items:center;background:var(--band);color:var(--band-ink);font-weight:800;font-size:14px;line-height:1;border-radius:999px;padding:6px 10px;white-space:nowrap;vertical-align:middle}
+/* 홈 「누가 나와 비슷해요?」 카드: 위쪽 띠로 나이대 표시 */
+.face[data-band]{border-top:6px solid var(--band)}

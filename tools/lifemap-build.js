@@ -28,16 +28,16 @@ const TOTAL = no;
 const CSS = `
 :root{--bg:#13161C;--card:#1C2129;--card2:#232A34;--line:#3A4350;--ink:#F3F0EA;--muted:#C9CFD9;--sub:#B6BDCA;
 --green:#54CFA8;--green-ink:#0F3B30;--blue:#93C5FD;--blue-ink:#0F2A5C;--amber:#FFC64D;--amber-ink:#4A3200;--focus:#FFC64D;
---b20:#A998EB;--b20i:#110B28;--b20s:#2B2540;--b30:#B998EB;--b30i:#170B28;--b30s:#2E2440;--b40:#CC98EB;--b40i:#1D0B28;--b40s:#312340;
---b50:#DE98EB;--b50i:#230B28;--b50s:#342340;--b60:#EB98E7;--b60i:#280B26;--b60s:#372340;--b70:#EB98D4;--b70i:#280B20;--b70s:#372338}
+--b20:var(--band-20);--b20i:var(--band-20-ink);--b20s:var(--band-20-soft);--b30:var(--band-30);--b30i:var(--band-30-ink);--b30s:var(--band-30-soft);--b40:var(--band-40);--b40i:var(--band-40-ink);--b40s:var(--band-40-soft);
+--b50:var(--band-50);--b50i:var(--band-50-ink);--b50s:var(--band-50-soft);--b60:var(--band-60);--b60i:var(--band-60-ink);--b60s:var(--band-60-soft);--b70:var(--band-70);--b70i:var(--band-70-ink);--b70s:var(--band-70-soft)}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#FBF9F4;--card:#FFFFFF;--card2:#F1EEE6;--line:#CFC9BC;--ink:#161A20;--muted:#3B4350;--sub:#4B5563;
 --green:#0C5C48;--green-ink:#FFFFFF;--blue:#1D4ED8;--blue-ink:#FFFFFF;--amber:#8A5A00;--amber-ink:#FFFFFF;--focus:#1D4ED8;
---b20:#352281;--b20i:#FFFFFF;--b20s:#EDE7F9;--b30:#482281;--b30i:#FFFFFF;--b30s:#EFE7F9;--b40:#5D2281;--b40i:#FFFFFF;--b40s:#F1E7F9;
---b50:#712281;--b50i:#FFFFFF;--b50s:#F3E7F8;--b60:#81227C;--b60i:#FFFFFF;--b60s:#F5E7F5;--b70:#812266;--b70i:#FFFFFF;--b70s:#F5E7EE}}
+--b20:var(--band-20);--b20i:var(--band-20-ink);--b20s:var(--band-20-soft);--b30:var(--band-30);--b30i:var(--band-30-ink);--b30s:var(--band-30-soft);--b40:var(--band-40);--b40i:var(--band-40-ink);--b40s:var(--band-40-soft);
+--b50:var(--band-50);--b50i:var(--band-50-ink);--b50s:var(--band-50-soft);--b60:var(--band-60);--b60i:var(--band-60-ink);--b60s:var(--band-60-soft);--b70:var(--band-70);--b70i:var(--band-70-ink);--b70s:var(--band-70-soft)}}
 :root[data-theme="light"]{--bg:#FBF9F4;--card:#FFFFFF;--card2:#F1EEE6;--line:#CFC9BC;--ink:#161A20;--muted:#3B4350;--sub:#4B5563;
 --green:#0C5C48;--green-ink:#FFFFFF;--blue:#1D4ED8;--blue-ink:#FFFFFF;--amber:#8A5A00;--amber-ink:#FFFFFF;--focus:#1D4ED8;
---b20:#352281;--b20i:#FFFFFF;--b20s:#EDE7F9;--b30:#482281;--b30i:#FFFFFF;--b30s:#EFE7F9;--b40:#5D2281;--b40i:#FFFFFF;--b40s:#F1E7F9;
---b50:#712281;--b50i:#FFFFFF;--b50s:#F3E7F8;--b60:#81227C;--b60i:#FFFFFF;--b60s:#F5E7F5;--b70:#812266;--b70i:#FFFFFF;--b70s:#F5E7EE}
+--b20:var(--band-20);--b20i:var(--band-20-ink);--b20s:var(--band-20-soft);--b30:var(--band-30);--b30i:var(--band-30-ink);--b30s:var(--band-30-soft);--b40:var(--band-40);--b40i:var(--band-40-ink);--b40s:var(--band-40-soft);
+--b50:var(--band-50);--b50i:var(--band-50-ink);--b50s:var(--band-50-soft);--b60:var(--band-60);--b60i:var(--band-60-ink);--b60s:var(--band-60-soft);--b70:var(--band-70);--b70i:var(--band-70-ink);--b70s:var(--band-70-soft)}
 body[data-band="20"]{--stripe:var(--b20);--stripe-ink:var(--b20i);--stripe-soft:var(--b20s)}body[data-band="30"]{--stripe:var(--b30);--stripe-ink:var(--b30i);--stripe-soft:var(--b30s)}
 body[data-band="40"]{--stripe:var(--b40);--stripe-ink:var(--b40i);--stripe-soft:var(--b40s)}body[data-band="50"]{--stripe:var(--b50);--stripe-ink:var(--b50i);--stripe-soft:var(--b50s)}
 body[data-band="60"]{--stripe:var(--b60);--stripe-ink:var(--b60i);--stripe-soft:var(--b60s)}body[data-band="70"]{--stripe:var(--b70);--stripe-ink:var(--b70i);--stripe-soft:var(--b70s)}
@@ -61,7 +61,7 @@ figure.toon{margin:0 0 16px}figure.toon img{display:block;width:100%;height:auto
 figure.toon figcaption{font-size:15.5px;color:var(--muted);margin-top:8px;line-height:1.6}
 .toon-none{display:flex;align-items:center;justify-content:center;aspect-ratio:1200/825;background:var(--stripe-soft);color:var(--stripe);border:2px dashed var(--stripe);border-radius:12px;font-weight:800;font-size:18px;margin:0 0 16px}
 .money{font-size:17px;margin:0 0 12px}.money strong{color:var(--stripe)}
-.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.tag{font-size:15px;font-weight:700;border-radius:999px;padding:4px 12px}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.tag{font-size:15px;font-weight:800;border-radius:999px;padding:6px 12px;min-height:40px;display:inline-flex;align-items:center;text-decoration:none}a.tag:hover{filter:brightness(1.08)}a.tag:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
 .tag.hw{background:var(--green);color:var(--green-ink)}.tag.pro{background:var(--blue);color:var(--blue-ink)}
 h3{font-size:18px;margin:14px 0 6px}ul.check{margin:0 0 12px;padding-left:22px}ul.check li{margin:0 0 4px}
 .calc{font-size:16px;margin:0 0 14px}.cta{display:flex;flex-wrap:wrap;gap:10px}
@@ -73,8 +73,10 @@ footer{margin:40px 0 30px;padding-top:20px;border-top:1px solid var(--line);font
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 `;
 
+var PRO_MAP={"세무사":["B","세무사"],"감정평가사":["B","감정평가사"],"회계사":["B","공인회계사"],"공인회계사":["B","공인회계사"],"변호사":["A","변호사(가사·상속)"],"법무사":["A","법무사"],"공인중개사":["C","공인중개사"],"노무사":["E","공인노무사"]};
+function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag pro" href="'+esc(c.ask)+'">'+esc(txt)+' ›</a>'; } var parts=txt.split(" — "), suffix=parts[1]?(" — "+parts[1]):""; return parts[0].split("·").map(function(n){ n=n.trim(); var m=PRO_MAP[n]; var href=m?"/network/connect.html?src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+m[0]+"&field="+enc(m[1]):c.ask; return '<a class="tag pro" href="'+esc(href)+'">'+esc(n+suffix)+' ›</a>'; }).join(""); }).join(""); }
 function card(c, band) {
-  const who = c.who.map(w => `<span class="tag ${LABEL[w[0]]}">${esc(w[1])}</span>`).join("");
+  const who = whoChips(c, band);
   const checks = c.check.map(x => `<li>${esc(x)}</li>`).join("");
   const toon = c.img
     ? `<figure class="toon"><img src="${esc(c.img)}" alt="${esc(c.alt || c.h + " — 4컷 카툰 1컷")}" loading="lazy" width="1200" height="825" onerror="this.parentNode.outerHTML='<div class=&quot;toon-none&quot;>카툰 제작 중 · ${c.no} / ${TOTAL}편</div>'"><figcaption>${esc(c.alt || "")}</figcaption></figure>`
@@ -120,6 +122,7 @@ function page(band) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<link rel="stylesheet" href="/hw-bands.css">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 ${robots}<link rel="canonical" href="${url}">
