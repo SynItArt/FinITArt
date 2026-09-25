@@ -531,7 +531,7 @@
     if (ac) ac.querySelector("span").innerHTML = '위 내용을 HeirWise 운영자에게 전달하는 데 동의합니다 <span class="req">(필수)</span><details><summary>무엇을 받나요</summary>항목: 합류 번호·선생님 연락처·분야·상황 요약(의뢰인 식별정보 없음) / 목적: 운영자가 자격 범위 안에서 직접 응답하거나 맞는 전문가에게 연결 / 보관: 연결 종료 후 1년 / 개인정보처리방침 1항 「협업 파트너 의뢰」</details>';
     var at = d.getElementById("agree_third"); at = at && at.closest ? at.closest("label") : null;
     if (at) at.querySelector("span").innerHTML = '의뢰인에게 아래 표준 문구 이상으로 알렸고, 의뢰인이 <b>동의했거나 직접 요청</b>했습니다 <span class="req">(필수)</span><details><summary>표준 문구 (P-2026-09-v2)</summary>「HeirWise 운영자 신대식(AFPK® 자격인증자)에게 성함·연락처와 상황 요약을 전달해 보험·연금·신탁 등 재무 정리 응답을 받도록 해도 될까요? 운영자는 이 정보를 응답 목적으로만 쓰고 연결 종료 후 1년이 지나면 지웁니다. 원하지 않으시면 전달하지 않고, 저와의 상담에는 영향이 없습니다.」 — 개인정보 보호법 제17조 제3자 제공: 받는 자·목적·항목·보유기간·거부 권리를 구분해 알려야 합니다. 동의·요청이 없으면 상황만 적고 연락처는 선생님 것만 적어 주세요.</details>';
-    var hint = el("p", { class: "hint", text: "이 의뢰는 대가 없이 처리됩니다. 운영자가 48시간 안에 선생님께 먼저 연락하고, 다른 전문가에게 이어 연결할 때는 별도 연결번호로 기록됩니다. 금융상품 상담·유료 정리 용역은 이용자가 요청할 때만, 연결과 별개 계약으로 진행됩니다." });
+    var hint = el("p", { class: "hint", text: "이 의뢰는 대가 없이 처리됩니다. 운영자가 48시간 안에 선생님께 먼저 연락하고, 다른 전문가에게 이어 연결할 때는 별도 연결번호로 기록됩니다. 금융상품 상담은 이용자가 요청할 때만, 연결과 별개로 진행됩니다. 운영자의 상담·정리는 모두 무료입니다." });
     var cv = d.getElementById("connConsentVer"); if (cv && cv.parentNode) cv.parentNode.insertBefore(hint, cv);
   }
 
@@ -539,7 +539,7 @@
     var svc = qs("svc"); if (!/^(SV|ED)$/.test(svc || "")) return;
     var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
     lead.parentNode.insertBefore(el("p", { class: "hint", text: svc === "SV"
-      ? "재산 현황 정리표·생애 현금흐름표 작성 용역 신청입니다. 정액 용역이며 세액·법률·금융상품 판단은 포함되지 않습니다. 운영자가 연락드려 용역계약서를 안내합니다."
+      ? "재산 현황 정리표·생애 현금흐름표 작성 용역 신청입니다. 지금은 무료로 진행합니다. 세액·법률·금융상품 판단은 포함되지 않습니다. 운영자가 연락드려 진행 방법을 안내합니다."
       : "강의·세미나 문의입니다. 대상·인원·일정을 상황 요약에 적어 주세요." }), lead.nextSibling);
   }
 

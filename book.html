@@ -195,7 +195,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
       <div class="anchor" data-amt="30000"><span class="amt">30,000원</span><span class="lbl">🙌 다음 도구 개발에</span></div>
       <div class="anchor" data-amt=""><span class="amt">직접</span><span class="lbl">✍️ 마음만큼</span></div>
     </div>
-    <p class="note">후원해주신 분께는 감사 인사와 함께 <b>상속 상담료에서 차감되는 크레딧</b>을 보내드립니다. (후원액의 100%, 최대 3만원 · 6개월 유효)</p>
+    <p class="note">후원은 선택입니다. 후원하지 않으셔도 상담과 모든 도구를 똑같이 무료로 쓰실 수 있습니다.</p>
 
     <button class="btn amber" id="showAccount">후원하기</button>
 
@@ -218,7 +218,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
           <input id="sAmount" type="number" inputmode="numeric" placeholder="15000">
         </div>
         <div>
-          <label for="sEmail">이메일 (크레딧 받을 곳)</label>
+          <label for="sEmail">이메일 (감사 인사 받을 곳)</label>
           <input id="sEmail" type="email" inputmode="email" placeholder="name@example.com">
         </div>
       </div>
@@ -231,12 +231,12 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
     <h2>1:1 상속 상담</h2>
     <p class="sub">책으로 부족한 ‘내 상황’은 직접 짚어드립니다. AFPK® 자격인증자·RC의 상속·증여 재무설계 컨설팅입니다.</p>
     <ul class="consult-fee">
-      <li><span class="svc">무료 진단<span class="desc">20분, 온라인·전화 / 책·후원자 우선</span></span><span class="price">0원</span></li>
-      <li><span class="svc">1:1 진단 리포트<span class="desc">60~90분 + 맞춤 요약 리포트</span></span><span class="price">99,000원</span></li>
-      <li><span class="svc">종합 상속·증여 설계 패키지<span class="desc">가계도·재산분석·유류분 시뮬·10년 증여플랜·상속재원 설계</span></span><span class="price">66만~220만원</span></li>
-      <li><span class="svc">세무·법률 연계<span class="desc">신고대행·분쟁은 제휴 세무사·변호사로 연계</span></span><span class="price">별도</span></li>
+      <li><span class="svc">첫 진단<span class="desc">20분, 온라인·전화</span></span><span class="price">무료</span></li>
+      <li><span class="svc">1:1 진단 리포트<span class="desc">60~90분 + 맞춤 요약 리포트</span></span><span class="price">무료</span></li>
+      <li><span class="svc">재산 현황 정리<span class="desc">가계도·재산 현황 정리표·생애 현금흐름표·상속세 납부 재원 점검</span></span><span class="price">무료</span></li>
+      <li><span class="svc">전문가 연결<span class="desc">신고·등기·분쟁은 세무사·법무사·변호사에게 연결 · 연결 대가 없음</span></span><span class="price">무료</span></li>
     </ul>
-    <p class="note">· 후원 크레딧은 진단 리포트·패키지 비용에서 차감됩니다. · 상담 패키지 선결제 시 할인 적용(문의). · 모든 금액 부가세 별도.</p>
+    <p class="note">· 지금은 운영자의 상담·정리·연결을 모두 무료로 합니다. 신청 순서대로 연락드립니다. · 세액 확정·신고 대리와 법률 판단은 하지 않으며, 연결받은 전문가의 비용은 그 전문가와 직접 정합니다. · 보험·펀드 등 금융상품은 요청하실 때만 따로 안내하며, 계약하시면 운영자가 금융회사로부터 모집 수수료를 받을 수 있습니다.</p>
     <div class="row" style="margin-top:8px">
       <div><a class="btn ghost" href="consult.html">상담 신청하기</a></div>
       <div><a class="btn" href="tel:01020885383">전화 010-2088-5383</a></div>
@@ -362,7 +362,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
       '<div style="text-align:center; padding:10px 0">'+
       '<div class="bowwrap">'+BOW_SVG+'</div>'+
       '<p style="font-size:19px; font-weight:800; color:var(--amber-ink)">고맙습니다, '+esc(depositor)+'님 🙇</p>'+
-      '<p class="note">입금 확인 후 감사 인사와 상담 크레딧 코드를 이메일로 보내드리겠습니다.</p></div>';
+      '<p class="note">입금 확인 후 감사 인사를 이메일로 보내드리겠습니다.</p></div>';
     toast('응원 감사합니다');
   });
 })();
