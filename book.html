@@ -31,12 +31,12 @@
   --navy:#1A3C6D; --blue:#2255AA; --dark:#334466;
   --amber:#F9A825; --amber-bg:#FFF8E1; --amber-ink:#854F0B;
   --teal:#0F6E56; --light-accent:#EBF3FA;
-  --ink:#1A2230; --muted:#5F5E5A; --line:#E4E4DE;
+  --ink:#111827; --muted:#374151; --line:#E4E4DE;
   --bg:#ffffff; --card:#ffffff; --card2:#F6F9FC;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --ink:#EAF1F8; --muted:#A9B6C6; --line:#2C3A4D;
+    --ink:#F3F4F6; --muted:#CBD5E1; --line:#2C3A4D;
     --bg:#0E1726; --card:#16223A; --card2:#1C2A45;
     --light-accent:#13243D;
   }
@@ -48,16 +48,16 @@ body{
   color:var(--ink); background:var(--bg); font-size:18px; line-height:1.75;
   -webkit-text-size-adjust:100%;
 }
-a{color:var(--blue)}
+a{color:#1E40AF; text-decoration:underline; text-underline-offset:3px}
 .wrap{max-width:760px; margin:0 auto; padding:0 20px}
 .top{border-bottom:1px solid var(--line)}
 .top .wrap{display:flex; align-items:center; justify-content:space-between; height:60px}
 .brand{font-weight:800; color:var(--navy); font-size:20px; letter-spacing:.3px}
-.brand small{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:1px}
+.brand small{display:block; font-size:12px; font-weight:700; color:var(--muted); letter-spacing:1px}
 .navlink{font-size:15px; color:var(--dark); text-decoration:none}
 
 .hero{padding:48px 0 28px}
-.eyebrow{display:inline-block; font-size:13px; font-weight:800; letter-spacing:2px; color:var(--blue);
+.eyebrow{display:inline-block; font-size:13px; font-weight:800; letter-spacing:2px; color:var(--navy);
   background:var(--light-accent); padding:6px 12px; border-radius:999px}
 h1{font-size:34px; line-height:1.3; margin:16px 0 10px; color:var(--navy); letter-spacing:-.5px}
 .lead{font-size:19px; color:var(--ink)}
@@ -83,7 +83,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .consents{margin-top:18px; padding:14px 16px; border:1.5px solid var(--line); border-radius:12px; background:var(--card2)}
 .ctitle{font-weight:800; margin:0 0 4px; font-size:17px}
 .req{display:inline-block; background:var(--navy); color:#fff; font-size:13px; font-weight:800; padding:1px 8px; border-radius:6px; margin-right:4px}
-.opt2{display:inline-block; background:transparent; color:var(--blue); border:1.5px solid var(--blue); font-size:13px; font-weight:800; padding:0 7px; border-radius:6px; margin-right:4px}
+.opt2{display:inline-block; background:transparent; color:var(--navy); border:1.5px solid var(--navy); font-size:13px; font-weight:800; padding:0 7px; border-radius:6px; margin-right:4px}
 .opt{font-size:14px; font-weight:600; color:var(--muted)}
 .tapset{border:0; padding:0; margin:6px 0 4px}
 .tapset legend{font-weight:800; font-size:17px; padding:0; margin-bottom:8px}
@@ -102,23 +102,12 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .pv img{display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,.12); background:#fff}
 .pv figcaption{font-size:15px; font-weight:700; color:var(--dark); margin-top:6px; text-align:center}
 @media (prefers-color-scheme: dark){ .pv figcaption{color:#C9D6E6} }
-@media (prefers-color-scheme: dark){
-  h1,.card h2,.brand,.pages-badge b,.consult-fee .price{color:#9CC3F0}
-  .eyebrow{color:#CFE0F5}
-  .pages-badge,.navlink{color:#C9D6E6}
-  .req{background:#9CC3F0; color:#0E1726}
-  .opt2{color:#9CC3F0; border-color:#9CC3F0}
-  .chip{border-color:#9CC3F0}
-  .chip[aria-pressed="true"]{background:#9CC3F0; border-color:#9CC3F0; color:#0E1726}
-  .btn{background:#2F6FC0}
-  .btn.ghost{background:transparent; color:#9CC3F0; border-color:#9CC3F0}
-}
 
 .btn{display:inline-block; width:100%; text-align:center; cursor:pointer; border:0;
   font-family:inherit; font-size:18px; font-weight:800; padding:15px 18px; border-radius:12px;
   background:var(--navy); color:#fff; margin-top:18px; transition:transform .05s}
 .btn:hover{filter:brightness(1.07)} .btn:active{transform:translateY(1px)}
-.btn.amber{background:var(--amber); color:#3a2c00}
+.btn.amber{background:var(--amber); color:#1F1600}
 .btn.ghost{background:transparent; color:var(--navy); border:2px solid var(--navy)}
 .btn.small{width:auto; font-size:16px; padding:12px 18px}
 
@@ -139,7 +128,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .anchor:hover{border-color:var(--amber)}
 .anchor.sel{border-color:var(--amber); background:var(--amber-bg)}
 .anchor .amt{display:block; font-size:20px; color:var(--navy); font-weight:800}
-.anchor .lbl{display:block; font-size:13px; color:var(--muted); margin-top:3px}
+.anchor .lbl{display:block; font-size:14px; color:var(--muted); margin-top:3px}
 
 .bowwrap{text-align:center; margin:2px 0 6px}
 .bow{width:104px; height:104px; display:inline-block}
@@ -149,7 +138,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .account .num{font-size:31px; font-weight:900; color:#FFD66B; letter-spacing:1.5px; margin:6px 0 2px;
   line-height:1.15; word-break:keep-all}
 .account .who{font-size:16px; color:#D7E5F5; margin-top:2px}
-.copybtn{margin-top:15px; width:100%; background:var(--amber); color:#3a2c00; border:0;
+.copybtn{margin-top:15px; width:100%; background:var(--amber); color:#1F1600; border:0;
   font-family:inherit; font-weight:800; font-size:17px; padding:14px 18px; border-radius:12px; cursor:pointer}
 .copybtn:active{transform:translateY(1px)}
 
@@ -160,15 +149,37 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .consult-fee .desc{display:block; font-size:14px; color:var(--muted); font-weight:400}
 .consult-fee .price{white-space:nowrap; font-weight:800; color:var(--navy)}
 
-.note{font-size:13.5px; color:var(--muted); line-height:1.7}
-.lawbar{font-size:13px; color:var(--muted); background:var(--card2); border:1px solid var(--line);
+.note{font-size:14.5px; color:var(--muted); line-height:1.7}
+.lawbar{font-size:14px; color:var(--muted); background:var(--card2); border:1px solid var(--line);
   border-radius:10px; padding:12px 14px; margin:18px 0}
 .foot{border-top:1px solid var(--line); margin-top:36px; padding:24px 0 60px; color:var(--muted); font-size:14px}
 .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--navy); color:#fff;
   padding:13px 20px; border-radius:12px; font-weight:700; box-shadow:0 8px 28px rgba(0,0,0,.25); opacity:0; transition:opacity .25s}
 .toast.show{opacity:1}
+.formmsg{margin:12px 0 0; padding:12px 14px; border:2px solid #C2410C; border-radius:10px; background:#FFF7ED; color:#7C2D12; font-size:16px; font-weight:700; line-height:1.6}
 @media (max-width:480px){ h1{font-size:28px} .anchors{grid-template-columns:1fr 1fr} .account .num{font-size:26px; letter-spacing:.8px} }
 @media (prefers-reduced-motion: reduce){ *{transition:none!important; scroll-behavior:auto} }
+@media (prefers-color-scheme: dark){
+  h1,.card h2,.brand,.pages-badge b,.consult-fee .price{color:#9CC3F0}
+  .eyebrow{color:#CFE0F5}
+  .pages-badge,.navlink{color:#C9D6E6}
+  .req{background:#9CC3F0; color:#0E1726}
+  .opt2{color:#9CC3F0; border-color:#9CC3F0}
+  .chip{border-color:#9CC3F0}
+  .chip[aria-pressed="true"]{background:#9CC3F0; border-color:#9CC3F0; color:#0E1726}
+  .btn{background:#1B4A94; box-shadow:0 0 0 2px #9CC3F0 inset}
+  .btn.ghost{background:transparent; color:#9CC3F0; border-color:#9CC3F0}
+}
+/* 2026-09-26 대비 보정 — 다크 전용(기본 규칙 뒤에 두어야 이김) */
+@media (prefers-color-scheme: dark){
+  a{color:#9CC3F0}
+  .anchor .amt{color:#9CC3F0}
+  .anchor.sel{background:#2A2410}
+  .deliver h2{color:#6EE7B7}
+  .dl{background:#0F7A5F}
+  .toast{background:#9CC3F0; color:#0E1726}
+  .formmsg{background:#2A1B12; border-color:#FDBA74; color:#FED7AA}
+}
 </style>
 </head>
 <body data-season="off" data-tool="무료입문서" data-axis="both">
@@ -248,6 +259,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
       <p class="note">자세한 내용은 <a href="privacy.html">개인정보처리방침</a>에 있습니다.</p>
     </div>
     <button class="btn" id="bSend">책 받기</button>
+    <p id="bMsg" class="formmsg hidden" role="alert" aria-live="assertive"></p>
     <p class="note" style="margin-top:12px">버튼을 누르면 적어 주신 이메일로 책(PDF)을 보내 드립니다. 링크 공유가 아니라 본인 메일함으로만 갑니다.</p>
   </section>
 
@@ -402,7 +414,14 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
     var label=btn.textContent;
     btn.disabled=true; btn.textContent='준비 중…';
     // 실패하면 폼을 그대로 두고 다시 누를 수 있게 복구
-    function fail(){ btn.disabled=false; btn.textContent=label; toast('잠시 후 다시 시도해 주세요'); }
+    var MSG={ rate:'오늘 이 이메일로 이미 3번 보내 드렸습니다. 메일함과 스팸함(프로모션함)을 확인해 주세요. 그래도 없으면 010-2088-5383으로 문자 주시면 바로 보내 드립니다.',
+              cap:'오늘 신청이 많아 자동 발송이 잠시 멈췄습니다. 010-2088-5383으로 이메일 주소를 문자로 보내 주시면 바로 보내 드립니다.',
+              email:'이메일 주소를 다시 확인해 주세요. (예: name@gmail.com)',
+              consent:'[필수] 책 전달 동의에 체크해 주세요.' };
+    $('bMsg').classList.add('hidden');
+    function fail(reason){ btn.disabled=false; btn.textContent=label;
+      var m=MSG[reason]||'일시적인 오류로 보내지 못했습니다. 잠시 후 다시 눌러 주세요. 계속 안 되면 010-2088-5383으로 문자 주세요.';
+      $('bMsg').textContent=m; $('bMsg').classList.remove('hidden'); toast(reason==='rate'?'이미 보내 드렸어요 — 메일함을 확인해 주세요':'보내지 못했습니다 — 아래 안내를 확인해 주세요'); }
 
     // mode 기본값(cors) + text/plain → 사전요청 없이 Apps Script 응답 JSON 을 읽을 수 있음
     fetch(BOOK_GATE_ENDPOINT, { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'},
@@ -412,7 +431,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
       .then(function(r){ return r.json(); })
       .then(function(res){
         // v2: 서버가 이메일로 발송 → { ok:true, sent:true }. 링크(url)는 더 이상 내려오지 않음
-        if(!res || res.ok!==true || res.sent!==true){ fail(); return; }
+        if(!res || res.ok!==true || res.sent!==true){ fail(res && res.reason); return; }
         if(window.hwTrack){ try{ hwTrack('book_request', { tags:tags.length, consult:cConsult?'Y':'N', ads:cAds?'Y':'N' }); }catch(e){} }
         $('dlTo').textContent=email;
         try{ localStorage.setItem('hw_fullbook', email); }catch(e){}
@@ -421,7 +440,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
         $('supportCard').classList.remove('hidden');
         $('deliverCard').scrollIntoView({behavior:'smooth', block:'start'});
       })
-      .catch(fail);
+      .catch(function(){ fail('network'); });
   });
 
   // [3] 후원 금액 앵커

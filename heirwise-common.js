@@ -283,22 +283,23 @@
     var st = d.createElement("style");
     st.id = "hw-law-style";
     st.textContent = [
-      ".hw-lawbase{margin-top:16px;padding:14px 16px;border:1.5px solid var(--line2,#c2cad6);",
-      "border-left:5px solid var(--navy2,#2255AA);border-radius:10px;background:var(--soft,#eef3fa);",
-      "font-size:13px;line-height:1.75;color:var(--ink,#1c2330)}",
-      ".hw-lawbase .hw-h{font-size:13.5px;font-weight:800;color:var(--navy,#1A3C6D);",
+      ".hw-lawbase{margin-top:16px;padding:14px 16px;border:1.5px solid #C2CAD6;",
+      "border-left:5px solid #2255AA;border-radius:10px;background:#EEF3FA;",
+      "font-size:14px;line-height:1.75;color:#111827}",
+      ".hw-lawbase .hw-h{font-size:14.5px;font-weight:800;color:#1A3C6D;",
       "margin-bottom:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}",
-      ".hw-lawbase .hw-asof{background:var(--navy,#1A3C6D);color:#fff;font-size:11.5px;font-weight:800;",
+      ".hw-lawbase .hw-asof{background:#1A3C6D;color:#fff;font-size:12.5px;font-weight:800;",
       "padding:3px 9px;border-radius:6px;letter-spacing:.02em}",
       ".hw-lawbase ul{margin:0;padding-left:18px}",
       ".hw-lawbase li{margin:2px 0}",
-      ".hw-lawbase .hw-note{margin-top:9px;font-size:12.5px;color:var(--warn,#a33a16);font-weight:700}",
+      ".hw-lawbase .hw-note{margin-top:9px;font-size:14px;color:#7C2D12;font-weight:700}",
+      ".hw-lawbase a{color:inherit;text-decoration:underline;text-underline-offset:3px}",
       /* 리드 폼 접근성 — placeholder 대신 상시 노출 라벨 */
       "#lead .hw-lb{display:block;font-size:13px;font-weight:800;color:#fff;margin:0 0 4px}",
       "#lead .hw-lb .hw-req{color:#FFD34D;margin-left:4px}",
       "#lead input[type=text]{font-size:16px!important;padding:12px 13px!important}",
       "#lead .consent input{width:20px!important;height:20px!important}",
-      "@media (prefers-color-scheme: dark){.hw-lawbase .hw-asof{background:var(--navy2,#9cc3f5);color:#0e141d}}"
+      "@media (prefers-color-scheme: dark){.hw-lawbase{background:#13243D;border-color:#3B4C66;border-left-color:#9CC3F0;color:#E5EDF6}.hw-lawbase .hw-h{color:#9CC3F0}.hw-lawbase .hw-asof{background:#9CC3F0;color:#0E141D}.hw-lawbase .hw-note{color:#FDBA74}}"
     ].join("");
     d.head.appendChild(st);
   }
