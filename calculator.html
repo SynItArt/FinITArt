@@ -103,6 +103,24 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 .myth-card{border:1px solid rgba(128,128,128,.3);border-left:4px solid #C8471F;border-radius:0 10px 10px 0;padding:13px 15px;margin:9px 0}
 .myth-card .q{font-weight:800;color:#C8471F;font-size:14.5px;margin-bottom:4px}
 .myth-card .a{font-size:14px;line-height:1.65;color:var(--tx2)}
+
+/* 브랜드 로고 (2026-09-26, 상표출원 40-2026-0196992 / 등록 전 ™) */
+.logo-mark{display:inline-flex;align-items:flex-start;vertical-align:middle}
+.logo-img{width:auto;display:block}
+.logo-img.sm{height:20px}
+@media(min-width:640px){.logo-img.sm{height:22px}}
+.logo-img.is-dark{display:none}
+html[data-theme="dark"] .logo-img.is-light{display:none}
+html[data-theme="dark"] .logo-img.is-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
+.logo-mark .tm{font-size:10px;font-weight:600;line-height:1;margin:1px 0 0 2px}
+
+/* ™ 는 표장과 같은 색으로 (페이지 강조색 상속 방지) */
+.logo-mark .tm{color:#0C5C48}
+html[data-theme="dark"] .logo-mark .tm{color:#54CFA8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-mark .tm{color:#54CFA8}}
+header.hd .logo-mark .tm{color:#54CFA8}
+@media print{header.hd .logo-mark .tm{color:#0C5C48}}
 </style>
 
 <!-- Open Graph · 카카오톡/페이스북 공유 미리보기 -->
@@ -125,7 +143,7 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 <div class="wrap">
 
 <h1 aria-label="HeirWise 상속 종합 계산기">상속 종합 계산기 v3</h1>
-<div class="sub">HeirWise™<br>Syn Dae Sik, AFPK® | RC</div>
+<div class="sub"><span class="logo-mark"><img class="logo-img sm is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="22"><img class="logo-img sm is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="22"><sup class="tm">™</sup></span><br>Syn Dae Sik, AFPK® | RC</div>
 <div class="law-date" role="status" aria-live="polite">적용 법령: 민법 제5편 상속 + 상속세 및 증여세법 (현행 확정 법령 기준)</div>
 
 <!-- v1.9 · 대표 장면 (AI로 만든 이미지 · 이야기 속 가족) -->

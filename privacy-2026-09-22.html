@@ -68,6 +68,13 @@ html[data-theme="dark"] .logo-img.is-dark{display:block}
 .top .logo-img.is-light{display:none}
 .top .logo-img.is-dark{display:block}
 .top .logo .tm{color:#fff}
+
+/* ™ 는 표장과 같은 색으로 (페이지 강조색 상속 방지) */
+.logo-mark .tm{color:#0C5C48}
+html[data-theme="dark"] .logo-mark .tm{color:#54CFA8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-mark .tm{color:#54CFA8}}
+header.hd .logo-mark .tm{color:#54CFA8}
+@media print{header.hd .logo-mark .tm{color:#0C5C48}}
 </style>
 </head>
 <body data-season="off" data-law="off" data-tool="개인정보처리방침" data-axis="both">

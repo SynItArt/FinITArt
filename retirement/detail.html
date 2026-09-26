@@ -119,6 +119,9 @@ input[type=range]{width:100%;accent-color:var(--sky);cursor:pointer;border:none;
 
 footer{background:var(--navy);color:#3A5068;text-align:center;padding:18px 16px;font-size:11px;font-weight:600;line-height:2}
 @media(max-width:480px){.og4{grid-template-columns:1fr 1fr}}
+
+/* 브랜드 표기 (2026-09-26) — 상단 띠에는 AFPK® 자격표장이 있어 로고를 두지 않는다(IFPK 규정). 문자상표만 하단에 분리 표기 */
+.hw-brandfoot{margin:28px auto 18px;padding:14px 16px 0;max-width:720px;border-top:1px solid rgba(128,128,128,.28);text-align:center;font-size:13px;line-height:1.7;opacity:.85}
 </style>
 </head>
 <body data-season="off" data-law="off" data-tool="노후진단상세">
@@ -593,5 +596,6 @@ function submitAll(){
 window.addEventListener('DOMContentLoaded',loadFromURL);
 </script>
 <script src="/heirwise-common.js" defer></script>
+<div class="hw-brandfoot">HeirWise™ · finitart.com · 상속·증여 재무설계</div>
 </body>
 </html>

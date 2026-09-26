@@ -135,13 +135,38 @@ footer{margin-top:28px;text-align:center;font-size:15px;color:var(--ink2);line-h
   ol.duty li{break-inside:avoid}
   .printonly{display:block}
 }
+
+/* 브랜드 로고 (2026-09-26, 상표출원 40-2026-0196992 / 등록 전 ™) */
+.logo-mark{display:inline-flex;align-items:flex-start;vertical-align:middle}
+.logo-img{width:auto;display:block}
+.logo-img.sm{height:20px}
+@media(min-width:640px){.logo-img.sm{height:22px}}
+.logo-img.is-dark{display:none}
+html[data-theme="dark"] .logo-img.is-light{display:none}
+html[data-theme="dark"] .logo-img.is-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
+.logo-mark .tm{font-size:10px;font-weight:600;line-height:1;margin:1px 0 0 2px}
+
+/* 히어로 띠(.hd)는 라이트·다크 모두 어두운 배경 → 다크판 로고 고정.
+   #54CFA8/#0B2647 7.86:1 · #54CFA8/#0D1420 9.55:1 (라이트판은 1.91:1로 불가).
+   인쇄 시에는 배경이 흰색이 되므로 라이트판으로 되돌린다. */
+header.hd .logo-img.is-light{display:none}
+header.hd .logo-img.is-dark{display:block}
+@media print{header.hd .logo-img.is-light{display:block}header.hd .logo-img.is-dark{display:none}}
+
+/* ™ 는 표장과 같은 색으로 (페이지 강조색 상속 방지) */
+.logo-mark .tm{color:#0C5C48}
+html[data-theme="dark"] .logo-mark .tm{color:#54CFA8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-mark .tm{color:#54CFA8}}
+header.hd .logo-mark .tm{color:#54CFA8}
+@media print{header.hd .logo-mark .tm{color:#0C5C48}}
 </style>
 </head>
 <body data-tool="안전의무목록" data-axis="both" data-law="off">
 
 <header class="hd">
   <div class="wrap">
-    <div class="brand"><a href="/index.html">HeirWise™</a> · 대표님을 위한 안전 의무 목록</div>
+    <div class="brand"><a href="/index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img sm is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="22"><img class="logo-img sm is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="22"><sup class="tm">™</sup></span></a> · 대표님을 위한 안전 의무 목록</div>
     <h1>직원이 몇 명이냐에 따라,<br>대표가 직접 할 일이 달라집니다</h1>
     <p class="sub">업종과 직원 수만 고르시면 법이 대표에게 직접 요구하는 항목만 조문과 함께 추려 드립니다. 그다음, 사고 뒤 대표 개인에게 오는 책임까지 이어서 봅니다. 모두 무료입니다.</p>
     <div class="lawbar" aria-label="적용 법령 기준일">
