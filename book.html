@@ -96,6 +96,12 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
 .chip[aria-pressed="true"]{background:var(--navy); border-color:var(--navy); color:#fff}
 .chip[aria-pressed="true"]::before{content:"✓ "}
 .chip:focus-visible{outline:3px solid var(--amber); outline-offset:2px}
+.pv{display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 2px 10px; -webkit-overflow-scrolling:touch}
+.pv:focus-visible{outline:3px solid var(--amber); outline-offset:2px}
+.pv figure{flex:0 0 min(62%,230px); margin:0; scroll-snap-align:start}
+.pv img{display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:8px; box-shadow:0 2px 10px rgba(0,0,0,.12); background:#fff}
+.pv figcaption{font-size:15px; font-weight:700; color:var(--dark); margin-top:6px; text-align:center}
+@media (prefers-color-scheme: dark){ .pv figcaption{color:#C9D6E6} }
 @media (prefers-color-scheme: dark){
   h1,.card h2,.brand,.pages-badge b,.consult-fee .price{color:#9CC3F0}
   .eyebrow{color:#CFE0F5}
@@ -105,6 +111,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
   .chip{border-color:#9CC3F0}
   .chip[aria-pressed="true"]{background:#9CC3F0; border-color:#9CC3F0; color:#0E1726}
   .btn{background:#2F6FC0}
+  .btn.ghost{background:transparent; color:#9CC3F0; border-color:#9CC3F0}
 }
 
 .btn{display:inline-block; width:100%; text-align:center; cursor:pointer; border:0;
@@ -178,6 +185,20 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
     <h1>상속설계의 기술 개정판<br>187쪽 전체 책</h1>
     <p class="lead">법정상속분·유류분·증여 설계·상속재원까지 — 2026년 개정 민법과 현행 상속세법으로 다시 확인해 큰 글씨와 선명한 표로 정리했습니다. 궁금한 것을 눌러 고르고, 이메일만 남기시면 메일로 보내 드립니다.</p>
     <div class="pages-badge">📖 <b>187쪽</b> · 30장 + 부록 · 개정판 · 무료</div>
+  </section>
+
+  <!-- [0] 미리보기 — 본책 실제 쪽 (2026-09-26) -->
+  <section class="card" id="previewCard" aria-labelledby="pvTitle">
+    <h2 id="pvTitle">먼저 넘겨 보세요</h2>
+    <p class="sub">본책의 실제 쪽입니다. 옆으로 밀어 보시고, 더 보시려면 14쪽 미리보기를 여세요.</p>
+    <div class="pv" tabindex="0" aria-label="책 미리보기 쪽 이미지">
+      <figure><img src="img/book/preview-3.webp" width="659" height="975" loading="lazy" alt="1장 상속은 언제 시작되나 — 첫 쪽의 4컷 카툰"><figcaption>1장 · 카툰으로 시작</figcaption></figure>
+      <figure><img src="img/book/preview-4.webp" width="659" height="975" loading="lazy" alt="26장 종합 계산 사례 — 한 가족의 상속 계산 표"><figcaption>26장 · 한 가족 계산</figcaption></figure>
+      <figure><img src="img/book/preview-5.webp" width="659" height="975" loading="lazy" alt="28장 상속, 이것만은 꼭 — 핵심 10가지 표"><figcaption>28장 · 핵심 10가지</figcaption></figure>
+      <figure><img src="img/book/preview-1.webp" width="659" height="975" loading="lazy" alt="머리말 첫 쪽 — 우리는 태어나면서부터 상속을 받습니다"><figcaption>머리말</figcaption></figure>
+      <figure><img src="img/book/preview-2.webp" width="659" height="975" loading="lazy" alt="차례 — PART 1 누가 얼마를 받는가부터 PART 3 도구와 구조까지"><figcaption>차례</figcaption></figure>
+    </div>
+    <a class="btn ghost" href="book-preview.pdf" id="pvOpen">14쪽 미리보기 열기 (PDF)</a>
   </section>
 
   <!-- [1] 신청 폼 -->
@@ -321,6 +342,7 @@ input:focus,select:focus{outline:3px solid #2255AA55; border-color:var(--blue)}
   // innerHTML에 들어가는 사용자 입력값 이스케이프
   var esc = function(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
   var PAGE = "book";
+  if($('pvOpen')) $('pvOpen').addEventListener('click', function(){ if(window.hwTrack){ try{ hwTrack('book_preview_open', { from:'book' }); }catch(e){} } });
   var CONSENT_VER = "B-2026-09-v3";   // 동의 문구 버전 — 문구를 바꾸면 올릴 것(시트 consent_ver 로 입증)
 
   // ① 탭 선택 — 눌러서 켜고 끄기(aria-pressed)
