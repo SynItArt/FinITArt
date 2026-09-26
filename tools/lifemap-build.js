@@ -96,7 +96,7 @@ ${toon}${lines}
 <h3>이번 달에 할 세 가지</h3>
 <ul class="check">${checks}</ul>
 ${c.calc ? `<p class="calc">${c.calc}</p>` : ""}
-<div class="cta"><a class="ask" href="${esc(c.ask)}" onclick="if(window.gtag)gtag('event','lifemap_ask',{age:${band},ev:'${esc(c.ev)}'})">내 경우 물어보기</a><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></div>
+<div class="cta"><a class="ask" href="${esc(c.ask)}" onclick="if(window.gtag)gtag('event','lifemap_ask',{age_band:'${band}',event:'${esc(c.ev)}'})">내 경우 물어보기</a><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></div>
 </article>`;
 }
 
