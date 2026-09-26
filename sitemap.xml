@@ -14,7 +14,7 @@
   <!-- ── 진입 ── -->
   <url>
     <loc>https://finitart.com/</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -115,7 +115,7 @@
 
   <url>
     <loc>https://finitart.com/book.html</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -129,7 +129,7 @@
   <!-- ── 정책 ── -->
   <url>
     <loc>https://finitart.com/privacy.html</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

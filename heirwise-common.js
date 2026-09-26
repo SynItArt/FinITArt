@@ -74,6 +74,17 @@
       href: "/chuseok.html"
     },
 
+    // 공지 띠 — 책 개정판 등 한시 안내. endAt 이 지나면 아무것도 넣지 않음. 끄기 <body data-announce="off">
+    // 닫으면 그 브라우저 세션 동안 숨김(sessionStorage hw_announce_<id>). GA4: announce_view / announce_click / announce_close
+    ANNOUNCE: {
+      id: "book-rev-2026-09",
+      startAt: "2026-09-26T00:00:00+09:00",
+      endAt: "2026-10-31T23:59:59+09:00",
+      chip: "개정판",
+      text: "『상속설계의 기술』 187쪽 개정판 — 2026년 개정 민법 반영 · 무료로 받기",
+      href: "/book.html?utm_source=site&utm_medium=banner&utm_campaign=book_rev_2026"
+    },
+
     DEBUG: false                   // true면 발생 이벤트를 콘솔에 출력 · URL ?hw_now=ISO 로 시즌 시각 덮어쓰기
   };
   window.HW_CONFIG = HW_CONFIG;
@@ -1003,12 +1014,55 @@
   /* ============================================================
      ⑥ 실행
      ============================================================ */
+  /* ============================================================
+     ⑤-3 공지 띠 (HW_CONFIG.ANNOUNCE) — 시즌 띠와 같은 모양(.hws-bar)을 재사용
+     ============================================================ */
+  function injectAnnounce() {
+    var A = HW_CONFIG.ANNOUNCE;
+    if (!A || !d.body || d.body.getAttribute("data-announce") === "off" || $("hw-announce")) return;
+    var now = seasonNow();
+    if (now < Date.parse(A.startAt) || now > Date.parse(A.endAt)) return;
+    var target = (A.href || "").split("?")[0].replace(/\.html?$/i, "").replace(/\/$/, "");
+    if (location.pathname.replace(/\.html?$/i, "").replace(/\/$/, "") === target) return;   // 안내 대상 페이지 자신에는 넣지 않음
+    var key = "hw_announce_" + A.id;
+    try { if (sessionStorage.getItem(key) === "1") return; } catch (e) {}
+    injectSeasonStyles();
+    var bar = d.createElement("div");
+    bar.id = "hw-announce"; bar.className = "hws-bar"; bar.setAttribute("role", "region"); bar.setAttribute("aria-label", "공지");
+    bar.setAttribute("data-hws-scheme", pageIsDark() ? "dark" : "light");
+    bar.innerHTML =
+      '<div class="hws-bar-in">' +
+        '<a class="hws-bar-link" href="' + A.href + '">' +
+          '<span class="hws-chip">' + A.chip + '</span>' +
+          '<span class="hws-bar-txt">' + A.text + ' <span aria-hidden="true">→</span></span>' +
+        '</a>' +
+        '<button type="button" class="hws-x" aria-label="공지 닫기"><span aria-hidden="true">✕</span></button>' +
+      '</div>';
+    var crumb = $("hw-crumb");
+    if (crumb && crumb.parentNode) crumb.parentNode.insertBefore(bar, crumb.nextSibling);
+    else {
+      var first = d.body.firstElementChild;
+      if (first && first.matches("a.skip, a.skip-link, a[href='#main']")) first = first.nextElementSibling;
+      d.body.insertBefore(bar, first);
+    }
+    bar.querySelector(".hws-bar-link").addEventListener("click", function () { hwTrack("announce_click", { id: A.id }); });
+    bar.querySelector(".hws-x").addEventListener("click", function () {
+      var next = nextFocusableAfter(bar);
+      try { sessionStorage.setItem(key, "1"); } catch (e) {}
+      hwTrack("announce_close", { id: A.id });
+      bar.remove();
+      if (next) next.focus({ preventScroll: true });
+    });
+    hwTrack("announce_view", { id: A.id }, true);
+  }
+
   function boot() {
     try { injectLawUI(); }    catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { unifyLeadForm(); }  catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectSeason(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectPrivacyLink(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectCrumb(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { injectAnnounce(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { maybeRate(); }     catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
   }
 
