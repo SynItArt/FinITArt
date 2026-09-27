@@ -193,7 +193,7 @@ function homeBlock() {
   return `<style>
 .lm-home{padding:44px 0 36px;border-bottom:1px solid var(--line)}
 .lm-home .lm-eye{display:inline-block;background:var(--violet);color:var(--violet-ink);font-weight:800;font-size:15px;border-radius:999px;padding:4px 14px;margin:0 0 14px}
-.lm-home h1{margin:0 0 12px;max-width:none}
+.lm-home h2.lm-h{margin:0 0 12px;max-width:none;font-size:clamp(26px,4vw,38px);line-height:1.3;letter-spacing:-.02em}
 .lm-home .lm-lede{font-size:clamp(1.05rem,2vw,1.2rem);color:var(--ink-2);max-width:60ch;margin:0 0 22px;line-height:1.8}
 .lm-q{font-weight:800;font-size:18px;margin:0 0 10px}
 .lm-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:0 0 22px}
@@ -222,7 +222,7 @@ html:not(.lm-js) .lm-p{margin:0 0 30px}
 <section id="lifemap-home" class="lm-home" aria-labelledby="lmhH">
  <div class="wrap">
   <span class="lm-eye">인생 변곡점 지도</span>
-  <h1 id="lmhH">지금 내 나이에 준비할 돈, 만날 사람</h1>
+  <h2 class="lm-h" id="lmhH">지금 내 나이에 준비할 돈, 만날 사람</h2>
   <p class="lm-lede">살면서 돈이 크게 움직이는 순간은 정해져 있습니다. 나이를 고르면 그 시기의 변곡점 3가지와, 그때 미리 확보해 둘 재정, 지금 물어볼 사람을 보여 드립니다.</p>
   <p class="lm-q" id="lmQ">나는 지금</p>
   <div class="lm-tabs" role="tablist" aria-labelledby="lmQ">${tabs}</div>
