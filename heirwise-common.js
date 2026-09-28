@@ -15,6 +15,7 @@
  *   data-tool="노후진단"  GA4 tool 값을 파일명 대신 이 값으로 기록
  *   data-law="off"       적용 법령 기준일 칩·안내 상자를 넣지 않음
  *   data-season="off"    시즌 띠·카드를 넣지 않음 (SEASON.href 페이지 자신에도 넣지 않음)
+ *   data-chat="off"      우하단 「물어보기」 챗봇 런처를 넣지 않음 (chat.html 자신에도 넣지 않음)
  *
  * 설정은 아래 HW_CONFIG 한 곳만 고치면 전 페이지에 반영됩니다.
  */
@@ -1012,6 +1013,42 @@
     });
   }
 
+
+  /* ============================================================
+     ⑦ 챗봇 런처 (2026-09-28) — 우하단 「물어보기」 떠 있는 버튼
+     · 좌하단은 #hw-lobby-return 자리. 시즌 카드(10.02 종료)가 뜬 동안은 카드 아래(z 53<55)
+     · 끄기: <body data-chat="off"> · chat.html 자신에는 넣지 않음
+     · GA4: chat_launcher_view / chat_launcher_click (src=launcher 로 chat.html 에 전달)
+     ============================================================ */
+  function injectChatLauncher() {
+    if (!d.body || d.body.getAttribute("data-chat") === "off") return;
+    if (/\/chat(\.html?)?$/i.test(location.pathname)) return;
+    if ($("hw-chat-launcher")) return;
+    var st = d.createElement("style");
+    st.id = "hw-chat-launcher-style";
+    st.textContent = [
+      "#hw-chat-launcher{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:53;",
+      "display:inline-flex;align-items:center;gap:8px;min-height:52px;padding:0 18px 0 14px;border-radius:999px;",
+      "background:#0C5C48;color:#fff;font:inherit;font-size:16px;font-weight:800;text-decoration:none;",
+      "box-shadow:0 6px 20px rgba(0,0,0,.22);border:2px solid #0C5C48;line-height:1}",
+      "#hw-chat-launcher:hover{background:#094536;border-color:#094536}",
+      "#hw-chat-launcher:focus-visible{outline:3px solid #FFC64D;outline-offset:2px}",
+      "#hw-chat-launcher .ic{width:22px;height:22px;display:inline-block}",
+      "html[data-theme='dark'] #hw-chat-launcher{background:#54CFA8;border-color:#54CFA8;color:#14161B}",
+      "@media (prefers-color-scheme:dark){:root:not([data-theme='light']) #hw-chat-launcher{background:#54CFA8;border-color:#54CFA8;color:#14161B}}",
+      "@media (max-width:480px){#hw-chat-launcher{padding:0 14px 0 12px;font-size:15px}}",
+      "@media (max-height:480px),print{#hw-chat-launcher{display:none}}"
+    ].join("");
+    d.head.appendChild(st);
+    var a = d.createElement("a");
+    a.id = "hw-chat-launcher";
+    a.href = "/chat.html?src=launcher";
+    a.setAttribute("aria-label", "이름 없이 물어보기 — 상황 정리 안내 열기");
+    a.innerHTML = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg><span>물어보기</span>';
+    a.addEventListener("click", function () { hwTrack("chat_launcher_click", {}); });
+    d.body.appendChild(a);
+    hwTrack("chat_launcher_view", {}, true);
+  }
   /* ============================================================
      ⑥ 실행
      ============================================================ */
@@ -1109,6 +1146,7 @@
     try { injectCrumb(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectAnnounce(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectLobbyReturn(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { injectChatLauncher(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { maybeRate(); }     catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
   }
 

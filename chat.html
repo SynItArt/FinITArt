@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
+<title>물어보기 — 상황 정리 안내 | HeirWise</title>
+<link rel="canonical" href="https://finitart.com/chat.html">
+<meta name="description" content="상속·증여 상황을 이름 없이 정리해 보세요. 걸린 기한과 맞는 도구를 안내하고, 원하시면 그 자리에서 상담 연락처를 남길 수 있습니다.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="HeirWise · finitart.com">
+<meta property="og:url" content="https://finitart.com/chat.html">
+<meta property="og:title" content="물어보기 — HeirWise">
+<meta property="og:description" content="이름 없이 상황을 정리해 보세요. 기한과 맞는 도구를 안내하고, 원하시면 바로 상담으로 이어집니다.">
+<meta property="og:image" content="https://finitart.com/og/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="물어보기 — HeirWise">
+<meta name="twitter:description" content="이름 없이 상황을 정리해 보세요. 기한과 맞는 도구를 안내하고, 원하시면 바로 상담으로 이어집니다.">
+<meta name="twitter:image" content="https://finitart.com/og/og-default.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* HeirWise Chat v1.0 — 보안등급: 공유 가능 | 제작: HeirWise_Syn Dae Sik (申大湜) | 2026-09-28
+   색: index.html 변수 체계 · 다크모드: data-theme 우선, 없으면 OS 설정 · 본문 17px+, 버튼 48px+ */
+:root{
+  --bg:#FAF8F5;--card:#FFFFFF;--ink:#1B1B1B;--ink-2:#4A453D;--line:#E2D8C8;--line-strong:#B7A98F;
+  --navy:#173863;--navy-soft:#EAF0F8;--amber:#F9A825;--amber-ink:#8A5A00;--amber-soft:#FDF1D6;
+  --coral:#0C5C48;--coral-hover:#094536;--crimson:#B31729;--crimson-soft:#FBE7E9;
+  --bot:#EAF0F8;--user:#173863;--user-ink:#FFFFFF;--focus:#0C5C48;--maxw:760px;
+  --f-bg:#F4EEE3;--f-ink:#1B1B1B;--f-ink2:#4A453D;--f-line:#E2D8C8;--f-line2:#B7A98F;--f-amber:#FDF1D6;
+}
+:root[data-theme="dark"]{
+  --bg:#13161C;--card:#1B2029;--ink:#F3F0EA;--ink-2:#B6BDCA;--line:#333A47;--line-strong:#57607A;
+  --navy:#8FB4E8;--navy-soft:#1D2836;--amber:#FFC64D;--amber-ink:#FFC64D;--amber-soft:#302713;
+  --coral:#54CFA8;--coral-hover:#7FE0C0;--crimson:#FF8593;--crimson-soft:#33161B;
+  --bot:#1D2836;--user:#2B4C7E;--user-ink:#FFFFFF;--focus:#FFC64D;
+  --f-bg:#0F1216;--f-ink:#F3F0EA;--f-ink2:#B6BDCA;--f-line:#333A47;--f-line2:#57607A;--f-amber:#302713;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13161C;--card:#1B2029;--ink:#F3F0EA;--ink-2:#B6BDCA;--line:#333A47;--line-strong:#57607A;
+    --navy:#8FB4E8;--navy-soft:#1D2836;--amber:#FFC64D;--amber-ink:#FFC64D;--amber-soft:#302713;
+    --coral:#54CFA8;--coral-hover:#7FE0C0;--crimson:#FF8593;--crimson-soft:#33161B;
+    --bot:#1D2836;--user:#2B4C7E;--user-ink:#FFFFFF;--focus:#FFC64D;
+    --f-bg:#0F1216;--f-ink:#F3F0EA;--f-ink2:#B6BDCA;--f-line:#333A47;--f-line2:#57607A;--f-amber:#302713;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕","Noto Sans KR",system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--navy)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* 상단 띠 */
+.top{background:#1A3C6D;color:#fff;padding:14px 0}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.top .logo{display:inline-flex;align-items:center;text-decoration:none;color:#fff}
+.logo-img{height:28px;width:auto;display:block}
+.top .tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px;vertical-align:top;color:#fff}
+.top .home{color:#cfe0f2;text-decoration:none;font-size:15px;min-height:44px;display:inline-flex;align-items:center}
+
+/* 안내 헤더 */
+.hero{padding:26px 0 10px}
+.hero h1{font-size:26px;font-weight:900;line-height:1.3;letter-spacing:-.02em}
+.hero p{margin-top:8px;color:var(--ink-2);font-size:16.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:999px;font-size:14px;font-weight:700;border:1.5px solid var(--line-strong);color:var(--ink-2);background:var(--card)}
+.chip.law{border-color:var(--amber);background:var(--amber-soft);color:var(--amber-ink)}
+
+/* 대화 영역 */
+.chat{background:var(--card);border:1.5px solid var(--line);border-radius:18px;margin:16px 0 0;display:flex;flex-direction:column;min-height:60vh}
+.log{padding:18px 16px 8px;display:flex;flex-direction:column;gap:12px;flex:1}
+.msg{max-width:88%;padding:12px 16px;border-radius:16px;font-size:17px;line-height:1.65;white-space:pre-wrap}
+.msg.bot{background:var(--bot);color:var(--ink);border-bottom-left-radius:6px;align-self:flex-start}
+.msg.user{background:var(--user);color:var(--user-ink);border-bottom-right-radius:6px;align-self:flex-end}
+.msg.sys{background:transparent;color:var(--ink-2);font-size:14.5px;align-self:center;text-align:center;max-width:100%;padding:4px 8px}
+.msg a{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.msg.bot a{color:var(--navy)}
+.msg .meta{display:block;margin-top:6px;font-size:13px;color:var(--ink-2)}
+.msg .meta button{background:none;border:none;color:var(--ink-2);font:inherit;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:32px}
+.typing{display:inline-flex;gap:5px;align-items:center;height:22px}
+.typing i{width:8px;height:8px;border-radius:50%;background:var(--ink-2);opacity:.5;animation:blink 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.typing i{animation:none;opacity:.6}}
+
+/* 선택 버튼(턴 0~1) */
+.opts{display:grid;gap:10px;padding:4px 16px 12px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{min-height:56px;padding:12px 16px;border-radius:14px;border:2px solid var(--line-strong);background:var(--card);color:var(--ink);font:inherit;font-size:17px;font-weight:700;text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px}
+.opt:hover{border-color:var(--coral)}
+.opt .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--navy-soft);color:var(--navy);display:inline-grid;place-items:center;font-size:15px}
+.opt.sub{min-height:48px;font-weight:600;font-size:16px}
+.date-row{display:flex;gap:8px;align-items:center;padding:0 16px 12px;flex-wrap:wrap}
+.date-row label{font-size:15px;color:var(--ink-2)}
+.date-row input{font:inherit;font-size:16px;padding:10px 12px;border:1.5px solid var(--line-strong);border-radius:10px;background:var(--card);color:var(--ink);min-height:48px}
+.date-row button{min-height:48px}
+
+/* 입력줄 */
+.bar{border-top:1.5px solid var(--line);padding:12px 12px calc(12px + env(safe-area-inset-bottom));display:flex;gap:8px;align-items:flex-end;position:sticky;bottom:0;background:var(--card);border-radius:0 0 18px 18px}
+.bar textarea{flex:1;font:inherit;font-size:17px;line-height:1.5;padding:12px 14px;border:2px solid var(--line-strong);border-radius:14px;background:var(--card);color:var(--ink);resize:none;min-height:52px;max-height:160px}
+.bar textarea:focus{border-color:var(--coral)}
+.bar textarea:disabled{opacity:.55}
+.send{min-width:64px;min-height:52px;border-radius:14px;border:none;background:var(--coral);color:#fff;font:inherit;font-size:17px;font-weight:800;cursor:pointer}
+:root[data-theme="dark"] .send{color:#14161B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .send{color:#14161B}}
+.send:hover{background:var(--coral-hover)}
+.send:disabled{opacity:.5;cursor:not-allowed}
+
+/* 상시 버튼줄 */
+.quick{display:flex;flex-wrap:wrap;gap:8px;padding:6px 16px 10px}
+.qb{min-height:44px;padding:8px 14px;border-radius:999px;border:2px solid var(--line-strong);background:var(--card);color:var(--ink);font:inherit;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.qb.primary{border-color:var(--coral);background:var(--coral);color:#fff}
+:root[data-theme="dark"] .qb.primary{color:#14161B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .qb.primary{color:#14161B}}
+.qb:hover{border-color:var(--coral)}
+
+/* 인계 카드 */
+.lead{margin:6px 16px 12px;border:2px solid var(--amber);background:var(--amber-soft);border-radius:16px;padding:16px}
+.lead h2{font-size:19px;font-weight:900;color:var(--ink);margin-bottom:4px}
+.lead p{font-size:15.5px;color:var(--ink-2);margin-bottom:12px}
+.lead .f{margin-bottom:10px}
+.lead label{display:block;font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.lead .req{color:var(--crimson);margin-left:4px}
+.lead input,.lead select{width:100%;font:inherit;font-size:16px;padding:12px 13px;border:1.5px solid var(--line-strong);border-radius:10px;background:var(--card);color:var(--ink);min-height:48px}
+.lead .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.lead .consent{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink-2);margin:8px 0}
+.lead .consent input{width:22px;height:22px;flex:none;margin-top:2px;min-height:0}
+.lead .row{display:flex;gap:8px;margin-top:10px}
+.lead .btn{flex:1;min-height:50px;border-radius:12px;font:inherit;font-size:17px;font-weight:800;cursor:pointer;border:2px solid var(--coral);background:var(--coral);color:#fff}
+:root[data-theme="dark"] .lead .btn{color:#14161B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lead .btn{color:#14161B}}
+.lead .btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-strong);flex:0 0 auto;padding:0 16px}
+.lead .err{color:var(--crimson);font-size:14.5px;font-weight:700;margin-top:6px;min-height:1.2em}
+.lead .ok{background:var(--card);border:1.5px solid var(--coral);border-radius:12px;padding:14px;font-weight:700;color:var(--ink)}
+@media (max-width:560px){.lead .g3{grid-template-columns:1fr}.opts.two{grid-template-columns:1fr}.msg{max-width:94%}}
+
+/* 하단 안내 */
+.note{margin:18px 0 28px;font-size:14.5px;color:var(--ink-2);line-height:1.7}
+.note b{color:var(--ink)}
+
+/* 푸터 — 사이트 공통 3단 */
+footer{border-top:1px solid var(--f-line);background:var(--f-bg);padding:40px 0 36px;font-size:16px;color:var(--f-ink)}
+footer h4{font-size:15px;font-weight:800;margin:0 0 12px;letter-spacing:.02em;color:var(--f-ink)}
+footer ul{list-style:none;padding:0;margin:0}
+footer li{margin-bottom:9px;color:var(--f-ink2)}
+footer a{color:var(--f-ink2);text-decoration:none}
+footer a:hover{color:var(--f-ink);text-decoration:underline}
+footer .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+footer .disclaimer{margin-top:30px;padding-top:22px;border-top:1px solid var(--f-line2);font-size:14.5px;line-height:1.8;color:var(--f-ink2);max-width:78ch}
+footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);border-radius:7px;padding:4px 10px;display:inline-block;margin-bottom:10px;font-size:14.5px}
+@media(max-width:640px){footer .fgrid{grid-template-columns:1fr;gap:22px}}
+/* 공통 스크립트의 좌하단 「길잡이로 돌아가기」는 입력줄과 겹치므로 이 페이지에서는 숨김 (상단 띠에 같은 링크 있음) */
+#hw-lobby-return{display:none!important}
+@media print{.bar,.quick,.opts{display:none}}
+</style>
+</head>
+<body data-tool="챗봇" data-axis="both" data-season="off">
+
+<div class="top"><div class="wrap">
+  <a class="logo" href="/" aria-label="HeirWise 홈"><img class="logo-img" src="/img/brand/heirwise-logo-h-dark.svg" alt="HeirWise" height="28"><span class="tm">™</span></a>
+  <a class="home" href="/">← 길잡이로</a>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <h1>이름 없이 물어보셔도 됩니다</h1>
+  <p>상황을 정리하고, 걸려 있는 날짜와 맞는 도구를 안내합니다. 더 자세한 건 그 자리에서 바로 상담으로 이어집니다.</p>
+  <div class="chips" aria-label="안내">
+    <span class="chip law">적용 법령 기준일 <span id="lawAsOf">2026.09.07</span></span>
+    <span class="chip">법률·세무 판단이 아닌 정리·안내</span>
+    <span class="chip">가족 실명·주민번호는 적지 마세요</span>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <section class="chat" aria-label="대화">
+    <div id="log" class="log" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <div id="opts" class="opts" role="group" aria-label="상황 선택"></div>
+    <div id="dateRow" class="date-row" hidden>
+      <label for="dDate">돌아가신 날을 아시면 (선택)</label>
+      <input type="date" id="dDate" max="2099-12-31">
+      <button type="button" class="qb" id="dDateGo">날짜로 계산</button>
+      <button type="button" class="qb" id="dDateSkip">모르겠어요</button>
+    </div>
+    <div id="quick" class="quick" hidden>
+      <button type="button" class="qb primary" id="qLead">직접 상담받고 싶어요</button>
+      <a class="qb" id="qTool" href="/calculator.html">계산기로 확인</a>
+      <button type="button" class="qb" id="qFlag">이 답변 이상해요</button>
+    </div>
+    <div id="leadHost"></div>
+    <form class="bar" id="bar" autocomplete="off" hidden>
+      <label class="sr" for="inp">메시지</label>
+      <textarea id="inp" rows="1" placeholder="상황을 적어 주세요. 한 가지만 적으셔도 충분합니다." maxlength="1200"></textarea>
+      <button type="submit" class="send" id="send">보내기</button>
+    </form>
+  </section>
+
+  <p class="note"><b>어떻게 쓰이나요.</b> 대화 내용은 상담 안내 목적으로 세션 번호 기준으로만 저장되고, 연락처를 남기신 경우에만 상담 기록과 함께 3년 보관합니다. 답변 생성은 Google(Gemini API)에 처리를 위탁합니다. 자세한 내용은 <a href="/privacy.html">개인정보처리방침</a>을 보세요. 세액은 세무전문가, 법률 판단은 변호사의 확인이 필요합니다.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>HeirWise™</h4>
+        <p style="color:var(--f-ink2);max-width:38ch;margin:0">상속·증여 재무설계 안내. AFPK® 자격인증자 신대식이 운영합니다.</p>
+        <p style="color:var(--f-ink2);margin:14px 0 0">☎ 010-2088-5383<br>✉ <a href="mailto:itart@finitart.com">itart@finitart.com</a><br>경기 안산시 단원구 정왕천동로 30번길 2</p>
+      </div>
+      <div>
+        <h4>둘러보기</h4>
+        <ul>
+          <li><a href="/index.html#deadline">상속 기한 확인</a></li>
+          <li><a href="/index.html#answers">자주 묻는 것</a></li>
+          <li><a href="/index.html#tools">계산 도구</a></li>
+          <li><a href="/index.html#room">이름 없이 물어보기</a></li>
+          <li><a href="/about.html">전문가 소개</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>안내</h4>
+        <ul>
+          <li><a href="/consult.html">상담 신청</a></li>
+          <li><a href="/booking.html">상담 예약</a></li>
+          <li><a href="/privacy.html">개인정보처리방침</a></li>
+          <li><a href="/llms.txt">AI 검색용 요약(llms.txt)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <span class="lawdate">적용 법령 기준일 — 상속세 및 증여세법 법률 제21065호(2026.1.2 시행) · 민법(2026.3.17 시행)</span>
+      <p style="margin:0">이 대화는 상황 정리와 안내이며 법률·세무 판단이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사의 상담이 필요합니다.</p>
+      <p style="margin:12px 0 0">© 2026 HeirWise_Syn Dae Sik (申大湜). 모든 권리 보유.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  /* ▼ 배포 전: Apps Script 「HeirWise Chat」 웹앱 URL 로 교체 (lead 엔드포인트와 다른 별도 배포) */
+  var CHAT_ENDPOINT = "https://script.google.com/macros/s/AKfycbxdXFvPpIrMkmLMRXa3kpq2gRUjh2zWtBbJvBWOhnc5Fa6mVaz3UdbBI3R2wF0BhFlhEw/exec";
+  var LAW_ASOF = "2026.09.07";
+  var TURN_CAP = 8, LEAD_CARD_MAX = 2, TIMEOUT_MS = 20000;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var log = $("log"), opts = $("opts"), quick = $("quick"), bar = $("bar"), inp = $("inp"), sendBtn = $("send"), leadHost = $("leadHost");
+  var src = (/[?&]src=([^&#]+)/.exec(location.search) || [])[1] || "";
+  var hasRRN = window.hwHasRRN || function (v) { return /\b\d{6}\s*-?\s*[1-8]\d{6}\b/.test(String(v || "")); };
+  var track = function (n, p) { try { (window.hwTrack || function () {})(n, p || {}); } catch (e) {} };
+
+  /* 세션 */
+  var S = {
+    sid: "C" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+    case_type: "", sub_type: "", assign_code: "", deadline_days: null,
+    history: [], turn: 0, leadCards: 0, lastBotTurn: 0, triggered: ""
+  };
+
+  /* 분기 트리 (hw_kb_v1.json case_types 와 일치) */
+  var TREE = {
+    started: { label: "상속이 이미 시작됐어요", code: "HW_INTAKE", q: "돌아가신 지 얼마나 되셨나요?",
+      sub: [["lt1m", "1개월 미만", 75], ["1to3m", "1~3개월", 30], ["3to6m", "3~6개월", 45], ["gt6m", "6개월 이상", 0]], tool: "/inheritdebt.html", date: true },
+    prepare: { label: "미리 준비하고 싶어요", code: "HW_FIRST", q: "어느 쪽에 가까우신가요?",
+      sub: [["parents", "부모님 재산"], ["mine", "내 재산"], ["gift", "자녀에게 증여"], ["disability", "장애 가족"]], tool: "/calculator.html" },
+    business: { label: "사업·법인이 있어요", code: "HW_FIRST", q: "어떤 형태인가요?",
+      sub: [["sole", "개인사업"], ["corp", "법인 대표", null, "HW_INTAKE"], ["vessel", "어선·농지"]], tool: "/ceo-diagnosis.html" },
+    debt: { label: "빚이 걱정돼요", code: "HW_INTAKE", q: "누구의 빚인가요?",
+      sub: [["deceased", "돌아가신 분의 빚"], ["mine", "내 빚"], ["guarantee", "보증"]], tool: "/inheritdebt.html", date: true }
+  };
+  var SUB_TOOL = { gift: "/gift/", disability: "/disability-trust.html", parents: "/lifemap/", mine: "/lifemap/", corp: "/ceo-diagnosis.html", vessel: "/calculator.html", sole: "/ceo-diagnosis.html" };
+  var OPENERS = {
+    started: "네, 먼저 날짜부터 정리하겠습니다. 상속이 시작되면 두 가지 기한이 걸립니다. 승인·포기 결정은 안 날부터 3개월(민법 제1019조), 상속세 신고는 돌아가신 달 말일부터 6개월(상증법 제67조)입니다.",
+    prepare: "좋습니다. 미리 준비하시는 분은 선택지가 많습니다. 지금 상황을 한 줄만 적어 주시면, 어디부터 볼지 정리해 드립니다.",
+    business: "사업이 있으면 재산 승계와 사업장 안전 공백을 같이 봐야 합니다. 어떤 점이 가장 걱정되시는지 적어 주세요.",
+    debt: "빚이 걸린 상속은 기한이 가장 중요합니다. 승인·포기 결정은 안 날부터 3개월(민법 제1019조)이고, 재산보다 빚이 많으면 한정승인·상속포기·상속재산파산 중 고르게 됩니다. 상황을 적어 주세요."
+  };
+
+  /* 렌더 */
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function md(s) { // [이름](/경로) 만 링크로, 사이트 내부 경로만 허용
+    return esc(s).replace(/\[([^\]]+)\]\((\/[^)\s]*)\)/g, '<a href="$2">$1</a>');
+  }
+  function add(role, text, meta) {
+    var el = document.createElement("div");
+    el.className = "msg " + role;
+    el.innerHTML = role === "bot" ? md(text) : esc(text);
+    if (meta) el.appendChild(meta);
+    log.appendChild(el);
+    el.scrollIntoView({ block: "end", behavior: "smooth" });
+    return el;
+  }
+  function sys(text) { return add("sys", text); }
+  function typing() {
+    var el = document.createElement("div"); el.className = "msg bot"; el.setAttribute("aria-label", "답변 작성 중");
+    el.innerHTML = '<span class="typing"><i></i><i></i><i></i></span>';
+    log.appendChild(el); el.scrollIntoView({ block: "end" }); return el;
+  }
+  function flagMeta(turn) {
+    var m = document.createElement("span"); m.className = "meta";
+    var b = document.createElement("button"); b.type = "button"; b.textContent = "이 답변 이상해요";
+    b.addEventListener("click", function () { flag(turn, b); });
+    m.appendChild(b); return m;
+  }
+
+  /* 턴 0 */
+  function turn0() {
+    add("bot", "안녕하세요. 이 대화는 상황 정리와 안내이며 법률·세무 판단이 아닙니다. 이름이나 가족 실명은 적지 않으셔도 됩니다.\n\n어느 쪽에 가까우신가요?");
+    opts.innerHTML = "";
+    var i = 0;
+    Object.keys(TREE).forEach(function (k) {
+      i++;
+      var b = document.createElement("button"); b.type = "button"; b.className = "opt";
+      b.innerHTML = '<span class="n" aria-hidden="true">' + i + "</span>" + esc(TREE[k].label);
+      b.addEventListener("click", function () { pick0(k); });
+      opts.appendChild(b);
+    });
+    track("chat_open", { src: src });
+  }
+  function pick0(k) {
+    var t = TREE[k];
+    S.case_type = k; S.assign_code = t.code;
+    add("user", t.label);
+    opts.innerHTML = "";
+    add("bot", t.q);
+    opts.className = "opts two";
+    t.sub.forEach(function (s) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "opt sub"; b.textContent = s[1];
+      b.addEventListener("click", function () { pick1(s); });
+      opts.appendChild(b);
+    });
+    track("chat_start", { case_type: k });
+  }
+  function pick1(s) {
+    S.sub_type = s[0];
+    if (s[3]) S.assign_code = s[3];
+    if (typeof s[2] === "number") S.deadline_days = s[2];
+    add("user", s[1]);
+    opts.innerHTML = ""; opts.className = "opts";
+    $("qTool").href = SUB_TOOL[s[0]] || TREE[S.case_type].tool;
+    if (TREE[S.case_type].date) {
+      add("bot", "돌아가신 날을 아시면 남은 날수를 정확히 계산해 드립니다. 모르셔도 괜찮습니다.");
+      $("dateRow").hidden = false; $("dDate").focus();
+    } else { open(); }
+  }
+  $("dDateGo").addEventListener("click", function () {
+    var v = $("dDate").value; if (!v) return;
+    var d = new Date(v + "T00:00:00+09:00"), now = new Date();
+    var d3 = new Date(d); d3.setMonth(d3.getMonth() + 3);
+    var eom = new Date(d.getFullYear(), d.getMonth() + 1, 0); var d6 = new Date(eom); d6.setMonth(d6.getMonth() + 6);
+    var left3 = Math.ceil((d3 - now) / 86400000), left6 = Math.ceil((d6 - now) / 86400000);
+    S.deadline_days = left3 > 0 ? left3 : left6;
+    var f = function (x) { return x.getFullYear() + "." + (x.getMonth() + 1) + "." + x.getDate(); };
+    add("user", "돌아가신 날: " + v);
+    add("bot", "정리하면 이렇습니다.\n· 승인·포기 결정 기한(민법 제1019조): " + f(d3) + (left3 > 0 ? " — 약 " + left3 + "일 남음" : " — 지났을 수 있음 (특별한정승인 확인 필요)") +
+      "\n· 상속세 신고 기한(상증법 제67조): " + f(d6) + (left6 > 0 ? " — 약 " + left6 + "일 남음" : " — 지났을 수 있음 (가산세 확인 필요)") +
+      "\n\n기준일 " + LAW_ASOF + ". 정확한 날수는 [상속 기한 확인](/index.html#deadline)에서 다시 보실 수 있습니다.");
+    $("dateRow").hidden = true;
+    if (S.deadline_days !== null && S.deadline_days <= 30) leadCard("deadline");
+    open();
+  });
+  $("dDateSkip").addEventListener("click", function () { $("dateRow").hidden = true; open(); });
+
+  function open() {
+    add("bot", OPENERS[S.case_type]);
+    quick.hidden = false; bar.hidden = false; inp.focus();
+  }
+
+  /* LLM 턴 */
+  bar.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var text = inp.value.trim(); if (!text) return;
+    if (hasRRN(text)) { sys("주민등록번호는 적지 않으셔도 됩니다. 지워 주세요."); return; }
+    if (S.turn >= TURN_CAP) { add("user", text); add("bot", "여기까지 정리했습니다. 더 자세한 건 직접 상담이 낫습니다."); leadCard("cap"); return; }
+    inp.value = ""; inp.style.height = "";
+    add("user", text);
+    S.history.push({ role: "user", text: text });
+    ask(text);
+  });
+  inp.addEventListener("input", function () { inp.style.height = ""; inp.style.height = Math.min(inp.scrollHeight, 160) + "px"; });
+  inp.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); sendBtn.click(); } });
+
+  function ask(text) {
+    sendBtn.disabled = true; inp.disabled = true;
+    var t = typing();
+    post({ type: "chat_turn", session_id: S.sid, case_type: S.case_type, sub_type: S.sub_type, assign_code: S.assign_code,
+           deadline_days: S.deadline_days, history: S.history.slice(-8, -1), message: text, page: location.href, src: src, lawAsOf: LAW_ASOF })
+    .then(function (r) {
+      t.remove();
+      if (!r || !r.ok) { add("bot", (r && r.reply) || "지금은 답을 드리기 어렵습니다. 전화 010-2088-5383 으로 연락 주시면 바로 확인하겠습니다."); return; }
+      S.turn = r.turn || (S.turn + 1); S.lastBotTurn = S.turn;
+      S.history.push({ role: "bot", text: r.reply });
+      add("bot", r.reply, flagMeta(S.turn));
+      track("chat_turn", { turn: S.turn, trigger: r.trigger || "" });
+      if (r.trigger && r.trigger !== S.triggered) leadCard(r.trigger);
+    })
+    .catch(function () { t.remove(); add("bot", "연결이 확인되지 않았습니다. 잠시 뒤 다시 보내 주시거나, 전화 010-2088-5383 으로 연락 주세요."); })
+    .then(function () { sendBtn.disabled = false; inp.disabled = false; inp.focus(); });
+  }
+
+  function post(payload) {
+    var ctl = ("AbortController" in window) ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, TIMEOUT_MS);
+    return fetch(CHAT_ENDPOINT, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload), signal: ctl ? ctl.signal : undefined, redirect: "follow" })
+      .then(function (res) { return res.text(); })
+      .then(function (txt) { clearTimeout(timer); try { return JSON.parse(txt); } catch (e) { return { ok: false }; } })
+      .catch(function (e) { clearTimeout(timer); throw e; });
+  }
+
+  /* 오답 신고 */
+  function flag(turn, btn) {
+    btn.disabled = true; btn.textContent = "신고됨 · 확인하겠습니다";
+    track("chat_flag", { turn: turn });
+    post({ type: "chat_flag", session_id: S.sid, turn: turn, reason: "user_flag", page: location.href }).catch(function () {});
+  }
+  $("qFlag").addEventListener("click", function () { if (S.lastBotTurn) { flag(S.lastBotTurn, $("qFlag")); } else { sys("아직 답변이 없습니다."); } });
+
+  /* 인계 카드 */
+  var COPY = {
+    user: "연락처만 남기시면 확인 후 연락드립니다.",
+    deadline: "기한이 30일 안쪽입니다. 지금 연락처를 남기시면 우선 확인합니다.",
+    debt: "빚이 재산보다 많을 수 있는 상황은 기한이 중요합니다. 연락처를 남기시면 순서대로 정리해 드립니다.",
+    corp: "법인 승계는 자료 목록부터 정리해 드립니다.",
+    dispute: "가족 간 다툼이 걸린 문제는 전문가 연결이 필요합니다. 먼저 상황을 정리해서 이어 드립니다.",
+    repeat: "제가 정리해 드리기 어려운 부분입니다. 직접 연락드릴까요?",
+    cap: "여기까지 정리했습니다. 더 자세한 건 직접 상담이 낫습니다."
+  };
+  $("qLead").addEventListener("click", function () { leadCard("user", true); });
+
+  function leadCard(trigger, force) {
+    if (leadHost.querySelector(".lead")) return;
+    if (!force && S.leadCards >= LEAD_CARD_MAX) return;
+    S.leadCards++; S.triggered = trigger;
+    track("chat_lead_card", { trigger: trigger });
+    var c = document.createElement("div"); c.className = "lead"; c.setAttribute("role", "region"); c.setAttribute("aria-label", "상담 연락처 남기기");
+    c.innerHTML =
+      '<h2>직접 상담으로 이어 드릴까요?</h2><p>' + esc(COPY[trigger] || COPY.user) + ' 지금까지 정리한 내용은 상담 때 그대로 이어집니다.</p>' +
+      '<div class="f"><label for="lName">성함<span class="req">필수</span></label><input id="lName" type="text" autocomplete="name" maxlength="40"></div>' +
+      '<div class="f"><label for="lPhone">연락처<span class="req">필수</span></label><input id="lPhone" type="text" inputmode="tel" autocomplete="tel" placeholder="010-0000-0000" maxlength="20"></div>' +
+      '<div class="f"><label>통화 희망 시간 (1~3순위, 선택)</label><div class="g3">' + sel("lP1", "1순위") + sel("lP2", "2순위") + sel("lP3", "3순위") + '</div></div>' +
+      '<label class="consent"><input type="checkbox" id="lAgree"><span><b>[필수]</b> 개인정보 수집·이용 동의 — 항목: 성함·연락처·대화 내용 / 목적: 상담 연락 / 보유: 3년 / 처리위탁: Google(Gemini API·Sheets·Gmail) · <a href="/privacy.html" target="_blank" rel="noopener">처리방침</a></span></label>' +
+      '<label class="consent"><input type="checkbox" id="lOpt"><span><b>[선택]</b> 상속·증여 관련 안내 수신 동의</span></label>' +
+      '<div class="err" id="lErr" aria-live="assertive"></div>' +
+      '<div class="row"><button type="button" class="btn" id="lSend">연락처 남기기</button><button type="button" class="btn ghost" id="lClose">나중에</button></div>';
+    leadHost.appendChild(c);
+    c.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    $("lName").focus();
+    $("lClose").addEventListener("click", function () { c.remove(); inp.focus(); });
+    $("lSend").addEventListener("click", function () { submitLead(c, trigger); });
+  }
+  function sel(id, ph) {
+    var o = ["", "평일 오전 (9~12시)", "평일 오후 (12~18시)", "평일 저녁 (18시 이후)", "주말 오전", "주말 오후"];
+    return '<select id="' + id + '" aria-label="' + ph + '">' + o.map(function (v, i) { return '<option value="' + esc(v) + '">' + (i ? esc(v) : ph) + "</option>"; }).join("") + "</select>";
+  }
+  function submitLead(card, trigger) {
+    var err = $("lErr"), name = $("lName").value.trim(), phone = $("lPhone").value.trim();
+    var fail = function (m) { err.textContent = m; };
+    err.textContent = "";
+    if (!name) return fail("성함을 입력해 주세요.");
+    if (hasRRN(name) || hasRRN(phone)) return fail("주민등록번호는 입력하지 마세요.");
+    if (!/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g, ""))) return fail("연락처 형식을 확인해 주세요. (예: 010-1234-5678)");
+    if (!$("lAgree").checked) return fail("개인정보 수집·이용 동의가 필요합니다.");
+    $("lSend").disabled = true; $("lSend").textContent = "전송 중…";
+    var payload = {
+      type: "chat_lead", tool: "챗봇", axis: "both", session_id: S.sid,
+      name: name, phone: phone, email: "",
+      pref1: $("lP1").value, pref2: $("lP2").value, pref3: $("lP3").value,
+      case_type: S.case_type, sub_type: S.sub_type, assign_code: S.assign_code, deadline_days: S.deadline_days,
+      bot_summary: "", triggered_by: trigger, src: src,
+      consent_req: true, consent_opt: $("lOpt").checked, consentAt: new Date().toISOString(),
+      lawAsOf: LAW_ASOF, page: location.href, referrer: document.referrer || "", ts: new Date().toISOString()
+    };
+    track("chat_lead_submit", { trigger: trigger, case_type: S.case_type });
+    post(payload).then(function (r) {
+      if (r && r.ok) {
+        card.innerHTML = '<div class="ok">접수됐습니다. 확정되면 문자로 안내드립니다.<br>부재 시에는 문자를 남기고 다시 연락드리겠습니다.</div>';
+        add("bot", "고맙습니다. 남기신 내용은 상담 때 그대로 이어집니다. 기다리시는 동안 [상속채무 진단기](/inheritdebt.html)나 [인생 변곡점 지도](/lifemap/)를 보셔도 좋습니다.");
+      } else if (r && r.error === "rrn") { fail("주민등록번호는 입력하지 마세요."); $("lSend").disabled = false; $("lSend").textContent = "연락처 남기기"; }
+      else { throw new Error("nok"); }
+    }).catch(function () {
+      fail("전송 확인이 되지 않았습니다. itart@finitart.com 또는 ☎ 010-2088-5383 으로 연락 주시면 바로 확인하겠습니다.");
+      $("lSend").disabled = false; $("lSend").textContent = "다시 시도";
+    });
+  }
+
+  /* 시작 */
+  $("lawAsOf").textContent = LAW_ASOF;
+  if (CHAT_ENDPOINT.indexOf("PUT_") === 0) sys("(배포 전) CHAT_ENDPOINT 가 설정되지 않았습니다. 버튼 분기는 동작하고, 자유 입력은 전송되지 않습니다.");
+  turn0();
+})();
+</script>
+<script src="/heirwise-common.js" defer></script>
+</body>
+</html>

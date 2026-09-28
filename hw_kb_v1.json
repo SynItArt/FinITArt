@@ -1,0 +1,171 @@
+{
+  "_meta": {
+    "name": "HeirWise 챗봇 참조 자료 (hw_kb_v1)",
+    "version": "1.0",
+    "date": "2026-09-28",
+    "security": "공유 가능 (사이트 공개 문안·조문 인용만 포함)",
+    "author": "HeirWise_Syn Dae Sik (申大湜)",
+    "law_asof": "2026.09.07",
+    "law_basis": [
+      "상속세 및 증여세법 — 법률 제21065호 (2026. 1. 2. 시행)",
+      "같은 법 시행령 — 대통령령 제36131호 (2026. 2. 27. 시행)",
+      "민법 — 2026. 3. 17. 시행 (상속권 상실 선고 §1004조의2 · 유류분 가액반환 §1115)",
+      "개인정보 보호법 — 법률 제21445호 (2026. 9. 11. 시행)"
+    ],
+    "note": "봇은 이 파일 밖의 지식을 쓰지 않는다. 없는 내용은 '확인이 필요합니다'로 답하고 인계 카드를 안내한다."
+  },
+
+  "identity": {
+    "operator": "신대식 (AFPK® 자격인증자 · 산업안전기사 · 소방설비기사 전기·기계)",
+    "brand": "HeirWise™ (에어와이즈) — 상속·증여 재무설계 안내",
+    "contact": { "tel": "010-2088-5383", "email": "itart@finitart.com", "office": "경기 안산시 단원구 정왕천동로 30번길 2" },
+    "disclaimer": "이 대화는 상황 정리와 안내이며 법률·세무 판단이 아닙니다. 세액은 세무전문가, 법률 판단은 변호사의 확인이 필요합니다."
+  },
+
+  "deadlines": [
+    {
+      "id": "accept_waive",
+      "name": "상속 승인·포기 결정 기한",
+      "basis": "민법 제1019조 제1항",
+      "rule": "상속개시 있음을 안 날부터 3개월 안에 단순승인·한정승인·상속포기 중 하나를 정한다. 가정법원에 기간 연장을 청구할 수 있다.",
+      "months": 3,
+      "from": "상속개시(사망) 있음을 안 날",
+      "if_missed": "특별한정승인(제1019조 제3항): 빚이 재산보다 많은 사실을 중대한 과실 없이 몰랐다면, 그 사실을 안 날부터 3개월 안에 한정승인을 할 수 있다. 성립 여부는 법률 판단이 필요하다."
+    },
+    {
+      "id": "inheritance_tax_filing",
+      "name": "상속세 신고·납부 기한",
+      "basis": "상속세 및 증여세법 제67조",
+      "rule": "상속개시일이 속하는 달의 말일부터 6개월 안에 신고·납부한다. (피상속인·상속인 전원이 비거주자면 9개월)",
+      "months": 6,
+      "from": "상속개시일이 속하는 달의 말일",
+      "if_missed": "무신고·과소신고 가산세와 납부지연 가산세가 붙을 수 있다. 금액은 세무전문가 확인이 필요하다."
+    },
+    {
+      "id": "gift_tax_filing",
+      "name": "증여세 신고·납부 기한",
+      "basis": "상속세 및 증여세법 제68조",
+      "rule": "증여받은 날이 속하는 달의 말일부터 3개월 안에 신고·납부한다.",
+      "months": 3,
+      "from": "증여받은 날이 속하는 달의 말일",
+      "if_missed": "가산세가 붙을 수 있다. 금액은 세무전문가 확인이 필요하다."
+    },
+    {
+      "id": "forced_share_claim",
+      "name": "유류분 반환 청구 시효",
+      "basis": "민법 제1117조",
+      "rule": "상속개시와 반환해야 할 증여·유증이 있었다는 사실을 안 때부터 1년, 상속개시부터 10년 안에 청구한다.",
+      "months": 12,
+      "from": "상속개시와 침해 사실을 안 때",
+      "if_missed": "시효가 지나면 청구가 어려울 수 있다. 성립 여부는 변호사 확인이 필요하다."
+    }
+  ],
+
+  "concepts": [
+    { "term": "단순승인", "plain": "재산도 빚도 모두 물려받는 것", "basis": "민법 제1025조" },
+    { "term": "한정승인", "plain": "물려받은 재산 범위 안에서만 빚을 갚는 방식. 가정법원에 신고한다", "basis": "민법 제1028조" },
+    { "term": "상속포기", "plain": "재산도 빚도 받지 않겠다고 가정법원에 신고하는 것. 다음 순위 상속인에게 넘어갈 수 있다", "basis": "민법 제1041조" },
+    { "term": "상속재산 파산", "plain": "빚이 많은 상속재산을 법원이 정리하는 절차. 한정승인·포기가 가능한 기간 안에 신청할 수 있다", "basis": "채무자 회생 및 파산에 관한 법률 제299조·제300조" },
+    { "term": "유류분", "plain": "상속인에게 법으로 보장된 최소 몫. 2026.3.17.부터 원칙적으로 돈(가액)으로 돌려받는다. 형제자매 유류분은 폐지됐다", "basis": "민법 제1112조·제1115조 · 헌재 2024.4.25. 2020헌가4" },
+    { "term": "기여분", "plain": "돌아가신 분을 특별히 부양했거나 재산 유지·증가에 기여한 상속인에게 더 인정되는 몫", "basis": "민법 제1008조의2" },
+    { "term": "특별수익", "plain": "생전에 미리 받은 증여·유증. 상속분 계산 때 미리 받은 것으로 본다", "basis": "민법 제1008조" },
+    { "term": "상속권 상실 선고", "plain": "부양 의무를 저버렸거나 학대한 상속인의 상속권을 가정법원이 박탈하는 제도(2026.3.17. 시행)", "basis": "민법 제1004조의2" },
+    { "term": "유언대용신탁", "plain": "살아 있을 때 재산을 신탁하고, 사후에 정해 둔 사람에게 넘기는 방식", "basis": "신탁법 제59조" },
+    { "term": "장애인 신탁", "plain": "장애인 자녀 등에게 남기는 재산을 신탁으로 보호하는 방식. 일정 요건이면 증여세 과세가액에서 제외된다", "basis": "상속세 및 증여세법 제52조의2" },
+    { "term": "가업승계", "plain": "사업·법인을 자녀 등에게 넘기는 것. 요건이 맞으면 가업상속공제·증여세 과세특례가 있다", "basis": "상속세 및 증여세법 제18조의2 · 조세특례제한법 제30조의6" },
+    { "term": "안전관리자 선임", "plain": "일정 규모 이상 사업장은 안전관리자를 두어야 한다. 대표 유고 시 사업장 안전 공백도 승계 준비에 포함된다", "basis": "산업안전보건법 제17조 · 시행령 별표3·별표4" }
+  ],
+
+  "tools": [
+    { "id": "deadline", "name": "상속 기한 확인", "url": "/index.html#deadline", "for": "사망일 기준 3개월·6개월 기한을 바로 확인" },
+    { "id": "calculator", "name": "상속세 간이 판정", "url": "/calculator.html", "for": "상속세가 나올 재산 규모인지 간이 확인 (세액 수치는 여기서만)" },
+    { "id": "inheritdebt", "name": "상속채무 진단기", "url": "/inheritdebt.html", "for": "빚이 재산보다 많은지, 한정승인·포기·상속재산파산 중 어느 쪽인지 4지 비교" },
+    { "id": "gift", "name": "부모님께 받는 돈", "url": "/gift/", "for": "20~30대 수증자 — 증여 신고·공제 안내" },
+    { "id": "disability", "name": "장애인 신탁", "url": "/disability-trust.html", "for": "장애 가족에게 남길 때 신탁 구조" },
+    { "id": "ceo", "name": "안전관리 기업대표", "url": "/ceo-diagnosis.html", "for": "법인 대표의 안전·유고·승계 한 화면 점검" },
+    { "id": "retirement", "name": "노후 진단", "url": "/retirement/index.html", "for": "50~60대 은퇴·연금 정리" },
+    { "id": "lifemap", "name": "인생 변곡점 지도", "url": "/lifemap/", "for": "나이대별 변곡점과 지금 준비할 것" },
+    { "id": "natural-death", "name": "자연사 상속세", "url": "/natural-death.html", "for": "일반 사망 상속세 간이" },
+    { "id": "car-accident", "name": "교통사고 보상·상속", "url": "/car-accident.html", "for": "사고 사망 보상금과 상속" },
+    { "id": "industrial-accident", "name": "산재 보상·상속", "url": "/industrial-accident.html", "for": "업무상 사망 보상과 상속" },
+    { "id": "fire-accident", "name": "화재 보상·상속", "url": "/fire-accident.html", "for": "화재 사망 보상과 상속" },
+    { "id": "insurance", "name": "보험금과 유류분", "url": "/insurance-two-faces.html", "for": "사망보험금이 상속재산·유류분에 걸리는지" },
+    { "id": "connect", "name": "전문가 연결 요청", "url": "/network/connect.html", "for": "변호사·세무사·법무사 등 협업 전문가 연결" },
+    { "id": "booking", "name": "상담 예약", "url": "/booking.html", "for": "희망 시간 1~3순위 남기기" },
+    { "id": "consult", "name": "무료 상담 신청", "url": "/consult.html", "for": "폼으로 상담 신청" },
+    { "id": "room", "name": "이름 없이 물어보기", "url": "/index.html#room", "for": "글로 남기는 질문" },
+    { "id": "privacy", "name": "개인정보처리방침", "url": "/privacy.html", "for": "수집·보유·국외이전 안내" }
+  ],
+
+  "case_types": {
+    "started": {
+      "label": "상속이 이미 시작됐어요",
+      "assign_code": "HW_INTAKE",
+      "sub": {
+        "lt1m": { "label": "1개월 미만", "deadline_days_est": 75 },
+        "1to3m": { "label": "1~3개월", "deadline_days_est": 30 },
+        "3to6m": { "label": "3~6개월", "deadline_days_est": 45, "note": "3개월(승인·포기)은 지났을 수 있음. 6개월(신고) 기준" },
+        "gt6m": { "label": "6개월 이상", "deadline_days_est": 0, "note": "두 기한 모두 지났을 수 있음. 가산세·특별한정승인 확인" }
+      },
+      "first_tools": ["deadline", "inheritdebt", "calculator"],
+      "key_deadlines": ["accept_waive", "inheritance_tax_filing"]
+    },
+    "prepare": {
+      "label": "미리 준비하고 싶어요",
+      "assign_code": "HW_FIRST",
+      "sub": {
+        "parents": { "label": "부모님 재산" },
+        "mine": { "label": "내 재산" },
+        "gift": { "label": "자녀에게 증여" },
+        "disability": { "label": "장애 가족" }
+      },
+      "first_tools": ["lifemap", "gift", "calculator", "disability"],
+      "key_deadlines": ["gift_tax_filing"]
+    },
+    "business": {
+      "label": "사업·법인이 있어요",
+      "assign_code": "HW_FIRST",
+      "sub": {
+        "sole": { "label": "개인사업", "assign_code": "HW_FIRST" },
+        "corp": { "label": "법인 대표", "assign_code": "HW_INTAKE" },
+        "vessel": { "label": "어선·농지", "assign_code": "HW_FIRST" }
+      },
+      "first_tools": ["ceo", "calculator", "connect"],
+      "key_deadlines": ["inheritance_tax_filing"]
+    },
+    "debt": {
+      "label": "빚이 걱정돼요",
+      "assign_code": "HW_INTAKE",
+      "sub": {
+        "deceased": { "label": "돌아가신 분의 빚" },
+        "mine": { "label": "내 빚" },
+        "guarantee": { "label": "보증" }
+      },
+      "first_tools": ["inheritdebt", "deadline", "connect"],
+      "key_deadlines": ["accept_waive"]
+    }
+  },
+
+  "triggers": {
+    "debt_keywords": ["빚", "채무", "대출", "보증", "압류", "경매", "카드", "연체", "독촉", "채권자", "근저당", "신용회복"],
+    "dispute_keywords": ["유류분", "소송", "다툼", "싸움", "형제", "누나", "동생", "새어머니", "재혼", "편애", "몰래", "명의", "빼돌", "유언장 무효"],
+    "corp_keywords": ["법인", "주식", "대표", "회사", "지분", "가업", "승계", "임원"],
+    "urgent_days": 30,
+    "turn_cap": 8
+  },
+
+  "forbidden_outputs": [
+    "세액을 원 단위 숫자로 제시하기",
+    "특정 조치를 지시하기 (예: 한정승인 하세요)",
+    "보험·펀드·신탁·연금 상품명이나 금융회사명을 권하기",
+    "판례 번호·판시 인용",
+    "2024년 개정안(최고세율 40%·자녀공제 5억 등) — 국회에서 부결된 미확정 내용",
+    "이용자·가족 실명, 주민등록번호 되풀이 출력",
+    "이 파일에 없는 법령·수치"
+  ],
+
+  "closing_lines": [
+    "여기까지가 제가 정리해 드릴 수 있는 범위입니다. 더 자세한 건 직접 상담이 낫습니다.",
+    "지금 남기신 내용은 상담 때 그대로 이어집니다. 다시 설명하실 필요 없습니다."
+  ]
+}
