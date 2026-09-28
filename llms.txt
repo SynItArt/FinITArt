@@ -65,6 +65,8 @@ AFPK® 자격인증자(한국재무설계협회 IFPK, 舊 한국FPSB) / 생명�
 - [유류분 — 청구와 방어](https://finitart.com/insurance-two-faces.html): 받는 쪽과 지키는 쪽 양방향 시나리오.
 - [노후자금 진단](https://finitart.com/retirement/index.html): 사전증여 전 노후자금 잔존 여부 확인.
 - [부모님께 받는 돈, 세금 먼저 확인해 보세요](https://finitart.com/gift/): 결혼·출산 앞두고 부모님께 받는 돈의 증여재산 공제 한도(기본 5,000만원 · 혼인·출산 1억원), 예상 증여세, 신고기한(받은 달 말일부터 3개월)을 3단계로 개략 계산. 법률 제21065호 기준.
+- [우리 집 사연](https://finitart.com/stories.html): 상속·증여를 겪은 집들의 사연 28편(판례·강의·이용자 사연을 이름·금액을 바꿔 재구성). 사연마다 쟁점·법정 기한·맞는 도구를 정리. 댓글 없이 반응 버튼만, 이름 없이 사연 접수.
+- [물어보기](https://finitart.com/chat.html): 상황을 적으면 유형을 분류하고 기한과 도구를 안내하는 1차 창구. 법률·세무 판단이 아닌 정리·안내이며, 원하면 그 자리에서 상담 연락처를 남길 수 있음.
 - [상담 신청](https://finitart.com/consult.html)
 - [개인정보처리방침](https://finitart.com/privacy.html)
 

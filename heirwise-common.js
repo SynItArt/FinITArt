@@ -169,6 +169,8 @@
     "/network/join.html": [NET, "협업 제안"],
     "/network/for-partners.html": [NET, "협업기관 안내"],
     "/network/principles.html": [NET, "운영 원칙"],
+    "/chat.html": [TALK, "물어보기"],
+    "/stories.html": [null, "우리 집 사연"],
     "/privacy.html": [null, "개인정보처리방침"],
     "/privacy-2026-09-22.html": [null, "개인정보처리방침 (09.22 판)"]
   };

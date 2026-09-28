@@ -202,6 +202,7 @@ footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);bor
     </form>
   </section>
 
+  <p class="note"><b>다른 집은 어땠을까.</b> 비슷한 상황을 먼저 보고 싶으시면 <a href="/stories.html">우리 집 사연 28편</a>을 보세요.</p>
   <p class="note"><b>어떻게 쓰이나요.</b> 대화 내용은 상담 안내 목적으로 세션 번호 기준으로만 저장되고, 연락처를 남기신 경우에만 상담 기록과 함께 3년 보관합니다. 답변 생성은 Google(Gemini API)에 처리를 위탁합니다. 자세한 내용은 <a href="/privacy.html">개인정보처리방침</a>을 보세요. 세액은 세무전문가, 법률 판단은 변호사의 확인이 필요합니다.</p>
 </main>
 
@@ -376,7 +377,7 @@ footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);bor
     e.preventDefault();
     var text = inp.value.trim(); if (!text) return;
     if (hasRRN(text)) { sys("주민등록번호는 적지 않으셔도 됩니다. 지워 주세요."); return; }
-    if (S.turn >= TURN_CAP) { add("user", text); add("bot", "여기까지 정리했습니다. 더 자세한 건 직접 상담이 낫습니다."); leadCard("cap"); return; }
+    if (S.turn >= TURN_CAP) { add("user", text); add("bot", "여기까지 정리했습니다. 더 자세한 건 직접 상담이 낫습니다."); leadCard("cap"); storyOffer("cap"); return; }
     inp.value = ""; inp.style.height = "";
     add("user", text);
     S.history.push({ role: "user", text: text });
@@ -398,6 +399,7 @@ footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);bor
       add("bot", r.reply, flagMeta(S.turn));
       track("chat_turn", { turn: S.turn, trigger: r.trigger || "" });
       if (r.trigger && r.trigger !== S.triggered) leadCard(r.trigger);
+      if (r.trigger === "cap") storyOffer("cap");
     })
     .catch(function () { t.remove(); add("bot", "연결이 확인되지 않았습니다. 잠시 뒤 다시 보내 주시거나, 전화 010-2088-5383 으로 연락 주세요."); })
     .then(function () { sendBtn.disabled = false; inp.disabled = false; inp.focus(); });
@@ -480,11 +482,26 @@ footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);bor
       if (r && r.ok) {
         card.innerHTML = '<div class="ok">접수됐습니다. 확정되면 문자로 안내드립니다.<br>부재 시에는 문자를 남기고 다시 연락드리겠습니다.</div>';
         add("bot", "고맙습니다. 남기신 내용은 상담 때 그대로 이어집니다. 기다리시는 동안 [상속채무 진단기](/inheritdebt.html)나 [인생 변곡점 지도](/lifemap/)를 보셔도 좋습니다.");
+        storyOffer("lead");
       } else if (r && r.error === "rrn") { fail("주민등록번호는 입력하지 마세요."); $("lSend").disabled = false; $("lSend").textContent = "연락처 남기기"; }
       else { throw new Error("nok"); }
     }).catch(function () {
       fail("전송 확인이 되지 않았습니다. itart@finitart.com 또는 ☎ 010-2088-5383 으로 연락 주시면 바로 확인하겠습니다.");
       $("lSend").disabled = false; $("lSend").textContent = "다시 시도";
+    });
+  }
+
+  /* 사연 남기기 — 대화의 이용자 발화만 모아 stories.html 접수 폼에 미리 채움 (2026-09-28) */
+  function storyOffer(where) {
+    if ($("storyOffer")) return;
+    var wrap = document.createElement("div"); wrap.className = "msg sys"; wrap.id = "storyOffer";
+    wrap.innerHTML = '이 이야기가 다른 분께도 도움이 될 수 있습니다. <button type="button" class="qb" id="storyGo" style="margin-left:6px">이름 없이 사연으로 남기기</button>';
+    log.appendChild(wrap); wrap.scrollIntoView({ block: "end", behavior: "smooth" });
+    $("storyGo").addEventListener("click", function () {
+      var text = S.history.filter(function (h) { return h.role === "user"; }).map(function (h) { return h.text; }).join("\n");
+      try { sessionStorage.setItem("hw_chat_story", JSON.stringify({ text: text, case_type: S.case_type, sub_type: S.sub_type, from: where })); } catch (e) {}
+      track("chat_story_go", { where: where, turns: S.turn });
+      location.href = "/stories.html?from=chat#write";
     });
   }
 
