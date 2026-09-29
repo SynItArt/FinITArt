@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
 <title>대표님 기한 달력 — 회사·안전·가족 기한 한 목록 | HeirWise</title>
-<meta name="description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 안전관리자 선임 신고, 중대재해 반기 점검, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
+<meta name="description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 변경등기, 퇴직 금품 청산, 안전관리자 선임 신고, 중대재해 반기 점검, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
 <link rel="canonical" href="https://finitart.com/ceo/deadline.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="HeirWise · finitart.com">
 <meta property="og:url" content="https://finitart.com/ceo/deadline.html">
 <meta property="og:title" content="대표님 기한 달력 — 회사·안전·가족 기한 한 목록 — HeirWise">
-<meta property="og:description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 안전관리자 선임 신고, 중대재해 반기 점검, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
+<meta property="og:description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 변경등기, 퇴직 금품 청산, 안전관리자 선임 신고, 중대재해 반기 점검, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
 <meta property="og:image" content="https://finitart.com/og/og-ceo.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -24,11 +24,11 @@
 
 <header class="hd">
   <div class="wrap">
-    <div class="brand"><a href="/index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img sm is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="22"><img class="logo-img sm is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="22"><sup class="tm">™</sup></span></a> · 대표님 문제 12장 · 기한 달력</div>
+    <div class="brand"><a href="/index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img sm is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="22"><img class="logo-img sm is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="22"><sup class="tm">™</sup></span></a> · 대표님 문제 16장 · 기한 달력</div>
     <h1>대표님 기한 달력</h1>
     <p class="sub">회사·안전·가족 기한을 법이 정한 계산 방식 그대로 뽑아 가까운 순으로 모읍니다. 휴대폰 달력에 넣으면 30일·7일 전에 알려 줍니다.</p>
-    <div class="lawbar" aria-label="적용 법령 기준일"><span>민법 2026. 3. 17.</span><span>국세기본법 2026. 8. 11.</span><span>법인세법 2026. 7. 1.</span><span>상법 2026. 9. 10.</span><span>산안법 시행령 2026. 8. 1.</span></div>
-    <div class="chapnav"><a href="/ceo/">대표님 문제 12장</a><a href="/ceo/deadline.html">기한 달력 만들기</a><a href="/ceo-diagnosis.html">대표님 진단</a></div>
+    <div class="lawbar" aria-label="적용 법령 기준일"><span>민법 2026. 3. 17.</span><span>국세기본법 2026. 8. 11.</span><span>법인세법 2026. 7. 1.</span><span>상법 2026. 9. 10.</span><span>산안법 시행령 2026. 8. 1.</span><span>근로기준법 2026. 8. 20.</span></div>
+    <div class="chapnav"><a href="/ceo/">대표님 문제 16장</a><a href="/ceo/deadline.html">기한 달력 만들기</a><a href="/ceo-diagnosis.html">대표님 진단</a></div>
   </div>
 </header>
 
@@ -52,6 +52,8 @@
 <h3 style="margin-top:16px">안전</h3>
 <div class="fields">
 <label>안전관리자 등 선임·위탁(또는 해임·해지)한 날<input type="date" id="appoint"></label>
+<label>직원 퇴직일(금품 청산 14일)<input type="date" id="quit"></label>
+<label>대표·이사 변경일(변경등기 2주)<input type="date" id="reg"></label>
 <label>중대재해처벌법 반기 점검 기한도 보기<select id="half"><option value="y">예</option><option value="n">아니오 (5명 미만)</option></select></label></div>
 <h3 style="margin-top:16px">가족 — 대표님이 안 계실 때를 미리 보는 칸</h3>
 <p class="note">아래는 <b>가상의 날짜</b>를 넣어 기한 구조를 미리 보는 칸입니다. 실제 상속이 시작되었다면 기한을 넘기지 않도록 곧바로 변호사·세무사와 확인하세요.</p>
@@ -72,13 +74,13 @@
 <section class="card" id="rule" aria-labelledby="ruleh">
   <div class="step"><div class="stepno">3</div><h2 id="ruleh">어떻게 계산했나</h2></div>
   
-<div class="tw"><table class="t"><thead><tr><th scope="col">기한</th><th scope="col">계산 방식</th><th scope="col">근거 (시행일)</th></tr></thead><tbody><tr><th scope="row">법인세 신고·납부</th><td>사업연도 종료일이 속하는 달의 말일부터 3개월(성실신고확인서 제출 시 4개월)</td><td>법인세법 §60① (2026. 7. 1.)</td></tr><tr><th scope="row">가지급금 이자 회수</th><td>이자가 생긴 사업연도 종료일부터 1년 — 넘기면 익금</td><td>법인세법 시행령 §11 9호나목 (2026. 2. 27.)</td></tr><tr><th scope="row">당좌대출이자율 선택 효력</th><td>선택한 사업연도와 이후 2개 사업연도</td><td>시행령 §89③ (2026. 2. 27.)</td></tr><tr><th scope="row">정기 주주총회</th><td>매년 1회 정관에 정한 시기 — 결산·임원 보수 결의(3장)</td><td>상법 §365 (2026. 9. 10.)</td></tr><tr><th scope="row">안전관리자 등 선임·위탁 신고</th><td>선임·위탁(해임·해지)한 날부터 14일</td><td>산업안전보건법 시행령 §16⑥⑦ (2026. 8. 1.)</td></tr><tr><th scope="row">중대재해처벌법 반기 점검</th><td>반기 1회 이상(1~6월 / 7~12월) — 7종</td><td>중대재해처벌법 시행령 §4·§5② (2025. 10. 1.)</td></tr><tr><th scope="row">상속 승인·한정승인·포기</th><td>상속개시 있음을 안 날부터 3개월</td><td>민법 §1019① (2026. 3. 17.)</td></tr><tr><th scope="row">특별한정승인</th><td>상속채무 초과 사실을 안 날부터 3개월</td><td>민법 §1019③</td></tr><tr><th scope="row">상속세 신고</th><td>상속개시일이 속하는 달의 말일부터 6개월</td><td>상속세 및 증여세법 §67① (법률 제21065호)</td></tr><tr><th scope="row">배우자 상속재산 분할</th><td>상속세 신고기한 다음 날부터 9개월</td><td>상속세 및 증여세법 §19②</td></tr><tr><th scope="row">가업상속공제 사후관리</th><td>상속개시일부터 5년 — 안내용</td><td>상속세 및 증여세법 §18의2⑤</td></tr><tr><th scope="row">기간 계산 공통</th><td>첫날은 빼고 셈(초일 불산입), 월 단위는 달력으로, 해당 날짜가 없으면 그 달 말일. 말일이 토·일·공휴일이면 다음 날. 세법 기한은 노동절도 포함</td><td>민법 §157·§160·§161 · 국세기본법 §5① (2026. 8. 11.)</td></tr></tbody></table></div><p class="note"><b>이 도구가 반영하지 않는 것.</b> 설·추석·부처님오신날 같은 음력 공휴일, 대체공휴일, 임시공휴일은 반영하지 않았습니다(양력 고정 공휴일과 토·일만 반영). 기한 연장·납부유예·신고기한 특례, 회사별 사업연도 변경도 반영하지 않습니다. <b>각 기한이 우리 회사·가족에게 적용되는지는 전문가 확인 사항</b>입니다.</p>
+<div class="tw"><table class="t"><thead><tr><th scope="col">기한</th><th scope="col">계산 방식</th><th scope="col">근거 (시행일)</th></tr></thead><tbody><tr><th scope="row">법인세 신고·납부</th><td>사업연도 종료일이 속하는 달의 말일부터 3개월(성실신고확인서 제출 시 4개월)</td><td>법인세법 §60① (2026. 7. 1.)</td></tr><tr><th scope="row">가지급금 이자 회수</th><td>이자가 생긴 사업연도 종료일부터 1년 — 넘기면 익금</td><td>법인세법 시행령 §11 9호나목 (2026. 2. 27.)</td></tr><tr><th scope="row">당좌대출이자율 선택 효력</th><td>선택한 사업연도와 이후 2개 사업연도</td><td>시행령 §89③ (2026. 2. 27.)</td></tr><tr><th scope="row">정기 주주총회</th><td>매년 1회 정관에 정한 시기 — 결산·임원 보수 결의(3장)</td><td>상법 §365 (2026. 9. 10.)</td></tr><tr><th scope="row">안전관리자 등 선임·위탁 신고</th><td>선임·위탁(해임·해지)한 날부터 14일</td><td>산업안전보건법 시행령 §16⑥⑦ (2026. 8. 1.)</td></tr><tr><th scope="row">퇴직 직원 금품 청산</th><td>퇴직·사망일부터 14일 — 특별한 사정이 있으면 당사자 합의로 연장</td><td>근로기준법 §36 (2026. 8. 20.) · 퇴직급여법 §9 (2026. 9. 18.)</td></tr><tr><th scope="row">대표·이사 변경등기</th><td>변경일부터 2주 — 결원으로 퇴임이사가 남는 경우 후임 취임일부터</td><td>상법 §317④·§183 (2026. 9. 10.) · 대법원 2004마800</td></tr><tr><th scope="row">중대재해처벌법 반기 점검</th><td>반기 1회 이상(1~6월 / 7~12월) — 7종</td><td>중대재해처벌법 시행령 §4·§5② (2025. 10. 1.)</td></tr><tr><th scope="row">상속 승인·한정승인·포기</th><td>상속개시 있음을 안 날부터 3개월</td><td>민법 §1019① (2026. 3. 17.)</td></tr><tr><th scope="row">특별한정승인</th><td>상속채무 초과 사실을 안 날부터 3개월</td><td>민법 §1019③</td></tr><tr><th scope="row">상속세 신고</th><td>상속개시일이 속하는 달의 말일부터 6개월</td><td>상속세 및 증여세법 §67① (법률 제21065호)</td></tr><tr><th scope="row">배우자 상속재산 분할</th><td>상속세 신고기한 다음 날부터 9개월</td><td>상속세 및 증여세법 §19②</td></tr><tr><th scope="row">가업상속공제 사후관리</th><td>상속개시일부터 5년 — 안내용</td><td>상속세 및 증여세법 §18의2⑤</td></tr><tr><th scope="row">기간 계산 공통</th><td>첫날은 빼고 셈(초일 불산입), 월 단위는 달력으로, 해당 날짜가 없으면 그 달 말일. 말일이 토·일·공휴일이면 다음 날. 세법 기한은 노동절도 포함</td><td>민법 §157·§160·§161 · 국세기본법 §5① (2026. 8. 11.)</td></tr></tbody></table></div><p class="note"><b>이 도구가 반영하지 않는 것.</b> 설·추석·부처님오신날 같은 음력 공휴일, 대체공휴일, 임시공휴일은 반영하지 않았습니다(양력 고정 공휴일과 토·일만 반영). 기한 연장·납부유예·신고기한 특례, 회사별 사업연도 변경도 반영하지 않습니다. <b>각 기한이 우리 회사·가족에게 적용되는지는 전문가 확인 사항</b>입니다.</p>
 </section>
 <section class="card" id="next" aria-labelledby="nexth">
   <div class="step"><div class="stepno">4</div><h2 id="nexth">기한 전에 물어보기</h2></div>
   
 <div class="btnrow"><a class="btn" data-ev="deadline_ask" href="/network/connect.html?src=deadline&amp;ev=corp&amp;group=B">회사 기한 — 세무사 연결 (무료)</a><a class="btn sec" data-ev="deadline_ask" href="/network/connect.html?src=deadline&amp;ev=safety&amp;group=E">안전 기한 — 노무·산업안전 연결</a><a class="btn sec" data-ev="deadline_ask" href="/network/connect.html?src=deadline&amp;ev=inherit&amp;group=A">상속 기한 — 변호사 연결</a></div>
-<p class="law">관련 장: <a href="/ceo/karji.html">2장 가지급금</a> · <a href="/ceo/exec-pay.html">3장 임원 보수·퇴직금</a> · <a href="/ceo/guarantee.html">7장 연대보증</a> · <a href="/ceo/safety.html">9장 안전 의무 목록</a> · <a href="/inheritdebt.html">상속채무 진단</a></p>
+<p class="law">관련 장: <a href="/ceo/karji.html">2장 가지급금</a> · <a href="/ceo/exec-pay.html">3장 임원 보수·퇴직금</a> · <a href="/ceo/guarantee.html">7장 연대보증</a> · <a href="/ceo/safety.html">9장 안전 의무 목록</a> · <a href="/ceo/debt.html">13장 회사 빚</a> · <a href="/ceo/absence.html">14장 대표 유고</a> · <a href="/inheritdebt.html">상속채무 진단</a></p>
 </section>
 
 <div class="disc">
@@ -94,7 +96,7 @@
 <script src="/ceo/ceo.js"></script>
 <script>
 (function(){
-var H=HWCEO,$=function(i){return document.getElementById(i)},KEY='hw_ceo_deadline_v1',IDS=['fy','sincere','karji','dang','agm','appoint','half','death','knew','debt','biz'];
+var H=HWCEO,$=function(i){return document.getElementById(i)},KEY='hw_ceo_deadline_v1',IDS=['fy','sincere','karji','dang','agm','appoint','quit','reg','half','death','knew','debt','biz'];
 for(var m=1;m<=12;m++){var o=document.createElement('option');o.value=m;o.textContent=m+'월';$('agm').appendChild(o);}
 var cur=[];
 function mk(code,title,raw,tax,law,href,note,info){var r=info?{date:raw,moved:false}:H.roll(raw,tax);return {code:code,title:title,date:r.date,moved:r.moved,raw:raw,law:law,href:href,note:note||'',info:!!info};}
@@ -106,6 +108,8 @@ function build(){
   var dy=parseInt($('dang').value,10);if(dy>1990&&dy<2100){var end=new Date(dy+2,fy.getMonth(),fy.getDate());L.push(mk('D3','당좌대출이자율 선택 효력 끝',end,false,'시행령 §89③','/ceo/karji.html',dy+' 사업연도부터 3개 사업연도',true));}}
  var agm=parseInt($('agm').value,10);if(agm){var y=today.getFullYear();var d=new Date(y,agm-1,H.lastDay(y,agm-1));if(d<today)d=new Date(y+1,agm-1,H.lastDay(y+1,agm-1));L.push(mk('D11','정기 주주총회 ('+agm+'월 중)',d,false,'상법 §365','/ceo/exec-pay.html','결산 승인·임원 보수 결의 — 날짜는 그 달 말일로 표시',true));}
  var ap=H.parse($('appoint').value);if(ap)L.push(mk('D4','안전관리자 등 선임·위탁 신고',H.addDays(ap,14),false,'산업안전보건법 시행령 §16⑥⑦','/ceo/safety.html','선임·위탁일 '+H.ymd(ap)));
+ var qt=H.parse($('quit').value);if(qt)L.push(mk('D14','퇴직 직원 금품 청산',H.addDays(qt,14),false,'근로기준법 §36 · 퇴직급여법 §9','/ceo/debt.html','퇴직일 '+H.ymd(qt)+' · 연장은 당사자 합의로만'));
+ var rg=H.parse($('reg').value);if(rg)L.push(mk('D15','대표·이사 변경등기',H.addDays(rg,14),false,'상법 §317④·§183','/ceo/absence.html','변경일 '+H.ymd(rg)+' · 본점 소재지'));
  if($('half').value==='y'){var y2=today.getFullYear();var h1=new Date(y2,5,30),h2=new Date(y2,11,31);var nx=today<=h1?h1:h2;L.push(mk('D5','중대재해처벌법 반기 점검 (7종)',nx,false,'중대재해처벌법 시행령 §4·§5②','/ceo/safety.html','이번 반기 안에 점검 기록을 남길 것',true));}
  var de=H.parse($('death').value);
  if(de){var kn=H.parse($('knew').value)||de;
