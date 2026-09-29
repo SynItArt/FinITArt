@@ -17,6 +17,8 @@
   --bg:#EEF3FA;--card:#fff;
   --text:#0B1D35;--sub:#364F6B;--muted:#5C7A99;--border:#C5D3E8;
   --on-navy:#DCE5F2; /* 네이비 푸터 글자색 · 251행 --navy(#1A3C6D) 위 8.65:1 (2026-09-29) */
+  --on-navy-2:#C8D9EE; /* 히어로 본문 · 기존 .sb-lbl / .pv-text strong 값 (2026-09-29) */
+  --on-navy-3:#94B4D4; /* 히어로 보조 · 기존 .fp-badge span / .gb / .cf-lbl / .fp-msg 값 (2026-09-29) */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -52,14 +54,14 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
 .hero-title{font-size:clamp(28px,7vw,46px);font-weight:900;color:#fff;line-height:1.2;margin-bottom:14px}
 .hero-title em{color:var(--gold);font-style:normal}
-.hero-sub{font-size:15px;color:#7B9CC0;font-weight:600;line-height:1.7;margin-bottom:10px}
-.hero-safe{font-size:13px;color:rgba(255,255,255,.35);font-weight:700;margin-bottom:24px;letter-spacing:.2px}
+.hero-sub{font-size:15px;color:var(--on-navy-2);font-weight:600;line-height:1.7;margin-bottom:10px}
+.hero-safe{font-size:14px;color:var(--on-navy-3);font-weight:700;margin-bottom:24px;letter-spacing:.2px}
 
 .slider-box{
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
   border-radius:20px;padding:24px 22px;margin-bottom:18px;text-align:left
 }
-.sb-head{font-size:13px;font-weight:900;color:#6BA3E8;letter-spacing:.5px;
+.sb-head{font-size:14px;font-weight:900;color:var(--on-navy-2);letter-spacing:.5px;
   text-align:center;margin-bottom:20px}
 .sb-row{margin-bottom:18px}
 .sb-lbl{font-size:14px;font-weight:800;color:#C8D9EE;margin-bottom:6px;display:flex;
@@ -67,12 +69,12 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .sb-val{font-size:24px;font-weight:900;color:var(--gold)}
 input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;
   border:none;background:none;padding:0;height:8px;margin:6px 0}
-.sb-labels{display:flex;justify-content:space-between;font-size:11px;color:#3A5068;font-weight:700}
+.sb-labels{display:flex;justify-content:space-between;font-size:14px;color:var(--on-navy-3);font-weight:700}
 
 .gender-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
 .gb{padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.05);font-size:15px;font-weight:900;
-  cursor:pointer;text-align:center;color:#94B4D4;font-family:inherit;transition:all .2s}
+  cursor:pointer;text-align:center;color:var(--on-navy-2);font-family:inherit;transition:all .2s}
 .gb:hover,.gb.on{border-color:var(--gold);background:rgba(245,166,35,.15);color:#fff}
 
 .btn-go{width:100%;padding:18px;border-radius:14px;border:none;
@@ -83,6 +85,10 @@ input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;
 
 .trust-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:16px}
 .ti{font-size:12px;color:#5C7A99;font-weight:700}
+/* 신뢰 배지만 대상 — 291행 <i class="ti ti-message-circle"> 아이콘은 .trust-row 밖이라 제외됨 (2026-09-29) */
+.trust-row .ti{font-size:14px;color:var(--on-navy-3)}
+/* 연금 그래프 막대 라벨 — SVG 는 fill 이 글자색 (2026-09-29) */
+#s1 .pl-lbl{fill:var(--on-navy-2)}
 
 /* ═══ S2 — 결과 + 브릿지 통합 ═══ */
 #s2{display:none;padding:52px 20px 40px;background:var(--bg)}
@@ -317,16 +323,16 @@ header.hd .logo-mark .tm{color:#54CFA8}
         </defs>
         <!-- 1층 국민연금 -->
         <rect x="30" y="108" width="220" height="40" rx="6" fill="url(#g1)" opacity=".9"/>
-        <text x="140" y="132" text-anchor="middle" fill="#7B9CC0" font-size="12" font-weight="700" font-family="'Noto Sans KR',sans-serif">1층 국민연금</text>
+        <text class="pl-lbl" x="140" y="132" text-anchor="middle" font-size="14" font-weight="700" font-family="'Noto Sans KR',sans-serif">1층 국민연금</text>
         <!-- 2층 퇴직연금 -->
         <rect x="50" y="64" width="180" height="40" rx="6" fill="url(#g2)" opacity=".9"/>
-        <text x="140" y="88" text-anchor="middle" fill="#94B4D4" font-size="12" font-weight="700" font-family="'Noto Sans KR',sans-serif">2층 퇴직연금</text>
+        <text class="pl-lbl" x="140" y="88" text-anchor="middle" font-size="14" font-weight="700" font-family="'Noto Sans KR',sans-serif">2층 퇴직연금</text>
         <!-- 3층 개인연금 -->
         <rect x="70" y="20" width="140" height="40" rx="6" fill="url(#g3)" opacity=".9"/>
-        <text x="140" y="44" text-anchor="middle" fill="#0B1D35" font-size="12" font-weight="900" font-family="'Noto Sans KR',sans-serif">3층 개인연금</text>
+        <text x="140" y="44" text-anchor="middle" fill="#0B1D35" font-size="14" font-weight="900" font-family="'Noto Sans KR',sans-serif">3층 개인연금</text>
         <!-- 갭 표시 화살표 -->
         <line x1="260" y1="24" x2="260" y2="144" stroke="#C0392B" stroke-width="2" stroke-dasharray="4 3" opacity=".7"/>
-        <text x="264" y="88" fill="#FF8A80" font-size="10" font-weight="900" font-family="'Noto Sans KR',sans-serif" transform="rotate(90,264,88)">GAP</text>
+        <text x="264" y="88" fill="#FF8A80" font-size="14" font-weight="900" font-family="'Noto Sans KR',sans-serif" transform="rotate(90,264,88)">GAP</text>
         <!-- 보호 우산 아이콘 -->
         <path d="M140 8 Q140 2 148 2 Q156 2 156 8 Q156 2 164 2 Q172 2 172 8 Q172 2 180 2 Q186 2 186 8 L186 14 Q186 16 184 16 L96 16 Q94 16 94 14 L94 8 Q94 2 100 2 Q108 2 108 8 Q108 2 116 2 Q124 2 124 8 Q124 2 132 2 Q140 2 140 8Z" fill="#f9a825" opacity=".3"/>
       </svg>
@@ -356,7 +362,7 @@ header.hd .logo-mark .tm{color:#54CFA8}
         <div class="sb-lbl">목표 노후 생활비/월 <span class="sb-val" id="vTarget">280만원</span></div>
         <input type="range" id="rTarget" min="150" max="500" step="10" value="280"
           oninput="document.getElementById('vTarget').textContent=this.value+'만원'; D.target=+this.value">
-        <div class="sb-labels"><span>150만</span><span style="color:#FFD740;font-size:10px">적정 336만 <span style="color:#3A5068;font-size:9px">(통계청 KOSIS 2024)</span></span><span>500만</span></div>
+        <div class="sb-labels"><span>150만</span><span style="color:#FFD740;font-size:14px">적정 336만 <span style="color:var(--on-navy-3);font-size:14px">(통계청 KOSIS 2024)</span></span><span>500만</span></div>
       </div>
 
       <div class="sb-row" style="margin-bottom:0">
