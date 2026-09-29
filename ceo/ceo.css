@@ -210,3 +210,9 @@ ol.q li{margin-top:8px;font-weight:700}
 .chaps .st{font-size:14px;font-weight:800;color:var(--ink2);margin-top:4px}
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .btnrow .btn{width:auto;flex:1 1 220px;margin-top:0}
+/* 카툰 4컷 (2026-09-29) */
+.toon{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+@media(max-width:760px){.toon{grid-template-columns:1fr}}
+.toon figure{margin:0;border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.toon img{display:block;width:100%;height:auto}
+@media print{.toon{grid-template-columns:repeat(2,1fr)}.toon figure{break-inside:avoid}}
