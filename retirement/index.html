@@ -16,6 +16,7 @@
   --red:#C0392B;--orange:#D35400;
   --bg:#EEF3FA;--card:#fff;
   --text:#0B1D35;--sub:#364F6B;--muted:#5C7A99;--border:#C5D3E8;
+  --on-navy:#DCE5F2; /* 네이비 푸터 글자색 · 251행 --navy(#1A3C6D) 위 8.65:1 (2026-09-29) */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -217,8 +218,10 @@ input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer;
 .dn-text{font-size:14px;font-weight:700;color:var(--sub);line-height:1.6}
 .dn-text strong{color:var(--navy)}
 
-footer{background:var(--navy);color:#3A5068;text-align:center;
-  padding:20px 16px;font-size:11px;font-weight:600;line-height:2}
+/* 네이비 푸터만 대상 — .hw-foot(밝은 푸터)은 260행 규칙이 담당 (2026-09-29) */
+footer:not(.hw-foot){background:var(--navy);color:var(--on-navy);text-align:center;
+  padding:22px 16px;font-size:14px;font-weight:600;line-height:1.9}
+footer:not(.hw-foot) a{color:var(--on-navy);text-decoration:underline;text-underline-offset:2px}
 
 @media(max-width:480px){
   .kpi-g{grid-template-columns:1fr 1fr}
@@ -260,7 +263,7 @@ header.hd .logo-mark .tm{color:#54CFA8}
   .hw-foot{background:#f5f7fb;border-top:1px solid #e3e7ee;padding:38px 0;font-size:13.5px;color:#586273;margin-top:50px}
   .hw-foot .w{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}
   .hw-foot a{color:#1A3C6D;font-weight:500;text-decoration:none}
-  .hw-foot .disc{max-width:560px;line-height:1.7;color:#8a93a3;font-size:12.5px}
+  .hw-foot .disc{max-width:560px;line-height:1.7;color:var(--sub);font-size:14px}
   .hw-brand2{font-family:'Noto Serif KR',serif;font-weight:900;font-size:18px;color:#1A3C6D;margin-bottom:8px}
   @media(max-width:760px){.hw-links{display:none}}
 </style>

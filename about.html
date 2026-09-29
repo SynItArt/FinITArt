@@ -28,7 +28,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.24.0/dist/tabler-icons.min.css">
 <style>
-  :root{--navy:#1A3C6D;--navy-d:#12294b;--navy-50:#EAF0F8;--amber:#F9A825;--amber-ink:#3a2400;--amber-50:#FDF3DD;
+  :root{--navy:#1A3C6D;--navy-d:#12294b;--navy-50:#EAF0F8;--amber:#F9A825;--amber-ink:#3a2400;--amber-50:#FDF3DD;--amber-dk:#8A5A00;
     --teal:#0F6E56;--teal-50:#E1F5EE;--coral:#C8471F;--coral-50:#FBEAE2;--red:#D81E34;--red-50:#FCEAEC;
     --ink:#1b2330;--muted:#586273;--faint:#8a93a3;--line:#e3e7ee;--bg:#fff;--soft:#f5f7fb;--maxw:1000px}
   *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -53,12 +53,12 @@
   .lead-q p{font-size:16.5px;color:var(--muted);margin-top:14px}
   .mv{display:grid;grid-template-columns:64px 1fr;gap:22px;padding:30px 0;border-top:1px solid var(--line)}
   .mv:first-of-type{border-top:none}
-  .mv .num{font-family:'Noto Serif KR';font-size:15px;font-weight:900;color:#fff;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-direction:column;line-height:1.1}
-  .mv .num small{font-size:9px;font-weight:700;opacity:.85;letter-spacing:.5px}
+  .mv .num{font-family:'Noto Serif KR';font-size:20px;font-weight:900;color:#fff;width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column;line-height:1.1}
+  .mv .num small{font-size:14px;font-weight:700;letter-spacing:.4px}
   .mv h3{font-size:21px;color:var(--navy);font-weight:900;margin-bottom:8px}
   .mv p{font-size:15.5px;color:var(--muted);margin:0 0 12px}
   .mv .src{display:inline-block;font-size:12px;font-weight:600;color:var(--navy);background:var(--navy-50);padding:5px 12px;border-radius:8px;line-height:1.5}
-  .m1 .num{background:var(--navy)} .m2 .num{background:var(--coral)} .m3 .num{background:var(--teal)} .m4 .num{background:#c98a06} .m5 .num{background:var(--red)}
+  .m1 .num{background:var(--navy)} .m2 .num{background:var(--coral)} .m3 .num{background:var(--teal)} .m4 .num{background:var(--amber-dk)} .m5 .num{background:var(--red)}
   .m1 h3 b,.thesis b{color:var(--navy)}
   .thesis{background:var(--navy);color:#fff;border-radius:16px;padding:40px;margin-top:10px}
   .thesis h3{color:#fff;font-size:24px;margin-bottom:12px}.thesis p{color:#cdd9ec;font-size:16px;margin:0}
@@ -76,7 +76,7 @@
   footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between}footer a{color:var(--navy);font-weight:500}
   :focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:4px}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-  @media (max-width:760px){.nav-links{display:none}.mv{grid-template-columns:1fr;gap:12px}.mv .num{width:48px;height:48px}}
+  @media (max-width:760px){.nav-links{display:none}.mv{grid-template-columns:1fr;gap:12px}.mv .num{width:56px;height:56px}}
 
 /* 브랜드 로고 (2026-09-26, 상표출원 40-2026-0196992 / 등록 전 ™) */
 .brand,.hw-brand{display:inline-flex;align-items:center;gap:8px}
@@ -266,7 +266,7 @@ header.hd .logo-mark .tm{color:#54CFA8}
 <footer><div class="wrap">
   <div>
     <div class="brand" style="font-size:18px;margin-bottom:8px">Heir<span>Wise</span></div>
-    <div style="color:var(--faint);font-size:12.5px;max-width:560px;line-height:1.7">본 페이지의 자격·이력은 신대식(申大湜)의 실제 경력에 기반합니다. 상속·세무·법률 판단은 개별 사정에 따라 달라지므로, 구체적 사안은 전문가 상담을 받으시기 바랍니다.</div>
+    <div style="color:var(--muted);font-size:14px;max-width:560px;line-height:1.7">본 페이지의 자격·이력은 신대식(申大湜)의 실제 경력에 기반합니다. 상속·세무·법률 판단은 개별 사정에 따라 달라지므로, 구체적 사안은 전문가 상담을 받으시기 바랍니다.</div>
     <div style="margin-top:12px">☎ 010-2088-5383 &nbsp;|&nbsp; ✉ <a href="mailto:itart@finitart.com">itart@finitart.com</a></div>
   </div>
   <div style="text-align:right;min-width:170px"><a href="index.html">홈</a> · <a href="consult.html">상담 신청</a><br><a href="privacy.html">개인정보처리방침</a><br><span style="color:var(--faint)">HeirWise_Syn Dae Sik (申大湜)</span></div>

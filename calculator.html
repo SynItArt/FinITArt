@@ -7,15 +7,15 @@
 <title>상속 종합 계산기 v3 | HeirWise</title>
 <link rel="canonical" href="https://finitart.com/calculator.html">
 <style>
-:root{--hw-navy:#1A3C6D;--hw-teal:#0F6E56;--hw-coral:#D85A30;--hw-purple:#534AB7;--bg:#ffffff;--bg2:#f5f4f0;--bg3:#eeedea;--tx:#1a1a1a;--tx2:#555555;--tx3:#888880;--bd:rgba(0,0,0,0.18);--info-bg:#e6f1fb;--info-tx:#0c447c;--warn-bg:#faeeda;--warn-tx:#633806;--err-bg:#fcebeb;--err-tx:#791f1f;--ok-bg:#eaf3de;--ok-tx:#27500a;--r:10px}
-@media(prefers-color-scheme:dark){:root{--bg:#1e1e1c;--bg2:#2c2c2a;--bg3:#3d3d3a;--tx:#e8e6df;--tx2:#b4b2a9;--tx3:#888780;--bd:rgba(255,255,255,0.18);--info-bg:#042c53;--info-tx:#85b7eb;--warn-bg:#412402;--warn-tx:#fac775;--err-bg:#501313;--err-tx:#f09595;--ok-bg:#173404;--ok-tx:#c0dd97}}
+:root{--hw-navy:#1A3C6D;--hw-teal:#0F6E56;--hw-coral:#D85A30;--hw-purple:#534AB7;--bg:#ffffff;--bg2:#f5f4f0;--bg3:#eeedea;--tx:#1a1a1a;--tx2:#555555;--tx3:#555555;--bd:rgba(0,0,0,0.18);--info-bg:#e6f1fb;--info-tx:#0c447c;--warn-bg:#faeeda;--warn-tx:#633806;--err-bg:#fcebeb;--err-tx:#791f1f;--ok-bg:#eaf3de;--ok-tx:#27500a;--r:10px}
+@media(prefers-color-scheme:dark){:root{--bg:#1e1e1c;--bg2:#2c2c2a;--bg3:#3d3d3a;--tx:#e8e6df;--tx2:#b4b2a9;--tx3:#b4b2a9;--bd:rgba(255,255,255,0.18);--info-bg:#042c53;--info-tx:#85b7eb;--warn-bg:#412402;--warn-tx:#fac775;--err-bg:#501313;--err-tx:#f09595;--ok-bg:#173404;--ok-tx:#c0dd97}}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg3);color:var(--tx);font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;font-size:16px;line-height:1.6}
 .wrap{max-width:640px;margin:0 auto;padding:12px}
 h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding:16px 0 4px}
 @media(prefers-color-scheme:dark){h1{color:#85b7eb}}
 .sub{text-align:center;font-size:13px;color:var(--tx2);margin-bottom:12px}
-.law-date{text-align:center;font-size:12px;padding:6px 12px;background:var(--info-bg);color:var(--info-tx);border-radius:var(--r);margin-bottom:16px;font-weight:500}
+.law-date{text-align:center;font-size:14px;padding:6px 12px;background:var(--info-bg);color:var(--info-tx);border-radius:var(--r);margin-bottom:16px;font-weight:500}
 
 /* Tabs */
 .tabs{display:flex;gap:4px;margin-bottom:16px;overflow-x:auto}
@@ -29,7 +29,7 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 /* Form */
 .field{margin-bottom:14px}
 .field label{display:block;font-size:14px;font-weight:600;color:var(--tx);margin-bottom:4px}
-.field .desc{font-size:12px;color:var(--tx3);margin-bottom:4px}
+.field .desc{font-size:14px;color:var(--tx3);margin-bottom:4px}
 .field input,.field select{width:100%;padding:14px 12px;font-size:18px;font-weight:600;border:1.5px solid var(--bd);border-radius:var(--r);background:var(--bg);color:var(--tx);text-align:right}
 .field input:focus,.field select:focus{border-color:var(--hw-teal);outline:3px solid rgba(15,110,86,0.2)}
 .field select{text-align:left;font-size:16px}
@@ -45,7 +45,7 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 /* Section divider */
 .sec-title{font-size:16px;font-weight:700;color:var(--hw-navy);margin:20px 0 10px;padding-top:14px;border-top:2px solid var(--bd);display:flex;align-items:center;gap:8px}
 @media(prefers-color-scheme:dark){.sec-title{color:#85b7eb}}
-.badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:600}
+.badge{font-size:14px;padding:3px 9px;border-radius:12px;font-weight:600}
 .badge-info{background:var(--info-bg);color:var(--info-tx)}
 .badge-warn{background:var(--warn-bg);color:var(--warn-tx)}
 .badge-err{background:var(--err-bg);color:var(--err-tx)}
@@ -67,7 +67,7 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 /* Summary */
 .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:12px 0}
 .summary-box{padding:10px;border-radius:var(--r);background:var(--bg2);text-align:center}
-.summary-box .sl{font-size:12px;color:var(--tx2)}
+.summary-box .sl{font-size:14px;color:var(--tx2)}
 .summary-box .sv{font-size:18px;font-weight:700;color:var(--tx);margin-top:2px}
 .summary-box .sk{font-size:13px;font-weight:600;color:var(--info-tx)}
 
@@ -88,7 +88,7 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 @media(prefers-color-scheme:dark){.cta-box a{background:#e8e6df;color:#042c53}}
 
 /* Footer */
-.footer{font-size:12px;color:var(--tx3);margin-top:20px;padding:12px 0;border-top:1px solid var(--bd);line-height:1.8;text-align:center}
+.footer{font-size:14px;color:var(--tx3);margin-top:20px;padding:12px 0;border-top:1px solid var(--bd);line-height:1.8;text-align:center}
 .footer a{color:var(--info-tx);text-decoration:none}
 
 /* Email collect */
@@ -96,7 +96,7 @@ h1{font-size:22px;font-weight:700;text-align:center;color:var(--hw-navy);padding
 .email-section label{font-size:14px;font-weight:600;color:var(--ok-tx);display:block;margin-bottom:6px}
 .email-section input[type=email]{width:100%;padding:12px;font-size:16px;border:1.5px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
 .email-section button{margin-top:8px;width:100%;padding:12px;font-size:15px;font-weight:700;background:var(--hw-teal);color:#fff;border:none;border-radius:8px;cursor:pointer}
-.email-section .note{font-size:11px;color:var(--tx3);margin-top:6px}
+.email-section .note{font-size:14px;color:var(--tx3);margin-top:6px}
 .mnote{font-size:13.5px;line-height:1.6;padding:11px 13px;border-radius:10px;margin:4px 0 14px;border:1px solid rgba(128,128,128,.3);color:var(--tx2)}
 .mnote.warn{border-color:#C8471F;color:#C8471F}
 .myth h3{font-size:16px;color:#C8471F;margin:18px 0 10px}
@@ -270,7 +270,7 @@ header.hd .logo-mark .tm{color:#54CFA8}
   <div class="myth-card"><div class="q">① 이혼하면 자녀도 상속 못 받는다?</div><div class="a">아닙니다. 이혼한 전 배우자는 상속인이 아니지만, 자녀의 상속권은 부모 이혼과 무관하게 유지됩니다. 전혼 자녀도 현혼 자녀와 똑같이 1순위로 상속받습니다.</div></div>
   <div class="myth-card"><div class="q">② 오래 함께 산 사실혼 배우자는 당연히 상속받는다?</div><div class="a">아닙니다. 30년을 함께 살아도 혼인신고가 없으면 상속분은 0원입니다(민법 §1003①, 헌재 2020헌바494 합헌). 유증·증여·보험 수익자 지정으로 미리 설계해야 합니다.</div></div>
   <div class="myth-card"><div class="q">③ 재혼하면 전혼 자녀는 상속에서 빠진다?</div><div class="a">아닙니다. 재혼하면 현 배우자가 상속인이 되고, 전혼 자녀와 현혼 자녀가 모두 함께 동순위로 상속받습니다.</div></div>
-  <div class="a" style="font-size:12px;color:var(--tx3);margin-top:8px">※ 일반 정보 제공이며 개별 세무·법률 자문이 아닙니다. 정확한 판단은 전문가 상담이 필요합니다. (민법 §1000·§1003·§1009·§839-2)</div>
+  <div class="a" style="font-size:14px;color:var(--tx3);margin-top:8px">※ 일반 정보 제공이며 개별 세무·법률 자문이 아닙니다. 정확한 판단은 전문가 상담이 필요합니다. (민법 §1000·§1003·§1009·§839-2)</div>
 </div>
 
 <div class="cta-box">
@@ -342,7 +342,7 @@ function buildHeirs(){
   if(!h.length){el.innerHTML='<div style="padding:20px;text-align:center;color:var(--tx3);font-size:14px">상속인을 선택해주세요</div>';return;}
   el.innerHTML=h.map((x,i)=>`<div class="heir-card" style="border-left-color:${COLORS[i%6]}">
     <div class="name" style="color:${dk?COLORS_L[i%6]:COLORS[i%6]}">${x.name}</div>
-    <label style="font-size:12px;color:var(--tx2)">특별수익 (만원)</label>
+    <label style="font-size:14px;color:var(--tx2)">특별수익 (만원)</label>
     <input type="number" id="sp_${x.id}" value="0" min="0" step="1000" inputmode="numeric" oninput="calc()" aria-label="${x.name} 특별수익">
     <div class="kr-display" id="sk_${x.id}"></div>
   </div>`).join('');
@@ -503,7 +503,7 @@ function calc(){
       </div>
     </div>`;
   }).join('');
-  ylHtml+=`<div style="font-size:12px;color:var(--tx3);margin-top:12px;line-height:1.6">
+  ylHtml+=`<div style="font-size:14px;color:var(--tx3);margin-top:12px;line-height:1.6">
     * 배우자·직계비속: 법정상속분의 1/2 / 직계존속: 법정상속분의 1/3<br>
     * 형제자매 유류분: 2024.04.25. 폐지 (헌법재판소 결정)<br>
     * 유류분반환 청구 소멸시효: 안 날로부터 1년, 상속개시일로부터 10년
