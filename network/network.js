@@ -564,8 +564,23 @@
     }
   }
 
+  /* 2026-09-29 대표님 문제 12장(/ceo/*)·기한 달력(/ceo/deadline.html)에서 온 요청 — 장 이름만 요약에 미리 채운다(개인정보 아님) */
+  var CEO12_LABEL = { karji: "2장 가지급금", exec_pay: "3장 임원 보수·퇴직금", guarantee: "7장 연대보증", index: "대표님 문제 12장", corp: "회사 기한(법인세·가지급금 이자·주총)", safety: "안전 기한(선임 신고·반기 점검)", inherit: "상속 기한(3개월·6개월)" };
+  function applyCeo12Note() {
+    if (/^(SV|ED)$/.test(qs("svc") || "")) { applyServicesNote(); return; }
+    var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
+    var dl = qs("src") === "deadline", lab = CEO12_LABEL[qs("ev")] || "";
+    lead.parentNode.insertBefore(el("p", { class: "hint", text: (dl ? "기한 달력에서 오셨습니다" : "대표님 문제 12장에서 오셨습니다") + (lab ? " (" + lab + ")" : "") + ". 페이지의 질문 목록을 그대로 적어 주셔도 됩니다. 연결과 운영자 안내는 모두 무료이며, 세액·법률 판단은 연결된 전문가가 합니다." }), lead.nextSibling);
+    var ta = d.getElementById("summary");
+    if (ta && !ta.value && lab) {
+      ta.value = (dl ? "[기한 달력] " : "[대표님 문제 12장] ") + lab + " 관련해 상담받고 싶습니다.";
+      try { ta.dispatchEvent(new Event("input", { bubbles: true })); } catch (e) {}
+    }
+  }
+
   function applyLifemapNote() {
     if (qs("src") === "safety") { applySafetyNote(); return; }
+    if (qs("src") === "ceo12" || qs("src") === "deadline") { applyCeo12Note(); return; }
     var age = qs("age"), ev = qs("ev");
     if (!age && !ev) { applyServicesNote(); return; }
     var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
