@@ -565,7 +565,7 @@
   }
 
   /* 2026-09-29 대표님 문제 16장(/ceo/*)·기한 달력(/ceo/deadline.html)에서 온 요청 — 장 이름만 요약에 미리 채운다(개인정보 아님) */
-  var CEO12_LABEL = { karji: "2장 가지급금", exec_pay: "3장 임원 보수·퇴직금", guarantee: "7장 연대보증", index: "대표님 문제 16장", succession: "10장 가업승계", aftercare: "11장 사후관리 5년", liquidity: "12장 상속세 납부 재원", debt: "13장 회사 빚(과점주주·체불)", absence: "14장 대표 유고", related: "15장 대표-회사 거래", shares: "16장 주식 가치·주주", corp: "회사 기한(법인세·가지급금 이자·주총)", safety: "안전 기한(선임 신고·반기 점검)", inherit: "상속 기한(3개월·6개월)" };
+  var CEO12_LABEL = { karji: "2장 가지급금", exec_pay: "3장 임원 보수·퇴직금", guarantee: "7장 연대보증", index: "대표님 문제 16장", nominee: "4장 명의신탁 주식", treasury: "5장 자기주식", succession: "10장 가업승계", aftercare: "11장 사후관리 5년", liquidity: "12장 상속세 납부 재원", debt: "13장 회사 빚(과점주주·체불)", absence: "14장 대표 유고", related: "15장 대표-회사 거래", shares: "16장 주식 가치·주주", corp: "회사 기한(법인세·가지급금 이자·주총)", safety: "안전 기한(선임 신고·반기 점검)", inherit: "상속 기한(3개월·6개월)" };
   function applyCeo12Note() {
     if (/^(SV|ED)$/.test(qs("svc") || "")) { applyServicesNote(); return; }
     var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
