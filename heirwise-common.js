@@ -291,7 +291,7 @@
       "font-size:14px;line-height:1.75;color:#111827}",
       ".hw-lawbase .hw-h{font-size:14.5px;font-weight:800;color:#1A3C6D;",
       "margin-bottom:7px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}",
-      ".hw-lawbase .hw-asof{background:#1A3C6D;color:#fff;font-size:12.5px;font-weight:800;",
+      ".hw-lawbase .hw-asof{background:#1A3C6D;color:#fff;font-size:14px;font-weight:800;",
       "padding:3px 9px;border-radius:6px;letter-spacing:.02em}",
       ".hw-lawbase ul{margin:0;padding-left:18px}",
       ".hw-lawbase li{margin:2px 0}",
@@ -1039,6 +1039,7 @@
       "html[data-theme='dark'] #hw-chat-launcher{background:#54CFA8;border-color:#54CFA8;color:#14161B}",
       "@media (prefers-color-scheme:dark){:root:not([data-theme='light']) #hw-chat-launcher{background:#54CFA8;border-color:#54CFA8;color:#14161B}}",
       "@media (max-width:480px){#hw-chat-launcher{padding:0 14px 0 12px;font-size:15px}}",
+      "@media (max-width:360px){#hw-chat-launcher{bottom:calc(76px + env(safe-area-inset-bottom))}}",
       "@media (max-height:480px),print{#hw-chat-launcher{display:none}}"
     ].join("");
     d.head.appendChild(st);

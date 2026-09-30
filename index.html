@@ -515,6 +515,7 @@ html[data-theme="dark"] .logo-mark .tm{color:#54CFA8}
 header.hd .logo-mark .tm{color:#54CFA8}
 @media print{header.hd .logo-mark .tm{color:#0C5C48}}
 </style>
+<style id="hw-a11y">/* 가독성 보정 2026-09-30: 14px 미만 글자 상향 */.nav a.logo small{font-size:14px!important}.creds-group p.creds-label{font-size:14px!important}</style>
 </head>
 <body>
 
@@ -907,7 +908,7 @@ html:not(.lm-js) .lm-p{margin:0 0 30px}
 <!-- ══════════════════ 들어오는 질문들 ══════════════════ -->
 <style>
 /* 상황 카드 — 판례(머리) + 계산기(발)를 한 장에 */
-.sitgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:32px}
+.sitgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:18px;margin-top:32px}
 .sitcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   padding:0 26px 24px;box-shadow:var(--shadow);text-decoration:none;display:flex;flex-direction:column;
   transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;overflow:hidden;position:relative}
