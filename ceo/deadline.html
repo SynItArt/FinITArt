@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
 <title>대표님 기한 달력 — 회사·안전·가족 기한 한 목록 | HeirWise</title>
-<meta name="description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 변경등기, 퇴직 금품 청산, 안전관리자 선임 신고, 중대재해 반기 점검, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
+<meta name="description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 변경등기, 퇴직 금품 청산, 안전관리자 선임 신고, 중대재해 반기 점검, 위험성평가 재검토·산보위 분기 회의·정기교육·소방훈련·실무교육, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
 <link rel="canonical" href="https://finitart.com/ceo/deadline.html">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="HeirWise · finitart.com">
 <meta property="og:url" content="https://finitart.com/ceo/deadline.html">
 <meta property="og:title" content="대표님 기한 달력 — 회사·안전·가족 기한 한 목록 — HeirWise">
-<meta property="og:description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 변경등기, 퇴직 금품 청산, 안전관리자 선임 신고, 중대재해 반기 점검, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
+<meta property="og:description" content="법인세 신고, 가지급금 이자 회수, 정기 주총, 변경등기, 퇴직 금품 청산, 안전관리자 선임 신고, 중대재해 반기 점검, 위험성평가 재검토·산보위 분기 회의·정기교육·소방훈련·실무교육, 상속 3개월·6개월 기한을 법령 계산 방식 그대로 한 목록에 모으고 휴대폰 달력(.ics)에 넣는 무료 도구.">
 <meta property="og:image" content="https://finitart.com/og/og-ceo.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -27,7 +27,7 @@
     <div class="brand"><a href="/index.html" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img sm is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="22"><img class="logo-img sm is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="22"><sup class="tm">™</sup></span></a> · 대표로 산다는 것 · 기한 달력</div>
     <h1>대표님 기한 달력</h1>
     <p class="sub">회사·안전·가족 기한을 법이 정한 계산 방식 그대로 뽑아 가까운 순으로 모읍니다. 휴대폰 달력에 넣으면 30일·7일 전에 알려 줍니다.</p>
-    <div class="lawbar" aria-label="적용 법령 기준일"><span>민법 2026. 3. 17.</span><span>국세기본법 2026. 8. 11.</span><span>법인세법 2026. 7. 1.</span><span>상법 2026. 9. 10.</span><span>산안법 시행령 2026. 8. 1.</span><span>근로기준법 2026. 8. 20.</span></div>
+    <div class="lawbar" aria-label="적용 법령 기준일"><span>민법 2026. 3. 17.</span><span>국세기본법 2026. 8. 11.</span><span>법인세법 2026. 7. 1.</span><span>상법 2026. 9. 10.</span><span>산안법 시행령 2026. 8. 1.</span><span>화재예방법 시행규칙 2026. 7. 1.</span><span>근로기준법 2026. 8. 20.</span></div>
     <div class="chapnav"><a href="/ceo/">대표로 산다는 것</a><a href="/ceo/deadline.html">기한 달력 만들기</a><a href="/ceo-diagnosis.html">대표님 진단</a></div>
   </div>
 </header>
@@ -59,6 +59,14 @@
 <label>소방훈련·교육 실시일<input type="date" id="trn"></label>
 <label>우리 건물 등급이 특급·1급<span class="hint">훈련 결과 30일 제출 대상</span><select id="trg"><option value="n">아니오 / 모름</option><option value="y">예</option></select></label>
 <label>소방시설 자체점검이 끝난 날<span class="hint">소방서 보고 15일(토·공휴일 제외)</span><input type="date" id="chk"></label></div>
+<h3 style="margin-top:16px">안전 — 해마다 돌아오는 것</h3>
+<div class="fields">
+<label>마지막으로 위험성평가(최초·정기 재검토)를 마친 날<span class="hint">1년마다 재검토</span><input type="date" id="rad"></label>
+<label>산업안전보건위원회를 두는 사업장<span class="hint">분기마다 정기회의 (12장)</span><select id="com"><option value="n">아니오 / 모름</option><option value="y">예</option></select></label>
+<label>근로자 정기교육 기한도 보기<span class="hint">매반기 · 관리감독자는 연 16시간</span><select id="edu"><option value="n">아니오</option><option value="y">예</option></select></label>
+<label>우리 건물이 소방안전관리대상물<span class="hint">소방훈련·교육 연 1회 이상</span><select id="fsm"><option value="n">아니오 / 모름</option><option value="y">예</option></select></label>
+<label>소방안전관리자(보조자) 선임일<span class="hint">첫 실무교육 6개월</span><input type="date" id="fsa"></label>
+<label>가장 최근 실무교육 받은 날<span class="hint">그 뒤 2년마다</span><input type="date" id="fed"></label></div>
 <h3 style="margin-top:16px">가족 — 대표님이 안 계실 때를 미리 보는 칸</h3>
 <p class="note">아래는 <b>가상의 날짜</b>를 넣어 기한 구조를 미리 보는 칸입니다. 실제 상속이 시작되었다면 기한을 넘기지 않도록 곧바로 변호사·세무사와 확인하세요.</p>
 <div class="fields">
@@ -85,7 +93,7 @@
 <section class="card" id="rule" aria-labelledby="ruleh">
   <div class="step"><div class="stepno">4</div><h2 id="ruleh">어떻게 계산했나</h2></div>
   
-<div class="tw"><table class="t"><thead><tr><th scope="col">기한</th><th scope="col">계산 방식</th><th scope="col">근거 (시행일)</th></tr></thead><tbody><tr><th scope="row">법인세 신고·납부</th><td>사업연도 종료일이 속하는 달의 말일부터 3개월(성실신고확인서 제출 시 4개월)</td><td>법인세법 §60① (2026. 7. 1.)</td></tr><tr><th scope="row">가지급금 이자 회수</th><td>이자가 생긴 사업연도 종료일부터 1년 — 넘기면 익금</td><td>법인세법 시행령 §11 9호나목 (2026. 2. 27.)</td></tr><tr><th scope="row">당좌대출이자율 선택 효력</th><td>선택한 사업연도와 이후 2개 사업연도</td><td>시행령 §89③ (2026. 2. 27.)</td></tr><tr><th scope="row">정기 주주총회</th><td>매년 1회 정관에 정한 시기 — 결산·임원 보수 결의(3장)</td><td>상법 §365 (2026. 9. 10.)</td></tr><tr><th scope="row">안전관리자 등 선임·위탁 신고</th><td>선임·위탁(해임·해지)한 날부터 14일</td><td>산업안전보건법 시행령 §16⑥⑦ (2026. 8. 1.)</td></tr><tr><th scope="row">산업재해조사표</th><td>사망 또는 3일 이상 휴업 재해 발생일부터 1개월</td><td>산업안전보건법 §57③ · 시행규칙 §73 (2026. 8. 1.)</td></tr><tr><th scope="row">소방훈련·교육 결과 제출</th><td>특급·1급 소방안전관리대상물, 실시일부터 30일</td><td>화재예방법 §37② · 시행규칙 §37 (2026. 7. 1.)</td></tr><tr><th scope="row">소방시설 자체점검 결과 보고</th><td>점검이 끝난 날부터 15일 — 토요일·공휴일은 셈에서 뺌</td><td>소방시설법 §23③ · 시행규칙 §23②③ (2026. 7. 1.)</td></tr><tr><th scope="row">퇴직 직원 금품 청산</th><td>퇴직·사망일부터 14일 — 특별한 사정이 있으면 당사자 합의로 연장</td><td>근로기준법 §36 (2026. 8. 20.) · 퇴직급여법 §9 (2026. 9. 18.)</td></tr><tr><th scope="row">대표·이사 변경등기</th><td>변경일부터 2주 — 결원으로 퇴임이사가 남는 경우 후임 취임일부터</td><td>상법 §317④·§183 (2026. 9. 10.) · 대법원 2004마800</td></tr><tr><th scope="row">중대재해처벌법 반기 점검</th><td>반기 1회 이상(1~6월 / 7~12월) — 7종</td><td>중대재해처벌법 시행령 §4·§5② (2025. 10. 1.)</td></tr><tr><th scope="row">상속 승인·한정승인·포기</th><td>상속개시 있음을 안 날부터 3개월</td><td>민법 §1019① (2026. 3. 17.)</td></tr><tr><th scope="row">특별한정승인</th><td>상속채무 초과 사실을 안 날부터 3개월</td><td>민법 §1019③</td></tr><tr><th scope="row">상속세 신고</th><td>상속개시일이 속하는 달의 말일부터 6개월</td><td>상속세 및 증여세법 §67① (법률 제21065호)</td></tr><tr><th scope="row">배우자 상속재산 분할</th><td>상속세 신고기한 다음 날부터 9개월</td><td>상속세 및 증여세법 §19②</td></tr><tr><th scope="row">가업상속공제 사후관리</th><td>상속개시일부터 5년 — 안내용</td><td>상속세 및 증여세법 §18의2⑤</td></tr><tr><th scope="row">기간 계산 공통</th><td>첫날은 빼고 셈(초일 불산입), 월 단위는 달력으로, 해당 날짜가 없으면 그 달 말일. 말일이 토·일·공휴일이면 다음 날. 세법 기한은 노동절도 포함</td><td>민법 §157·§160·§161 · 국세기본법 §5① (2026. 8. 11.)</td></tr></tbody></table></div><p class="note"><b>이 도구가 반영하지 않는 것.</b> 설·추석·부처님오신날 같은 음력 공휴일, 대체공휴일, 임시공휴일은 반영하지 않았습니다(양력 고정 공휴일과 토·일만 반영). 기한 연장·납부유예·신고기한 특례, 회사별 사업연도 변경도 반영하지 않습니다. <b>각 기한이 우리 회사·가족에게 적용되는지는 전문가 확인 사항</b>입니다.</p>
+<div class="tw"><table class="t"><thead><tr><th scope="col">기한</th><th scope="col">계산 방식</th><th scope="col">근거 (시행일)</th></tr></thead><tbody><tr><th scope="row">법인세 신고·납부</th><td>사업연도 종료일이 속하는 달의 말일부터 3개월(성실신고확인서 제출 시 4개월)</td><td>법인세법 §60① (2026. 7. 1.)</td></tr><tr><th scope="row">가지급금 이자 회수</th><td>이자가 생긴 사업연도 종료일부터 1년 — 넘기면 익금</td><td>법인세법 시행령 §11 9호나목 (2026. 2. 27.)</td></tr><tr><th scope="row">당좌대출이자율 선택 효력</th><td>선택한 사업연도와 이후 2개 사업연도</td><td>시행령 §89③ (2026. 2. 27.)</td></tr><tr><th scope="row">정기 주주총회</th><td>매년 1회 정관에 정한 시기 — 결산·임원 보수 결의(3장)</td><td>상법 §365 (2026. 9. 10.)</td></tr><tr><th scope="row">안전관리자 등 선임·위탁 신고</th><td>선임·위탁(해임·해지)한 날부터 14일</td><td>산업안전보건법 시행령 §16⑥⑦ (2026. 8. 1.)</td></tr><tr><th scope="row">산업재해조사표</th><td>사망 또는 3일 이상 휴업 재해 발생일부터 1개월</td><td>산업안전보건법 §57③ · 시행규칙 §73 (2026. 8. 1.)</td></tr><tr><th scope="row">소방훈련·교육 결과 제출</th><td>특급·1급 소방안전관리대상물, 실시일부터 30일</td><td>화재예방법 §37② · 시행규칙 §37 (2026. 7. 1.)</td></tr><tr><th scope="row">소방시설 자체점검 결과 보고</th><td>점검이 끝난 날부터 15일 — 토요일·공휴일은 셈에서 뺌</td><td>소방시설법 §23③ · 시행규칙 §23②③ (2026. 7. 1.)</td></tr><tr><th scope="row">위험성평가 정기 재검토</th><td>최초·정기 평가를 마친 날부터 1년마다 적정성 재검토. 매월 순회점검·매주 공유·매일 작업 전 회의를 하면 정기평가를 한 것으로 봄</td><td>사업장 위험성평가에 관한 지침(고용노동부 고시) §15③④ (2025. 1. 2.)</td></tr><tr><th scope="row">산업안전보건위원회 정기회의</th><td>분기마다 위원장이 소집 · 회의록 작성</td><td>산업안전보건법 시행령 §37① (2026. 8. 1.)</td></tr><tr><th scope="row">근로자 정기교육</th><td>매반기 — 사무직·판매직 6시간, 그 밖 12시간 이상. 관리감독자는 연간 16시간 이상</td><td>산업안전보건법 시행규칙 별표 4 (2025. 5. 30. 개정)</td></tr><tr><th scope="row">소방훈련·교육</th><td>소방안전관리대상물은 연 1회 이상(소방서 요청 시 2회까지 추가) · 결과 기록부 2년 보관</td><td>화재예방법 시행규칙 §36 (2026. 7. 1.)</td></tr><tr><th scope="row">소방안전관리자·보조자 실무교육</th><td>선임일부터 6개월 이내(보조자 일부 3개월), 이후 2년마다 — 2년이 되는 날 전까지</td><td>화재예방법 시행규칙 §29③④ (2026. 7. 1.)</td></tr><tr><th scope="row">퇴직 직원 금품 청산</th><td>퇴직·사망일부터 14일 — 특별한 사정이 있으면 당사자 합의로 연장</td><td>근로기준법 §36 (2026. 8. 20.) · 퇴직급여법 §9 (2026. 9. 18.)</td></tr><tr><th scope="row">대표·이사 변경등기</th><td>변경일부터 2주 — 결원으로 퇴임이사가 남는 경우 후임 취임일부터</td><td>상법 §317④·§183 (2026. 9. 10.) · 대법원 2004마800</td></tr><tr><th scope="row">중대재해처벌법 반기 점검</th><td>반기 1회 이상(1~6월 / 7~12월) — 7종</td><td>중대재해처벌법 시행령 §4·§5② (2025. 10. 1.)</td></tr><tr><th scope="row">상속 승인·한정승인·포기</th><td>상속개시 있음을 안 날부터 3개월</td><td>민법 §1019① (2026. 3. 17.)</td></tr><tr><th scope="row">특별한정승인</th><td>상속채무 초과 사실을 안 날부터 3개월</td><td>민법 §1019③</td></tr><tr><th scope="row">상속세 신고</th><td>상속개시일이 속하는 달의 말일부터 6개월</td><td>상속세 및 증여세법 §67① (법률 제21065호)</td></tr><tr><th scope="row">배우자 상속재산 분할</th><td>상속세 신고기한 다음 날부터 9개월</td><td>상속세 및 증여세법 §19②</td></tr><tr><th scope="row">가업상속공제 사후관리</th><td>상속개시일부터 5년 — 안내용</td><td>상속세 및 증여세법 §18의2⑤</td></tr><tr><th scope="row">기간 계산 공통</th><td>첫날은 빼고 셈(초일 불산입), 월 단위는 달력으로, 해당 날짜가 없으면 그 달 말일. 말일이 토·일·공휴일이면 다음 날. 세법 기한은 노동절도 포함</td><td>민법 §157·§160·§161 · 국세기본법 §5① (2026. 8. 11.)</td></tr></tbody></table></div><p class="note"><b>이 도구가 반영하지 않는 것.</b> 설·추석·부처님오신날 같은 음력 공휴일, 대체공휴일, 임시공휴일은 반영하지 않았습니다(양력 고정 공휴일과 토·일만 반영). 기한 연장·납부유예·신고기한 특례, 회사별 사업연도 변경도 반영하지 않습니다. <b>각 기한이 우리 회사·가족에게 적용되는지는 전문가 확인 사항</b>입니다.</p>
 </section>
 <section class="card" id="next" aria-labelledby="nexth">
   <div class="step"><div class="stepno">5</div><h2 id="nexth">기한 전에 물어보기</h2></div>
@@ -130,7 +138,7 @@
 </style>
 <script>
 (function(){
-var H=HWCEO,$=function(i){return document.getElementById(i)},KEY='hw_ceo_deadline_v1',IDS=['fy','sincere','karji','dang','agm','appoint','quit','reg','half','acc','trn','trg','chk','death','knew','debt','biz'];
+var H=HWCEO,$=function(i){return document.getElementById(i)},KEY='hw_ceo_deadline_v1',IDS=['fy','sincere','karji','dang','agm','appoint','quit','reg','half','acc','trn','trg','chk','rad','com','edu','fsm','fsa','fed','death','knew','debt','biz'];
 for(var m=1;m<=12;m++){var o=document.createElement('option');o.value=m;o.textContent=m+'월';$('agm').appendChild(o);}
 var cur=[];
 function mk(code,title,raw,tax,law,href,note,info){var r=info?{date:raw,moved:false}:H.roll(raw,tax);return {code:code,title:title,date:r.date,moved:r.moved,raw:raw,law:law,href:href,note:note||'',info:!!info};}
@@ -145,6 +153,14 @@ function build(){
  var ac=H.parse($('acc').value);if(ac)L.push(mk('D16','산업재해조사표 제출',H.addMonthsCivil(ac,1),false,'산업안전보건법 §57③ · 시행규칙 §73','/field/first24.html','발생일 '+H.ymd(ac)+' · 근로자대표 확인'));
  var tr=H.parse($('trn').value);if(tr&&$('trg').value==='y')L.push(mk('D17','소방훈련·교육 결과 제출',H.addDays(tr,30),false,'화재예방법 §37② · 시행규칙 §37','/field/fire-plan.html','실시일 '+H.ymd(tr)+' · 특급·1급'));
  var ck=H.parse($('chk').value);if(ck){var x=ck,k=0;while(k<15){x=H.addDays(x,1);if(!H.roll(x,false).moved)k++;}L.push(mk('D18','소방시설 자체점검 결과 보고',x,false,'소방시설법 §23③ · 시행규칙 §23②③','/field/fire-check.html','점검 끝난 날 '+H.ymd(ck)+' · 토·공휴일 빼고 15일'));}
+ var ra=H.parse($('rad').value);if(ra){var e19=mk('D19','위험성평가 정기 재검토',H.addMonthsCivil(ra,12),false,'사업장 위험성평가에 관한 지침 §15③','/field/risk.html','지난 평가 '+H.ymd(ra)+' · 근로자 참여 · 기록 3년 보존',true);e19.info=false;e19.rep=function(k){return H.addMonthsCivil(ra,12*(k+1))};L.push(e19);}
+ var Y=today.getFullYear(),M=today.getMonth();
+ if($('com').value==='y'){var qm=Math.floor(M/3)*3+2;var e20=mk('D20','산업안전보건위원회 정기회의 (분기)',new Date(Y,qm,H.lastDay(Y,qm)),false,'산업안전보건법 시행령 §37①','/field/committee.html','이번 분기 안에 열고 회의록을 남길 것',true);e20.rep=function(k){var m=qm+3*k,yy=Y+Math.floor(m/12),mm=((m%12)+12)%12;return new Date(yy,mm,H.lastDay(yy,mm))};L.push(e20);}
+ if($('edu').value==='y'){var hm=M<6?5:11;var e21=mk('D21','근로자 정기교육 (이번 반기)',new Date(Y,hm,H.lastDay(Y,hm)),false,'산업안전보건법 시행규칙 별표 4','/field/edu.html','사무직 6시간·그 밖 12시간 이상 · 관리감독자는 연 16시간',true);e21.rep=function(k){var m=hm+6*k,yy=Y+Math.floor(m/12),mm=((m%12)+12)%12;return new Date(yy,mm,H.lastDay(yy,mm))};L.push(e21);}
+ if($('fsm').value==='y'){var e22=mk('D22','소방훈련·교육 (올해 1회 이상)',new Date(Y,11,31),false,'화재예방법 시행규칙 §36①','/field/fire-plan.html','실시 기록부 2년 보관 · 특급·1급은 결과 30일 제출(D17)',true);e22.rep=function(k){return new Date(Y+k,11,31)};L.push(e22);}
+ var fe=H.parse($('fed').value),fa=H.parse($('fsa').value);
+ if(fe){var e23=mk('D23','소방안전관리자 실무교육 (2년)',H.addDays(H.addMonthsCivil(fe,24),-1),false,'화재예방법 시행규칙 §29③④','/field/fire-assist.html','최근 교육 '+H.ymd(fe)+' · 2년이 되는 날 전까지',true);e23.info=false;e23.rep=function(k){return H.addDays(H.addMonthsCivil(fe,24*(k+1)),-1)};L.push(e23);}
+ else if(fa){var e23b=mk('D23','소방안전관리자 첫 실무교육',H.addMonthsCivil(fa,6),false,'화재예방법 시행규칙 §29③④','/field/fire-assist.html','선임일 '+H.ymd(fa)+' · 6개월 이내(보조자 일부 3개월)',true);e23b.info=false;L.push(e23b);}
  var qt=H.parse($('quit').value);if(qt)L.push(mk('D14','퇴직 직원 금품 청산',H.addDays(qt,14),false,'근로기준법 §36 · 퇴직급여법 §9','/ceo/debt.html','퇴직일 '+H.ymd(qt)+' · 연장은 당사자 합의로만'));
  var rg=H.parse($('reg').value);if(rg)L.push(mk('D15','대표·이사 변경등기',H.addDays(rg,14),false,'상법 §317④·§183','/ceo/absence.html','변경일 '+H.ymd(rg)+' · 본점 소재지'));
  if($('half').value==='y'){var y2=today.getFullYear();var h1=new Date(y2,5,30),h2=new Date(y2,11,31);var nx=today<=h1?h1:h2;var e5=mk('D5','중대재해처벌법 반기 점검 (7종)',nx,false,'중대재해처벌법 시행령 §4·§5②','/field/sapa.html','이번 반기 안에 점검 기록을 남길 것',true);e5.rep=function(k){var m=5+6*k,yy=y2+Math.floor(m/12),mm=((m%12)+12)%12;return new Date(yy,mm,H.lastDay(yy,mm))};L.push(e5);}
@@ -176,7 +192,7 @@ function load(){try{var s=localStorage.getItem(KEY);if(s){var o=JSON.parse(s);ID
 load();
 var q=new URLSearchParams(location.search);if(q.get('fy')&&H.parse(q.get('fy'))){$('fy').value=q.get('fy');}if(q.get('karji')==='1')$('karji').value='y';
 $('in').addEventListener('input',function(){build();save();});$('in').addEventListener('change',function(){build();save();});
-$('ex').onclick=function(){var y=new Date().getFullYear();$('fy').value=(y-1)+'-12-31';$('karji').value='y';$('agm').value='3';$('appoint').value=H.ymd(H.addDays(new Date(),-3));$('half').value='y';$('death').value=y+'-01-15';$('knew').value='';$('debt').value='';$('biz').value='n';build();save();};
+$('ex').onclick=function(){var y=new Date().getFullYear();$('fy').value=(y-1)+'-12-31';$('karji').value='y';$('agm').value='3';$('appoint').value=H.ymd(H.addDays(new Date(),-3));$('half').value='y';$('com').value='y';$('edu').value='y';$('fsm').value='y';$('rad').value=(y-1)+'-11-20';$('death').value=y+'-01-15';$('knew').value='';$('debt').value='';$('biz').value='n';build();save();};
 $('ics').onclick=function(){if(!cur.length)return;H.ics(cur.map(function(e){return {date:e.date,title:'[HeirWise] '+e.code+' '+e.title,desc:e.note+' / '+e.law}}),'heirwise-ceo-deadlines.ics');H.track('deadline_ics',{n:cur.length});};
 $('pr').onclick=function(){H.track('deadline_print',{});window.print();};
 build();

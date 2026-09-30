@@ -141,7 +141,8 @@
     { "id":  "field_stopwork", "name":  "현장 13장 작업중지권", "url":  "/field/stopwork.html", "for":  "근로자 대피권과 작업중지 기록지" },
     { "id":  "field_first24", "name":  "현장 14장 사고 첫 24시간", "url":  "/field/first24.html", "for":  "중지·구호·현장 보존·보고, 조사표 1개월" },
     { "id":  "field_compensation", "name":  "현장 15장 산재보험과 손해배상", "url":  "/field/compensation.html", "for":  "산재 뒤 회사 추가 배상 구조" },
-    { "id":  "field_family", "name":  "현장 16장 사고 뒤 가족", "url":  "/field/family.html", "for":  "유족급여 받는 사람과 상속인, 3개월 기한" }
+    { "id":  "field_family", "name":  "현장 16장 사고 뒤 가족", "url":  "/field/family.html", "for":  "유족급여 받는 사람과 상속인, 3개월 기한" },
+    { "id":  "field_forms", "name":  "현장 게시·기록용 빈 양식 9종", "url":  "/field/forms.html", "for":  "안전 조직표·작업중지 기록·화기작업 게시물·교육 출석부·산보위 회의록 등 A4 인쇄" }
   ],
 
   "public_services": [
