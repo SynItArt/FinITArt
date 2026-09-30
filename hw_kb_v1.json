@@ -1,7 +1,7 @@
 {
   "_meta": {
     "name": "HeirWise 챗봇 참조 자료 (hw_kb_v1)",
-    "version": "1.2",
+    "version": "1.3",
     "date": "2026-09-30",
     "security": "공유 가능 (사이트 공개 문안·조문 인용만 포함)",
     "author": "HeirWise_Syn Dae Sik (申大湜)",
@@ -10,9 +10,9 @@
       "상속세 및 증여세법 — 법률 제21065호 (2026. 1. 2. 시행)",
       "같은 법 시행령 — 대통령령 제36131호 (2026. 2. 27. 시행)",
       "민법 — 2026. 3. 17. 시행 (상속권 상실 선고 §1004조의2 · 유류분 가액반환 §1115)",
-      "개인정보 보호법 — 법률 제21445호 (2026. 9. 11. 시행)"
+      "개인정보 보호법 — 법률 제21445호 (2026. 9. 11. 시행)", "산업안전보건법 (2026. 6. 1. 시행) · 시행령·시행규칙 (2026. 8. 1.)", "중대재해 처벌 등에 관한 법률 (2022. 1. 27.) · 시행령 (2025. 10. 1.)", "화재의 예방 및 안전관리에 관한 법률 (2026. 2. 27.) · 소방시설 설치 및 관리에 관한 법률", "산업재해보상보험법 (2026. 7. 1. 시행)"
     ],
-    "note": "봇은 이 파일 밖의 지식을 쓰지 않는다. 없는 내용은 '확인이 필요합니다'로 답하고 인계 카드를 안내한다. v1.1(2026-09-28): 공공서비스 2건(public_services) 추가. v1.2(2026-09-30): 「대표로 산다는 것」 목차+28장(tools ceo_*) 추가, 사업 유형 첫 안내에 목차, 법인 키워드 7개 추가"
+    "note": "봇은 이 파일 밖의 지식을 쓰지 않는다. 없는 내용은 '확인이 필요합니다'로 답하고 인계 카드를 안내한다. v1.1(2026-09-28): 공공서비스 2건(public_services) 추가. v1.2(2026-09-30): 「대표로 산다는 것」 목차+28장(tools ceo_*) 추가, 사업 유형 첫 안내에 목차, 법인 키워드 7개 추가 v1.3(2026-09-30): 「현장을 지킨다는 것」 목차+16장(tools field_*) 추가, 사업 유형 첫 안내에 목차, 안전 키워드 6개, 법령 근거에 산업안전·소방·산재 법령 추가"
   },
 
   "identity": {
@@ -124,7 +124,24 @@
     { "id":  "ceo_rehab", "name":  "대표로 산다는 것 25장 회생·파산", "url":  "/ceo/rehab.html", "for":  "회사 절차와 대표 보증 나눠 보기" },
     { "id":  "ceo_divorce", "name":  "대표로 산다는 것 26장 이혼과 회사 주식", "url":  "/ceo/divorce.html", "for":  "재산분할 기한과 지분 변화" },
     { "id":  "ceo_abroad", "name":  "대표로 산다는 것 27장 자녀·부모 해외 거주", "url":  "/ceo/abroad.html", "for":  "비거주자 신고 기한·공제" },
-    { "id":  "ceo_remarry", "name":  "대표로 산다는 것 28장 재혼 가족과 유류분", "url":  "/ceo/remarry.html", "for":  "상속분·유류분 어림, 계자녀·사실혼" }
+    { "id":  "ceo_remarry", "name":  "대표로 산다는 것 28장 재혼 가족과 유류분", "url":  "/ceo/remarry.html", "for":  "상속분·유류분 어림, 계자녀·사실혼" },
+    { "id":  "field_series", "name":  "현장을 지킨다는 것 (사업장 안전·소방 16장 목차)", "url":  "/field/", "for":  "안전관리자·소방안전관리자·중대재해·산재·유족까지 대표가 먼저 알 16가지" },
+    { "id":  "field_manager", "name":  "현장 1장 안전관리자 선임", "url":  "/field/manager.html", "for":  "업종·인원별 안전관리자 인원, 전담, 위탁, 14일 신고" },
+    { "id":  "field_roles", "name":  "현장 2장 안전 조직표", "url":  "/field/roles.html", "for":  "안전보건관리책임자·관리감독자·안전보건관리담당자 역할" },
+    { "id":  "field_fire_grade", "name":  "현장 3장 소방안전관리자 등급 판별", "url":  "/field/fire-grade.html", "for":  "건물 특급~3급 판별, 선임 30일·신고 14일" },
+    { "id":  "field_fire_assist", "name":  "현장 4장 보조자·겸직·자체점검", "url":  "/field/fire-assist.html", "for":  "소방안전관리보조자 인원, 겸직 제한, 점검할 수 있는 사람" },
+    { "id":  "field_risk", "name":  "현장 5장 위험성평가", "url":  "/field/risk.html", "for":  "2026년 개정 근로자 참여·알림·기록 3년" },
+    { "id":  "field_edu", "name":  "현장 6장 안전보건교육 시간표", "url":  "/field/edu.html", "for":  "정기·채용·특별교육 시간과 과태료 구조" },
+    { "id":  "field_sapa", "name":  "현장 7장 중대재해처벌법 체계", "url":  "/field/sapa.html", "for":  "경영책임자 11칸 점검과 반기 점검 마감" },
+    { "id":  "field_fire_plan", "name":  "현장 8장 소방계획서·훈련", "url":  "/field/fire-plan.html", "for":  "소방계획서 15항목, 자위소방대, 훈련 연 1회" },
+    { "id":  "field_fire_check", "name":  "현장 9장 자체점검 결과 읽기", "url":  "/field/fire-check.html", "for":  "점검 뒤 보고 15일·이행 기한, 중대위반 4가지" },
+    { "id":  "field_subcontract", "name":  "현장 10장 도급·하청", "url":  "/field/subcontract.html", "for":  "원청 도급인 의무, 협의체·순회점검 주기" },
+    { "id":  "field_hotwork", "name":  "현장 11장 화재감시자·임시소방시설", "url":  "/field/hotwork.html", "for":  "용접 작업 전 확인, 임시소방시설 7종" },
+    { "id":  "field_committee", "name":  "현장 12장 산업안전보건위원회·관리규정", "url":  "/field/committee.html", "for":  "대상·구성·분기 회의, 규정 30일" },
+    { "id":  "field_stopwork", "name":  "현장 13장 작업중지권", "url":  "/field/stopwork.html", "for":  "근로자 대피권과 작업중지 기록지" },
+    { "id":  "field_first24", "name":  "현장 14장 사고 첫 24시간", "url":  "/field/first24.html", "for":  "중지·구호·현장 보존·보고, 조사표 1개월" },
+    { "id":  "field_compensation", "name":  "현장 15장 산재보험과 손해배상", "url":  "/field/compensation.html", "for":  "산재 뒤 회사 추가 배상 구조" },
+    { "id":  "field_family", "name":  "현장 16장 사고 뒤 가족", "url":  "/field/family.html", "for":  "유족급여 받는 사람과 상속인, 3개월 기한" }
   ],
 
   "public_services": [
@@ -165,7 +182,7 @@
         "corp": { "label": "법인 대표", "assign_code": "HW_INTAKE" },
         "vessel": { "label": "어선·농지", "assign_code": "HW_FIRST" }
       },
-      "first_tools": ["ceo_series", "ceo", "calculator", "connect"],
+      "first_tools": ["ceo_series", "field_series", "ceo", "calculator", "connect"],
       "key_deadlines": ["inheritance_tax_filing"]
     },
     "debt": {
@@ -184,7 +201,7 @@
   "triggers": {
     "debt_keywords": ["빚", "채무", "대출", "보증", "압류", "경매", "카드", "연체", "독촉", "채권자", "근저당", "신용회복"],
     "dispute_keywords": ["유류분", "소송", "다툼", "싸움", "형제", "누나", "동생", "새어머니", "재혼", "편애", "몰래", "명의", "빼돌", "유언장 무효"],
-    "corp_keywords": ["법인", "주식", "대표", "회사", "지분", "가업", "승계", "임원", "가지급금", "동업", "세무조사", "법인차", "청산", "매각", "비상장"],
+    "corp_keywords": ["법인", "주식", "대표", "회사", "지분", "가업", "승계", "임원", "가지급금", "동업", "세무조사", "법인차", "청산", "매각", "비상장", "안전관리자", "소방안전", "중대재해", "산재", "위험성평가", "도급"],
     "urgent_days": 30,
     "turn_cap": 8
   },
