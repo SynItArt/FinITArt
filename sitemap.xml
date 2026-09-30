@@ -117,6 +117,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://finitart.com/field/first24.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/field/compensation.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/field/family.html</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://finitart.com/ceo/</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
