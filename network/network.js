@@ -566,6 +566,18 @@
 
   /* 2026-09-29 대표님 문제 16장(/ceo/*)·기한 달력(/ceo/deadline.html)에서 온 요청 — 장 이름만 요약에 미리 채운다(개인정보 아님) */
   var CEO12_LABEL = { karji: "2장 가지급금", exec_pay: "3장 임원 보수·퇴직금", guarantee: "7장 연대보증", index: "대표로 산다는 것 목차", nominee: "4장 명의신탁 주식", treasury: "5장 자기주식", succession: "10장 가업승계", aftercare: "11장 사후관리 5년", liquidity: "12장 상속세 납부 재원", debt: "13장 회사 빚(과점주주·체불)", absence: "14장 대표 유고", related: "15장 대표-회사 거래", shares: "16장 주식 가치·주주", income: "1장 소득 설계", receivable: "6장 채권 회수", welfare: "8장 사내근로복지기금", partner: "17장 동업자 분쟁", family_pay: "18장 가족 직원 급여", key_staff: "19장 핵심 직원 이탈", tax_audit: "20장 세무조사", car_card: "21장 법인차·법인카드", realestate: "22장 부동산 명의", closing: "23장 폐업·청산", sell: "24장 회사 매각", rehab: "25장 회생·파산", divorce: "26장 이혼과 주식", abroad: "27장 해외 거주 가족", remarry: "28장 재혼·유류분", corp: "회사 기한(법인세·가지급금 이자·주총)", safety: "안전 기한(선임 신고·반기 점검)", inherit: "상속 기한(3개월·6개월)" };
+  /* 2026-09-30 「현장을 지킨다는 것」(/field/*)에서 온 요청 — 장 이름만 요약에 미리 채운다(개인정보 아님) */
+  var FIELD_LABEL = { index: "현장을 지킨다는 것 목차", manager: "1장 안전관리자 선임", roles: "2장 안전 조직(책임자·관리감독자)", fire_grade: "3장 소방안전관리자 등급", fire_assist: "4장 보조자·겸직·자체점검" };
+  function applyFieldNote() {
+    var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
+    var lab = FIELD_LABEL[qs("ev")] || "";
+    lead.parentNode.insertBefore(el("p", { class: "hint", text: "「현장을 지킨다는 것」에서 오셨습니다" + (lab ? " (" + lab + ")" : "") + ". 페이지의 질문 목록을 그대로 적어 주셔도 됩니다. 연결과 운영자 안내는 모두 무료이며, 법 적용·책임 판단은 연결된 전문가와 관할 기관이 합니다." }), lead.nextSibling);
+    var ta = d.getElementById("summary");
+    if (ta && !ta.value && lab) {
+      ta.value = "[현장을 지킨다는 것] " + lab + " 관련해 상담받고 싶습니다.";
+      try { ta.dispatchEvent(new Event("input", { bubbles: true })); } catch (e) {}
+    }
+  }
   function applyCeo12Note() {
     if (/^(SV|ED)$/.test(qs("svc") || "")) { applyServicesNote(); return; }
     var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
@@ -581,6 +593,7 @@
   function applyLifemapNote() {
     if (qs("src") === "safety") { applySafetyNote(); return; }
     if (qs("src") === "ceo12" || qs("src") === "deadline") { applyCeo12Note(); return; }
+    if (qs("src") === "field") { applyFieldNote(); return; }
     var age = qs("age"), ev = qs("ev");
     if (!age && !ev) { applyServicesNote(); return; }
     var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
