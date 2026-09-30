@@ -291,6 +291,11 @@ header.hd .logo-mark .tm{color:#54CFA8}
 <script>
 const COLORS=['#534AB7','#0F6E56','#D85A30','#185FA5','#993556','#639922'];
 const COLORS_L=['#EEEDFE','#E1F5EE','#FAECE7','#E6F1FB','#FBEAF0','#EAF3DE'];
+/* 글자 전용 — 면(COLORS)은 그대로 두고 대비만 확보 (2026-09-30)
+   COLORS_TX: 밝은 배경 위 글자 (라이트 .name, 라이트 막대 글자)
+   COLORS_ON: 다크 막대 면 위 글자 — idx2/idx5 는 #1a1a1a 가 4.4961 로 미달이라 #000 사용 */
+const COLORS_TX=['#534AB7','#0F6E56','#633806','#185FA5','#993556','#27500a'];
+const COLORS_ON=['#fff','#fff','#000','#fff','#fff','#000'];
 const dk=matchMedia('(prefers-color-scheme:dark)').matches;
 
 function tab(n,btn){
@@ -341,7 +346,7 @@ function buildHeirs(){
   const h=getHeirs(),el=document.getElementById('heirInputs');
   if(!h.length){el.innerHTML='<div style="padding:20px;text-align:center;color:var(--tx3);font-size:14px">상속인을 선택해주세요</div>';return;}
   el.innerHTML=h.map((x,i)=>`<div class="heir-card" style="border-left-color:${COLORS[i%6]}">
-    <div class="name" style="color:${dk?COLORS_L[i%6]:COLORS[i%6]}">${x.name}</div>
+    <div class="name" style="color:${dk?COLORS_L[i%6]:COLORS_TX[i%6]}">${x.name}</div>
     <label style="font-size:14px;color:var(--tx2)">특별수익 (만원)</label>
     <input type="number" id="sp_${x.id}" value="0" min="0" step="1000" inputmode="numeric" oninput="calc()" aria-label="${x.name} 특별수익">
     <div class="kr-display" id="sk_${x.id}"></div>
@@ -458,7 +463,7 @@ function calc(){
   const tAll=tb.reduce((a,b)=>a+Math.max(0,b),0)||1;
   document.getElementById('barArea').innerHTML=`<div class="bar">${heirs.map((x,i)=>{
     const pct=Math.max(0,tb[i])/tAll*100;
-    const cc=dk?COLORS[i%6]:COLORS_L[i%6],tc=dk?'#fff':COLORS[i%6];
+    const cc=dk?COLORS[i%6]:COLORS_L[i%6],tc=dk?COLORS_ON[i%6]:COLORS_TX[i%6];
     return pct>5?`<div class="bar-seg" style="width:${pct.toFixed(1)}%;background:${cc};color:${tc}">${x.name} ${Math.round(pct)}%</div>`:`<div class="bar-seg" style="width:${pct.toFixed(1)}%;background:${cc}"></div>`;
   }).join('')}</div>`;
 
