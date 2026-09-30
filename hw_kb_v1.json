@@ -1,8 +1,8 @@
 {
   "_meta": {
     "name": "HeirWise 챗봇 참조 자료 (hw_kb_v1)",
-    "version": "1.1",
-    "date": "2026-09-28",
+    "version": "1.2",
+    "date": "2026-09-30",
     "security": "공유 가능 (사이트 공개 문안·조문 인용만 포함)",
     "author": "HeirWise_Syn Dae Sik (申大湜)",
     "law_asof": "2026.09.07",
@@ -12,7 +12,7 @@
       "민법 — 2026. 3. 17. 시행 (상속권 상실 선고 §1004조의2 · 유류분 가액반환 §1115)",
       "개인정보 보호법 — 법률 제21445호 (2026. 9. 11. 시행)"
     ],
-    "note": "봇은 이 파일 밖의 지식을 쓰지 않는다. 없는 내용은 '확인이 필요합니다'로 답하고 인계 카드를 안내한다. v1.1(2026-09-28): 공공서비스 2건(public_services) 추가"
+    "note": "봇은 이 파일 밖의 지식을 쓰지 않는다. 없는 내용은 '확인이 필요합니다'로 답하고 인계 카드를 안내한다. v1.1(2026-09-28): 공공서비스 2건(public_services) 추가. v1.2(2026-09-30): 「대표로 산다는 것」 목차+28장(tools ceo_*) 추가, 사업 유형 첫 안내에 목차, 법인 키워드 7개 추가"
   },
 
   "identity": {
@@ -95,6 +95,36 @@
     { "id": "consult", "name": "무료 상담 신청", "url": "/consult.html", "for": "폼으로 상담 신청" },
     { "id": "room", "name": "이름 없이 물어보기", "url": "/index.html#room", "for": "글로 남기는 질문" },
     { "id": "privacy", "name": "개인정보처리방침", "url": "/privacy.html", "for": "수집·보유·국외이전 안내" }
+,
+    { "id":  "ceo_series", "name":  "대표로 산다는 것 (28장 목차)", "url":  "/ceo/", "for":  "법인 대표가 부딪히는 28가지 문제 — 장마다 4컷·법 구조·무료 도구" },
+    { "id":  "ceo_income", "name":  "대표로 산다는 것 1장 대표 월급·배당·퇴직금 순서", "url":  "/ceo/income.html", "for":  "급여·배당·퇴직금 세 갈래 절차 점검" },
+    { "id":  "ceo_karji", "name":  "대표로 산다는 것 2장 가지급금", "url":  "/ceo/karji.html", "for":  "회사에서 꺼내 쓴 돈의 인정이자·상여 처분 구조" },
+    { "id":  "ceo_exec_pay", "name":  "대표로 산다는 것 3장 임원 보수·퇴직금 규정", "url":  "/ceo/exec-pay.html", "for":  "임원 퇴직금 한도와 정관·주총 규정" },
+    { "id":  "ceo_nominee", "name":  "대표로 산다는 것 4장 명의신탁 주식", "url":  "/ceo/nominee.html", "for":  "남의 이름으로 된 주식 점검" },
+    { "id":  "ceo_treasury", "name":  "대표로 산다는 것 5장 자기주식", "url":  "/ceo/treasury.html", "for":  "회사가 주식을 사는 한도·소각 기한" },
+    { "id":  "ceo_receivable", "name":  "대표로 산다는 것 6장 못 받은 돈(채권 시효)", "url":  "/ceo/receivable.html", "for":  "거래처별 소멸시효 달력" },
+    { "id":  "ceo_guarantee", "name":  "대표로 산다는 것 7장 대표 연대보증", "url":  "/ceo/guarantee.html", "for":  "보증 목록 정리, 상속 시 3개월 기한" },
+    { "id":  "ceo_welfare", "name":  "대표로 산다는 것 8장 사내근로복지기금", "url":  "/ceo/welfare.html", "for":  "직원 복지 제도화" },
+    { "id":  "ceo_safety", "name":  "대표로 산다는 것 9장 사업장 안전 의무", "url":  "/ceo/safety.html", "for":  "중대재해처벌법·산업안전보건법 의무 목록" },
+    { "id":  "ceo_succession", "name":  "대표로 산다는 것 10장 가업승계", "url":  "/ceo/succession.html", "for":  "증여특례·가업상속공제 요건" },
+    { "id":  "ceo_aftercare", "name":  "대표로 산다는 것 11장 승계 뒤 5년 사후관리", "url":  "/ceo/aftercare.html", "for":  "고용·지분 유지 요건" },
+    { "id":  "ceo_liquidity", "name":  "대표로 산다는 것 12장 상속세 낼 돈", "url":  "/ceo/liquidity.html", "for":  "연부연납·물납 요건" },
+    { "id":  "ceo_debt", "name":  "대표로 산다는 것 13장 회사 빚이 대표에게", "url":  "/ceo/debt.html", "for":  "과점주주 제2차 납세의무·임금 체불" },
+    { "id":  "ceo_absence", "name":  "대표로 산다는 것 14장 대표 유고 대비", "url":  "/ceo/absence.html", "for":  "대표가 갑자기 없을 때 권한·등기" },
+    { "id":  "ceo_related", "name":  "대표로 산다는 것 15장 대표-회사 거래", "url":  "/ceo/related.html", "for":  "자기거래 승인·시가 기준" },
+    { "id":  "ceo_shares", "name":  "대표로 산다는 것 16장 비상장주식 가치", "url":  "/ceo/shares.html", "for":  "주식 평가 구조" },
+    { "id":  "ceo_partner", "name":  "대표로 산다는 것 17장 동업자와 갈라설 때", "url":  "/ceo/partner.html", "for":  "지분별 권리·나가는 값" },
+    { "id":  "ceo_family_pay", "name":  "대표로 산다는 것 18장 가족 직원 급여", "url":  "/ceo/family-pay.html", "for":  "가족 급여의 근로 기록 점검" },
+    { "id":  "ceo_key_staff", "name":  "대표로 산다는 것 19장 핵심 직원 이탈", "url":  "/ceo/key-staff.html", "for":  "영업비밀 관리·퇴직 서약" },
+    { "id":  "ceo_tax_audit", "name":  "대표로 산다는 것 20장 세무조사 통지", "url":  "/ceo/tax-audit.html", "for":  "조사 날짜·기한 계산" },
+    { "id":  "ceo_car_card", "name":  "대표로 산다는 것 21장 법인차·법인카드", "url":  "/ceo/car-card.html", "for":  "업무용 승용차 비용 인정 기준" },
+    { "id":  "ceo_realestate", "name":  "대표로 산다는 것 22장 부동산 법인 명의 vs 개인 명의", "url":  "/ceo/realestate.html", "for":  "명의별 규정 비교" },
+    { "id":  "ceo_closing", "name":  "대표로 산다는 것 23장 폐업·청산", "url":  "/ceo/closing.html", "for":  "해산·청산 순서와 기한" },
+    { "id":  "ceo_sell", "name":  "대표로 산다는 것 24장 회사 매각", "url":  "/ceo/sell.html", "for":  "주식 양도와 영업양도 절차 비교" },
+    { "id":  "ceo_rehab", "name":  "대표로 산다는 것 25장 회생·파산", "url":  "/ceo/rehab.html", "for":  "회사 절차와 대표 보증 나눠 보기" },
+    { "id":  "ceo_divorce", "name":  "대표로 산다는 것 26장 이혼과 회사 주식", "url":  "/ceo/divorce.html", "for":  "재산분할 기한과 지분 변화" },
+    { "id":  "ceo_abroad", "name":  "대표로 산다는 것 27장 자녀·부모 해외 거주", "url":  "/ceo/abroad.html", "for":  "비거주자 신고 기한·공제" },
+    { "id":  "ceo_remarry", "name":  "대표로 산다는 것 28장 재혼 가족과 유류분", "url":  "/ceo/remarry.html", "for":  "상속분·유류분 어림, 계자녀·사실혼" }
   ],
 
   "public_services": [
@@ -135,7 +165,7 @@
         "corp": { "label": "법인 대표", "assign_code": "HW_INTAKE" },
         "vessel": { "label": "어선·농지", "assign_code": "HW_FIRST" }
       },
-      "first_tools": ["ceo", "calculator", "connect"],
+      "first_tools": ["ceo_series", "ceo", "calculator", "connect"],
       "key_deadlines": ["inheritance_tax_filing"]
     },
     "debt": {
@@ -154,7 +184,7 @@
   "triggers": {
     "debt_keywords": ["빚", "채무", "대출", "보증", "압류", "경매", "카드", "연체", "독촉", "채권자", "근저당", "신용회복"],
     "dispute_keywords": ["유류분", "소송", "다툼", "싸움", "형제", "누나", "동생", "새어머니", "재혼", "편애", "몰래", "명의", "빼돌", "유언장 무효"],
-    "corp_keywords": ["법인", "주식", "대표", "회사", "지분", "가업", "승계", "임원"],
+    "corp_keywords": ["법인", "주식", "대표", "회사", "지분", "가업", "승계", "임원", "가지급금", "동업", "세무조사", "법인차", "청산", "매각", "비상장"],
     "urgent_days": 30,
     "turn_cap": 8
   },
