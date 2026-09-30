@@ -103,6 +103,10 @@ ol.duty .law{display:block;font-size:14px;color:var(--ink2);font-weight:700;marg
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:660px){.row2{grid-template-columns:1fr}}
 .note{border-left:5px solid var(--amber);background:var(--warn-bg);padding:14px 16px;border-radius:0 12px 12px 0;font-size:15.5px;line-height:1.75;margin-top:16px;font-weight:600}
+div.toon{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+@media(max-width:760px){div.toon{grid-template-columns:1fr}}
+div.toon figure{margin:0;border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+div.toon img{display:block;width:100%;height:auto}
 figure.toon{margin:14px 0 6px}
 figure.toon img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
 figure.toon figcaption{font-size:14px;color:var(--ink2);margin-top:6px}
@@ -179,6 +183,7 @@ header.hd .logo-mark .tm{color:#54CFA8}
 
 <nav class="steps" aria-label="단계">
   <ol>
+    <li><a href="#toon"><b>▶</b>4컷</a></li>
     <li><a href="#s1"><b>1</b>무엇이 해당되나</a></li>
     <li><a href="#s2"><b>2</b>한 걸음씩</a></li>
     <li><a href="#s3"><b>3</b>무료로 받기</a></li>
@@ -187,6 +192,11 @@ header.hd .logo-mark .tm{color:#54CFA8}
 </nav>
 
 <main class="wrap">
+
+<section class="card" id="toon" aria-labelledby="toonh">
+  <div class="step"><div class="stepno">▶</div><h2 id="toonh">4컷으로 먼저 보기 — 「20년 무사고」</h2></div>
+<div class="toon"><figure><img src="/img/toon/ceo09_safety/cut1.webp" width="1200" height="825" loading="lazy" decoding="async" alt="4컷 카툰 1컷(1 · 상황, AI로 만든 이미지, 이야기 속 가족): 성호: 우리 공장은 20년 동안 사고 한 번 없었어. 무사고 20년, 그런데 서류는 한 장도 없습니다. 작은 공장일수록 안전은 「반장이 알아서」가 됩니다."></figure><figure><img src="/img/toon/ceo09_safety/cut2.webp" width="1200" height="825" loading="lazy" decoding="async" alt="4컷 카툰 2컷(2 · 다들 하는 착각, AI로 만든 이미지, 이야기 속 가족): 안전은 현장 반장이 알아서 하겠지. 사고가 나면 청구서는 대표 이름으로도 옵니다. 5명 이상 사업장이면 대표(경영책임자)에게 직접 요구되는 안전보건 확보 의무가 있습니다."></figure><figure><img src="/img/toon/ceo09_safety/cut3.webp" width="1200" height="825" loading="lazy" decoding="async" alt="4컷 카툰 3컷(3 · 사실, AI로 만든 이미지, 이야기 속 가족): 사망 사고 때 경영책임자 1년 이상 — 징역 또는 10억 원 이하 벌금. 안전 방침 · 위험성평가 · 비상 대응 — 기록이 먼저입니다. 의무를 지켰는지가 갈림길입니다. 중대재해처벌법 §6① · 개략 안내이며 법률 자문이 아닙니다"></figure><figure><img src="/img/toon/ceo09_safety/cut4.webp" width="1200" height="825" loading="lazy" decoding="async" alt="4컷 카툰 4컷(4 · 지금 할 일 한 가지, AI로 만든 이미지, 이야기 속 가족): 성호: 반년에 한 번, 내가 직접 확인하자. 안전 방침 한 장 · 위험 작업 목록 · 비상 대응 순서. finitart.com/ceo/safety.html — 우리 회사 규모로 추린 의무 목록 · 무료 연결 010-2088-5383"></figure></div><p class="law">AI로 만든 이미지 · 이야기 속 가족입니다. 인물과 회사는 실제가 아닙니다.</p>
+</section>
 
 <!-- ───────── 화면 1 ───────── -->
 <section class="card" id="s1" aria-labelledby="s1h">
