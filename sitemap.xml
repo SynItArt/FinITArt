@@ -57,6 +57,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://finitart.com/ceo/nominee.html</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/ceo/treasury.html</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://finitart.com/ceo/succession.html</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
