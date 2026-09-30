@@ -28,7 +28,7 @@
   function daysBetween(a, b) { return Math.round((new Date(b.getFullYear(), b.getMonth(), b.getDate()) - new Date(a.getFullYear(), a.getMonth(), a.getDate())) / 864e5); }
   function won(n) { if (!isFinite(n)) return "-"; return Math.round(n).toLocaleString("ko-KR") + "원"; }
   function num(v) { var n = parseFloat(String(v == null ? "" : v).replace(/[^\d.\-]/g, "")); return isFinite(n) ? n : 0; }
-  function track(name, p) { try { if (window.hwTrack) window.hwTrack(name, p || {}); } catch (e) {} }
+  function track(name, p) { try { if (window.hwTrack) window.hwTrack(name, p || {}, name === "ceo12_tool"); } catch (e) {} }  // 도구 사용은 한 페이지에 1회만 기록(입력할 때마다 쌓이지 않게)
   function ics(events, filename) {
     var L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//HeirWise//finitart.com//KO", "CALSCALE:GREGORIAN"];
     var stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");

@@ -570,10 +570,10 @@
     if (/^(SV|ED)$/.test(qs("svc") || "")) { applyServicesNote(); return; }
     var lead = d.querySelector(".nw-hero .lead"); if (!lead) return;
     var dl = qs("src") === "deadline", lab = CEO12_LABEL[qs("ev")] || "";
-    lead.parentNode.insertBefore(el("p", { class: "hint", text: (dl ? "기한 달력에서 오셨습니다" : "대표님 문제 16장에서 오셨습니다") + (lab ? " (" + lab + ")" : "") + ". 페이지의 질문 목록을 그대로 적어 주셔도 됩니다. 연결과 운영자 안내는 모두 무료이며, 세액·법률 판단은 연결된 전문가가 합니다." }), lead.nextSibling);
+    lead.parentNode.insertBefore(el("p", { class: "hint", text: (dl ? "기한 달력에서 오셨습니다" : "「대표님 문제」에서 오셨습니다") + (lab ? " (" + lab + ")" : "") + ". 페이지의 질문 목록을 그대로 적어 주셔도 됩니다. 연결과 운영자 안내는 모두 무료이며, 세액·법률 판단은 연결된 전문가가 합니다." }), lead.nextSibling);
     var ta = d.getElementById("summary");
     if (ta && !ta.value && lab) {
-      ta.value = (dl ? "[기한 달력] " : "[대표님 문제 16장] ") + lab + " 관련해 상담받고 싶습니다.";
+      ta.value = (dl ? "[기한 달력] " : "[대표님 문제] ") + lab + " 관련해 상담받고 싶습니다.";
       try { ta.dispatchEvent(new Event("input", { bubbles: true })); } catch (e) {}
     }
   }
