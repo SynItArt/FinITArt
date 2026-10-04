@@ -693,7 +693,9 @@ header.hd .logo-mark .tm{color:#54CFA8}
       })(t0);
     }
   }
-  if(window.hwTrack) hwTrack('lobby_view',{skipped:skip?1:0},true);
+  /* heirwise-common.js는 defer라 이 줄이 실행될 때 hwTrack이 아직 없다 → DOM 준비 뒤에 보낸다 (2026-10-04) */
+  (function fire(){ if(window.hwTrack){ hwTrack('lobby_view',{skipped:skip?1:0},true); }
+    else if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',fire); } })();
 })();
 </script>
 <!-- LOBBY:END -->

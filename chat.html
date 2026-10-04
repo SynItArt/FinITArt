@@ -254,7 +254,16 @@ footer .lawdate{font-weight:700;color:var(--f-ink);background:var(--f-amber);bor
   var log = $("log"), opts = $("opts"), quick = $("quick"), bar = $("bar"), inp = $("inp"), sendBtn = $("send"), leadHost = $("leadHost");
   var src = (/[?&]src=([^&#]+)/.exec(location.search) || [])[1] || "";
   var hasRRN = window.hwHasRRN || function (v) { return /\b\d{6}\s*-?\s*[1-8]\d{6}\b/.test(String(v || "")); };
-  var track = function (n, p) { try { (window.hwTrack || function () {})(n, p || {}); } catch (e) {} };
+  /* heirwise-common.js는 defer라 turn0() 시점엔 hwTrack이 아직 없다 → 준비될 때까지 모았다가 보낸다 (2026-10-04) */
+  var trackQ = [];
+  var track = function (n, p) {
+    if (window.hwTrack) { try { window.hwTrack(n, p || {}); } catch (e) {} }
+    else if (trackQ) { trackQ.push([n, p || {}]); }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    var q = trackQ || []; trackQ = null;
+    for (var i = 0; i < q.length; i++) { try { if (window.hwTrack) window.hwTrack(q[i][0], q[i][1]); } catch (e) {} }
+  });
 
   /* 세션 */
   var S = {
