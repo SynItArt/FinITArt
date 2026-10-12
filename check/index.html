@@ -3,10 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 보안등급: 공유 가능 | 제작: HeirWise_Syn Dae Sik (申大湜) | 우리 집 준비도 진단 v1 (입구 A·B) 2026-10-12 -->
+<!-- 보안등급: 공유 가능 | 제작: HeirWise_Syn Dae Sik (申大湜) | 우리 집 준비도 진단 v1.1 (입구 A·B, ?entry= 바로가기, 공개) 2026-10-12 -->
 <title>우리 집 준비도 진단 — HeirWise</title>
 <meta name="description" content="세 번만 누르면 우리 집에 지금 필요한 할 일과 법정 기한을 정리해 드립니다. 연락처 없이도 결과까지 볼 수 있어요.">
-<meta name="robots" content="noindex">
 <link rel="canonical" href="https://finitart.com/check/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="우리 집 준비도 진단 — 1분, 세 번만 누르세요">
@@ -566,6 +565,11 @@ document.addEventListener("DOMContentLoaded", function () {
     else if (act === "restart") { S = { entry: null, q2: null, q3: [], example: false }; show("s-intro"); }
   });
 
+  /* 홈·허브에서 입구를 골라 들어오면(?entry=A|B) 첫 질문을 건너뜁니다 (2026-10-12 v1.1) */
+  (function () {
+    var e = (new URLSearchParams(location.search).get("entry") || "").toUpperCase();
+    if (ENTRIES[e]) { S = { entry: e, q2: null, q3: [], example: false }; track("check_entry", { entry: e, via: "link" }); renderQ2(); show("s-q2"); }
+  })();
   track("check_view");
 });
 </script>
