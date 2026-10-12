@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 보안등급: 공유 가능 | 제작: HeirWise_Syn Dae Sik (申大湜) | 우리 집 준비도 진단 v1.1 (입구 A·B, ?entry= 바로가기, 공개) 2026-10-12 -->
+<!-- 보안등급: 공유 가능 | 제작: HeirWise_Syn Dae Sik (申大湜) | 우리 집 준비도 진단 v1.2 (입구 A~E, ?entry= 바로가기, 공개) 2026-10-12 -->
 <title>우리 집 준비도 진단 — HeirWise</title>
 <meta name="description" content="세 번만 누르면 우리 집에 지금 필요한 할 일과 법정 기한을 정리해 드립니다. 연락처 없이도 결과까지 볼 수 있어요.">
 <link rel="canonical" href="https://finitart.com/check/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="우리 집 준비도 진단 — 1분, 세 번만 누르세요">
-<meta property="og:description" content="상속이 시작됐거나 부모님께 돈을 받았다면, 지금 할 일과 기한부터 확인하세요. 연락처 없이도 결과까지 볼 수 있어요.">
+<meta property="og:description" content="상속·증여부터 부모님 간병, 은퇴 전 사전 증여, 유언·사업 승계까지. 지금 할 일과 기한을 1분 만에 확인하세요. 연락처 없이도 결과까지 볼 수 있어요.">
 <meta property="og:url" content="https://finitart.com/check/">
 <meta property="og:image" content="https://finitart.com/og/og-default.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -162,8 +162,11 @@ legend{font-size:18px;font-weight:800;margin-bottom:10px;padding:0}
     <div class="opts">
       <button class="opt-btn" type="button" data-entry="A">가족이 돌아가셔서 상속이 시작됐다</button>
       <button class="opt-btn" type="button" data-entry="B">부모님께 돈을 받았거나 받을 예정이다</button>
+      <button class="opt-btn" type="button" data-entry="C">부모님 노후·간병이 걱정된다</button>
+      <button class="opt-btn" type="button" data-entry="D">은퇴 전후, 미리 나눌지 고민이다</button>
+      <button class="opt-btn" type="button" data-entry="E">유언·사업 승계를 정해 두고 싶다</button>
     </div>
-    <p class="note">다른 상황이라면 <a href="/chat.html?src=check">「물어보기」에 남겨 주세요</a>. 다른 상황용 진단도 곧 추가됩니다.</p>
+    <p class="note">해당하는 상황이 없다면 <a href="/chat.html?src=check">「물어보기」에 남겨 주세요</a>.</p>
   </section>
 
   <!-- 2. 질문 2 -->
@@ -352,6 +355,85 @@ document.addEventListener("DOMContentLoaded", function () {
       dates: function (dt) {
         return [["증여세 신고 기한", endOfMonthPlus(dt, 3)]];
       }
+    },
+    C: {
+      label: "부모님 노후·간병", axis: "pre", tag: "입구_노후간병",
+      q2: { title: "부모님은 지금 어떠신가요?", opts: [
+        ["well", "아직 건강하시다", "노후_건강"],
+        ["care", "간병·요양이 시작됐다", "노후_간병"],
+        ["mind", "판단력이 걱정된다", "노후_판단력"] ] },
+      q3: [
+        ["cost", "병원비·요양비 부담", "걱정_비용"],
+        ["asset", "부모님 재산 관리", "걱정_재산관리"],
+        ["share", "형제 간 부담 나누기", "걱정_형제부담"],
+        ["later", "나중 상속", "걱정_상속"] ],
+      dateLabel: "",
+      deadlines: function (s) {
+        var out = [["지금 기록해 둘 것", "부모님 재산·보험·대출 목록, 그리고 간병·부양에 쓴 돈과 시간입니다. 나중에 가족이 나눌 때 판단 자료가 됩니다.", "기한 대신 · 지금 할 일"]];
+        if (s.q2 === "mind") out.push(["판단력이 걱정된다면", "본인이 아직 뜻을 밝힐 수 있을 때 맡길 사람을 정해 두는 방법(후견계약, 민법 제959조의14)이 있습니다. 공정증서로 맺어야 합니다.", "먼저 알아 둘 것"]);
+        return out;
+      },
+      tasks: [
+        { k: "C1", lv: "self", t: "부모님 재산·보험·대출 목록 만들기", d: "통장·보험·부동산·대출이 어디에 있는지 한 장에 적어 둡니다." },
+        { k: "C2", lv: "self", t: "노인장기요양보험 등급 신청", d: "국민건강보험공단(☎ 1577-1000)에 신청합니다. 등급이 나오면 요양 서비스 비용 지원을 받습니다." },
+        { k: "C3", lv: "org", t: "간병·부양에 쓴 돈과 시간 기록", d: "오래 함께 살며 간호하거나 특별히 부양한 가족은 나중에 상속에서 기여분으로 인정될 수 있습니다 (민법 제1008조의2). 기록이 판단 자료가 됩니다." },
+        { k: "C4", lv: "org", t: "부모님 보험 구조 점검", d: "계약자·피보험자·수익자가 누구인지에 따라 보험금이 누구 것이 되는지 달라집니다." },
+        { k: "C5", lv: "org", t: "재산 관리를 맡기는 신탁 구조 이해", d: "판단력이 떨어질 때를 대비해 재산 관리를 맡기는 신탁이 어떤 구조인지 설명해 드립니다. 가입 권유가 아닌 구조 설명입니다.", when: "asset" },
+        { k: "C6", lv: "org", t: "형제 간 비용 분담 정리", d: "누가 얼마를 냈는지 한 표로 정리해 두면 나중 다툼을 줄입니다.", when: "share" },
+        { k: "C7", lv: "judge", t: "성년후견·후견계약이 필요한지", d: "가정법원 심판(민법 제9조)이나 후견계약(민법 제959조의14) 중 무엇이 맞는지는 변호사·법무사와 함께 판단합니다." }
+      ],
+      dates: null
+    },
+    D: {
+      label: "은퇴 전후, 미리 나눌지", axis: "pre", tag: "입구_은퇴",
+      q2: { title: "은퇴는 언제인가요?", opts: [
+        ["far", "5년 이상 남았다", "은퇴_5년이상"],
+        ["near", "은퇴 직전·직후다", "은퇴_전후"],
+        ["done", "이미 은퇴했다", "은퇴_완료"] ] },
+      q3: [
+        ["fund", "노후자금이 충분한지", "걱정_노후자금"],
+        ["give", "자녀에게 미리 줄지", "걱정_사전증여"],
+        ["itax", "상속세", "걱정_상속세"],
+        ["home", "집 한 채 정리", "걱정_주택"] ],
+      dateLabel: "",
+      deadlines: function () {
+        return [["10년 시계", "상속인에게 한 증여는 상속이 시작되기 전 10년 안의 것이 상속세 계산에 다시 더해집니다. 상속인이 아닌 사람에게 한 증여는 5년입니다 (상속세 및 증여세법 제13조).", "기한 대신 · 알아 둘 시계"]];
+      },
+      tasks: [
+        { k: "D1", lv: "self", t: "내 연금 예상액 조회", d: "국민연금공단, 금융감독원 통합연금포털에서 조회합니다." },
+        { k: "D2", lv: "org", t: "노후자금 진단", d: "연금 3층과 생활비로 은퇴 후 현금흐름을 봅니다. finitart.com/retirement/ 에서 먼저 해 보셔도 됩니다." },
+        { k: "D3", lv: "org", t: "미리 주는 것과 남기는 것 비교", d: "10년 합산 시점을 기준으로 언제 주는 것이 나은지 정리해 드립니다.", when: "give" },
+        { k: "D4", lv: "org", t: "퇴직금·퇴직연금 받는 방법 비교", d: "한꺼번에 받을지, 연금으로 나눠 받을지에 따라 세금과 현금흐름이 달라집니다." },
+        { k: "D5", lv: "judge", t: "집을 팔거나 명의를 옮길 때 세금", d: "양도·증여 중 무엇이 나은지는 세무사와 함께 계산합니다.", when: "home" },
+        { k: "D6", lv: "judge", t: "상속세 예상과 낼 돈 마련", d: "예상 세액은 세무사와 확인하고, 낼 돈을 어떻게 마련할지는 함께 정리합니다.", when: "itax" }
+      ],
+      dates: null
+    },
+    E: {
+      label: "유언·사업 승계", axis: "pre", tag: "입구_유언승계",
+      q2: { title: "무엇을 정해 두고 싶으신가요?", opts: [
+        ["will", "가족에게 뜻을 남기고 싶다", "유언_일반"],
+        ["more", "특정 자녀에게 더 주고 싶다", "유언_차등"],
+        ["biz", "사업·법인을 물려주고 싶다", "승계_법인"] ] },
+      q3: [
+        ["fight", "자녀 간 다툼", "걱정_분쟁"],
+        ["reserve", "유류분", "걱정_유류분"],
+        ["etax", "세금", "걱정_세금"],
+        ["share", "회사 지분", "걱정_지분"] ],
+      dateLabel: "",
+      deadlines: function (s) {
+        var out = [["유효한 유언의 조건", "유언은 법이 정한 다섯 가지 방식(자필증서·녹음·공정증서·비밀증서·구수증서) 중 하나를 갖춰야 효력이 있습니다 (민법 제1065조). 방식이 틀리면 뜻이 맞아도 무효입니다.", "기한 대신 · 먼저 알아 둘 것"]];
+        if (s.q2 === "biz") out.push(["사업을 물려줄 때", "10년 이상 경영한 중소·중견기업은 가업상속공제 요건을 미리 맞춰야 합니다 (상속세 및 증여세법 제18조의2).", "먼저 알아 둘 것"]);
+        return out;
+      },
+      tasks: [
+        { k: "E1", lv: "self", t: "자필 유언의 요건 확인", d: "전문·연월일·주소·성명을 모두 직접 손으로 쓰고 도장(또는 지장)을 찍어야 합니다 (민법 제1066조). 컴퓨터로 쓰면 무효입니다." },
+        { k: "E2", lv: "org", t: "재산 목록과 나눌 뜻을 한 표로", d: "누구에게 무엇을 남길지 한 장에 정리합니다." },
+        { k: "E3", lv: "org", t: "유류분 영향 미리 보기", d: "특정 자녀에게 더 줄 때 다른 상속인이 돌려 달라고 할 수 있는 몫(유류분, 민법 제1112조 이하)을 미리 계산해 봅니다." },
+        { k: "E4", lv: "judge", t: "공정증서 유언 작성", d: "가장 안전한 방식입니다. 공증인·변호사와 함께 증인 2명을 갖춰 작성합니다." },
+        { k: "E5", lv: "judge", t: "가업 승계와 가업상속공제 요건", d: "요건과 사후관리는 세무사와 함께 확인합니다. 「대표로 산다는 것」(finitart.com/ceo/)에서 먼저 읽어 보셔도 됩니다.", when: "share", q2: "biz" }
+      ],
+      dates: null
     }
   };
 
@@ -412,7 +494,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function visibleTasks() {
     var E = ENTRIES[S.entry];
-    return E.tasks.filter(function (t) { return !t.when || S.q3.indexOf(t.when) > -1; });
+    return E.tasks.filter(function (t) { if (!t.when && !t.q2) return true; return (t.when && S.q3.indexOf(t.when) > -1) || (t.q2 && t.q2 === S.q2); });
   }
 
   function tagsNow() {
@@ -435,10 +517,11 @@ document.addEventListener("DOMContentLoaded", function () {
     $("r-cta").hidden = S.example;
     $("r-summary").textContent = (S.example ? "예시 · " : "진단 결과 · ") + summaryText();
 
+    $("h-result").textContent = E.dates ? "지금 할 일과 기한을 정리했습니다" : "지금 할 일을 정리했습니다";
     var dl = $("r-deadlines"); dl.textContent = "";
     E.deadlines(S).forEach(function (x, i) {
       var c = el("div", "dl");
-      c.appendChild(el("span", "t", i === 0 ? "가장 먼저 챙길 기한" : "함께 챙길 기한"));
+      c.appendChild(el("span", "t", x[2] || (i === 0 ? "가장 먼저 챙길 기한" : "함께 챙길 기한")));
       c.appendChild(el("h3", null, x[0]));
       c.appendChild(el("p", null, x[1]));
       dl.appendChild(c);
@@ -462,7 +545,10 @@ document.addEventListener("DOMContentLoaded", function () {
       lab.appendChild(cb); lab.appendChild(d.createTextNode(" " + t.t));
       box.appendChild(lab);
     });
-    $("alert-date-label").textContent = ENTRIES[S.entry].dateLabel;
+    var E = ENTRIES[S.entry], alertBox = $("ckAlert").closest(".box");
+    $("alert-date-label").textContent = E.dateLabel;
+    if (!E.dates) { $("ckAlert").checked = false; $("alert-date-wrap").hidden = true; }
+    alertBox.hidden = !E.dates;
   }
 
   /* ---------- 공유 ---------- */
@@ -513,7 +599,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (hasRRN(name) || hasRRN(mail) || hasRRN(phone)) return fail("주민등록번호는 적지 말아 주세요.");
 
     var E = ENTRIES[S.entry], dates = [];
-    if (alertOn && dateStr) {
+    if (alertOn && dateStr && E.dates) {
       var p = dateStr.split("-"), dt = new Date(+p[0], +p[1] - 1, +p[2]);
       dates = E.dates(dt).map(function (x) { return { label: x[0], due: iso(x[1]), text: fmt(x[1]) }; });
     }
