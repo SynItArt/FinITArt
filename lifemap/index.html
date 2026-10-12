@@ -288,7 +288,7 @@ function bandOf(age){ age = Number(age); if (age >= 70) return 70; if (age < 20)
 function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 
 var PRO_MAP={"세무사":["B","세무사"],"감정평가사":["B","감정평가사"],"회계사":["B","공인회계사"],"공인회계사":["B","공인회계사"],"변호사":["A","변호사(가사·상속)"],"법무사":["A","법무사"],"공인중개사":["C","공인중개사"],"노무사":["E","공인노무사"]};
-var ENTRY_OF = { debt: "A", inherit_now: "A", after: "A", gift_parent: "B", marriage_prep: "B", first_home: "B", birth: "B" };
+var ENTRY_OF = { debt: "A", inherit_now: "A", after: "A", gift_parent: "B", marriage_prep: "B", first_home: "B", birth: "B", parent_care: "C", illness: "C", disability_family: "C", retire_prep: "D", retired: "D", my_estate: "E", succession: "E", handover: "E", biz_risk: "E" };
 function chatHref(c, band){ return "/chat.html?src=lifemap&age="+band+"&ev="+encodeURIComponent(c.ev)+"&from="+encodeURIComponent("/lifemap/"); }
 /* v2 (2026-10-12): 외부 전문가로 바로 가는 칩은 두지 않는다 — 운영자 직접 응답 + 운영자가 먼저 정리 */
 function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag hw" href="'+esc(chatHref(c, band))+'">'+esc(txt.replace(/ ?→ ?[^→]*$/,""))+' — 운영자가 먼저 정리 ›</a>'; } return ""; }).join(""); }
