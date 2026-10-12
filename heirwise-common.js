@@ -1154,7 +1154,51 @@
     d.body.appendChild(a);
   }
 
+  /* 10-12 묻기 경로 일원화 — 기록이 남지 않던 출구를 「물어보기」(1차 창구, 리드에 src·page 기록)로 모은다.
+     ① 메일 앱만 여는 문의 버튼(mailto:itart@… ?subject=) → /chat.html?src=mail&topic=제목
+     ② 전문가 연결 요청(/network/connect.html?…) → /chat.html?src=…&group=…&field=…&ev=… (쿼리 그대로 이어 붙임)
+     · 화면에 이메일 주소만 적힌 연락처 링크(제목 없는 mailto)는 그대로 둔다.
+     · 끄기: <body data-askroute="off">. chat.html·connect.html 자신에서는 동작하지 않음. GA4: ask_reroute */
+  function askRouteFor(a) {
+    var href = a.getAttribute("href") || "";
+    var m = /^mailto:itart@finitart\.com\?(?:.*&)?subject=([^&]+)/i.exec(href);
+    if (m) {
+      var topic = ""; try { topic = decodeURIComponent(m[1]); } catch (e) { topic = m[1]; }
+      return { to: "/chat.html?src=mail&topic=" + encodeURIComponent(topic.slice(0, 80)) + "&from=" + encodeURIComponent(normPath(location.pathname)), kind: "mail" };
+    }
+    var c = /(?:^|\/)network\/connect\.html(\?[^#]*)?/.exec(href);
+    if (c) {
+      var q = (c[1] || "").replace(/^\?/, "");
+      if (!/(^|&)src=/.test(q)) q = "src=connect" + (q ? "&" + q : "");
+      return { to: "/chat.html?" + q + "&from=" + encodeURIComponent(normPath(location.pathname)), kind: "connect" };
+    }
+    return null;
+  }
+  function injectAskRoute() {
+    if (!d.body || d.body.getAttribute("data-askroute") === "off") return;
+    var p = normPath(location.pathname);
+    if (p === "/chat.html" || p === "/network/connect.html") return;
+    // 정적 링크: 주소와 문구를 미리 바꿔 둔다 (마우스를 올렸을 때 보이는 주소도 맞게)
+    Array.prototype.forEach.call(d.querySelectorAll('a[href^="mailto:itart@finitart.com?"], a[href*="network/connect.html"]'), function (a) {
+      var r = askRouteFor(a); if (!r) return;
+      a.setAttribute("data-askroute", r.kind);
+      a.setAttribute("href", r.to);
+      if (r.kind === "mail" && /메일로\s*묻기/.test(a.textContent)) a.textContent = a.textContent.replace(/메일로\s*묻기/, "바로 묻기");
+    });
+    // 나중에 그려지는 링크(협업 네트워크 카드 등)까지: 클릭 순간에 바꿔 보낸다
+    d.addEventListener("click", function (ev) {
+      var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+      if (!a) return;
+      var kind = a.getAttribute("data-askroute"), r = kind ? null : askRouteFor(a);
+      if (r) { ev.preventDefault(); kind = r.kind; }
+      if (!kind) return;
+      hwTrack("ask_reroute", { kind: kind });
+      if (r) location.href = r.to;
+    }, true);
+  }
+
   function boot() {
+    try { injectAskRoute(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectLawUI(); }    catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { unifyLeadForm(); }  catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectSeason(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
