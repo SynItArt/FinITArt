@@ -327,13 +327,17 @@
   </url>
 
   <url>
-    <loc>https://finitart.com/network/for-partners.html</loc>
+    <loc>https://finitart.com/network/join.html</loc>
     <lastmod>2026-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
+  <loc>https://finitart.com/check/</loc>
+  <lastmod>2026-10-12</lastmod>
+</url>
+<url>
     <loc>https://finitart.com/gift/</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
