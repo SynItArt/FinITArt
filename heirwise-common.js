@@ -1203,7 +1203,7 @@
      · 문제가 생기면 boot() 의 injectV2Shell 한 줄만 지우면 원래대로 돌아감 */
   var V2_MENU = [["/lifemap/", "인생 변곡점", /^\/lifemap\//], ["/check/", "우리 집 진단", /^\/check\//],
                  ["/calculator.html", "계산기", /^\/(calculator|inheritdebt|gift\/|retirement\/)/], ["/chat.html", "바로 묻기", /^\/chat\.html/]];
-  var V2_HIDE = "header.top, header.nav, header.hw-nav, header.gf-head, header.nw-head";
+  var V2_HIDE = "header.top, header.nav, header.hw-nav, header.gf-head, header.nw-head, body > div.top";
   function injectV2Styles() {
     if ($("hw2-style")) return;
     var st = d.createElement("style"); st.id = "hw2-style";
