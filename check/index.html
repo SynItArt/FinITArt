@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 보안등급: 공유 가능 | 제작: HeirWise_Syn Dae Sik (申大湜) | 우리 집 준비도 진단 v1 (입구 A·B) 2026-10-12 -->
+<title>우리 집 준비도 진단 — HeirWise</title>
+<meta name="description" content="세 번만 누르면 우리 집에 지금 필요한 할 일과 법정 기한을 정리해 드립니다. 연락처 없이도 결과까지 볼 수 있어요.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://finitart.com/check/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="우리 집 준비도 진단 — 1분, 세 번만 누르세요">
+<meta property="og:description" content="상속이 시작됐거나 부모님께 돈을 받았다면, 지금 할 일과 기한부터 확인하세요. 연락처 없이도 결과까지 볼 수 있어요.">
+<meta property="og:url" content="https://finitart.com/check/">
+<meta property="og:image" content="https://finitart.com/og/og-default.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#FAF8F5; --surface:#FFFFFF; --surface-2:#F4EEE3;
+  --ink:#1B1B1B; --ink-2:#4A453D; --line:#E2D8C8; --line-strong:#8C7F69;
+  --navy:#173863; --on-navy:#FFFFFF; --amber:#F9A825; --amber-soft:#FDF1D6;
+  --self-bg:#DFF2E3; --self-line:#1E6B35;
+  --org-bg:#FDF1D6; --org-line:#9A6400;
+  --judge-bg:#FBE1E1; --judge-line:#B42318;
+  --dl-t:#F9A825;
+  --radius:14px; --maxw:640px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111827; --surface:#1B2332; --surface-2:#243044;
+    --ink:#F3F0EA; --ink-2:#C7CDD8; --line:#334155; --line-strong:#7B88A3;
+    --navy:#8FB4E8; --on-navy:#111827; --amber:#FFC64D; --amber-soft:#302713;
+    --self-bg:#173322; --self-line:#6FD38B;
+    --org-bg:#302713; --org-line:#FFC64D;
+    --judge-bg:#3A1A1D; --judge-line:#FF8593; --dl-t:#4A2F00;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111827; --surface:#1B2332; --surface-2:#243044;
+  --ink:#F3F0EA; --ink-2:#C7CDD8; --line:#334155; --line-strong:#7B88A3;
+  --navy:#8FB4E8; --on-navy:#111827; --amber:#FFC64D; --amber-soft:#302713;
+  --self-bg:#173322; --self-line:#6FD38B;
+  --org-bg:#302713; --org-line:#FFC64D;
+  --judge-bg:#3A1A1D; --judge-line:#FF8593; --dl-t:#4A2F00;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",system-ui,sans-serif;font-size:19px;line-height:1.6;-webkit-text-size-adjust:100%}
+a{color:inherit}
+.hd{border-bottom:1px solid var(--line);background:var(--surface)}
+.hd-in{max-width:var(--maxw);margin:0 auto;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-weight:800;font-size:22px;text-decoration:none;letter-spacing:-.3px}
+.logo sup{font-size:11px}
+.lawbar{font-size:14px;color:var(--ink-2)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:20px 16px 48px}
+.step{display:none}
+.step.on{display:block;animation:hwIn .5s ease both}
+@keyframes hwIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.step.on{animation:none}}
+.kicker{font-size:16px;font-weight:700;color:var(--navy);margin:0 0 6px}
+h1,h2{line-height:1.35;letter-spacing:-.4px}
+h1{font-size:30px;margin:0 0 12px}
+h2{font-size:26px;margin:0 0 12px}
+.lead{font-size:19px;color:var(--ink-2);margin:0 0 16px}
+.pill{display:inline-block;background:var(--amber);color:#1B1B1B;font-weight:800;font-size:18px;padding:6px 14px;border-radius:10px;margin:4px 0 18px}
+.steps3{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-direction:column;gap:12px}
+.steps3 li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;gap:14px;align-items:flex-start}
+.num{flex:none;width:40px;height:40px;border-radius:999px;background:var(--navy);color:var(--on-navy);font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center}
+.num.opt{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+.steps3 b{display:block;font-size:21px}
+.steps3 span{color:var(--ink-2);font-size:17px}
+.btn{display:block;width:100%;min-height:58px;border-radius:12px;font:inherit;font-size:20px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;padding:14px 16px;border:2px solid transparent}
+.btn-primary{background:var(--navy);color:var(--on-navy)}
+.btn-amber{background:var(--amber);color:#1B1B1B}
+.btn-line{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn + .btn{margin-top:10px}
+.btn:focus-visible,.opt-btn:focus-visible,.chip:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.progress{margin:0 0 18px}
+.progress-txt{font-size:15px;font-weight:700;color:var(--ink-2)}
+.bar{height:10px;background:var(--line);border-radius:6px;margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--navy);border-radius:6px;transition:width .4s}
+.opts{display:flex;flex-direction:column;gap:10px;margin:0 0 18px}
+.opt-btn{display:block;width:100%;text-align:left;min-height:60px;padding:16px 18px;border-radius:12px;background:var(--surface);color:var(--ink);border:2px solid var(--line-strong);font:inherit;font-size:19px;font-weight:700;cursor:pointer}
+.opt-btn:hover{border-color:var(--navy)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
+.chip{min-height:52px;padding:10px 18px;border-radius:999px;background:var(--surface);color:var(--ink);border:2px solid var(--line-strong);font:inherit;font-size:18px;font-weight:700;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--navy);color:var(--on-navy);border-color:var(--navy)}
+.chip[aria-pressed="true"]::before{content:"✓ "}
+.back{display:inline-block;background:none;border:0;color:var(--ink);font:inherit;font-size:17px;font-weight:700;padding:8px 0;margin:0 0 8px;cursor:pointer;text-decoration:underline}
+.example-band{background:#1B1B1B;color:#FFFFFF;border-radius:var(--radius);padding:14px 16px;margin:0 0 16px}
+.example-band b{display:block;font-size:18px}
+.example-band button{background:none;border:0;color:#FFC64D;font:inherit;font-weight:800;text-decoration:underline;cursor:pointer;padding:4px 0}
+.summary{font-size:15px;font-weight:700;color:var(--ink-2);margin:0 0 4px}
+.dl{background:var(--navy);color:var(--on-navy);border-radius:var(--radius);padding:16px 18px;margin:0 0 12px}
+.dl .t{font-size:15px;font-weight:800;color:var(--dl-t)}
+.dl h3{margin:2px 0 4px;font-size:21px}
+.dl p{margin:0;font-size:17px}
+.tasks{list-style:none;margin:8px 0 20px;padding:0;display:flex;flex-direction:column;gap:10px}
+.task{background:var(--surface);border:1px solid var(--line);border-left-width:1px;border-radius:12px;padding:14px 16px}
+.task.org{border:2px solid var(--org-line)}
+.task.judge{border:2px solid var(--judge-line)}
+.tag{display:inline-block;font-size:15px;font-weight:800;padding:2px 10px;border-radius:6px;margin-bottom:6px;color:var(--ink)}
+.tag.self{background:var(--self-bg);border:1px solid var(--self-line)}
+.tag.org{background:var(--org-bg);border:1px solid var(--org-line)}
+.tag.judge{background:var(--judge-bg);border:1px solid var(--judge-line)}
+.task b{display:block;font-size:19px}
+.task p{margin:4px 0 0;font-size:16px;color:var(--ink-2)}
+.legend{font-size:16px;color:var(--ink-2);margin:0 0 6px}
+.disc{font-size:15px;color:var(--ink-2);border-top:1px solid var(--line);margin-top:24px;padding-top:14px}
+fieldset{border:0;margin:0 0 18px;padding:0}
+legend{font-size:18px;font-weight:800;margin-bottom:10px;padding:0}
+.ck{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:14px;font-size:18px;font-weight:700;cursor:pointer;margin-bottom:8px}
+.ck input{width:24px;height:24px;flex:none;margin-top:2px;accent-color:var(--navy)}
+.ck.org{border-color:var(--org-line)} .ck.judge{border-color:var(--judge-line)}
+.fld{display:flex;flex-direction:column;gap:6px;font-size:17px;font-weight:800;margin-bottom:14px}
+.fld small{font-weight:600;color:var(--ink-2)}
+.fld input{font:inherit;font-size:19px;padding:14px;border-radius:10px;border:2px solid var(--line-strong);background:var(--surface);color:var(--ink);min-height:56px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.box p{margin:6px 0 0;font-size:15px;color:var(--ink-2)}
+.msg{min-height:28px;font-weight:800;margin:10px 0}
+.msg.err{color:var(--judge-line)}
+.dates{list-style:none;margin:0;padding:0}
+.dates li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:18px}
+.dates li:last-child{border-bottom:0}
+.links{display:flex;flex-direction:column;gap:10px;margin:18px 0}
+.links a,.links button{display:block;text-align:left;background:var(--surface);border:1px solid var(--line-strong);border-radius:12px;padding:16px;font:inherit;font-size:18px;font-weight:700;color:var(--ink);text-decoration:none;cursor:pointer;width:100%}
+.note{font-size:16px;color:var(--ink-2)}
+.ft{max-width:var(--maxw);margin:0 auto;padding:0 16px 40px;font-size:15px;color:var(--ink-2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body data-tool="준비도진단" data-chat="off" data-season="off" data-announce="off" data-rating="off" data-crumb="off">
+
+<header class="hd">
+  <div class="hd-in">
+    <a class="logo" href="/">HeirWise<sup>™</sup></a>
+    <span class="lawbar"></span>
+  </div>
+</header>
+
+<main class="wrap" id="app" aria-live="polite">
+
+  <!-- 0. 시작 전 안내 -->
+  <section class="step on" id="s-intro" aria-labelledby="h-intro">
+    <p class="kicker">우리 집 준비도 진단 · 1분</p>
+    <h1 id="h-intro" tabindex="-1">이렇게 진행됩니다</h1>
+    <span class="pill">연락처 없이도 결과까지 볼 수 있어요</span>
+    <ol class="steps3">
+      <li><span class="num" aria-hidden="true">1</span><div><b>3번 고르기</b><span>글자 입력 없이 누르기만 하면 됩니다.</span></div></li>
+      <li><span class="num" aria-hidden="true">2</span><div><b>우리 집 할 일 받기</b><span>혼자 할 일 · 정리할 일 · 판단이 필요한 일로 나눠 드립니다.</span></div></li>
+      <li><span class="num opt" aria-hidden="true">3</span><div><b>정리 메일 받기 (원할 때만)</b><span>연락처는 이때만 받습니다.</span></div></li>
+    </ol>
+    <button class="btn btn-primary" type="button" data-act="start">진단 시작하기</button>
+    <button class="btn btn-line" type="button" data-act="example">예시 결과 먼저 보기</button>
+  </section>
+
+  <!-- 1. 입구 -->
+  <section class="step" id="s-q1" aria-labelledby="h-q1">
+    <div class="progress"><span class="progress-txt">1 / 3</span><div class="bar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1" aria-label="진행"><i style="width:33%"></i></div></div>
+    <h2 id="h-q1" tabindex="-1">지금 우리 집과 가장 가까운 상황은?</h2>
+    <div class="opts">
+      <button class="opt-btn" type="button" data-entry="A">가족이 돌아가셔서 상속이 시작됐다</button>
+      <button class="opt-btn" type="button" data-entry="B">부모님께 돈을 받았거나 받을 예정이다</button>
+    </div>
+    <p class="note">다른 상황이라면 <a href="/chat.html?src=check">「물어보기」에 남겨 주세요</a>. 다른 상황용 진단도 곧 추가됩니다.</p>
+  </section>
+
+  <!-- 2. 질문 2 -->
+  <section class="step" id="s-q2" aria-labelledby="h-q2">
+    <button class="back" type="button" data-act="back-q1">← 이전</button>
+    <div class="progress"><span class="progress-txt">2 / 3</span><div class="bar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="2" aria-label="진행"><i style="width:66%"></i></div></div>
+    <h2 id="h-q2" tabindex="-1"></h2>
+    <div class="opts" id="q2-opts"></div>
+  </section>
+
+  <!-- 3. 질문 3 -->
+  <section class="step" id="s-q3" aria-labelledby="h-q3">
+    <button class="back" type="button" data-act="back-q2">← 이전</button>
+    <div class="progress"><span class="progress-txt">3 / 3</span><div class="bar" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="3" aria-label="진행"><i style="width:100%"></i></div></div>
+    <h2 id="h-q3" tabindex="-1">가장 걱정되는 것은?</h2>
+    <p class="lead">여러 개 고를 수 있어요. 없으면 바로 결과를 보셔도 됩니다.</p>
+    <div class="chips" id="q3-opts"></div>
+    <button class="btn btn-primary" type="button" data-act="result">결과 보기</button>
+  </section>
+
+  <!-- 4. 결과 -->
+  <section class="step" id="s-result" aria-labelledby="h-result">
+    <div class="example-band" id="example-band" hidden>
+      <b>예시입니다 — 상속이 시작된 가족의 결과</b>
+      우리 집 결과는 고르신 답에 따라 달라집니다. <button type="button" data-act="start">내 진단 시작하기</button>
+    </div>
+    <p class="summary" id="r-summary"></p>
+    <h2 id="h-result" tabindex="-1">지금 할 일과 기한을 정리했습니다</h2>
+    <div id="r-deadlines"></div>
+    <h3 style="font-size:21px;margin:18px 0 4px">우리 집 할 일</h3>
+    <p class="legend"><b>혼자</b> 바로 하실 수 있는 일 · <b>정리</b> 신대식이 정리해 드리는 일 · <b>판단</b> 정리한 뒤 전문가와 함께 정할 일</p>
+    <ul class="tasks" id="r-tasks"></ul>
+    <div id="r-cta">
+      <button class="btn btn-amber" type="button" data-act="lead">정리가 필요한 것 받아보기</button>
+      <button class="btn btn-line" type="button" data-act="share">가족에게 진단 보내기</button>
+    </div>
+    <p class="msg" id="share-msg" role="status"></p>
+    <div data-hw-lawbase></div>
+    <p class="disc">이 결과는 일반적인 정리이며, 정확한 세액·법률 판단은 세무사·변호사 등 전문가 상담이 필요합니다. 법령: 민법(2026. 3. 17. 시행) · 상속세 및 증여세법 법률 제21065호(2026. 1. 2. 시행) · 국세기본법 현행.</p>
+  </section>
+
+  <!-- 5. 정리 메일 받기 -->
+  <section class="step" id="s-lead" aria-labelledby="h-lead">
+    <button class="back" type="button" data-act="back-result">← 결과로</button>
+    <h2 id="h-lead" tabindex="-1">무엇부터 정리해 드릴까요?</h2>
+    <p class="lead">고르신 항목을 신대식이 직접 정리해서 메일로 보내 드립니다. 무료입니다.</p>
+    <form id="lead-form" novalidate>
+      <fieldset>
+        <legend>정리할 항목</legend>
+        <div id="lead-items"></div>
+      </fieldset>
+      <label class="fld">성함 또는 호칭
+        <input id="ckName" type="text" autocomplete="name" placeholder="예: 김OO">
+      </label>
+      <label class="fld">이메일 <small>정리본을 받을 곳</small>
+        <input id="ckEmail" type="email" autocomplete="email" inputmode="email" placeholder="name@example.com">
+      </label>
+      <label class="fld">휴대폰 <small>(선택) 받으셨는지 확인 문자만 드립니다</small>
+        <input id="ckPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000">
+      </label>
+      <div class="box">
+        <label class="ck" style="border:0;padding:0;margin:0;background:none"><input id="ckAlert" type="checkbox"> 기한 알림도 받기 (30일 전·7일 전)</label>
+        <label class="fld" id="alert-date-wrap" style="margin:12px 0 0" hidden><span id="alert-date-label">날짜</span>
+          <input id="ckDate" type="date">
+        </label>
+      </div>
+      <div class="box">
+        <label class="ck" style="border:0;padding:0;margin:0;background:none"><input id="ckAgree" type="checkbox"> 개인정보 수집·이용에 동의합니다 (필수)</label>
+        <p>목적: 정리 메일 발송·상담 응대 · 항목: 성함, 이메일, 휴대폰(선택), 진단 응답, 기한 알림 날짜(선택) · 보유 기간: <a href="/privacy.html">개인정보처리방침</a>에 따릅니다. 주민등록번호는 적지 마세요.</p>
+      </div>
+      <p class="msg" id="lead-msg" role="status"></p>
+      <button class="btn btn-primary" type="submit" id="lead-btn">정리 메일 받기</button>
+    </form>
+  </section>
+
+  <!-- 6. 감사 -->
+  <section class="step" id="s-done" aria-labelledby="h-done">
+    <h2 id="h-done" tabindex="-1">접수됐습니다.<br>정리해서 메일로 보내 드릴게요.</h2>
+    <p class="lead">신대식이 직접 읽고 정리합니다.</p>
+    <div class="dl" id="done-dates" hidden>
+      <span class="t">우리 집 기한</span>
+      <ul class="dates" id="done-date-list"></ul>
+      <p style="margin-top:8px;font-size:15px">기한의 마지막 날이 토요일·공휴일이면 그다음 날까지입니다 (민법 제161조, 국세기본법 제5조).</p>
+    </div>
+    <p style="font-size:18px;font-weight:800;margin:20px 0 0">기다리시는 동안</p>
+    <div class="links">
+      <a href="/book.html?src=check">『상속설계의 기술』 무료로 받기 →</a>
+      <a href="/booking.html?src=check">급하시면 통화 시간 고르기 →</a>
+      <button type="button" data-act="share">가족에게 진단 보내기 →</button>
+    </div>
+    <p class="msg" id="share-msg2" role="status"></p>
+    <button class="back" type="button" data-act="restart">처음 화면으로</button>
+  </section>
+</main>
+
+<footer class="ft">
+  HeirWise™ · 신대식 申大湜 · AFPK · <a href="/privacy.html">개인정보처리방침</a><br>
+  정확한 세액은 세무전문가 상담이 필요합니다.
+</footer>
+
+<script src="/heirwise-common.js" defer></script>
+<script>
+/* 인라인 스크립트는 defer가 적용되지 않으므로, 공통 스크립트(GA·HW_CONFIG)가 준비된 뒤 실행 */
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+  var d = document;
+  function $(id) { return d.getElementById(id); }
+  function track(name, params) {
+    try { if (window.hwTrack) { window.hwTrack(name, params || {}); } else if (window.gtag) { window.gtag("event", name, params || {}); } } catch (e) {}
+  }
+
+  /* ---------- 진단 내용 (초안 v1: claude/HeirWise_준비도진단_입구5종_문항·결과초안_v1_2026-10-12.md) ---------- */
+  var LV = { self: "혼자 할 수 있음", org: "정리가 필요함 · 신대식이 정리", judge: "판단이 필요함 · 정리 후 전문가와" };
+
+  var ENTRIES = {
+    A: {
+      label: "상속이 시작됨", axis: "post", tag: "입구_상속시작",
+      q2: { title: "돌아가신 것을 안 지 얼마나 됐나요?", opts: [
+        ["lt1", "1개월이 안 됐다", "상속_1개월내"],
+        ["1to3", "1~3개월 사이", "상속_3개월내"],
+        ["gt3", "3개월이 넘었다", "상속_3개월경과"] ] },
+      q3: [
+        ["debt", "빚이 있을지 모름", "걱정_빚"],
+        ["order", "무엇부터 할지 모름", "걱정_순서"],
+        ["tax", "세금", "걱정_세금"],
+        ["split", "가족 간 나누기", "걱정_분할"],
+        ["house", "집·부동산", "걱정_부동산"],
+        ["ins", "보험금", "걱정_보험금"] ],
+      dateLabel: "돌아가신 날 (늦게 아셨다면 아신 날)",
+      deadlines: function (s) {
+        var out = [];
+        if (s.q2 === "gt3") {
+          out.push(["3개월이 지났다면", "빚이 재산보다 많다는 사실을 중대한 과실 없이 늦게 안 경우, 그 사실을 안 날부터 3개월 안에 한정승인을 할 수 있습니다 (민법 제1019조 제3항). 해당되는지는 판단이 필요합니다."]);
+        } else {
+          out.push(["상속을 받을지 정하는 기한", "상속이 시작된 것을 안 날부터 3개월 (민법 제1019조 제1항)"]);
+        }
+        out.push(["상속세 신고 기한", "상속이 시작된 달의 말일부터 6개월 (상속세 및 증여세법 제67조)"]);
+        return out;
+      },
+      tasks: [
+        { k: "A1", lv: "self", t: "고인 명의 재산·빚 한 번에 조회 신청", d: "안심상속 원스톱서비스 — 사망신고 때 함께 신청하거나 주민센터·정부24에서 신청합니다." },
+        { k: "A2", lv: "self", t: "고인 앞으로 온 우편·고지서 모아 두기", d: "카드 대금·대출·세금 고지서가 빚을 확인하는 단서가 됩니다." },
+        { k: "A3", lv: "org", t: "재산과 빚을 한 표로 정리", d: "상속을 받을지, 한정승인·포기를 할지 판단하는 재료가 됩니다." },
+        { k: "A4", lv: "org", t: "보험금 중 상속재산에 들어가는 것 구분", d: "계약자·피보험자·수익자가 누구냐에 따라 달라집니다." },
+        { k: "A7", lv: "org", t: "집·부동산 정리 순서 잡기", d: "명의 정리와 나누는 순서를 정리해 드립니다.", when: "house" },
+        { k: "A8", lv: "org", t: "가족 간 나누는 방법 미리 정리", d: "법정상속분과 협의로 나누는 방법의 차이를 정리해 드립니다.", when: "split" },
+        { k: "A5", lv: "judge", t: "한정승인·상속포기 여부 결정과 가정법원 신고", d: "정리한 표를 바탕으로 법무사·변호사와 함께 판단합니다." },
+        { k: "A6", lv: "judge", t: "상속세 신고가 필요한지 확인", d: "정리한 표를 바탕으로 세무사와 함께 확인합니다." }
+      ],
+      dates: function (dt) {
+        return [
+          ["상속을 받을지 정하는 기한 (그날 아신 경우)", addMonthsSameDay(dt, 3)],
+          ["상속세 신고 기한", endOfMonthPlus(dt, 6)]
+        ];
+      }
+    },
+    B: {
+      label: "부모님께 받는 돈", axis: "pre", tag: "입구_받은돈",
+      q2: { title: "언제 받으셨나요?", opts: [
+        ["in", "이미 받았다 (3개월이 안 됨)", "증여_기한내"],
+        ["late", "이미 받았다 (3개월이 넘음)", "증여_기한경과"],
+        ["plan", "받을 예정이다", "증여_예정"] ] },
+      q3: [
+        ["tax", "세금이 얼마일지", "걱정_증여세"],
+        ["howto", "신고 방법", "걱정_신고"],
+        ["wed", "결혼·출산 때 받는 돈", "걱정_혼인출산"],
+        ["house", "집 살 돈", "걱정_주택자금"],
+        ["fair", "형제와 형평", "걱정_형평"] ],
+      dateLabel: "받은 날 (예정이면 받을 날)",
+      deadlines: function (s) {
+        if (s.q2 === "late") {
+          return [["기한이 지났다면", "기한 후 신고를 할 수 있고, 빨리 할수록 가산세 감면 폭이 큽니다 (국세기본법 제45조의3, 제48조 제2항)."]];
+        }
+        return [["증여세 신고 기한", "증여받은 날이 속하는 달의 말일부터 3개월 (상속세 및 증여세법 제68조)"]];
+      },
+      tasks: [
+        { k: "B1", lv: "self", t: "받은 날·금액·보낸 분 기록해 두기", d: "이체할 때 메모를 남겨 두면 나중에 확인이 쉽습니다." },
+        { k: "B2", lv: "self", t: "기한 안에 홈택스로 직접 신고", d: "세금이 0원이어도 신고해 두면 받은 날짜와 금액이 기록으로 남습니다." },
+        { k: "B3", lv: "org", t: "10년 안에 받은 돈 합산 내역 정리", d: "같은 분께 10년 안에 받은 돈은 합쳐서 계산하고, 부모님 두 분은 한 사람으로 봅니다 (상속세 및 증여세법 제47조 제2항)." },
+        { k: "B4", lv: "org", t: "결혼·출산 때 받는 돈의 별도 공제 해당 여부 정리", d: "혼인·출산 증여재산 공제 (상속세 및 증여세법 제53조의2) 요건을 정리해 드립니다.", when: "wed" },
+        { k: "B5", lv: "org", t: "집 살 돈이라면 자금 출처 서류 정리", d: "나중에 자금 출처를 물을 때 내놓을 서류를 미리 정리합니다.", when: "house" },
+        { k: "B6", lv: "org", t: "형제 간 형평 미리 정리", d: "생전에 받은 돈은 나중 상속 때 함께 따져질 수 있습니다 (민법 제1008조).", when: "fair" },
+        { k: "B7", lv: "judge", t: "신고·납부 대리", d: "세액 계산과 신고 대리는 세무사와 함께합니다." },
+        { k: "B8", lv: "judge", t: "“빌린 돈”으로 처리할 수 있는지", d: "부모님과의 차용이 실제로 인정될지는 세무사와 함께 판단합니다." }
+      ],
+      dates: function (dt) {
+        return [["증여세 신고 기한", endOfMonthPlus(dt, 3)]];
+      }
+    }
+  };
+
+  /* ---------- 날짜 계산 ---------- */
+  // 월로 정한 기간: 초일 불산입, 기산일에 해당하는 날의 전날 만료 = 시작일과 같은 날짜. 그날이 없으면 그 달 말일 (민법 제157조, 제160조)
+  function addMonthsSameDay(dt, n) {
+    var y = dt.getFullYear(), m = dt.getMonth() + n, day = dt.getDate();
+    var last = new Date(y, m + 1, 0).getDate();
+    return new Date(y, m, Math.min(day, last));
+  }
+  // ○○이 속하는 달의 말일부터 n개월
+  function endOfMonthPlus(dt, n) { return new Date(dt.getFullYear(), dt.getMonth() + n + 1, 0); }
+  var WD = ["일", "월", "화", "수", "목", "금", "토"];
+  function fmt(dt) { return dt.getFullYear() + "년 " + (dt.getMonth() + 1) + "월 " + dt.getDate() + "일 (" + WD[dt.getDay()] + ")"; }
+  function iso(dt) { return dt.getFullYear() + "-" + String(dt.getMonth() + 1).padStart(2, "0") + "-" + String(dt.getDate()).padStart(2, "0"); }
+
+  /* ---------- 상태 ---------- */
+  var S = { entry: null, q2: null, q3: [], example: false };
+
+  function show(id) {
+    Array.prototype.forEach.call(d.querySelectorAll(".step"), function (s) { s.classList.toggle("on", s.id === id); });
+    var h = $(id).querySelector("h1,h2");
+    if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+    window.scrollTo(0, 0);
+  }
+
+  function el(tag, cls, text) { var e = d.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  function renderQ2() {
+    var E = ENTRIES[S.entry];
+    $("h-q2").textContent = E.q2.title;
+    var box = $("q2-opts"); box.textContent = "";
+    E.q2.opts.forEach(function (o) {
+      var b = el("button", "opt-btn", o[1]); b.type = "button";
+      b.addEventListener("click", function () {
+        S.q2 = o[0];
+        track("check_q2", { entry: S.entry, q2: o[0] });
+        renderQ3(); show("s-q3");
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function renderQ3() {
+    var E = ENTRIES[S.entry];
+    var box = $("q3-opts"); box.textContent = "";
+    E.q3.forEach(function (o) {
+      var b = el("button", "chip", o[1]); b.type = "button";
+      b.setAttribute("aria-pressed", S.q3.indexOf(o[0]) > -1 ? "true" : "false");
+      b.addEventListener("click", function () {
+        var i = S.q3.indexOf(o[0]);
+        if (i > -1) S.q3.splice(i, 1); else S.q3.push(o[0]);
+        b.setAttribute("aria-pressed", i > -1 ? "false" : "true");
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function visibleTasks() {
+    var E = ENTRIES[S.entry];
+    return E.tasks.filter(function (t) { return !t.when || S.q3.indexOf(t.when) > -1; });
+  }
+
+  function tagsNow() {
+    var E = ENTRIES[S.entry], tags = [E.tag];
+    E.q2.opts.forEach(function (o) { if (o[0] === S.q2) tags.push(o[2]); });
+    E.q3.forEach(function (o) { if (S.q3.indexOf(o[0]) > -1) tags.push(o[2]); });
+    return tags;
+  }
+
+  function summaryText() {
+    var E = ENTRIES[S.entry], parts = [E.label];
+    E.q2.opts.forEach(function (o) { if (o[0] === S.q2) parts.push(o[1]); });
+    E.q3.forEach(function (o) { if (S.q3.indexOf(o[0]) > -1) parts.push(o[1]); });
+    return parts.join(" · ");
+  }
+
+  function renderResult() {
+    var E = ENTRIES[S.entry];
+    $("example-band").hidden = !S.example;
+    $("r-cta").hidden = S.example;
+    $("r-summary").textContent = (S.example ? "예시 · " : "진단 결과 · ") + summaryText();
+
+    var dl = $("r-deadlines"); dl.textContent = "";
+    E.deadlines(S).forEach(function (x, i) {
+      var c = el("div", "dl");
+      c.appendChild(el("span", "t", i === 0 ? "가장 먼저 챙길 기한" : "함께 챙길 기한"));
+      c.appendChild(el("h3", null, x[0]));
+      c.appendChild(el("p", null, x[1]));
+      dl.appendChild(c);
+    });
+
+    var ul = $("r-tasks"); ul.textContent = "";
+    visibleTasks().forEach(function (t) {
+      var li = el("li", "task " + t.lv);
+      li.appendChild(el("span", "tag " + t.lv, LV[t.lv]));
+      li.appendChild(el("b", null, t.t));
+      if (t.d) li.appendChild(el("p", null, t.d));
+      ul.appendChild(li);
+    });
+  }
+
+  function renderLead() {
+    var box = $("lead-items"); box.textContent = "";
+    visibleTasks().filter(function (t) { return t.lv !== "self"; }).forEach(function (t) {
+      var lab = el("label", "ck " + t.lv);
+      var cb = d.createElement("input"); cb.type = "checkbox"; cb.value = t.k; cb.checked = t.lv === "org"; cb.name = "item";
+      lab.appendChild(cb); lab.appendChild(d.createTextNode(" " + t.t));
+      box.appendChild(lab);
+    });
+    $("alert-date-label").textContent = ENTRIES[S.entry].dateLabel;
+  }
+
+  /* ---------- 공유 ---------- */
+  function share(msgId) {
+    var url = "https://finitart.com/check/?src=share";
+    var data = { title: "우리 집 준비도 진단", text: "세 번만 누르면 우리 집 할 일과 기한이 나와요. 연락처 없이도 결과까지 볼 수 있어요.", url: url };
+    track("check_share", { entry: S.entry || "none" });
+    if (navigator.share) { navigator.share(data).catch(function () {}); return; }
+    var m = $(msgId);
+    try {
+      navigator.clipboard.writeText(data.text + " " + url).then(function () { m.textContent = "링크를 복사했습니다. 카카오톡에 붙여 넣어 보내 주세요."; },
+        function () { m.textContent = "이 주소를 보내 주세요: " + url; });
+    } catch (e) { m.textContent = "이 주소를 보내 주세요: " + url; }
+  }
+
+  /* ---------- 리드 전송 (기존 방식과 같음: 숨은 iframe + form POST, type: lead) ---------- */
+  function hasRRN(s) { return /\d{6}\s*-?\s*[1-8]\d{6}/.test(s || ""); }
+  function sendLead(payload, done, fail) {
+    var ep = window.HW_CONFIG && window.HW_CONFIG.LEAD_ENDPOINT;
+    if (!ep) { fail("지금은 접수가 어렵습니다. itart@finitart.com 으로 보내 주세요."); return; }
+    try {
+      var old = $("_hwCheckSink"); if (old) old.remove();
+      var ifr = d.createElement("iframe"); ifr.id = ifr.name = "_hwCheckSink"; ifr.style.display = "none"; d.body.appendChild(ifr);
+      var f = d.createElement("form"); f.acceptCharset = "UTF-8"; f.method = "POST"; f.action = ep; f.target = "_hwCheckSink"; f.style.display = "none";
+      var i = d.createElement("input"); i.type = "hidden"; i.name = "data"; i.value = JSON.stringify(payload); f.appendChild(i); d.body.appendChild(f);
+      var settled = false;
+      ifr.addEventListener("load", function () { if (settled) return; settled = true; done(); });
+      f.submit();
+      setTimeout(function () { try { f.remove(); } catch (e) {} }, 3000);
+      setTimeout(function () { if (!settled) { settled = true; done(); } }, 8000);
+    } catch (e) { fail("전송에 실패했습니다. itart@finitart.com 으로 보내 주세요."); }
+  }
+
+  $("ckAlert").addEventListener("change", function () { $("alert-date-wrap").hidden = !this.checked; });
+
+  $("lead-form").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var msg = $("lead-msg"), btn = $("lead-btn");
+    function fail(t) { msg.className = "msg err"; msg.textContent = t; }
+    var name = $("ckName").value.trim(), mail = $("ckEmail").value.trim(), phone = $("ckPhone").value.trim();
+    var items = Array.prototype.filter.call(d.querySelectorAll("#lead-items input"), function (x) { return x.checked; }).map(function (x) { return x.value; });
+    var alertOn = $("ckAlert").checked, dateStr = $("ckDate").value;
+    if (!name) return fail("성함이나 호칭을 적어 주세요.");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) return fail("이메일 주소를 확인해 주세요.");
+    if (phone && !/^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(phone.replace(/\s/g, ""))) return fail("휴대폰 번호 형식을 확인해 주세요. (예: 010-1234-5678)");
+    if (alertOn && !dateStr) return fail("기한 알림을 받으시려면 날짜를 골라 주세요.");
+    if (!$("ckAgree").checked) return fail("개인정보 수집·이용 동의가 필요합니다.");
+    if (hasRRN(name) || hasRRN(mail) || hasRRN(phone)) return fail("주민등록번호는 적지 말아 주세요.");
+
+    var E = ENTRIES[S.entry], dates = [];
+    if (alertOn && dateStr) {
+      var p = dateStr.split("-"), dt = new Date(+p[0], +p[1] - 1, +p[2]);
+      dates = E.dates(dt).map(function (x) { return { label: x[0], due: iso(x[1]), text: fmt(x[1]) }; });
+    }
+    var itemTitles = E.tasks.filter(function (t) { return items.indexOf(t.k) > -1; }).map(function (t) { return t.t; });
+    var tags = tagsNow();
+
+    var payload = {
+      type: "lead",
+      tool: "준비도진단",
+      axis: E.axis,
+      name: name, phone: phone, email: mail,
+      result: summaryText() + " | 정리 요청: " + (itemTitles.join(", ") || "(선택 없음)") + (dates.length ? " | 기한 알림: " + dates.map(function (x) { return x.label + " " + x.due; }).join(", ") : ""),
+      inputs: { entry: S.entry, q2: S.q2, q3: S.q3.slice(), tags: tags, requested: items, alert: alertOn, baseDate: dateStr || "", deadlines: dates },
+      lawAsOf: (window.HW_CONFIG && window.HW_CONFIG.LAW && window.HW_CONFIG.LAW.asOf) || "",
+      page: location.href,
+      referrer: d.referrer || "",
+      ts: new Date().toISOString()
+    };
+
+    btn.disabled = true; msg.className = "msg"; msg.textContent = "보내는 중…";
+    track("lead_submit", { has_email: true, has_phone: !!phone, entry: S.entry, items: items.length, alert: alertOn });
+    sendLead(payload, function () {
+      var box = $("done-dates"), list = $("done-date-list"); list.textContent = "";
+      dates.forEach(function (x) { list.appendChild(el("li", null, x.label + " — " + x.text)); });
+      box.hidden = !dates.length;
+      show("s-done");
+      track("check_done", { entry: S.entry, alert: alertOn });
+    }, function (t) { btn.disabled = false; fail(t); });
+  });
+
+  /* ---------- 버튼 ---------- */
+  d.addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-act],[data-entry]");
+    if (!b) return;
+    var act = b.getAttribute("data-act"), entry = b.getAttribute("data-entry");
+    if (entry) {
+      S.entry = entry; S.q2 = null; S.q3 = []; S.example = false;
+      track("check_entry", { entry: entry });
+      renderQ2(); show("s-q2"); return;
+    }
+    if (act === "start") { S = { entry: null, q2: null, q3: [], example: false }; track("check_start"); show("s-q1"); }
+    else if (act === "example") { S = { entry: "A", q2: "lt1", q3: ["debt", "order"], example: true }; track("check_example_view"); renderResult(); show("s-result"); }
+    else if (act === "back-q1") show("s-q1");
+    else if (act === "back-q2") show("s-q2");
+    else if (act === "result") { track("check_result", { entry: S.entry, q2: S.q2, q3: S.q3.join(",") }); renderResult(); show("s-result"); }
+    else if (act === "lead") { track("check_lead_open", { entry: S.entry }); renderLead(); show("s-lead"); }
+    else if (act === "back-result") show("s-result");
+    else if (act === "share") share(b.closest("#s-done") ? "share-msg2" : "share-msg");
+    else if (act === "restart") { S = { entry: null, q2: null, q3: [], example: false }; show("s-intro"); }
+  });
+
+  track("check_view");
+});
+</script>
+</body>
+</html>
