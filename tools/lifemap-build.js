@@ -73,13 +73,34 @@ h3{font-size:18px;margin:14px 0 6px}ul.check{margin:0 0 12px;padding-left:22px}u
 section.who-am-i,section.next{margin:36px 0 0;padding-top:24px;border-top:1px solid var(--line)}
 section.who-am-i h2,section.next h2{font-size:22px;margin:0 0 10px}
 footer{margin:40px 0 30px;padding-top:20px;border-top:1px solid var(--line);font-size:14.5px;color:var(--sub)}footer p{margin:0 0 6px}
+/* 브랜드 로고 (2026-09-26, 상표출원 40-2026-0196992 / 등록 전 ™) */
+.brand,.hw-brand{display:inline-flex;align-items:center;gap:8px}
+.logo-mark{display:inline-flex;align-items:flex-start;margin-right:2px}
+.logo-img{height:26px;width:auto;display:block}
+@media(min-width:640px){.logo-img{height:30px}}
+.logo-img.is-dark{display:none}
+html[data-theme="dark"] .logo-img.is-light{display:none}
+html[data-theme="dark"] .logo-img.is-dark{display:block}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
+.brand .tm,.hw-brand .tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px;vertical-align:top}
+
+/* ™ 는 표장과 같은 색으로 (페이지 강조색 상속 방지) */
+.logo-mark .tm{color:#0C5C48}
+html[data-theme="dark"] .logo-mark .tm{color:#54CFA8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-mark .tm{color:#54CFA8}}
+header.hd .logo-mark .tm{color:#54CFA8}
+@media print{header.hd .logo-mark .tm{color:#0C5C48}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 `;
 
 var PRO_MAP={"세무사":["B","세무사"],"감정평가사":["B","감정평가사"],"회계사":["B","공인회계사"],"공인회계사":["B","공인회계사"],"변호사":["A","변호사(가사·상속)"],"법무사":["A","법무사"],"공인중개사":["C","공인중개사"],"노무사":["E","공인노무사"]};
-function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag pro" href="'+esc(c.ask)+'">'+esc(txt)+' ›</a>'; } var parts=txt.split(" — "), suffix=parts[1]?(" — "+parts[1]):""; return parts[0].split("·").map(function(n){ n=n.trim(); var m=PRO_MAP[n]; var href=m?"/network/connect.html?src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+m[0]+"&field="+enc(m[1]):c.ask; return '<a class="tag pro" href="'+esc(href)+'">'+esc(n+suffix)+' ›</a>'; }).join(""); }).join(""); }
+function chatHref(c, band){ return "/chat.html?src=lifemap&age="+band+"&ev="+encodeURIComponent(c.ev)+"&from="+encodeURIComponent("/lifemap/"+band+"/"); }
+/* v2 (2026-10-12): 외부 전문가로 바로 가는 칩은 두지 않는다. 운영자 직접 응답 칩 + 1차 정리(운영자 경유)만 남김 */
+function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag hw" href="'+esc(chatHref(c, band))+'">'+esc(txt.replace(/ ?→ ?[^→]*$/,""))+' — 운영자가 먼저 정리 ›</a>'; } return ""; }).join(""); }
 var LIFE_G={N:1,O:1,P:1,Q:1,R:1,S:1};
-function moreChips(c, band){ var list=MORE[c.ev]||[]; var enc=encodeURIComponent; var have={}; c.who.forEach(function(w){ w[1].split(" — ")[0].split("·").forEach(function(n){ var m=PRO_MAP[n.trim()]; if(m) have[m[1]]=1; }); }); var pro=[], life=[]; list.forEach(function(x){ if(have[x[1]]) return; var q="src=lifemap&age="+band+"&ev="+enc(c.ev)+"&group="+x[0]+"&field="+enc(x[1]); if(LIFE_G[x[0]]) life.push('<a class="tag life" href="/network/index.html?'+esc(q)+'">'+esc(x[1])+' ›</a>'); else pro.push('<a class="tag pro" href="/network/connect.html?'+esc(q)+'">'+esc(x[1])+' ›</a>'); }); if(!pro.length&&!life.length) return ""; return '<details class="more"><summary>이때 만날 수 있는 사람 더 보기 ('+(pro.length+life.length)+')</summary>'+(pro.length?'<p class="lbl">전문가 — 누르면 연결 요청 폼이 이 분야로 열립니다</p><div class="row">'+pro.join("")+'</div>':"")+(life.length?'<p class="lbl">생활 파트너 — 모시는 중인 곳을 분야 지도에서 봅니다. 연락처를 넘기지 않습니다</p><div class="row">'+life.join("")+'</div>':"")+'</details>'; }
+function moreChips(){ return ""; } /* v2: 「만날 수 있는 사람 더 보기」 제거 */
+const ENTRY_OF = { debt: "A", inherit_now: "A", after: "A", gift_parent: "B", marriage_prep: "B", first_home: "B", birth: "B" };
+function checkHref(c, band){ const e = ENTRY_OF[c.ev]; return "/check/?src=lifemap&age=" + band + "&ev=" + encodeURIComponent(c.ev) + (e ? "&entry=" + e : ""); }
 function card(c, band) {
   const who = whoChips(c, band) + moreChips(c, band);
   const checks = c.check.map(x => `<li>${esc(x)}</li>`).join("");
@@ -96,7 +117,7 @@ ${toon}${lines}
 <h3>이번 달에 할 세 가지</h3>
 <ul class="check">${checks}</ul>
 ${c.calc ? `<p class="calc">${c.calc}</p>` : ""}
-<div class="cta"><a class="ask" href="${esc(c.ask)}" onclick="if(window.gtag)gtag('event','lifemap_ask',{age_band:'${band}',event:'${esc(c.ev)}'})">내 경우 물어보기</a><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></div>
+<div class="cta"><a class="ask" href="${esc(checkHref(c, band))}" onclick="if(window.gtag)gtag('event','lifemap_check',{age_band:'${band}',event:'${esc(c.ev)}'})">우리 집 진단하기</a><a class="tel" href="${esc(chatHref(c, band))}" onclick="if(window.gtag)gtag('event','lifemap_ask',{age_band:'${band}',event:'${esc(c.ev)}'})">내 경우 물어보기</a><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></div>
 </article>`;
 }
 
@@ -105,7 +126,7 @@ function page(band) {
   const url = `${BASE}/lifemap/${band}/`;
   const title = `${d.title} — 지금 준비할 돈, 만날 사람 | HeirWise`;
   const desc = `${d.title}: ${d.cards.map(c => c.h.split(" — ")[0]).join(" · ")}. 그때 확보할 재정과 지금 물어볼 사람을 정리했습니다. ${d.axis}.`;
-  const nav = BANDS.map(b => `<a href="/lifemap/${b}/"${b === band ? ' aria-current="page"' : ""}>${b === 70 ? "70대 이상" : b + "대"}</a>`).join("");
+  const nav = BANDS.map(b => `<a href="/lifemap/${b}/"${b === band ? ' aria-current="page"' : ""}>${b === 70 ? "70·80대" : b + "대"}</a>`).join("");
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -142,7 +163,7 @@ ${JSON.stringify(ld, null, 1)}
 <body data-band="${band}">
 <div class="wrap">
   <header class="top">
-    <a class="brand" href="/">HeirWise<sup>™</sup></a>
+    <a class="brand" href="/" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span></a>
     <span style="display:flex;gap:8px;align-items:center"><button class="tel" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button><a class="tel" href="tel:01020885383">전화로 먼저 묻기</a></span>
   </header>
   <nav class="crumb" aria-label="현재 위치"><a href="/">홈</a> › <a href="/lifemap/">인생 변곡점 지도</a> › ${esc(d.title)}</nav>
@@ -177,7 +198,7 @@ ${d.cards.map(c => card(c, band)).join("\n")}
 
 /* ── 홈 첫 화면 블록 (2026-09-26) — index.html 의 LIFEMAP-HOME 표시 사이만 바꾼다 ── */
 function homeBlock() {
-  const lab = b => (b === 70 ? "70대 이상" : b + "대");
+  const lab = b => (b === 70 ? "70·80대" : b + "대");
   const tabs = BANDS.map(b => `<button type="button" role="tab" id="lmt-${b}" aria-controls="lmp-${b}" data-band="${b}" aria-selected="false">${lab(b)}</button>`).join("");
   const panels = BANDS.map(b => {
     const d = MAP[b];
