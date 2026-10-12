@@ -99,7 +99,7 @@ function chatHref(c, band){ return "/chat.html?src=lifemap&age="+band+"&ev="+enc
 function whoChips(c, band){ var enc=encodeURIComponent; return c.who.map(function(w){ var kind=w[0], txt=w[1]; if(kind==="hw"){ return '<a class="tag hw" href="/consult.html?src=lifemap&age='+band+'&ev='+enc(c.ev)+'">'+esc(txt.split(" — ")[0])+' — 직접 응답 ›</a>'; } if(kind==="intake"){ return '<a class="tag hw" href="'+esc(chatHref(c, band))+'">'+esc(txt.replace(/ ?→ ?[^→]*$/,""))+' — 운영자가 먼저 정리 ›</a>'; } return ""; }).join(""); }
 var LIFE_G={N:1,O:1,P:1,Q:1,R:1,S:1};
 function moreChips(){ return ""; } /* v2: 「만날 수 있는 사람 더 보기」 제거 */
-const ENTRY_OF = { debt: "A", inherit_now: "A", after: "A", gift_parent: "B", marriage_prep: "B", first_home: "B", birth: "B" };
+const ENTRY_OF = { debt: "A", inherit_now: "A", after: "A", gift_parent: "B", marriage_prep: "B", first_home: "B", birth: "B", parent_care: "C", illness: "C", disability_family: "C", retire_prep: "D", retired: "D", my_estate: "E", succession: "E", handover: "E", biz_risk: "E" };
 function checkHref(c, band){ const e = ENTRY_OF[c.ev]; return "/check/?src=lifemap&age=" + band + "&ev=" + encodeURIComponent(c.ev) + (e ? "&entry=" + e : ""); }
 function card(c, band) {
   const who = whoChips(c, band) + moreChips(c, band);
