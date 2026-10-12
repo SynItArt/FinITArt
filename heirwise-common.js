@@ -1237,15 +1237,48 @@
       "html[data-hw2-dark] .hw-crumb a{color:#9CC1FF!important}html[data-hw2-dark] .hw-crumb [aria-current]{color:#F3F0EA!important}" +
       "html[data-hw2] " + V2_HIDE.split(", ").join(",html[data-hw2] ") + "{display:none!important}" +
       "html[data-hw2] .hw2-oldlogo{display:none!important}" +
+      "html[data-hw2] button,html[data-hw2] input,html[data-hw2] select,html[data-hw2] textarea{font-family:inherit}" +
       "@media print{.hw2-bar,.hw2-foot{display:none!important}}";
     d.head.appendChild(st);
   }
+  /* 2026-10-12 v2 본문 글꼴 통일 — 페이지마다 다르던 맑은 고딕·Noto Sans KR 을 홈과 같은 Pretendard 로 바꾼다.
+     · 페이지 안 <style> 규칙 중 고딕 계열 글꼴만 바꾸고, 명조(Serif)·아이콘 글꼴은 그대로 둔다 */
+  var V2_FONT = "'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif";
+  function unifyV2Fonts() {
+    if (!d.querySelector('link[href*="pretendard"]')) {
+      var ln = d.createElement("link"); ln.rel = "stylesheet";
+      ln.href = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css";
+      d.head.appendChild(ln);
+    }
+    var SANS = /malgun|맑은|noto sans kr|apple sd gothic|system-ui|-apple-system|sans-serif/i, KEEP = /serif'?"?\s*(,|$)|tabler|icon|mono/i;
+    function walk(rules) {
+      for (var i = 0; i < rules.length; i++) {
+        var r = rules[i];
+        if (r.cssRules && !r.style) { walk(r.cssRules); continue; }
+        if (!r.style) continue;
+        var ff = r.style.getPropertyValue("font-family");
+        if (ff && SANS.test(ff) && !/pretendard/i.test(ff) && !/(^|,)\s*['"]?[^,]*serif kr/i.test(ff) && !/tabler|icon|mono/i.test(ff)) {
+          r.style.setProperty("font-family", V2_FONT, r.style.getPropertyPriority("font-family"));
+        }
+        var fs = r.style.getPropertyValue("font");
+        if (fs && SANS.test(fs) && !/pretendard/i.test(fs) && !/serif kr/i.test(fs)) {
+          r.style.setProperty("font-family", V2_FONT);
+        }
+      }
+    }
+    Array.prototype.forEach.call(d.styleSheets, function (s) {
+      if (s.href && s.href.indexOf(location.origin) !== 0) return;
+      try { walk(s.cssRules); } catch (e) {}
+    });
+  }
+
   function injectV2Shell() {
     if (!d.body || d.body.getAttribute("data-shell") === "off" || $("hw2-bar")) return;
     if (d.querySelector("header.top nav.main")) return;                       // 홈 v3 — 이미 v2 머리글
     var path = normPath(location.pathname);
     injectV2Styles();
     d.documentElement.setAttribute("data-hw2", "");
+    try { unifyV2Fonts(); } catch (e) {}
     // 제목이 든 머리글·옛 메뉴 줄 안의 로고는 숨김 (머리글 자체는 남김)
     Array.prototype.forEach.call(d.querySelectorAll("header .logo-mark, body > nav .logo-mark, .wrap > nav .logo-mark"), function (lm) {
       var a = lm.closest("a") || lm;
