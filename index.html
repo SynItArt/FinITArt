@@ -4,50 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
-
+<script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <!-- ═══════════════════════════════════════════════════════════
-     HeirWise — finitart.com  index.html  v2.4 (GEO-first + N26 리스킨 + 사례 썸네일/모달)
-     제작: Syn Dae Sik (申大湜), AFPK®
-     법령 기준일: 상증법 법률 제21065호(2026.1.2 시행), 민법 2026.3.17 시행
-     보안등급: 공개용
-     리스킨 메모(2026-09-11): 단일 딥틸(teal) 액션 컬러로 통일, 그림자 제거(보더 대비로 위계 표현),
-       히어로 배경 그라데이션 단순화. 콘텐츠·구조화 데이터는 변경 없음(랜딩 한정 리스킨).
-     v2.2: 사례 카드 9종 썸네일(/case/*.jpg) + 확대 모달, G1 계측 셀렉터 버그 수정.
-     v2.4(2026-09-17): 홈의 추석 시즌 섹션(#video-check·#chuseok)과 메뉴·히어로의 추석 링크 제거.
-       추석 안내는 heirwise-common.js 시즌 모듈(상단 띠 + 하단 카드, 10.02 자동 종료)로,
-       영상(/video/chuseok-check.mp4)은 chuseok.html로 옮김.
+     HeirWise — finitart.com  index.html  v3.0 (홈 전면 개편, 2026-10-12)
+     원본: tools/home-v2-template.html + tools/home-v2-build.py (나이대 카드는 lifemap/index.html 의 MAP)
+       → 직접 고치지 말고 템플릿을 고친 뒤 python3 tools/home-v2-build.py
+     구조: 인생 변곡점(나이대 허브 6) → 우리 집 진단(/check/) → 기한 → 도구 → 바로 묻기
+     원칙: 외부 전문가 직접 연결 노출 없음 · 모든 문의는 운영자 경유 · 이전 홈은 git 이력(2026-10-12 이전 index.html)
+     제작: Syn Dae Sik (申大湜) · 보안등급: 공개용
+     법령 기준일: 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)
      ═══════════════════════════════════════════════════════════ -->
-
-<title>준비한 집과 준비하지 않은 집 — HeirWise | 상속·증여 재무설계 신대식</title>
-<meta name="description" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다. 상속 개시·인생 변곡점·실제 사례·계산기·사업·질문, 여섯 갈래 길잡이. AFPK® 신대식이 무료로 안내합니다. 서울·경기·인천.">
-<!-- Open Graph · 카카오톡/페이스북 공유 미리보기 -->
+<title>HeirWise — 인생 변곡점마다 준비할 돈과 기한 | 상속·증여 재무설계 신대식</title>
+<meta name="description" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다. 나이대를 고르면 그 시기의 변곡점과 지금 준비할 돈을, 세 번만 누르면 우리 집 할 일과 법정 기한을 보여 드립니다.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="HeirWise · finitart.com">
 <meta property="og:url" content="https://finitart.com/">
 <meta property="og:title" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다 — HeirWise">
-<meta property="og:description" content="우리 집은 어느 쪽일까요. 상속 개시·인생 변곡점·실제 사례·계산기·사업·질문, 여섯 갈래 길잡이. AFPK® 자격인증자(재무설계사) 신대식이 안내합니다.">
+<meta property="og:description" content="우리 집은 어느 쪽일까요. 나이대별 인생 변곡점과 1분 준비도 진단. 연락처 없이 결과까지 볼 수 있어요.">
 <meta property="og:image" content="https://finitart.com/og/og-default.png?v=20260928">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다 — HeirWise">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다 — HeirWise">
-<meta name="twitter:description" content="우리 집은 어느 쪽일까요. 상속 개시·인생 변곡점·실제 사례·계산기·사업·질문, 여섯 갈래 길잡이. AFPK® 자격인증자(재무설계사) 신대식이 안내합니다.">
-<meta name="twitter:image" content="https://finitart.com/og/og-default.png?v=20260928">
-
 <meta name="author" content="Syn Dae Sik (신대식, 申大湜)">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://finitart.com/">
-
-<!-- AI 크롤러용 마크다운 미러 -->
 <link rel="alternate" type="text/markdown" href="https://finitart.com/llms.txt" title="HeirWise 요약 (AI 검색용)">
-
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="/hw-bands.css">
-
-<!-- ══════════ 구조화 데이터 ① 사이트 + 운영자(엔티티) ══════════ -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -120,1547 +106,410 @@
   ]
 }
 </script>
-
-<!-- ══════════ 구조화 데이터 ② FAQ (본문과 1:1 일치) ══════════ -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "inLanguage": "ko-KR",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "상속세는 재산이 얼마부터 나오나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "상속세는 배우자가 살아 계시면 대체로 10억 원, 배우자가 없으면 5억 원을 넘을 때부터 나옵니다. 일괄공제 5억 원에 배우자상속공제 최소 5억 원이 더해지기 때문입니다. 근거: 상속세 및 증여세법 제19조·제21조 (법률 제21065호, 2026.1.2 시행)." }
-    },
-    {
-      "@type": "Question",
-      "name": "상속세가 없으면 아무것도 안 해도 되나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "아닙니다. 상속세가 없어도 법이 정한 기한은 그대로 진행됩니다. 상속포기와 한정승인은 사망을 안 날부터 3개월(민법 제1019조), 상속세 신고는 사망한 달의 말일부터 6개월(상속세 및 증여세법 제67조)입니다. 이 기한은 세금 유무와 관계없이 모든 상속인에게 적용됩니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "집 한 채뿐인데 상속세를 내야 하나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "배우자가 없는 상태에서 수도권 아파트 한 채를 물려받으면 상속세가 나올 수 있습니다. 평가 기준이 공시가격이 아니라 시가(감정가액·유사매매사례가액)이기 때문입니다. 배우자가 살아 계시면 대체로 10억 원까지는 상속세가 없습니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "돌아가신 분의 빚이 재산보다 많으면 어떻게 하나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "사망을 안 날부터 3개월 안에 가정법원에 상속포기 또는 한정승인을 신청해야 합니다. 자녀가 전부 포기하면 배우자가 단독으로 상속하고 손주에게는 내려가지 않습니다(대법원 2023. 3. 23.자 2020그42 전원합의체 결정). 다만 배우자까지 포기하면 다음 순위로 넘어갑니다. 한정승인은 물려받은 재산 범위 안에서만 빚을 갚는 방식입니다. 3개월이 지나면 원칙적으로 단순승인으로 처리되어 빚 전부를 부담합니다. 다만 빚의 존재를 몰랐던 경우에는 그 사실을 안 날부터 3개월의 특별한정승인이 인정됩니다(민법 제1019조 제3항)." }
-    },
-    {
-      "@type": "Question",
-      "name": "유류분은 지금도 청구할 수 있나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "배우자·자녀·부모는 유류분을 청구할 수 있지만, 형제자매의 유류분은 폐지되었습니다(헌법재판소 2024.4.25. 선고 2020헌가4). 또한 2026.3.17. 시행 민법 제1115조에 따라 유류분 반환 방식이 원물반환에서 가액반환 원칙으로 바뀌었습니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "미리 증여하면 상속세가 정말 줄어드나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "줄어들 수도, 그대로일 수도 있습니다. 상속인에게 한 증여는 사망 전 10년 이내, 상속인이 아닌 사람에게 한 증여는 5년 이내면 상속재산에 다시 합산됩니다(상속세 및 증여세법 제13조). 10년이라는 시간을 확보할 수 있는 시점에 시작하면 효과가 크고, 시간이 부족하면 세금은 그대로인 채 현금 유동성만 잃을 수 있습니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "상속세를 낼 현금이 없으면 어떻게 하나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "부동산 중심 상속에서 가장 자주 발생하는 문제입니다. 상속세는 현금 납부가 원칙이며, 분납·연부연납·물납 제도가 있습니다. 재무설계 관점에서는 세금을 줄이는 것보다 사망 시점에 현금이 만들어지는 구조를 미리 배치하는 것을 먼저 검토합니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "장애가 있는 자녀에게 재산을 남기려면 어떻게 해야 하나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "장애인신탁을 이용하면 5억 원 한도까지 증여세가 과세되지 않습니다(상속세 및 증여세법 제52조의2). 재산을 직접 주는 대신 자녀가 평생 나누어 쓸 수 있는 관리 구조를 함께 남기는 방식이며, 수급자격에 미치는 영향까지 함께 살펴야 합니다." }
-    },
-    {
-      "@type": "Question",
-      "name": "AFPK® 자격인증자(재무설계사)는 상속에서 무엇을 해 줄 수 있나요?",
-      "acceptedAnswer": { "@type": "Answer", "text": "AFPK® 자격인증자(재무설계사)는 상속 재산 현황 정리, 상속세 개략 추정, 납부 재원 진단, 보험·연금 구조 점검, 법정 기한 관리를 돕습니다. 법률 자문과 소송은 변호사, 세무 신고 대리는 세무사의 영역이므로 직접 수행하지 않고 필요한 시점에 연결합니다. HeirWise는 AFPK® 자격인증자(재무설계사) 신대식이 운영합니다." }
-    }
-  ]
-}
-</script>
-
-<!-- ══════════ 구조화 데이터 ③ 상속 절차 (HowTo) ══════════ -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": "상속이 시작된 뒤 기한 안에 해야 할 일",
-  "inLanguage": "ko-KR",
-  "totalTime": "P6M",
-  "step": [
-    { "@type": "HowToStep", "position": 1, "name": "사망 후 1개월 이내 — 사망신고", "text": "사망진단서를 받아 1개월 안에 주소지 관할 시·구·읍·면에 사망신고를 합니다." },
-    { "@type": "HowToStep", "position": 2, "name": "재산과 빚 확인", "text": "안심상속 원스톱 서비스로 금융거래·부동산·세금 내역을 한 번에 조회하여 빚이 재산보다 많은지 먼저 판단합니다." },
-    { "@type": "HowToStep", "position": 3, "name": "3개월 이내 — 상속포기 또는 한정승인 결정", "text": "빚이 더 많으면 사망을 안 날부터 3개월 안에 가정법원에 상속포기 또는 한정승인을 신청합니다(민법 제1019조). 기한을 넘기면 단순승인으로 처리됩니다." },
-    { "@type": "HowToStep", "position": 4, "name": "상속재산 분할 협의", "text": "상속인 전원이 분할 방법을 협의하고 상속재산분할협의서를 작성합니다. 협의가 되지 않으면 가정법원 심판으로 갑니다." },
-    { "@type": "HowToStep", "position": 5, "name": "6개월 이내 — 상속세 신고·납부", "text": "사망한 달의 말일부터 6개월 안에 상속세를 신고·납부합니다(상속세 및 증여세법 제67조). 납부할 세금이 없어도 신고해 두는 편이 이후 취득가액 인정에 유리한 경우가 있습니다." }
-  ]
-}
-</script>
-
 <style>
-/* ══════════════════ 디자인 토큰 ══════════════════ */
+/* 배치: 진한 남색 첫 화면(등불) → 나이대 색 카드 6장 → 진단 → 기한 → 도구 → 묻기. 같은 나이대 = 같은 색(hw-bands.css) */
 :root{
-  --bg:#FAF8F5;          /* N26 톤 — 웜 오프화이트 */
-  --surface:#FFFFFF;
-  --surface-2:#F4EEE3;
-  --ink:#1B1B1B;         /* 대비 16.2:1 on --bg */
-  --ink-2:#4A453D;       /* 대비 9.0:1 */
-  --line:#E2D8C8;
-  --line-strong:#B7A98F;
-  --navy:#173863;
-  --navy-soft:#EAF0F8;
-  --amber:#F9A825;
-  --amber-ink:#8A5A00;   /* 텍스트용 앰버, 대비 5.6:1 */
-  --amber-soft:#FDF1D6;
-  --teal:#0C5C48;
-  --teal-soft:#E2F2ED;
-  --coral:#0C5C48;       /* N26 톤 — 단일 딥틸 액션 컬러(teal과 동일) */
-  --coral-hover:#094536;
-  --crimson:#B31729;
-  --crimson-soft:#FBE7E9;
-  --violet:#5D2281;      /* 인생 변곡점 지도 배너 전용 강조색 — 대비 9.3:1 */
-  --violet-ink:#FFFFFF;
-  --violet-soft:#F1E7F9;
-  --shadow:none;         /* N26 톤 — 그림자 대신 보더 대비로 위계 표현 */
-  --shadow-lg:none;
-  --radius:14px;
-  --maxw:1120px;
+  --bg:#FAF8F5; --surface:#FFFFFF; --surface-2:#F3EEE5; --ink:#1B1B1B; --ink-2:#4A453D;
+  --line:#E2D8C8; --line-strong:#8C7F69;
+  --navy:#173863; --on-navy:#FFFFFF; --amber:#F9A825; --amber-ink:#1B1B1B; --amber-soft:#FDF1D6;
+  --link:#173863; --focus:#173863;
+  --hero:#0B1220; --hero-2:#152033; --hero-line:#33445C; --hero-ink:#F5F7FA; --hero-sub:#C9D3E0; --gold:#E9C46A;
+  --radius:16px; --maxw:1160px;
+  --f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",system-ui,sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#13161C; --surface:#1B1F27; --surface-2:#232833;
-    --ink:#F3F0EA; --ink-2:#B6BDCA; --line:#333A47; --line-strong:#57607A;
-    --navy:#8FB4E8; --navy-soft:#1D2836;
-    --amber:#FFC64D; --amber-ink:#FFC64D; --amber-soft:#302713;
-    --teal:#54CFA8; --teal-soft:#12302A;
-    --coral:#54CFA8; --coral-hover:#7FE0C0;
-    --crimson:#FF8593; --crimson-soft:#33161B;
-    --violet:#CC98EB; --violet-ink:#1D0B28; --violet-soft:#312340;
-    --shadow:none;
-    --shadow-lg:none;
-  }
-}
-html[data-theme="light"]{
-  --bg:#FAF8F5; --surface:#FFFFFF; --surface-2:#F4EEE3;
-  --ink:#1B1B1B; --ink-2:#4A453D; --line:#E2D8C8; --line-strong:#B7A98F;
-  --navy:#173863; --navy-soft:#EAF0F8; --amber:#F9A825; --amber-ink:#8A5A00;
-  --amber-soft:#FDF1D6; --teal:#0C5C48; --teal-soft:#E2F2ED;
-  --coral:#0C5C48; --coral-hover:#094536; --crimson:#B31729; --crimson-soft:#FBE7E9;
-  --violet:#5D2281; --violet-ink:#FFFFFF; --violet-soft:#F1E7F9;
-}
-html[data-theme="dark"]{
-  --bg:#13161C; --surface:#1B1F27; --surface-2:#232833;
-  --ink:#F3F0EA; --ink-2:#B6BDCA; --line:#333A47; --line-strong:#57607A;
-  --navy:#8FB4E8; --navy-soft:#1D2836; --amber:#FFC64D; --amber-ink:#FFC64D;
-  --amber-soft:#302713; --teal:#54CFA8; --teal-soft:#12302A;
-  --coral:#54CFA8; --coral-hover:#7FE0C0; --crimson:#FF8593; --crimson-soft:#33161B;
-  --violet:#CC98EB; --violet-ink:#1D0B28; --violet-soft:#312340;
-}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111827; --surface:#1B2332; --surface-2:#243044; --ink:#F3F4F6; --ink-2:#C9D1DC;
+  --line:#334155; --line-strong:#64748B; --navy:#F9A825; --on-navy:#111827; --link:#F9C74F; --focus:#F9C74F; --amber-soft:#3A3115;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#111827; --surface:#1B2332; --surface-2:#243044; --ink:#F3F4F6; --ink-2:#C9D1DC;
+  --line:#334155; --line-strong:#64748B; --navy:#F9A825; --on-navy:#111827; --link:#F9C74F; --focus:#F9C74F; --amber-soft:#3A3115;
+  color-scheme:dark }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.7 var(--f);word-break:keep-all;overflow-wrap:break-word}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:16px}
+@media(min-width:720px){.wrap{padding-inline:24px}}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:8px;z-index:99;background:var(--surface);padding:8px 14px;border-radius:8px}
+h1,h2,h3{text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:clamp(26px,3.4vw,36px);line-height:1.3;margin:0 0 10px}
+.sec{padding-block:64px}
+.sec-lede{font-size:19px;color:var(--ink-2);max-width:62ch;margin:0 0 28px}
+.eyebrow{display:inline-block;margin:0 0 12px;font-size:15px;font-weight:800;letter-spacing:.04em;background:var(--amber);color:var(--amber-ink);border-radius:6px;padding:4px 12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 26px;border-radius:12px;font:inherit;font-weight:800;font-size:19px;text-decoration:none;cursor:pointer;border:2px solid transparent}
+.btn-amber{background:var(--amber);color:var(--amber-ink)}
+.btn-navy{background:var(--navy);color:var(--on-navy)}
+.btn-line{border-color:var(--line-strong);color:var(--ink);background:transparent}
+.btn:hover{filter:brightness(1.05)}
 
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",system-ui,sans-serif;
-  font-size:18px; line-height:1.9; letter-spacing:-.01em;
-  word-break:keep-all; overflow-wrap:break-word;
-}
-img{max-width:100%;height:auto}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:4px}
+/* 상단 기한 띠 */
+.urgent{display:block;background:#173863;color:#FFFFFF;text-decoration:none;text-align:center;font-weight:700;font-size:17px;padding:12px 16px;line-height:1.5}
+.urgent b{color:#F9C74F}
 
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-.prose{max-width:64ch}
-.skip{position:absolute;left:-9999px}
-.skip:focus{left:12px;top:12px;z-index:200;background:var(--coral);color:#fff;padding:10px 18px;border-radius:8px}
-
-/* ── 헤더 ── */
-header{
-  position:sticky;top:0;z-index:100;
-  background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:saturate(180%) blur(12px);
-  border-bottom:1px solid var(--line);
-}
-.nav{display:flex;align-items:center;gap:20px;height:66px}
-.logo{font-weight:800;font-size:22px;letter-spacing:-.03em;text-decoration:none;display:flex;align-items:baseline;gap:8px}
-.logo em{font-style:normal;color:var(--amber-ink)}
-.logo small{font-size:12px;font-weight:600;color:var(--ink-2);letter-spacing:0}
-.nav ul{display:flex;gap:6px;list-style:none;margin:0 0 0 auto;padding:0}
-.nav ul a{text-decoration:none;font-size:15.5px;font-weight:600;color:var(--ink-2);padding:8px 12px;border-radius:8px;display:block}
-.nav ul a:hover{background:var(--surface-2);color:var(--ink)}
-.iconbtn{background:none;border:1px solid var(--line-strong);color:var(--ink-2);width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:17px;line-height:1;display:grid;place-items:center}
-.iconbtn:hover{background:var(--surface-2);color:var(--ink)}
-@media(max-width:860px){.nav ul{display:none}.nav{gap:12px}}
-
-/* ── 버튼 ── */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  font-size:17px;font-weight:700;text-decoration:none;cursor:pointer;
-  padding:15px 26px;border-radius:12px;border:2px solid transparent;
-  transition:transform .12s ease, background .15s ease, box-shadow .15s ease;
-  line-height:1.3;
-}
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:var(--coral);color:#fff;box-shadow:var(--shadow)}
-.btn-primary:hover{background:var(--coral-hover)}
-html[data-theme="dark"] .btn-primary, :root:not([data-theme="light"]) .btn-primary{color:#14161B}
-@media(prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn-primary{color:#fff}}
-.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line-strong)}
-.btn-ghost:hover{background:var(--surface-2)}
-.btn-sm{font-size:15px;padding:10px 18px;border-radius:10px}
-/* 헤더 질문 버튼 — 420px 미만, 상단 메뉴가 함께 보이는 860.02~1099.98px은 「물어보기」만.
-   접근성 이름은 항상 전체 문구(aria-label) */
-.nav-ask{white-space:nowrap;min-height:44px}
-@media (max-width:419.98px), (min-width:860.02px) and (max-width:1099.98px){.nav-ask-long{display:none}}
-
-/* ── 히어로 ── */
-.hero{padding:76px 0 60px;position:relative;overflow:hidden}
-.hero::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg, color-mix(in srgb,var(--teal) 7%,transparent), transparent 72%);
-}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--surface);border:1px solid var(--line-strong);
-  border-radius:999px;padding:7px 15px;font-size:14.5px;font-weight:700;color:var(--ink-2);
-  margin-bottom:22px;
-}
-.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);flex:none}
-h1,.hero-h1{
-  font-size:clamp(2.1rem,5.2vw,3.35rem);line-height:1.28;letter-spacing:-.035em;
-  font-weight:800;margin:0 0 22px;max-width:19ch;
-}
-h1 mark,.hero-h1 mark{background:linear-gradient(transparent 58%, color-mix(in srgb,var(--teal) 45%,transparent) 58%);color:inherit;padding:0 2px}
-.lede{font-size:clamp(1.08rem,2.1vw,1.28rem);color:var(--ink-2);max-width:52ch;margin:0 0 30px;line-height:1.85}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px}
-.hero-note{font-size:15px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
-
-/* ── 정의 문단 (AI 인용 단위) ── */
-.definition{
-  background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--navy);
-  border-radius:var(--radius);padding:24px 26px;margin:40px 0 0;max-width:70ch;
-  font-size:17px;line-height:1.85;color:var(--ink-2);box-shadow:var(--shadow);
-}
-.definition strong{color:var(--ink)}
-
-/* ── 섹션 ── */
-section{padding:70px 0;border-top:1px solid var(--line)}
-section:first-of-type{border-top:none}
-.sec-label{font-size:14px;font-weight:800;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin:0 0 12px}
-h2{font-size:clamp(1.55rem,3.4vw,2.15rem);line-height:1.4;letter-spacing:-.03em;font-weight:800;margin:0 0 16px;max-width:22ch}
-h3{font-size:clamp(1.15rem,2.2vw,1.35rem);line-height:1.5;font-weight:750;margin:0 0 10px;letter-spacing:-.02em}
-p{margin:0 0 18px}
-.sec-intro{color:var(--ink-2);max-width:58ch;font-size:17.5px}
-
-/* ── 기한 카드 (핵심 UVP) ── */
-.deadlines{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;margin-top:32px}
-.dl-card{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:28px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden;
-}
-.dl-card::after{content:"";position:absolute;top:0;left:0;right:0;height:5px}
-.dl-card.d3::after{background:var(--crimson)}
-.dl-card.d6::after{background:var(--amber)}
-.dl-card.d0::after{background:var(--teal)}
-.dl-num{font-size:2.7rem;font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:6px}
-.dl-card.d3 .dl-num{color:var(--crimson)}
-.dl-card.d6 .dl-num{color:var(--amber-ink)}
-.dl-card.d0 .dl-num{color:var(--teal)}
-.dl-card p{font-size:16.5px;color:var(--ink-2);margin-bottom:12px}
-.dl-law{font-size:14.5px;font-weight:700;color:var(--ink-2);background:var(--surface-2);border-radius:8px;padding:8px 12px;display:inline-block}
-
-/* ── 질문 카드 ── */
-.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:30px}
-.qcard{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:22px 24px;font-size:17px;line-height:1.75;box-shadow:var(--shadow);
-  display:flex;gap:12px;align-items:flex-start;
-}
-.qcard .q{color:var(--amber-ink);font-weight:800;font-size:19px;flex:none;line-height:1.5}
-
-/* ── Q&A 본문 ── */
-.qa{border-top:1px solid var(--line);padding:34px 0}
-.qa:last-of-type{border-bottom:1px solid var(--line)}
-.qa h3{display:flex;gap:12px;align-items:flex-start;max-width:34ch}
-.qa h3 .mark{color:var(--coral);font-weight:800;flex:none}
-.qa-answer{max-width:62ch;margin-left:0}
-.qa-answer > p:first-child{font-size:18.5px;font-weight:600;color:var(--ink)}
-.qa-answer p{color:var(--ink-2)}
-.qa-answer p:first-child{color:var(--ink)}
-.cite{
-  display:inline-block;font-size:14.5px;font-weight:700;color:var(--teal);
-  background:var(--teal-soft);border-radius:7px;padding:5px 11px;margin-top:4px;
-}
-
-/* ── 표 ── */
-.tablewrap{overflow-x:auto;margin:26px 0;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:520px;font-size:16.5px}
-caption{text-align:left;padding:16px 20px 0;font-weight:700;font-size:16px;color:var(--ink-2)}
-th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
-thead th{background:var(--navy-soft);color:var(--ink);font-weight:800;font-size:16px;border-bottom:2px solid var(--line-strong)}
-tbody tr:last-child td{border-bottom:none}
-td strong{color:var(--ink)}
-
-/* ── 도구 ── */
-.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:16px;margin-top:32px}
-.tool{
-  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:26px 24px;text-decoration:none;display:flex;flex-direction:column;gap:9px;
-  box-shadow:var(--shadow);transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease;
-}
-.tool:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
-.tool .tag{font-size:13px;font-weight:800;letter-spacing:.06em;padding:4px 10px;border-radius:999px;align-self:flex-start}
-.tag-tax{background:var(--amber-soft);color:var(--amber-ink)}
-.tag-acc{background:var(--crimson-soft);color:var(--crimson)}
-.tag-plan{background:var(--teal-soft);color:var(--teal)}
-.tool h3{margin:0;font-size:19.5px}
-.tool p{font-size:16px;color:var(--ink-2);margin:0}
-.tool .go{margin-top:auto;padding-top:10px;font-weight:700;font-size:15.5px;color:var(--coral)}
-
-/* ── 경계선 (할 수 있는 일 / 없는 일) ── */
-.scope{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
-@media(max-width:760px){.scope{grid-template-columns:1fr}}
-.scope > div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;box-shadow:var(--shadow)}
-.scope h3{font-size:18px}
-.scope ul{list-style:none;padding:0;margin:0;font-size:16.5px;color:var(--ink-2)}
-.scope li{padding:9px 0 9px 30px;position:relative;line-height:1.7;border-bottom:1px solid var(--line)}
-.scope li:last-child{border-bottom:none}
-.scope .can li::before{content:"○";position:absolute;left:4px;color:var(--teal);font-weight:800}
-.scope .cant li::before{content:"→";position:absolute;left:2px;color:var(--ink-2);font-weight:800}
-.scope .expert-links a{color:inherit;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
-.scope .expert-links a:hover{color:var(--ink)}
-.expert-acts{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:16px 0 0}
-.expert-cta{display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border-radius:10px;background:var(--coral,#0C5C48);color:var(--on-coral,#fff);font-weight:700;font-size:17px;text-decoration:none}
-.expert-join{display:inline-flex;align-items:center;min-height:48px;padding:0 18px;border-radius:10px;
-  border:2px solid var(--navy);color:var(--navy);font-weight:800;font-size:16px;text-decoration:none}
-.expert-join:hover{background:var(--navy-soft)}
-
-/* ── 질문방 ── */
-.room{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:38px 34px;box-shadow:var(--shadow-lg);margin-top:32px}
-@media(max-width:640px){.room{padding:28px 22px}}
-.field{margin-bottom:18px}
-label{display:block;font-weight:700;font-size:16px;margin-bottom:7px}
-label .opt{font-weight:500;color:var(--ink-2);font-size:14.5px}
-input[type=text],input[type=email],input[type=tel],select,textarea{
-  width:100%;font:inherit;font-size:17px;padding:13px 15px;
-  background:var(--bg);color:var(--ink);
-  border:1.5px solid var(--line-strong);border-radius:10px;
-}
-textarea{min-height:130px;resize:vertical;line-height:1.75}
-input:focus,select:focus,textarea:focus{border-color:var(--coral);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--coral) 22%,transparent)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:640px){.two{grid-template-columns:1fr}}
-.privacy{font-size:14.5px;color:var(--ink-2);line-height:1.7;background:var(--surface-2);border-radius:10px;padding:14px 16px;margin:6px 0 20px}
-
-/* ── 저자 ── */
-.author{display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;margin-top:30px}
-@media(max-width:700px){.author{grid-template-columns:1fr}}
-.avatar{width:104px;height:104px;border-radius:22px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;font-size:30px;font-weight:800;border:1px solid var(--line-strong);overflow:hidden;flex:none}
-.avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.creds-group{margin-top:16px}
-.creds-group+.creds-group{margin-top:14px}
-.creds-label{font-size:12.5px;font-weight:800;letter-spacing:.04em;color:var(--ink-2);margin:0 0 8px}
-.creds{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
-.creds li{font-size:14.5px;font-weight:700;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;color:var(--ink-2)}
-.creds--navy li{background:var(--navy-soft);border-color:var(--navy);color:var(--navy)}
-
-/* ── 최종 CTA ── */
-.finale{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:46px 38px;text-align:center;box-shadow:var(--shadow-lg)}
-.finale h2{margin:0 auto 16px;max-width:20ch}
-.finale p{max-width:48ch;margin:0 auto 26px;color:var(--ink-2)}
-.finale .hero-cta{justify-content:center}
-
-/* ── 푸터 ── */
-footer{border-top:1px solid var(--line);background:var(--surface-2);padding:48px 0 40px;font-size:16px}
-.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
-@media(max-width:760px){.fgrid{grid-template-columns:1fr}}
-footer h4{font-size:15px;font-weight:800;margin:0 0 12px;letter-spacing:.02em}
-footer ul{list-style:none;padding:0;margin:0}
-footer li{margin-bottom:9px;color:var(--ink-2)}
-footer a{color:var(--ink-2);text-decoration:none}
-footer a:hover{color:var(--ink);text-decoration:underline}
-.disclaimer{
-  margin-top:34px;padding-top:24px;border-top:1px solid var(--line-strong);
-  font-size:14.5px;line-height:1.8;color:var(--ink-2);max-width:78ch;
-}
-.lawdate{font-weight:700;color:var(--ink);background:var(--amber-soft);border-radius:7px;padding:4px 10px;display:inline-block;margin-bottom:10px;font-size:14.5px}
-
-
-/* 도구 목록 — 카드 대신 압축 리스트 */
-.toollist{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:2px;margin-top:28px;
-  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--line)}
-.toollist a{background:var(--surface);padding:18px 22px;text-decoration:none;display:flex;flex-direction:column;gap:4px;
-  transition:background .12s ease}
-.toollist a:hover{background:var(--surface-2)}
-.toollist b{font-size:17.5px;font-weight:750;color:var(--ink);letter-spacing:-.02em}
-.toollist span{font-size:15px;color:var(--ink-2);line-height:1.55}
-
-@media (prefers-reduced-motion: reduce){
-  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-}
-
-/* 브랜드 로고 (2026-09-18, 상표출원 40-2026-0196992 / 등록 전 ™) */
-.logo,.nw-logo{align-items:center}
-.logo-img{height:28px;width:auto;display:block}
-@media(min-width:640px){.logo-img{height:32px}}
+/* 머리 */
+header.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:40}
+header.top .wrap{display:flex;align-items:center;gap:16px;min-height:68px;flex-wrap:wrap}
+.logo{display:inline-flex;align-items:center;text-decoration:none;color:var(--ink);margin-right:auto}
+.logo-mark{display:inline-flex;align-items:flex-start}
+.logo-img{height:30px;width:auto;display:block}
 .logo-img.is-dark{display:none}
-html[data-theme="dark"] .logo-img.is-light{display:none}
-html[data-theme="dark"] .logo-img.is-dark{display:block}
+:root[data-theme="dark"] .logo-img.is-light{display:none}:root[data-theme="dark"] .logo-img.is-dark{display:block}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
-.logo-mark{display:inline-flex;align-items:flex-start;margin-right:4px}
-.logo .tm,.nw-logo .tm{font-size:11px;font-weight:600;line-height:1;margin:2px 0 0 2px;vertical-align:top}
+.logo .tm{font-size:11px;font-weight:600;margin:2px 0 0 2px;color:var(--ink)}
+nav.main{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:17px;font-weight:700}
+nav.main a{color:var(--ink);text-decoration:none;padding:10px 2px;min-height:44px;display:inline-flex;align-items:center}
+nav.main a:hover{text-decoration:underline;text-underline-offset:5px}
+.iconbtn{min-width:44px;min-height:44px;border-radius:999px;border:2px solid var(--line-strong);background:transparent;color:var(--ink);font-size:18px;cursor:pointer}
+@media(max-width:760px){nav.main{order:3;width:100%;justify-content:space-between;gap:0 8px;font-size:16px;border-top:1px solid var(--line)}header.top{position:static}}
 
-/* ™ 는 표장과 같은 색으로 (페이지 강조색 상속 방지) */
-.logo-mark .tm{color:#0C5C48}
-html[data-theme="dark"] .logo-mark .tm{color:#54CFA8}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-mark .tm{color:#54CFA8}}
-header.hd .logo-mark .tm{color:#54CFA8}
-@media print{header.hd .logo-mark .tm{color:#0C5C48}}
+/* 첫 화면 */
+.hero{position:relative;overflow:hidden;background:var(--hero);color:var(--hero-ink);padding:64px 0 56px}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .glow{position:absolute;top:-280px;left:50%;width:min(980px,150vw);height:660px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(233,196,106,.22),rgba(233,196,106,.05) 55%,rgba(11,18,32,0) 100%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;gap:22px}
+.hero .eyebrow{justify-self:start;background:var(--gold);color:#0B1220}
+.hero h1{margin:0;font-size:clamp(30px,5.2vw,54px);line-height:1.3;max-width:20ch}
+.hero .q{margin:0;font-size:clamp(21px,2.6vw,28px);font-weight:800;color:var(--gold)}
+.hero .s{margin:0;font-size:19px;color:var(--hero-sub);max-width:58ch}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.chips .chip{display:inline-flex;align-items:center;min-height:52px;padding:0 22px;border-radius:999px;font-weight:800;font-size:19px;text-decoration:none;background:var(--band);color:var(--band-ink)}
+/* 첫 화면은 항상 어두우므로 나이대 칩은 다크 계열 색을 고정해서 쓴다 */
+.hero .chip[data-band="20"]{background:#D9F99D;color:#13161C}.hero .chip[data-band="30"]{background:#7DD3FC;color:#13161C}
+.hero .chip[data-band="40"]{background:#E9C46A;color:#13161C}.hero .chip[data-band="50"]{background:#5EEAD4;color:#13161C}
+.hero .chip[data-band="60"]{background:#F9A8D4;color:#13161C}.hero .chip[data-band="70"]{background:#FDBA74;color:#13161C}
+.hero .chip:hover{transform:translateY(-2px)}
+.hero .chip:focus-visible,.hero .btn:focus-visible{outline-color:var(--gold)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.hero-cta .btn-line{border-color:#8FA3BF;color:var(--hero-ink)}
+.hero-cta small{font-size:16px;color:var(--hero-sub)}
+.hero{--k:2}
+.hero.is-anim .glow{animation:hwGlow calc(.9s*var(--k)) ease-out both}
+.hero.is-anim .wrap>*{animation:hwUp calc(.5s*var(--k)) ease-out both}
+.hero.is-anim .wrap>*:nth-child(1){animation-delay:calc(.2s*var(--k))}
+.hero.is-anim .wrap>*:nth-child(2){animation-delay:calc(.4s*var(--k))}
+.hero.is-anim .wrap>*:nth-child(3){animation-delay:calc(.7s*var(--k))}
+.hero.is-anim .wrap>*:nth-child(4){animation-delay:calc(.9s*var(--k))}
+.hero.is-anim .wrap>*:nth-child(5){animation-delay:calc(1.1s*var(--k))}
+.hero.is-anim .wrap>*:nth-child(6){animation-delay:calc(1.3s*var(--k))}
+@keyframes hwGlow{from{opacity:0;transform:translateX(-50%) scale(.85)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+@keyframes hwUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.hero .glow,.hero .wrap>*{animation:none!important}.hero canvas{display:none}}
+
+/* 나이대 카드 */
+.ages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:20px}
+.age{display:flex;flex-direction:column;background:var(--band-soft);border:2px solid var(--band);border-radius:var(--radius);overflow:hidden}
+.age-pic{display:block;aspect-ratio:1200/825;background:var(--surface-2)}
+.age-pic img{display:block;width:100%;height:100%;object-fit:cover}
+.age-body{display:flex;flex-direction:column;gap:10px;padding:20px 22px 22px;flex:1}
+.age-k{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0;font-size:15px;font-weight:700;color:var(--ink-2)}
+.age-k .hw-band-chip{font-size:16px;padding:6px 12px}
+.age h3{margin:0;font-size:24px;line-height:1.35}
+.age h3 a{color:var(--ink);text-decoration:none}
+.age h3 a:hover{text-decoration:underline;text-underline-offset:5px}
+.age-ev{margin:0;padding:0 0 0 20px;font-size:17px;flex:1}
+.age-ev a{color:var(--ink)}
+.age-go{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 18px;border-radius:10px;background:var(--band);color:var(--band-ink);font-weight:800;text-decoration:none}
+
+/* 진단 */
+.check{background:var(--surface);border-block:1px solid var(--line)}
+.steps{list-style:none;margin:0 0 28px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;counter-reset:st}
+.steps li{counter-increment:st;background:var(--surface-2);border-radius:12px;padding:16px 18px 16px 62px;position:relative;font-size:17px}
+.steps li::before{content:counter(st);position:absolute;left:16px;top:14px;width:34px;height:34px;border-radius:50%;background:var(--navy);color:var(--on-navy);font-weight:800;display:flex;align-items:center;justify-content:center}
+.steps b{display:block;font-size:18px}
+.entries{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px}
+.entry{display:flex;flex-direction:column;gap:10px;padding:24px;border-radius:var(--radius);border:2px solid var(--line-strong);background:var(--bg);text-decoration:none;color:var(--ink)}
+.entry:hover{border-color:var(--navy)}
+.entry .tag{align-self:flex-start;font-size:15px;font-weight:800;border-radius:999px;padding:4px 12px;background:var(--amber-soft);color:var(--ink)}
+.entry b{font-size:23px;line-height:1.35}
+.entry span.d{font-size:17px;color:var(--ink-2);flex:1}
+.entry span.go{font-weight:800;color:var(--link)}
+.entry.soon{border-style:dashed}
+.check-note{margin:20px 0 0;font-size:16px;color:var(--ink-2)}
+
+/* 기한 */
+.deadline-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin:0 0 22px}
+.dl{border-left:8px solid var(--navy);background:var(--surface);border-radius:12px;padding:18px 20px}
+.dl .n{display:block;font-size:34px;font-weight:800;line-height:1.2;color:var(--ink)}
+.dl .w{display:block;font-size:18px;font-weight:700;margin:4px 0}
+.dl .l{display:block;font-size:15px;color:var(--ink-2)}
+
+/* 도구 */
+.tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.tool{display:flex;flex-direction:column;gap:4px;height:100%;padding:18px 20px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);text-decoration:none;color:var(--ink)}
+.tool:hover{border-color:var(--line-strong)}
+.tool b{font-size:19px}.tool span{font-size:16px;color:var(--ink-2)}
+
+/* 묻기 */
+.ask{background:var(--surface-2)}
+.ask-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;align-items:start}
+.ask-card{background:var(--surface);border:2px solid var(--navy);border-radius:var(--radius);padding:26px;display:grid;gap:14px}
+.ask-card h3{margin:0;font-size:24px}
+.ask-card p{margin:0;color:var(--ink-2)}
+.ask-row{display:flex;flex-wrap:wrap;gap:10px}
+.who{display:grid;gap:10px}
+.who h3{margin:0;font-size:22px}
+.who p{margin:0;color:var(--ink-2);font-size:17px}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 0;padding:0;list-style:none}
+.creds li{font-size:15px;font-weight:700;border:1.5px solid var(--line-strong);border-radius:999px;padding:5px 12px;background:var(--surface)}
+
+/* 바닥 */
+footer.foot{border-top:1px solid var(--line);background:var(--surface);font-size:16px;color:var(--ink-2)}
+footer.foot .wrap{padding-block:40px 64px;display:grid;gap:24px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:24px}
+.fgrid h4{margin:0 0 8px;font-size:17px;color:var(--ink)}
+.fgrid ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.fgrid a{color:var(--ink)}
+.fgrid p{margin:0}
+.law{font-size:15px;border-top:1px solid var(--line);padding-top:18px}
+.law p{margin:0 0 8px}
 </style>
-<style id="hw-a11y">/* 가독성 보정 2026-09-30: 14px 미만 글자 상향 */.nav a.logo small{font-size:14px!important}.creds-group p.creds-label{font-size:14px!important}</style>
 </head>
-<body>
-
+<body data-crumb="off">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 
-<header>
-  <div class="wrap nav">
-    <a class="logo" href="/" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span> <small>상속·증여 재무설계</small></a>
-    <ul>
-      <li><a href="#deadline">기한부터</a></li>
-      <li><a href="#situations">실제 사례</a></li>
-      <li><a href="#answers">자주 묻는 것</a></li>
-      <li><a href="#tools">계산해 보기</a></li>
-      <li><a href="#room">물어보기</a></li>
-      <li><a href="#who">누가 답하나</a></li>
-    </ul>
-    <button class="iconbtn" id="themeBtn" aria-label="밝은 화면과 어두운 화면 전환" title="화면 밝기 전환">◐</button>
-    <a class="btn btn-primary btn-sm nav-ask" href="#room" aria-label="이름 없이 물어보기"><span><span class="nav-ask-long">이름 없이 </span>물어보기</span></a>
+<a class="urgent" href="/check/?entry=A&amp;src=home-band" data-ev="home_band">상속이 이미 시작됐나요? <b>세금이 없어도 3개월·6개월 기한</b>은 있습니다 — 기한부터 확인하기 →</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="HeirWise 홈"><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span></a>
+    <nav class="main" aria-label="주 메뉴">
+      <a href="#ages">인생 변곡점</a>
+      <a href="/check/?src=home-nav">우리 집 진단</a>
+      <a href="#tools">계산기</a>
+      <a href="/chat.html?src=home-nav">바로 묻기</a>
+    </nav>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button>
   </div>
 </header>
 
 <main id="main">
 
-<!-- LOBBY:START — 길잡이 첫 화면 (2026-09-28). 6개 문 → 기존 섹션 앵커. 다크 고정(테마와 무관). -->
-<style>
-/* 홈 모바일: 상단 경로 띠 숨김 (2026-09-28, PC는 유지) */
-@media(max-width:820px){body #hw-crumb{display:none}}
-.lobby{position:relative;overflow:hidden;background:#0B1220;color:#F5F7FA;padding:56px 0 40px;border-bottom:1px solid #33445C;word-break:keep-all}
-.lobby *{box-sizing:border-box}
-.lobby .lb-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.lobby .lb-glow{position:absolute;top:-260px;left:50%;width:min(900px,140vw);height:640px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(233,196,106,.24),rgba(233,196,106,.06) 55%,rgba(11,18,32,0) 100%);pointer-events:none}
-.lobby .wrap{position:relative;display:flex;flex-direction:column;gap:32px}
-.lb-hero{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
-.lb-hero h1{margin:0;max-width:none;font-size:clamp(28px,4vw,44px);line-height:1.4;color:#F5F7FA;text-wrap:balance;letter-spacing:-.01em}
-.lb-hero .lb-q{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:700;color:#E9C46A}
-.lb-hero .lb-s{margin:0;font-size:17px;color:#B6C2D1}
-.lb-doors{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-@media(max-width:820px){.lb-doors{grid-template-columns:1fr;gap:12px}}
-.lb-door{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px;min-height:200px;padding:24px;background:#152033;border:1px solid #33445C;border-radius:16px;color:#F5F7FA;text-decoration:none;transition:border-color .15s ease-out,transform .15s ease-out}
-.lb-door:hover{border-color:#E9C46A;color:#F5F7FA}
-.lb-door:active{transform:scale(.98)}
-.lb-door:focus-visible{outline:3px solid #E9C46A;outline-offset:3px}
-.lb-door.is-seen{border-color:#E9C46A}
-.lb-door .lb-bg{position:absolute;inset:0;background-size:cover;background-position:center;pointer-events:none}
-.lb-door .lb-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,32,51,.55) 0%,rgba(21,32,51,.92) 60%,rgba(21,32,51,.98) 100%)}
-.lb-door>svg,.lb-door .lb-t,.lb-door .lb-d,.lb-door .lb-go,.lb-door .lb-seen{position:relative;z-index:1}
-.lb-door .lb-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
-.lb-door svg{width:32px;height:32px;flex:none}
-.lb-door .lb-t{font-size:22px;font-weight:800;line-height:1.4}
-.lb-door .lb-d{font-size:16px;line-height:1.6;color:#D6DEE9;flex:1}
-.lb-door .lb-go{font-size:16px;font-weight:700;color:#E9C46A}
-.lb-door .lb-seen{display:none;align-items:center;gap:6px;font-size:14px;font-weight:700;color:#0B1220;background:#E9C46A;border-radius:999px;padding:4px 10px}
-.lb-door.is-seen .lb-seen{display:inline-flex}
-.lb-progress{display:flex;align-items:center;justify-content:center;gap:12px;font-size:16px;color:#B6C2D1}
-.lb-progress .lb-bars{display:inline-flex;gap:6px}
-.lb-progress .lb-bars span{width:28px;height:6px;border-radius:3px;background:#33445C}
-.lb-progress .lb-bars span.on{background:#E9C46A}
-/* 등장 순서 (--lbk = 속도 배율, 기본 2 = "2배 느리게") */
-.lobby{--lbk:2}
-.lobby.is-anim .lb-glow{animation:lbGlow calc(.9s*var(--lbk)) ease-out both}
-.lobby.is-anim .lb-hero>*{animation:lbUp calc(.5s*var(--lbk)) ease-out both}
-.lobby.is-anim .lb-hero>*:nth-child(1){animation-delay:calc(.3s*var(--lbk))}
-.lobby.is-anim .lb-hero>*:nth-child(2){animation-delay:calc(.6s*var(--lbk))}
-.lobby.is-anim .lb-hero>*:nth-child(3){animation-delay:calc(.9s*var(--lbk))}
-.lobby.is-anim .lb-door{animation:lbUp calc(.5s*var(--lbk)) ease-out both}
-.lobby.is-anim .lb-doors li:nth-child(1) .lb-door{animation-delay:calc(1.2s*var(--lbk))}
-.lobby.is-anim .lb-doors li:nth-child(2) .lb-door{animation-delay:calc(1.35s*var(--lbk))}
-.lobby.is-anim .lb-doors li:nth-child(3) .lb-door{animation-delay:calc(1.5s*var(--lbk))}
-.lobby.is-anim .lb-doors li:nth-child(4) .lb-door{animation-delay:calc(1.65s*var(--lbk))}
-.lobby.is-anim .lb-doors li:nth-child(5) .lb-door{animation-delay:calc(1.8s*var(--lbk))}
-.lobby.is-anim .lb-doors li:nth-child(6) .lb-door{animation-delay:calc(1.95s*var(--lbk))}
-.lobby.is-anim .lb-progress{animation:lbUp calc(.5s*var(--lbk)) ease-out both;animation-delay:calc(2.2s*var(--lbk))}
-@keyframes lbGlow{from{opacity:0;transform:translateX(-50%) scale(.85)}to{opacity:1;transform:translateX(-50%) scale(1)}}
-@keyframes lbUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.lobby .lb-glow,.lobby .lb-hero>*,.lobby .lb-door,.lobby .lb-progress{animation:none!important}.lobby .lb-canvas{display:none}}
-</style>
-<section id="lobby" class="lobby" aria-labelledby="lobbyH">
-  <canvas class="lb-canvas" id="lbCanvas" aria-hidden="true"></canvas>
-  <div class="lb-glow" aria-hidden="true"></div>
+<section class="hero" id="top" aria-labelledby="heroH">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="glow" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="lb-hero">
-      <h1 id="lobbyH">준비한 집은 모두 비슷하고,<br>준비하지 않은 집은 저마다 다릅니다.</h1>
-      <p class="lb-q">우리 집은 어느 쪽일까요.</p>
-      <p class="lb-s">한 곳을 보고 오셔도, 여기로 다시 돌아옵니다.</p>
-    </div>
-    <ul class="lb-doors" id="lbDoors">
-      <li><a class="lb-door" href="#deadline" data-door="deadline">
-        <span class="lb-bg" style="background-image:url('/img/lobby/deadline.webp')"></span>
-        <span class="lb-top"><svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13v4l2.5 1.5"/></svg><span class="lb-seen"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#0B1220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px"><path d="M5 12l5 5 9-10"/></svg>보고 오셨어요</span></span>
-        <span class="lb-t">상속이 이미 시작됐을 때</span>
-        <span class="lb-d">세금이 없어도 3개월·6개월 기한은 그대로 갑니다</span>
-        <span class="lb-go">이쪽으로 →</span>
-      </a></li>
-      <li><a class="lb-door" href="#lifemap-home" data-door="lifemap">
-        <span class="lb-bg" style="background-image:url('/img/lobby/lifemap.webp')"></span>
-        <span class="lb-top"><svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span class="lb-seen"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px"><path d="M5 12l5 5 9-10"/></svg>보고 오셨어요</span></span>
-        <span class="lb-t">인생 변곡점 지도</span>
-        <span class="lb-d">내 나이를 고르면 지금 준비할 돈과 만날 사람</span>
-        <span class="lb-go">이쪽으로 →</span>
-      </a></li>
-      <li><a class="lb-door" href="#situations" data-door="situations">
-        <span class="lb-bg" style="background-image:url('/img/lobby/situations.webp')"></span>
-        <span class="lb-top"><svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h12a2 2 0 0 1 2 2v14l-4-3-4 3-4-3-4 3V6a2 2 0 0 1 2-2z"/><path d="M8 9h6M8 13h4"/></svg><span class="lb-seen"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px"><path d="M5 12l5 5 9-10"/></svg>보고 오셨어요</span></span>
-        <span class="lb-t">우리 집도 그럴까 싶을 때</span>
-        <span class="lb-d">실제로 있었던 열세 가지 이야기</span>
-        <span class="lb-go">이쪽으로 →</span>
-      </a></li>
-      <li><a class="lb-door" href="#tools" data-door="tools">
-        <span class="lb-bg" style="background-image:url('/img/lobby/tools.webp')"></span>
-        <span class="lb-top"><svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M8 15h2M12 15h2M8 18h6"/></svg><span class="lb-seen"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px"><path d="M5 12l5 5 9-10"/></svg>보고 오셨어요</span></span>
-        <span class="lb-t">숫자로 확인하고 싶을 때</span>
-        <span class="lb-d">연락처 없이, 계산기 열한 개</span>
-        <span class="lb-go">이쪽으로 →</span>
-      </a></li>
-      <li><a class="lb-door" href="#ceo" data-door="ceo">
-        <span class="lb-bg" style="background-image:url('/img/lobby/ceo.webp')"></span>
-        <span class="lb-top"><svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-5h6v5"/><path d="M9 10h2M13 10h2M9 14h2M13 14h2"/></svg><span class="lb-seen"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px"><path d="M5 12l5 5 9-10"/></svg>보고 오셨어요</span></span>
-        <span class="lb-t">사업을 하고 계실 때</span>
-        <span class="lb-d">「대표로 산다는 것」 — 법인 대표가 부딪히는 28가지 문제</span>
-        <span class="lb-go">이쪽으로 →</span>
-      </a></li>
-      <li><a class="lb-door" href="#room" data-door="room">
-        <span class="lb-bg" style="background-image:url('/img/lobby/room.webp')"></span>
-        <span class="lb-top"><svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-8l-5 4v-4H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/></svg><span class="lb-seen"><svg viewBox="0 0 24 24" fill="none" stroke="#0B1220" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px"><path d="M5 12l5 5 9-10"/></svg>보고 오셨어요</span></span>
-        <span class="lb-t">혼자 정리가 안 될 때</span>
-        <span class="lb-d">이름 없이 묻거나, 안내서를 읽거나, 상담을 신청하거나</span>
-        <span class="lb-go">이쪽으로 →</span>
-      </a></li>
-    </ul>
-    <p class="lb-progress" id="lbProgress"><span class="lb-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span><span id="lbProgressText">아직 둘러본 곳이 없습니다</span></p>
-  </div>
-</section>
-<script>
-(function(){
-  var sec=document.getElementById('lobby'); if(!sec) return;
-  var KEY='hw_lobby_seen', names=['deadline','lifemap','situations','tools','ceo','room'];
-  var words=['한','두','세','네','다섯','여섯'];
-  function seen(){ try{ return JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ return []; } }
-  function mark(id){ var s=seen(); if(s.indexOf(id)<0){ s.push(id); try{ localStorage.setItem(KEY,JSON.stringify(s)); }catch(e){} } }
-  function paint(){
-    var s=seen(), bars=sec.querySelectorAll('.lb-bars span'), n=0;
-    names.forEach(function(id,i){ var on=s.indexOf(id)>=0; if(on) n++;
-      var a=sec.querySelector('[data-door="'+id+'"]'); if(a) a.classList.toggle('is-seen',on);
-      if(bars[i]) bars[i].classList.toggle('on',on); });
-    var t=document.getElementById('lbProgressText');
-    if(t) t.textContent = n===0 ? '아직 둘러본 곳이 없습니다' : (n===6 ? '여섯 곳을 모두 보셨어요' : '여섯 곳 중 '+words[n-1]+' 곳을 보셨어요');
-  }
-  sec.addEventListener('click',function(ev){
-    var a=ev.target.closest && ev.target.closest('.lb-door'); if(!a) return;
-    mark(a.getAttribute('data-door')); paint();
-    if(window.hwTrack) hwTrack('door_click',{door:a.getAttribute('data-door')});
-  });
-  paint();
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var skip = !!location.hash && location.hash!=='#lobby'; /* 카톡·공유 링크로 특정 섹션에 들어온 경우 연출 생략 */
-  if(!reduce && !skip){
-    sec.classList.add('is-anim');
-    var c=document.getElementById('lbCanvas'), ctx=c&&c.getContext&&c.getContext('2d');
-    if(ctx){
-      var K=parseFloat(getComputedStyle(sec).getPropertyValue('--lbk'))||2, dpr=Math.min(window.devicePixelRatio||1,2);
-      c.width=sec.clientWidth*dpr; c.height=sec.clientHeight*dpr;
-      var t0=performance.now(), dust=[], i;
-      for(i=0;i<40;i++) dust.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.4,s:Math.random()*.00004+.00001,p:Math.random()*6.28});
-      (function frame(now){
-        var w=c.width,h=c.height,e=(now-t0)/1000/K; ctx.clearRect(0,0,w,h);
-        var on=Math.min(1,e/1.6), settle=Math.max(0,1-Math.max(0,e-6)/2);
-        var g=ctx.createRadialGradient(w/2,-h*.25,0,w/2,-h*.25,h*.95);
-        g.addColorStop(0,'rgba(233,196,106,'+(.16*on)+')'); g.addColorStop(.5,'rgba(233,196,106,'+(.04*on)+')'); g.addColorStop(1,'rgba(11,18,32,0)');
-        ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
-        if(settle>0){ ctx.fillStyle='rgba(245,217,138,.55)';
-          for(var j=0;j<dust.length;j++){ var d=dust[j]; d.y-=d.s*8*settle; d.x+=Math.sin(e+d.p)*.00008*settle; if(d.y<-.02){d.y=1.02;d.x=Math.random();}
-            ctx.globalAlpha=(.3+.7*Math.abs(Math.sin(e*.8+d.p)))*on*.6*settle; ctx.beginPath(); ctx.arc(d.x*w,d.y*h,d.r*dpr,0,6.28); ctx.fill(); }
-          ctx.globalAlpha=1; requestAnimationFrame(frame);
-        } else if(on<1){ requestAnimationFrame(frame); }
-      })(t0);
-    }
-  }
-  /* heirwise-common.js는 defer라 이 줄이 실행될 때 hwTrack이 아직 없다 → DOM 준비 뒤에 보낸다 (2026-10-04) */
-  (function fire(){ if(window.hwTrack){ hwTrack('lobby_view',{skipped:skip?1:0},true); }
-    else if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',fire); } })();
-})();
-</script>
-<!-- LOBBY:END -->
-
-
-<!-- LIFEMAP-HOME:START — node tools/lifemap-build.js --home 로 생성. 직접 고치지 말 것(원본은 lifemap/index.html 의 MAP) -->
-<style>
-.lm-home{padding:44px 0 36px;border-bottom:1px solid var(--line)}
-.lm-home .lm-eye{display:inline-block;background:var(--violet);color:var(--violet-ink);font-weight:800;font-size:15px;border-radius:999px;padding:4px 14px;margin:0 0 14px}
-.lm-home h2.lm-h{margin:0 0 12px;max-width:none;font-size:clamp(26px,4vw,38px);line-height:1.3;letter-spacing:-.02em}
-.lm-home .lm-lede{font-size:clamp(1.05rem,2vw,1.2rem);color:var(--ink-2);max-width:60ch;margin:0 0 22px;line-height:1.8}
-.lm-q{font-weight:800;font-size:18px;margin:0 0 10px}
-.lm-tabs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:0 0 22px}
-.lm-tabs button{min-height:52px;border-radius:12px;border:2px solid var(--line-strong);background:var(--surface);color:var(--ink);font:inherit;font-weight:800;font-size:17px;cursor:pointer}
-.lm-tabs button[aria-selected=true]{background:var(--band);color:var(--band-ink);border-color:var(--band)}
-.lm-tabs button:focus-visible,.lm-c:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
-@media(max-width:640px){.lm-tabs{grid-template-columns:repeat(3,1fr)}}
-.lm-pt{font-size:clamp(20px,3vw,24px);margin:0 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.lm-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.lm-c{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1.5px solid var(--line);border-top:6px solid var(--band);border-radius:16px;padding:10px 10px 16px;text-decoration:none;color:var(--ink)}
-.lm-c:hover{border-color:var(--band)}
-.lm-c img,.lm-none{display:block;width:100%;height:auto;aspect-ratio:1200/825;object-fit:cover;border-radius:10px;background:var(--surface-2)}
-.lm-none{display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--ink-2)}
-.lm-t{font-size:19px;font-weight:800;line-height:1.4;margin:12px 4px 6px}
-.lm-m{font-size:16px;line-height:1.6;color:var(--ink-2);margin:0 4px;flex:1}
-.lm-m b{color:var(--ink)}
-.lm-go{font-weight:800;margin:10px 4px 0;color:var(--ink)}
-.lm-all{margin:14px 0 0;font-size:17px;font-weight:800}
-.lm-all a{color:var(--ink)}
-.lm-more{margin:22px 0 0;display:flex;flex-wrap:wrap;gap:10px}
-.lm-more a{min-height:48px;display:inline-flex;align-items:center;padding:0 20px;border-radius:12px;font-weight:800;text-decoration:none;border:2px solid var(--line-strong);color:var(--ink)}
-.lm-more a.pri{background:var(--violet);color:var(--violet-ink);border-color:var(--violet)}
-html.lm-js .lm-p{display:none}html.lm-js .lm-p.on{display:block}
-html:not(.lm-js) .lm-p{margin:0 0 30px}
-</style>
-<section id="lifemap-home" class="lm-home" aria-labelledby="lmhH">
- <div class="wrap">
-  <span class="lm-eye">인생 변곡점 지도</span>
-  <h2 class="lm-h" id="lmhH">지금 내 나이에 준비할 돈, 만날 사람</h2>
-  <p class="lm-lede">살면서 돈이 크게 움직이는 순간은 정해져 있습니다. 나이를 고르면 그 시기의 변곡점 3가지와, 그때 미리 확보해 둘 재정, 지금 물어볼 사람을 보여 드립니다.</p>
-  <p class="lm-q" id="lmQ">나는 지금</p>
-  <div class="lm-tabs" role="tablist" aria-labelledby="lmQ"><button type="button" role="tab" id="lmt-20" aria-controls="lmp-20" data-band="20" aria-selected="false">20대</button><button type="button" role="tab" id="lmt-30" aria-controls="lmp-30" data-band="30" aria-selected="false">30대</button><button type="button" role="tab" id="lmt-40" aria-controls="lmp-40" data-band="40" aria-selected="false">40대</button><button type="button" role="tab" id="lmt-50" aria-controls="lmp-50" data-band="50" aria-selected="false">50대</button><button type="button" role="tab" id="lmt-60" aria-controls="lmp-60" data-band="60" aria-selected="false">60대</button><button type="button" role="tab" id="lmt-70" aria-controls="lmp-70" data-band="70" aria-selected="false">70대 이상</button></div>
-<div class="lm-p" id="lmp-20" role="tabpanel" aria-labelledby="lmt-20" data-band="20">
-  <h2 class="lm-pt">20대의 변곡점 <span class="hw-band-chip" data-band="20">생전 축 · 축적</span></h2>
-  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/20/#first_job"><img src="/img/toon/01_first_job/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 들어온 날은 기쁜데, 나가는 순서는 아무도 안 알려 줬다. 27살 하늘이의 첫 월급날. 통장은 하나, 하고 싶은 건 열 개." loading="lazy" width="1200" height="825"><span class="lm-t">취업·독립 — 첫 월급이 들어왔다</span><span class="lm-m"><b>지금 확보할 재정</b> · 비상자금 3~6개월분, 첫 적립(연금저축·IRP)</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/20/#gift_parent"><img src="/img/toon/02_gift_parent/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 밤, 하늘이가 휴대폰으로 아버지에게서 1억 5천만 원이 들어왔다는 은행 알림을 봅니다." loading="lazy" width="1200" height="825"><span class="lm-t">부모님께 받는 돈 — 세금 먼저 확인</span><span class="lm-m"><b>지금 확보할 재정</b> · 결혼자금 증여 공제(직계존속 1억 원 추가, 상증법 §53의2 · 2024.1.1 시행) 활용 설계</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/20/#marriage_prep"><img src="/img/toon/03_marriage_prep/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 고마운 말 두 마디가, 세무서에는 두 건이다. 상견례 날 저녁. 양가가 나란히 꺼낸 한마디는 각각 다른 서류가 됩니다." loading="lazy" width="1200" height="825"><span class="lm-t">결혼 준비 — 양가에서 받으면</span><span class="lm-m"><b>지금 확보할 재정</b> · 양가 합산 공제 구조, 전세보증금은 빌린 돈인지 받은 돈인지 구분</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
-  <p class="lm-all"><a href="/lifemap/20/">20대 변곡점 전체 보기 →</a></p>
-</div>
-<div class="lm-p" id="lmp-30" role="tabpanel" aria-labelledby="lmt-30" data-band="30">
-  <h2 class="lm-pt">30대의 변곡점 <span class="hw-band-chip" data-band="30">생전 축 · 축적 → 보전</span></h2>
-  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/30/#first_home"><img src="/img/toon/04_first_home/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 집을 고르는 날, 돈의 출처도 같이 정해진다. 5년 뒤, 서른둘의 하늘과 서른셋의 도윤. 모델하우스 창가에서 첫 집을 고릅니다." loading="lazy" width="1200" height="825"><span class="lm-t">첫 집 — 주택자금은 어디서 왔나</span><span class="lm-m"><b>지금 확보할 재정</b> · 주택자금 조달 계획, 차입과 증여의 구분, 자금출처 소명 준비</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/30/#birth"><img src="/img/toon/05_birth/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 축하와 함께 온 돈에도 날짜가 있다. 할머니 미향이 손주 앞으로 넣어 둔 돈. 고마운 마음과 별개로, 받은 날짜는 서류가 됩니다." loading="lazy" width="1200" height="825"><span class="lm-t">출산 — 가장의 보장, 아이의 적립</span><span class="lm-m"><b>지금 확보할 재정</b> · 출산 증여 공제(§53의2), 가장 사망·장해 보장, 자녀 교육 적립</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/30/#startup"><img src="/img/toon/06_startup/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 사장이 되는 날, 「사고」도 내 이름이 된다. 서른셋 도윤의 창업. 간판을 올리는 순간부터 사업장의 안전은 사장의 책임입니다." loading="lazy" width="1200" height="825"><span class="lm-t">창업 — 사업장이 생기면 안전이 돈이다</span><span class="lm-m"><b>지금 확보할 재정</b> · 화재·배상책임 보험, 안전관리 의무 확인, 사업자 노후 준비(노란우산·IRP)</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
-  <p class="lm-all"><a href="/lifemap/30/">30대 변곡점 전체 보기 →</a></p>
-</div>
-<div class="lm-p" id="lmp-40" role="tabpanel" aria-labelledby="lmt-40" data-band="40">
-  <h2 class="lm-pt">40대의 변곡점 <span class="hw-band-chip" data-band="40">생전 축 · 보전</span></h2>
-  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/40/#parent_care"><img src="/img/toon/07_parent_care/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 부양이 시작되는 순간, 부모의 돈 지도가 필요해진다. 마흔다섯 영재. 부모님 댁 고지서 더미 앞에서 처음으로 부모님의 돈을 들여다봅니다." loading="lazy" width="1200" height="825"><span class="lm-t">부모 부양 시작 — 상속은 이미 시작됐다</span><span class="lm-m"><b>지금 확보할 재정</b> · 부모 자산·부채 파악, 사전증여 10년 시계, 상속세 납부 자금 마련 경로 정리</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/40/#biz_risk"><img src="/img/toon/08_biz_risk/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 직원이 늘면, 사장의 책임도 사람 수만큼 는다. 마흔둘 연선, 카페 2호점 오픈 준비. 직원 넷이 새로 합류합니다." loading="lazy" width="1200" height="825"><span class="lm-t">사업 확장 — 대표 한 사람에게 모이는 세 가지</span><span class="lm-m"><b>지금 확보할 재정</b> · 사업장 안전관리 체계, 가업상속공제 사후관리 요건, 대표 연대보증 정리</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/40/#debt"><img src="/img/toon/09_debt/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 슬픔 위에, 기한이 먼저 온다. 영재의 회사 동료 민호. 장례식장 복도에서 처음 들은 소식입니다." loading="lazy" width="1200" height="825"><span class="lm-t">빚이 더 많은 상속을 받게 된다면</span><span class="lm-m"><b>지금 확보할 재정</b> · 한정승인·포기 3개월 기한, 채무 초과 판단, 상속 부동산 근저당 확인</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
-  <p class="lm-all"><a href="/lifemap/40/">40대 변곡점 전체 보기 →</a></p>
-</div>
-<div class="lm-p" id="lmp-50" role="tabpanel" aria-labelledby="lmt-50" data-band="50">
-  <h2 class="lm-pt">50대의 변곡점 <span class="hw-band-chip" data-band="50">생전 축 · 보전 → 이전</span></h2>
-  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/50/#retire_prep"><img src="/img/toon/10_retire_prep/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 퇴직일보다 먼저 정해야 하는 건 「무엇을 먼저 꺼내느냐」 쉰넷 은정, 퇴직까지 2년. 도윤의 어머니입니다." loading="lazy" width="1200" height="825"><span class="lm-t">은퇴 준비 — 연금 인출 순서가 세금을 정한다</span><span class="lm-m"><b>지금 확보할 재정</b> · 퇴직연금·IRP·국민연금 인출 설계, 건강보험료 영향, 은퇴 후 현금흐름표</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/50/#inherit_now"><img src="/img/toon/11_inherit_now/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 나누기 전에, 얼마인지부터. 어머니 49재를 마친 시골집. 성호와 두 형이 유품 앞에 앉았습니다." loading="lazy" width="1200" height="825"><span class="lm-t">부모 상속 발생 — 6개월 안에 결정할 것들</span><span class="lm-m"><b>지금 확보할 재정</b> · 상속세 신고 기한: 상속개시일이 속하는 달의 말일부터 6개월(상증법 §67①), 상속 부동산 처분·권리분석, 상속세 재원 마련</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/50/#succession"><img src="/img/toon/12_succession/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 「언젠가」에는 세율이 없다. 날짜에는 있다. 쉰여섯 성호, 직원 12명의 작은 제조업체 대표. 큰아들 도현이 묻습니다." loading="lazy" width="1200" height="825"><span class="lm-t">가업 승계 — 순서를 정해야 할 때</span><span class="lm-m"><b>지금 확보할 재정</b> · 사전증여·법인전환·가업상속공제 비교, 지분 이전 설계</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
-  <p class="lm-all"><a href="/lifemap/50/">50대 변곡점 전체 보기 →</a></p>
-</div>
-<div class="lm-p" id="lmp-60" role="tabpanel" aria-labelledby="lmt-60" data-band="60">
-  <h2 class="lm-pt">60대의 변곡점 <span class="hw-band-chip" data-band="60">생전 축 · 이전 → 상속 설계</span></h2>
-  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/60/#retired"><img src="/img/toon/13_retired/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 들어오는 돈은 정해졌고, 나가는 돈은 나이가 정한다. 일흔둘 해남과 예순여덟 미향. 연금은 매달 들어오지만 병원비가 조금씩 늘어납니다." loading="lazy" width="1200" height="825"><span class="lm-t">은퇴 — 매달 들어오는 돈으로 살아가기</span><span class="lm-m"><b>지금 확보할 재정</b> · 연금 인출 실행, 주택연금 검토, 의료·요양 비용 준비</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/60/#my_estate"><img src="/img/toon/14_my_estate/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 마음은 하나인데, 문서는 종류가 셋이다. 일흔둘 해남, 편지지 앞에서 펜을 멈췄습니다." loading="lazy" width="1200" height="825"><span class="lm-t">내 상속 설계 — 유언·신탁·사전증여</span><span class="lm-m"><b>지금 확보할 재정</b> · 유언대용신탁, 사전증여 10년 계획, 배우자·자녀 몫 설계</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/60/#disability_family"><img src="/img/toon/15_disability_family/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 가장 오래 미룬 질문이, 가장 먼저 정해야 할 것. 막내 영수는 스스로 재산을 관리하기 어렵습니다. 부모님이 오래 미뤄 온 이야기입니다." loading="lazy" width="1200" height="825"><span class="lm-t">장애 가족에게 남길 때</span><span class="lm-m"><b>지금 확보할 재정</b> · 장애인 신탁·보험금 비과세 요건, 부모 사후 생활비 구조</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
-  <p class="lm-all"><a href="/lifemap/60/">60대 변곡점 전체 보기 →</a></p>
-</div>
-<div class="lm-p" id="lmp-70" role="tabpanel" aria-labelledby="lmt-70" data-band="70">
-  <h2 class="lm-pt">70대 이후의 변곡점 <span class="hw-band-chip" data-band="70">생전 축 → 사후 축</span></h2>
-  <ul class="lm-cards"><li><a class="lm-c" href="/lifemap/70/#illness"><img src="/img/toon/16_illness/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 아프기 전에 정해야 하는 건 병명이 아니라 「누가 대신 결정하느냐」 일흔둘 해남, 검사 결과 봉투를 무릎에 올려 두고." loading="lazy" width="1200" height="825"><span class="lm-t">질병·사고 — 결정할 사람을 미리 정하기</span><span class="lm-m"><b>지금 확보할 재정</b> · 의료·요양 비용, 후견·임의대리, 가족이 쓸 수 있는 돈의 위치</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/70/#handover"><img src="/img/toon/17_handover/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 배는 물건이 아니라 「허가」와 함께 움직인다. 일흔둘 해남, 대부도에서 어선 한 척을 부려 왔습니다." loading="lazy" width="1200" height="825"><span class="lm-t">물려주기 — 어선·가업·특수 자산</span><span class="lm-m"><b>지금 확보할 재정</b> · 어선·어업허가·가업 등 평가와 승계 절차, 상속세 재원</span><span class="lm-go">자세히 보기 ›</span></a></li><li><a class="lm-c" href="/lifemap/70/#after"><img src="/img/toon/18_after/cut1.webp" alt="4컷 카툰 1컷(AI로 만든 이미지, 이야기 속 가족): 남긴 사람의 한 장이, 남은 사람의 여섯 달을 정한다. 장례 다음 주. 해남이 남긴 봉투 하나를 가족이 함께 엽니다." loading="lazy" width="1200" height="825"><span class="lm-t">사후 — 남은 가족이 6개월 안에 할 일</span><span class="lm-m"><b>지금 확보할 재정</b> · 상속세 신고: 상속개시일이 속하는 달의 말일부터 6개월(상증법 §67①), 한정승인·포기 3개월(민법 §1019), 유류분·분할 협의</span><span class="lm-go">자세히 보기 ›</span></a></li></ul>
-  <p class="lm-all"><a href="/lifemap/70/">70대 이상 변곡점 전체 보기 →</a></p>
-</div>
-  <p class="lm-more"><a class="pri" href="/lifemap/">나이 슬라이더로 지도 전체 보기 →</a><a href="#deadline">상속이 이미 시작됐다면 — 기한부터</a></p>
- </div>
-</section>
-<script>
-(function(){
-  var root=document.documentElement; root.classList.add("lm-js");
-  var sec=document.getElementById("lifemap-home"), tabs=[].slice.call(sec.querySelectorAll('[role=tab]'));
-  function pick(b, user){
-    tabs.forEach(function(t){var on=t.getAttribute("data-band")===String(b);t.setAttribute("aria-selected",String(on));t.tabIndex=on?0:-1;});
-    [].forEach.call(sec.querySelectorAll(".lm-p"),function(p){p.classList.toggle("on",p.getAttribute("data-band")===String(b));});
-    if(user){ try{localStorage.setItem("hw-lm-band",String(b));}catch(e){} sec.setAttribute("data-lifemap-band",String(b));
-      if(window.hwTrack) window.hwTrack("lifemap_home_band",{band:String(b)}); }
-  }
-  tabs.forEach(function(t,i){
-    t.addEventListener("click",function(){pick(t.getAttribute("data-band"),true);});
-    t.addEventListener("keydown",function(e){var k=e.key,j=k==="ArrowRight"?i+1:k==="ArrowLeft"?i-1:-9;if(j===-9)return;e.preventDefault();var n=tabs[(j+tabs.length)%tabs.length];n.focus();n.click();});
-  });
-  var q=Number(new URLSearchParams(location.search).get("age")), saved=null;
-  try{saved=localStorage.getItem("hw-lm-band");}catch(e){}
-  var start=(q>=20&&q<=80)?(q>=70?70:Math.floor(q/10)*10):(saved&&/^[2-7]0$/.test(saved)?saved:40);
-  pick(start,false);
-})();
-</script>
-<!-- LIFEMAP-HOME:END -->
-
-<!-- ══════════════════ 히어로 ══════════════════ -->
-<section class="hero">
-  <div class="wrap">
-    <span class="eyebrow"><span class="dot"></span>이름 없이 물어보셔도 됩니다</span>
-
-    <h2 class="hero-h1">상속세가 없어도, <mark>기한은 그대로 갑니다</mark></h2>
-
-    <p class="lede">
-      상속받는 열 집 중 아홉 집은 상속세를 내지 않습니다.
-      그런데 세금이 없다고 아무것도 안 해도 되는 건 아닙니다.
-      <strong>3개월과 6개월</strong>, 이 두 날짜는 세금과 상관없이 모두에게 옵니다.
-      여기서는 그것부터 같이 봅니다.
-    </p>
-
+    <p class="eyebrow">인생 변곡점 지도</p>
+    <h1 id="heroH">준비한 집은 모두 비슷하고,<br>준비하지 않은 집은 저마다 다릅니다.</h1>
+    <p class="q">우리 집은 어느 쪽일까요.</p>
+    <p class="s">나이대를 고르면 그 시기에 돈이 크게 움직이는 변곡점과 지금 준비할 것을 보여 드립니다. 세 번만 누르면 우리 집 할 일과 법정 기한도 나옵니다.</p>
+    <div class="chips" role="group" aria-label="나이대 고르기"><a class="chip" data-band="20" data-age="20" href="/lifemap/20/?src=home-hero">20대</a><a class="chip" data-band="30" data-age="30" href="/lifemap/30/?src=home-hero">30대</a><a class="chip" data-band="40" data-age="40" href="/lifemap/40/?src=home-hero">40대</a><a class="chip" data-band="50" data-age="50" href="/lifemap/50/?src=home-hero">50대</a><a class="chip" data-band="60" data-age="60" href="/lifemap/60/?src=home-hero">60대</a><a class="chip" data-band="70" data-age="70" href="/lifemap/70/?src=home-hero">70·80대</a></div>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="#deadline">내 기한이 언제인지 보기</a>
-      <a class="btn btn-ghost" href="#room">이름 없이 물어보기</a>
+      <a class="btn btn-amber" href="/check/?src=home-hero" data-ev="hero_check">우리 집 준비도 진단 (1분)</a>
+      <small>연락처 없이 결과까지 볼 수 있어요</small>
     </div>
-
-    <p class="hero-note">연락처를 남기지 않아도 질문하실 수 있습니다. 답은 이 페이지에 올려 드립니다.</p>
-
-    <!-- AI 검색이 통째로 인용하기 좋은 자체 완결 정의 문단 -->
-    <p class="definition">
-      <strong>HeirWise(에어와이즈)</strong>는 AFPK® 자격인증자(재무설계사) <strong>신대식(Syn Dae Sik, 申大湜)</strong>이
-      서울·경기·인천에서 활동하며 운영하는 상속·증여 재무설계 안내 사이트입니다.
-      상속 개시 후 <strong>3개월(상속포기·한정승인)</strong>과 <strong>6개월(상속세 신고)</strong>의 법정 기한 관리,
-      상속세 개략 추정, 세금을 낼 현금이 있는지 보는 <strong>납부 재원 진단</strong>,
-      교통사고·산재·화재 보상 개략 산정을 무료 계산 도구와 익명 질문방으로 제공합니다.
-      법률 자문과 세무 신고 대리는 수행하지 않으며, 필요한 시점에 변호사·세무사에게 연결합니다.
-    </p>
   </div>
 </section>
 
-
-<!-- ══════════════════ 기한 ══════════════════ -->
-<!-- ══════════════════ v1.9 · 누가 나와 비슷해요? (인생 변곡점 얼굴 띠) ══════════════════ -->
-<style>
-.faces-grid{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
-.face{display:flex;flex-direction:column;height:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:10px 10px 14px;text-decoration:none;color:var(--ink);transition:border-color .12s ease,transform .12s ease}
-.face:hover{border-color:var(--teal);transform:translateY(-2px)}
-.face:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
-.face img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:12px;background:var(--surface-2)}
-.face-n{font-size:17px;font-weight:800;margin-top:10px}
-.face-q{font-size:16px;line-height:1.5;color:var(--ink-2);margin-top:4px;flex:1}
-.face-go{font-size:18px;font-weight:800;color:var(--teal);margin-top:6px}
-.faces-note{font-size:14px;color:var(--ink-2);margin-top:14px}
-@media (prefers-reduced-motion:reduce){.face{transition:none}.face:hover{transform:none}}
-</style>
-<section id="faces" aria-labelledby="facesH">
+<section class="sec" id="ages" aria-labelledby="agesH">
   <div class="wrap">
-    <p class="sec-label">누가 나와 비슷해요?</p>
-    <h2 id="facesH">한 집안, 세 세대 — 지금 내 자리를 골라 보세요</h2>
-    <ul class="faces-grid">
-      <li><a class="face" data-band="20" href="/gift/#toon" onclick="if(window.gtag)gtag('event','face_pick',{who:'hanul'})"><img src="/img/face/hanul.jpg" alt="27세 신하늘. 단발머리에 초록 니트를 입고 웃는 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">하늘 · 27 <span class="hw-band-chip">20대</span></span><span class="face-q">결혼 자금을 받았어요</span><span class="face-go" aria-hidden="true">→</span></a></li>
-      <li><a class="face" data-band="40" href="/insurance-two-faces.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'yeonseon'})"><img src="/img/face/yeonseon.jpg" alt="42세 신연선. 머리를 뒤로 묶고 코랄색 블라우스를 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">연선 · 42 <span class="hw-band-chip">40대</span></span><span class="face-q">가족 보험, 이대로 괜찮을까요</span><span class="face-go" aria-hidden="true">→</span></a></li>
-      <li><a class="face" data-band="40" href="/calculator.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'yeongjae'})"><img src="/img/face/yeongjae.jpg" alt="45세 신영재. 짧은 머리에 네이비 셔츠를 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">영재 · 45 <span class="hw-band-chip">40대</span></span><span class="face-q">부모님 재산, 미리 알아 두고 싶어요</span><span class="face-go" aria-hidden="true">→</span></a></li>
-      <li><a class="face" data-band="60" href="/retirement/index.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'mihyang'})"><img src="/img/face/mihyang.jpg" alt="68세 허미향. 은회색 파마머리에 앰버색 카디건을 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">미향 · 68 <span class="hw-band-chip">60대</span></span><span class="face-q">노후자금, 얼마나 남을까요</span><span class="face-go" aria-hidden="true">→</span></a></li>
-      <li><a class="face" data-band="70" href="/book.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'haenam'})"><img src="/img/face/haenam.jpg" alt="72세 신해남. 흰머리에 안경을 쓰고 초록 조끼를 입은 모습" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">해남 · 72 <span class="hw-band-chip">70대</span></span><span class="face-q">유언·증여, 차근차근 준비하고 싶어요</span><span class="face-go" aria-hidden="true">→</span></a></li>
-      <li><a class="face" href="/inheritdebt.html" onclick="if(window.gtag)gtag('event','face_pick',{who:'family'})"><img src="/img/face/family.jpg" alt="검은 정장을 입고 나란히 선 남매. 가슴에 흰 국화" width="400" height="400" loading="lazy" decoding="async"><span class="face-n">남은 가족</span><span class="face-q">장례를 막 치렀어요 — 3개월 안에 할 일</span><span class="face-go" aria-hidden="true">→</span></a></li>
+    <h2 id="agesH">나이마다 찾아오는 변곡점</h2>
+    <p class="sec-lede">스무 살부터 여든 살까지, 돈이 크게 움직이는 순간은 대체로 정해져 있습니다. 나이대마다 세 가지 변곡점과 그때 미리 확보해 둘 재정을 정리했습니다.</p>
+    <ul class="ages">
+<li class="age" data-band="20">
+  <a class="age-pic" href="/lifemap/20/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/02_gift_parent/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
+  <div class="age-body">
+    <p class="age-k"><span class="hw-band-chip">20대</span><span>생전 축 · 축적</span></p>
+    <h3><a href="/lifemap/20/?src=home" data-age="20">처음 큰돈을 받거나 독립할 때</a></h3>
+    <ul class="age-ev" aria-label="20대 변곡점 3가지"><li><a href="/lifemap/20/#first_job">취업·독립</a></li><li><a href="/lifemap/20/#gift_parent">부모님께 받는 돈</a></li><li><a href="/lifemap/20/#marriage_prep">결혼 준비</a></li></ul>
+    <a class="age-go" href="/lifemap/20/?src=home" data-age="20">20대 지도 보기 <span aria-hidden="true">→</span></a>
+  </div>
+</li>
+<li class="age" data-band="30">
+  <a class="age-pic" href="/lifemap/30/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/04_first_home/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
+  <div class="age-body">
+    <p class="age-k"><span class="hw-band-chip">30대</span><span>생전 축 · 축적 → 보전</span></p>
+    <h3><a href="/lifemap/30/?src=home" data-age="30">집을 마련하고 가정을 꾸릴 때</a></h3>
+    <ul class="age-ev" aria-label="30대 변곡점 3가지"><li><a href="/lifemap/30/#first_home">첫 집</a></li><li><a href="/lifemap/30/#birth">출산</a></li><li><a href="/lifemap/30/#startup">창업</a></li></ul>
+    <a class="age-go" href="/lifemap/30/?src=home" data-age="30">30대 지도 보기 <span aria-hidden="true">→</span></a>
+  </div>
+</li>
+<li class="age" data-band="40">
+  <a class="age-pic" href="/lifemap/40/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/07_parent_care/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
+  <div class="age-body">
+    <p class="age-k"><span class="hw-band-chip">40대</span><span>생전 축 · 보전</span></p>
+    <h3><a href="/lifemap/40/?src=home" data-age="40">부모님의 일이 내 일이 될 때</a></h3>
+    <ul class="age-ev" aria-label="40대 변곡점 3가지"><li><a href="/lifemap/40/#parent_care">부모 부양 시작</a></li><li><a href="/lifemap/40/#biz_risk">사업 확장</a></li><li><a href="/lifemap/40/#debt">빚이 더 많은 상속을 받게 된다면</a></li></ul>
+    <a class="age-go" href="/lifemap/40/?src=home" data-age="40">40대 지도 보기 <span aria-hidden="true">→</span></a>
+  </div>
+</li>
+<li class="age" data-band="50">
+  <a class="age-pic" href="/lifemap/50/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/11_inherit_now/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
+  <div class="age-body">
+    <p class="age-k"><span class="hw-band-chip">50대</span><span>생전 축 · 보전 → 이전</span></p>
+    <h3><a href="/lifemap/50/?src=home" data-age="50">은퇴와 부모 상속이 겹칠 때</a></h3>
+    <ul class="age-ev" aria-label="50대 변곡점 3가지"><li><a href="/lifemap/50/#retire_prep">은퇴 준비</a></li><li><a href="/lifemap/50/#inherit_now">부모 상속 발생</a></li><li><a href="/lifemap/50/#succession">가업 승계</a></li></ul>
+    <a class="age-go" href="/lifemap/50/?src=home" data-age="50">50대 지도 보기 <span aria-hidden="true">→</span></a>
+  </div>
+</li>
+<li class="age" data-band="60">
+  <a class="age-pic" href="/lifemap/60/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/14_my_estate/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
+  <div class="age-body">
+    <p class="age-k"><span class="hw-band-chip">60대</span><span>생전 축 · 이전 → 상속 설계</span></p>
+    <h3><a href="/lifemap/60/?src=home" data-age="60">내 상속을 직접 설계할 때</a></h3>
+    <ul class="age-ev" aria-label="60대 변곡점 3가지"><li><a href="/lifemap/60/#retired">은퇴</a></li><li><a href="/lifemap/60/#my_estate">내 상속 설계</a></li><li><a href="/lifemap/60/#disability_family">장애 가족에게 남길 때</a></li></ul>
+    <a class="age-go" href="/lifemap/60/?src=home" data-age="60">60대 지도 보기 <span aria-hidden="true">→</span></a>
+  </div>
+</li>
+<li class="age" data-band="70">
+  <a class="age-pic" href="/lifemap/70/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/18_after/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
+  <div class="age-body">
+    <p class="age-k"><span class="hw-band-chip">70·80대</span><span>생전 축 → 사후 축</span></p>
+    <h3><a href="/lifemap/70/?src=home" data-age="70">결정할 사람을 미리 정해 둘 때</a></h3>
+    <ul class="age-ev" aria-label="70·80대 변곡점 3가지"><li><a href="/lifemap/70/#illness">질병·사고</a></li><li><a href="/lifemap/70/#handover">물려주기</a></li><li><a href="/lifemap/70/#after">사후</a></li></ul>
+    <a class="age-go" href="/lifemap/70/?src=home" data-age="70">70·80대 지도 보기 <span aria-hidden="true">→</span></a>
+  </div>
+</li>
     </ul>
-    <p class="faces-note">AI로 만든 이미지 · 이야기 속 가족입니다. 실제 상담 사례가 아닙니다.</p>
   </div>
 </section>
 
-<section id="deadline">
+<section class="sec check" id="check" aria-labelledby="checkH">
   <div class="wrap">
-    <p class="sec-label">먼저 볼 것</p>
-    <h2>상속이 시작되면, 세금보다 날짜가 먼저입니다</h2>
-    <p class="sec-intro">
-      상담을 하다 보면 가장 많이 듣는 말이 “세금 안 나온다길래 그냥 뒀어요”입니다.
-      그런데 아래 두 날짜는 세금이 나오든 안 나오든 똑같이 지나갑니다.
-      지나가고 나면 되돌리기가 훨씬 어렵습니다.
-    </p>
-
-    <div class="deadlines">
-      <article class="dl-card d0">
-        <p class="dl-num">1개월</p>
-        <h3>사망신고</h3>
-        <p>사망진단서를 받아 주소지 시·구·읍·면에 신고합니다. 이때 <strong>안심상속 원스톱 서비스</strong>를 같이 신청하면 금융·부동산·세금 내역을 한 번에 조회할 수 있습니다.</p>
-        <span class="dl-law">가족관계등록법 제84조</span>
-      </article>
-
-      <article class="dl-card d3">
-        <p class="dl-num">3개월</p>
-        <h3>상속포기 · 한정승인</h3>
-        <p>빚이 재산보다 많다면 이 안에 결정해야 합니다. 넘기면 <strong>단순승인</strong>으로 처리되어 빚 전부를 떠안습니다. 빚을 몰랐다면 안 날부터 3개월의 특별한정승인이 있습니다.</p>
-        <span class="dl-law">민법 제1019조 · 사망을 안 날부터</span>
-      </article>
-
-      <article class="dl-card d6">
-        <p class="dl-num">6개월</p>
-        <h3>상속세 신고 · 납부</h3>
-        <p>낼 세금이 없어도 신고해 두면 나중에 그 부동산을 팔 때 <strong>취득가액</strong>으로 인정받는 데 유리한 경우가 있습니다. 신고 자체가 기록이 됩니다.</p>
-        <span class="dl-law">상증법 제67조 · 사망한 달 말일부터</span>
-      </article>
+    <p class="eyebrow">우리 집 준비도 진단</p>
+    <h2 id="checkH">세 번 누르면, 우리 집 할 일과 기한</h2>
+    <p class="sec-lede">상황을 고르고 질문 두 개에 답하면 지금 할 일을 「혼자 할 일 · 정리가 필요한 일 · 판단이 필요한 일」로 나눠 보여 드립니다. 정리해서 받고 싶을 때만 이메일을 남기시면 됩니다.</p>
+    <ol class="steps">
+      <li><b>상황 고르기</b>지금 우리 집에 일어난 일을 하나 고릅니다</li>
+      <li><b>두 가지 질문</b>시기와 걱정되는 점을 누릅니다</li>
+      <li><b>결과 보기</b>기한과 할 일이 바로 나옵니다</li>
+      <li><b>정리해서 받기 (선택)</b>원하실 때만 이메일로 받습니다</li>
+    </ol>
+    <div class="entries">
+      <a class="entry" href="/check/?entry=A&amp;src=home" data-ev="entry_a"><span class="tag">입구 A</span><b>상속이 이미 시작됐어요</b><span class="d">부모님이나 가족이 돌아가셨다면, 세금이 없어도 지켜야 할 기한이 있습니다.</span><span class="go">진단 시작 →</span></a>
+      <a class="entry" href="/check/?entry=B&amp;src=home" data-ev="entry_b"><span class="tag">입구 B</span><b>부모님께 돈을 받았어요</b><span class="d">결혼·출산·전세 자금처럼 받은 돈이 있다면, 신고 기한과 공제부터 확인하세요.</span><span class="go">진단 시작 →</span></a>
+      <a class="entry soon" href="/chat.html?src=home-check-other" data-ev="entry_other"><span class="tag">다른 상황</span><b>미리 준비하고 싶어요</b><span class="d">노후·사업 승계·장애 가족 등 다른 입구는 준비 중입니다. 지금은 바로 물어보세요.</span><span class="go">바로 묻기 →</span></a>
     </div>
-
-    <div class="tablewrap">
-      <table>
-        <caption>상속세가 나오는 기준 — 다른 공제가 없다고 가정한 대략의 선입니다</caption>
-        <thead>
-          <tr><th scope="col">가족 구성</th><th scope="col">적용되는 주요 공제</th><th scope="col">이 금액까지는 대체로 세금 없음</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>배우자가 살아 계심</td><td>일괄공제 5억 + 배우자상속공제 최소 5억</td><td><strong>10억 원</strong></td></tr>
-          <tr><td>배우자 없이 자녀만</td><td>일괄공제 5억</td><td><strong>5억 원</strong></td></tr>
-          <tr><td>동거주택을 상속받는 무주택 자녀</td><td>위 공제 + 동거주택상속공제 최대 6억</td><td>사안에 따라 더 늘어남</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="cite">근거: 상속세 및 증여세법 제19조·제21조·제23조의2 (법률 제21065호, 2026.1.2 시행)</p>
+    <p class="check-note">진단 결과는 일반적인 안내입니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다.</p>
   </div>
 </section>
 
-<!-- ══════════════════ 들어오는 질문들 ══════════════════ -->
-<style>
-/* 상황 카드 — 판례(머리) + 계산기(발)를 한 장에 */
-.sitgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:18px;margin-top:32px}
-.sitcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-  padding:0 26px 24px;box-shadow:var(--shadow);text-decoration:none;display:flex;flex-direction:column;
-  transition:transform .14s ease,box-shadow .14s ease,border-color .14s ease;overflow:hidden;position:relative}
-.sitcard::before{content:"";position:absolute;top:0;left:0;right:0;height:6px}
-.sitcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
-/* 카드 안에 보조 링크가 있는 경우 — 앵커 중첩(=파서가 카드를 깨뜨림)을 피한다 */
-.sitcard--box{cursor:pointer}
-.sitcard--box:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line-strong)}
-a.sit-go{margin-top:auto;font-size:16px;font-weight:800;color:var(--coral);text-decoration:none}
-a.sit-go::after{content:"";position:absolute;inset:0;z-index:1}
-a.sit-go:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
-.sit-book a{position:relative;z-index:2;text-decoration:underline;text-underline-offset:2px}
-.sitcard.c-navy::before{background:var(--navy)}
-.sitcard.c-crimson::before{background:var(--crimson)}
-.sitcard.c-violet::before{background:#5B2A87}
-.sitcard.c-amber::before{background:var(--amber)}
-.sitcard.c-teal::before{background:var(--teal)}
-.sit-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:26px}
-.sit-src{font-size:13.5px;font-weight:800;letter-spacing:.02em;margin:0 0 12px}
-.c-navy .sit-src{color:var(--navy)} .c-crimson .sit-src{color:var(--crimson)}
-.c-violet .sit-src{color:#5B2A87} .c-amber .sit-src{color:var(--amber-ink)}
-.c-teal .sit-src{color:var(--teal)}
-.sitcard h3{font-size:20.5px;line-height:1.45;font-weight:800;letter-spacing:-.025em;margin:0 0 12px;color:var(--ink)}
-.sitcard p{font-size:16px;line-height:1.7;color:var(--ink-2);margin:0 0 16px}
-.sit-go{margin-top:auto;font-size:16px;font-weight:800;color:var(--coral)}
-.sit-book{font-size:14px;font-weight:700;color:var(--teal);margin-top:8px}
-@media(prefers-color-scheme:dark){.sitcard.c-violet::before{background:#C39BE8}.c-violet .sit-src{color:#C39BE8}}
-
-/* 사례 카드 썸네일 (영화적 사실감 이미지 · vstory 산출물) */
-.sit-thumb{
-  flex:none;position:relative;z-index:2;width:64px;height:64px;padding:0;margin:0 0 12px;
-  border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;
-  background:var(--surface-2);cursor:zoom-in;transition:border-color .12s ease,transform .12s ease;
-}
-.sit-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.sit-thumb:hover{border-color:var(--teal);transform:scale(1.04)}
-.sit-thumb:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
-@media(max-width:420px){.sit-thumb{width:52px;height:52px}}
-
-/* 이미지 확대 모달 */
-.imgModal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:24px}
-.imgModal[hidden]{display:none}
-.imgModal-backdrop{position:absolute;inset:0;background:rgba(10,12,10,.72)}
-.imgModal-panel{position:relative;z-index:1;max-width:min(92vw,720px);max-height:90vh;
-  background:var(--surface);border:1px solid var(--line-strong);border-radius:16px;
-  padding:16px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:auto}
-.imgModal-panel img{display:block;width:100%;height:auto;border-radius:10px;background:var(--surface-2)}
-.imgModal-close{position:absolute;top:10px;right:10px;z-index:2;width:40px;height:40px;
-  border-radius:10px;border:1px solid var(--line-strong);background:var(--surface);
-  color:var(--ink);font-size:18px;line-height:1;cursor:pointer}
-.imgModal-close:hover{background:var(--surface-2)}
-.imgModal-caption{font-size:15px;color:var(--ink-2);margin:12px 4px 2px;line-height:1.6}
-/* 대표님 배너 */
-.ceolead{margin-top:44px;padding-top:30px;border-top:2px solid var(--line)}
-/* gift 입구 한 줄 (v1.8 Y2-6 ①, D-0923) */
-.ceolead h3{margin:0 0 10px;font-size:clamp(22px,3vw,28px);line-height:1.35;letter-spacing:-.02em}
-.ceolead p{margin:0;max-width:70ch;color:var(--ink-2);line-height:1.75}
-.ceocta{margin-top:24px;text-align:center}
-@media(max-width:760px){}
-.ceolead h3{font-weight:800;letter-spacing:-.025em;color:var(--ink)}
-.ceolead p{font-size:16.5px}
-</style>
-
-<section id="situations">
+<section class="sec" id="deadline" aria-labelledby="dlH">
   <div class="wrap">
-    <p class="sec-label">실제로 있었던 일</p>
-    <h2>이런 일이 실제로 있었습니다 — 우리 집은 어떤가요</h2>
-    <p class="sec-intro">
-      전부 판례이거나 현장에서 반복되는 일입니다. 읽고 나서 <strong>우리 집은 어떤지 바로 확인</strong>하실 수 있게
-      각 이야기에 계산기를 하나씩 붙여 두었습니다. 연락처 없이 결과까지 보실 수 있습니다.
-    </p>
-
-    <div class="sitgrid">
-
-      <div class="sitcard sitcard--box c-navy" data-entry="며느리·사위 대습상속">
-        <div class="sit-head">
-          <p class="sit-src">실제 판례 · 대법원 99다13157</p>
-          <button type="button" class="sit-thumb" data-img="/case/daeseup-99da13157.jpg" data-caption="며느리·사위가 시부모·처가 재산을 상속받는 일이 있습니다" aria-label="사진 크게 보기 — 며느리·사위 대습상속">
-            <img src="/case/daeseup-99da13157.jpg" alt="며느리와 사위가 상담사와 함께 서류를 검토하며 이야기를 나누는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>며느리·사위가 시부모·처가 재산을 상속받는 일이 있습니다</h3>
-        <p>배우자가 먼저 세상을 떠나면, 남은 사위·며느리가 장인·시부모의 재산을 대신 상속(대습상속)할 수 있습니다. 피상속인의 형제자매보다 앞섭니다. 단, 재혼하면 그 자격은 사라집니다.</p>
-        <a class="sit-go" href="/calculator.html">우리 집 상속인은 누구인지 1분 만에 →</a>
-        <span class="sit-book">안내서 22장(129쪽)에서 더 자세히 · 민법 §1001·§1003</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-crimson" data-entry="포기해도 배우자까지">
-        <div class="sit-head">
-          <p class="sit-src">실제 판례 · 대법원 2023. 3. 23.자 2020그42 전원합의체</p>
-          <button type="button" class="sit-thumb" data-img="/case/podo-2020geu42.jpg" data-caption="포기했다고 끝난 게 아닙니다 — 배우자까지 포기해야 합니다" aria-label="사진 크게 보기 — 포기해도 배우자까지">
-            <img src="/case/podo-2020geu42.jpg" alt="가정법원 창구에서 상속포기 서류에 서명하는 부부의 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>포기했다고 끝난 게 아닙니다 — 배우자까지 포기해야 합니다</h3>
-        <p>예전에는 자녀가 상속을 포기하면 빚이 손주에게 내려갔습니다. 2023년 대법원이 이를 바로잡아, <strong>자녀가 전부 포기하면 배우자가 단독으로 상속</strong>합니다. 다만 배우자까지 포기하면 그때는 다음 순위로 넘어갑니다. 기한은 사망을 안 날부터 3개월입니다.</p>
-        <a class="sit-go" href="/inheritdebt.html">우리 집 3개월은 언제까지인가 →</a>
-        <span class="sit-book">안내서 8장(63쪽)·22장(129쪽) · 민법 §1000·§1019</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-violet" data-entry="도장 빠진 유언장">
-        <div class="sit-head">
-          <p class="sit-src">실제 사건 · 민법 §1066</p>
-          <button type="button" class="sit-thumb" data-img="/case/yueon-1066.jpg" data-caption="도장 하나가 빠져 130억이 엉뚱한 곳으로 갔습니다" aria-label="사진 크게 보기 — 도장 빠진 유언장">
-            <img src="/case/yueon-1066.jpg" alt="손으로 쓴 유언장 옆에 도장 자리가 비어 있는 클로즈업" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>도장 하나가 빠져 130억이 엉뚱한 곳으로 갔습니다</h3>
-        <p>손으로 쓴 유언장은 날인(도장)이 빠지면 전부 무효입니다. 형식 하나가 어긋나 거액의 기부 유언이 깨지고, 재산이 전혀 다른 상속인에게 넘어간 실제 사건이 있습니다.</p>
-        <a class="sit-go" href="/insurance-two-faces.html">우리 집 유언은 유효한가 →</a>
-        <span class="sit-book">안내서 7장(56쪽)·23장(134쪽) · 민법 §1066·§1115</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-amber" data-entry="특별수익·유류분">
-        <div class="sit-head">
-          <p class="sit-src">실제 판례 · 민법 §1008</p>
-          <button type="button" class="sit-thumb" data-img="/case/teukbyeol-1008.jpg" data-caption="30년 전에 받은 돈도 상속에서 다시 계산됩니다" aria-label="사진 크게 보기 — 특별수익·유류분">
-            <img src="/case/teukbyeol-1008.jpg" alt="형제자매가 오래된 사진첩과 증여 서류를 함께 살펴보는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>30년 전에 받은 돈도 상속에서 다시 계산됩니다</h3>
-        <p>미리 받은 재산(특별수익)에는 시효가 없습니다. 수십 년 전의 증여도 상속분과 유류분 계산에 그대로 합산됩니다. "오래전 일이라 상관없다"는 통하지 않습니다.</p>
-        <a class="sit-go" href="/retirement/index.html">미리 주면 정말 유리한지 계산 →</a>
-        <span class="sit-book">안내서 5장(41쪽)·24장(138쪽) · 민법 §1008</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-teal" data-entry="사고로 가족을 잃었다면">
-        <div class="sit-head">
-          <p class="sit-src">사고 보상</p>
-          <button type="button" class="sit-thumb" data-img="/case/accident.jpg" data-caption="사고로 가족을 잃었다면" aria-label="사진 크게 보기 — 사고로 가족을 잃었다면">
-            <img src="/case/accident.jpg" alt="상담실에서 재무설계사와 조용히 이야기를 나누는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>사고로 가족을 잃었다면</h3>
-        <p>교통사고·산재·화재를 한자리에서 고르실 수 있습니다. 위자료와 일실수입뿐 아니라, 받은 보상금에 <strong>상속세가 붙는지까지</strong> 함께 봅니다.</p>
-        <a class="sit-go" href="/car-accident.html">우리 경우 보상 규모 확인 →</a>
-        <span class="sit-book">교통사고 · <a href="/industrial-accident.html" style="color:inherit">산재</a> · <a href="/fire-accident.html" style="color:inherit">화재</a></span>
-      </div>
-
-      <div class="sitcard sitcard--box c-violet" data-entry="내가 없으면, 이 아이는 누가 지키죠">
-        <div class="sit-head">
-          <p class="sit-src">설계 · 보장</p>
-          <button type="button" class="sit-thumb" data-img="/case/disability-trust.jpg" data-caption="내가 없으면, 이 아이는 누가 지키죠" aria-label="사진 크게 보기 — 내가 없으면, 이 아이는 누가 지키죠">
-            <img src="/case/disability-trust.jpg" alt="부모와 성인 자녀가 함께 신탁 서류를 살펴보는 다정한 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>내가 없으면, 이 아이는 누가 지키죠</h3>
-        <p>장애인 신탁과 노후자금 진단을 함께 봅니다. 재산을 남기는 일과, 그 재산이 그 아이에게 실제로 닿게 하는 일은 다른 문제입니다.</p>
-        <a class="sit-go" href="/disability-trust.html">우리 집 구조 살펴보기 →</a>
-        <span class="sit-book">장애인 신탁 · <a href="/retirement/index.html" style="color:inherit">노후자금 진단</a></span>
-      </div>
-
-      <div class="sitcard sitcard--box c-teal" data-entry="부모님께 받는 돈·질문형">
-        <div class="sit-head">
-          <p class="sit-src">국민일보 2026.7.10 보도</p>
-          <button type="button" class="sit-thumb" data-img="/case/gift-question.jpg" data-caption="작년에만 7,552억 — 부모님께 받은 돈, 신고하셨나요?" aria-label="사진 크게 보기 — 부모님께 받은 돈, 신고하셨나요">
-            <img src="/case/gift-question.jpg" alt="20~30대 자녀가 부모님께 받은 돈을 정리하는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>작년에만 7,552억 — 부모님께 받은 돈, 신고하셨나요?</h3>
-        <p>혼인 증여재산공제 이용액이 1년 새 두 배(2024년 3,708억 원 → 2025년 7,552억 원, +103.7%)로 늘었습니다. 결혼·출산 자금을 받으셨다면 신고 대상인지부터 확인해 보세요.</p>
-        <a class="sit-go" href="/gift/">받는 돈, 세금부터 확인 →</a>
-        <span class="sit-book">상속세 및 증여세법 §53의2</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-amber" data-entry="부모님께 받는 돈·손실회피형">
-        <div class="sit-head">
-          <p class="sit-src">상증법 §53의2·§68①</p>
-          <button type="button" class="sit-thumb" data-img="/case/gift-loss.jpg" data-caption="모르고 놓치는 공제, 1년 새 두 배로 늘었습니다" aria-label="사진 크게 보기 — 모르고 놓치는 공제">
-            <img src="/case/gift-loss.jpg" alt="공제 신청 기한을 달력에 표시하는 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>모르고 놓치는 공제, 1년 새 두 배로 늘었습니다</h3>
-        <p>혼인·출산 증여재산공제를 활용하는 사람이 1년 만에 크게 늘었습니다. 신고 기한(받은 날이 속한 달 말일부터 3개월) 안에 확인하지 않으면 최대 1억 원 공제를 그냥 흘려보낼 수 있습니다.</p>
-        <a class="sit-go" href="/gift/">놓치기 전에 확인 →</a>
-        <span class="sit-book">상속세 및 증여세법 §53의2 · §68①</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-crimson" data-entry="부모님께 받는 돈·경고형">
-        <div class="sit-head">
-          <p class="sit-src">상속세 및 증여세법 §68①</p>
-          <button type="button" class="sit-thumb" data-img="/case/gift-warning.jpg" data-caption="결혼 자금 받고 신고 안 하셨다면, 지금 확인하세요" aria-label="사진 크게 보기 — 결혼 자금 받고 신고 안 하셨다면">
-            <img src="/case/gift-warning.jpg" alt="신고 기한이 표시된 달력과 서류를 확인하는 손" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>결혼 자금 받고 신고 안 하셨다면, 지금 확인하세요</h3>
-        <p>증여세 신고 기한은 받은 날이 속한 달 말일부터 3개월입니다. 세금이 0원이어도 기한 안에 신고하면 받은 날짜와 금액이 신고서로 남습니다.</p>
-        <a class="sit-go" href="/gift/">지금 확인하기 →</a>
-        <span class="sit-book">상속세 및 증여세법 §68①</span>
-      </div>
-
+    <h2 id="dlH">상속이 시작됐다면, 기한부터</h2>
+    <p class="sec-lede">상속세를 낼 만큼 재산이 많지 않아도 아래 기한은 모든 집에 똑같이 흐릅니다.</p>
+    <div class="deadline-box">
+      <div class="dl"><span class="n">3개월</span><span class="w">상속받을지, 포기할지 정하는 기한</span><span class="l">상속이 시작된 것을 안 날부터 · 민법 제1019조 제1항</span></div>
+      <div class="dl"><span class="n">6개월</span><span class="w">상속세 신고 기한</span><span class="l">상속이 시작된 날이 속하는 달의 말일부터 · 상속세 및 증여세법 제67조</span></div>
+      <div class="dl"><span class="n">3개월</span><span class="w">증여세 신고 기한</span><span class="l">증여받은 날이 속하는 달의 말일부터 · 상속세 및 증여세법 제68조</span></div>
     </div>
-
-    <div class="ceolead" id="ceo">
-      <p class="sec-label" style="color:var(--navy)">법인을 운영하고 계시다면</p>
-      <h3>지금 법인이 위험한 것과, 내가 없어졌을 때 위험한 것</h3>
-      <p>대표님이 개인 자격으로 선 <strong>연대보증은 법인의 빚이 아니라 개인의 빚</strong>이라 가족에게 그대로 갑니다. 세 갈래를 한 번에 봅니다.</p>
-    </div>
-
-    <style>
-    .ceoseries{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:24px;align-items:center;margin:26px 0 8px;padding:28px;background:#0B1B33;color:#F5F7FA;border:2px solid #E9C46A;border-radius:var(--radius);box-shadow:var(--shadow)}
-    @media(max-width:760px){.ceoseries{grid-template-columns:1fr;padding:22px}}
-    .ceoseries .cs-k{font-size:15px;font-weight:800;color:#E9C46A;margin:0 0 6px;letter-spacing:.02em}
-    .ceoseries h3{font-size:28px;line-height:1.3;font-weight:900;margin:0 0 8px;color:#fff}
-    .ceoseries .cs-s{font-size:17px;line-height:1.65;color:#D6DEE9;margin:0 0 14px}
-    .ceoseries .cs-chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
-    .ceoseries .cs-chips a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #5A6B85;color:#F5F7FA;font-size:15px;font-weight:700;text-decoration:none;background:#152033}
-    .ceoseries .cs-chips a:hover,.ceoseries .cs-chips a:focus-visible{border-color:#E9C46A;color:#fff;outline:none}
-    .ceoseries .cs-go{display:inline-flex;align-items:center;min-height:52px;padding:0 24px;border-radius:12px;background:#E9C46A;color:#0B1220;font-size:18px;font-weight:900;text-decoration:none}
-    .ceoseries .cs-go:focus-visible{outline:3px solid #fff;outline-offset:3px}
-    .ceoseries figure{margin:0}
-    .ceoseries img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid #33445C}
-    .ceoseries figcaption{font-size:14px;color:#AFC0D6;margin-top:6px}
-    </style>
-    <div class="ceoseries" data-entry="대표로 산다는 것">
-      <div>
-        <p class="cs-k">시리즈 · 28장 · 모두 무료</p>
-        <h3>대표로 산다는 것</h3>
-        <p class="cs-s">회사 장부의 한 줄이 대표 개인의 빚이 되고, 가족의 기한이 됩니다. 법인 대표가 부딪히는 28가지 문제를 4컷 카툰·조문·판례·무료 도구로 한 장씩 풀었습니다.</p>
-        <div class="cs-chips"><a href="/ceo/karji.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'karji'})">가지급금</a><a href="/ceo/exec-pay.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'exec-pay'})">임원 퇴직금</a><a href="/ceo/guarantee.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'guarantee'})">연대보증</a><a href="/ceo/succession.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'succession'})">가업승계</a><a href="/ceo/partner.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'partner'})">동업자와 갈라설 때</a><a href="/ceo/tax-audit.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'tax-audit'})">세무조사 통지</a><a href="/ceo/sell.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'sell'})">회사 매각</a><a href="/ceo/closing.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'closing'})">폐업·청산</a><a href="/ceo/divorce.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'divorce'})">이혼과 주식</a><a href="/ceo/remarry.html" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_chip',ch:'remarry'})">재혼·유류분</a></div>
-        <a class="cs-go" href="/ceo/?src=home" onclick="window.hwTrack&&hwTrack('ceo_series_open',{from:'home_cta'})">28장 목차 보기 →</a>
-      </div>
-      <figure><img src="/img/toon/ceo17_partner/cut1.webp" width="1200" height="825" loading="lazy" decoding="async" alt="4컷 카툰 한 장면: 동업자 두 사람이 팔짱을 끼고 마주 앉아 지분을 두고 이야기하는 모습"><figcaption>AI로 만든 이미지 · 이야기 속 가족입니다</figcaption></figure>
-    </div>
-
-    <div class="ceoseries" data-entry="현장을 지킨다는 것" style="grid-template-columns:1fr">
-      <div>
-        <p class="cs-k">시리즈 · 16장 · 모두 무료 · 산업안전기사·소방설비기사 운영</p>
-        <h3>현장을 지킨다는 것</h3>
-        <p class="cs-s">안전관리자를 누구로 둘지, 소방안전관리자 이름을 입구에 걸었는지, 반장이 자기 역할을 아는지 — 현장의 빈칸 하나가 사고 날 대표의 책임이 됩니다. 산업안전보건법·화재예방법 원문과 판례로 한 장씩 풉니다.</p>
-        <div class="cs-chips"><a href="/field/manager.html" onclick="window.hwTrack&&hwTrack('field_series_open',{from:'home_chip',ch:'manager'})">안전관리자 선임</a><a href="/field/roles.html" onclick="window.hwTrack&&hwTrack('field_series_open',{from:'home_chip',ch:'roles'})">우리 회사 안전 조직표</a><a href="/field/fire-grade.html" onclick="window.hwTrack&&hwTrack('field_series_open',{from:'home_chip',ch:'fire-grade'})">소방안전관리 등급</a><a href="/field/fire-assist.html" onclick="window.hwTrack&&hwTrack('field_series_open',{from:'home_chip',ch:'fire-assist'})">보조자·겸직·자체점검</a></div>
-        <a class="cs-go" href="/field/?src=home" onclick="window.hwTrack&&hwTrack('field_series_open',{from:'home_cta'})">16장 목차 보기 →</a>
-      </div>
-    </div>
-
-    <div class="sitgrid">
-
-      <div class="sitcard sitcard--box c-amber" data-entry="중대재해처벌법">
-        <div class="sit-head">
-          <p class="sit-src">법률 제17907호 · 2024. 1. 27. 확대</p>
-          <button type="button" class="sit-thumb" data-img="/case/ceo-jungdaejaehae.jpg" data-caption="5명만 넘어도 대표가 형사처벌을 받습니다" aria-label="사진 크게 보기 — 중대재해처벌법">
-            <img src="/case/ceo-jungdaejaehae.jpg" alt="공장이 내려다보이는 사무실 책상 위의 안전모와 점검 서류" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>5명만 넘어도 대표가 형사처벌을 받습니다</h3>
-        <p>2024년 1월 27일부터 상시 근로자 <strong>5명 이상</strong>이면 업종을 가리지 않고 적용됩니다. 사망자가 한 명만 나와도 경영책임자는 <strong>1년 이상 징역 또는 10억원 이하 벌금</strong>, 법인은 별도로 50억원 이하 벌금입니다.</p>
-        <a class="sit-go" href="/ceo-diagnosis.html">우리 회사가 적용 대상인지 →</a>
-        <span class="sit-book">중대재해처벌법 §4 · §6① · §7</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-navy" data-entry="회생 또는 파산">
-        <div class="sit-head">
-          <p class="sit-src">채무자회생법</p>
-          <button type="button" class="sit-thumb" data-img="/case/ceo-hoesaeng.jpg" data-caption="지금 흔들린다면, 회생인가 파산인가" aria-label="사진 크게 보기 — 회생 또는 파산">
-            <img src="/case/ceo-hoesaeng.jpg" alt="늦은 저녁 책상에서 재무제표를 검토하는 대표의 모습" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>지금 흔들린다면, 회생인가 파산인가</h3>
-        <p>부채가 <strong>50억원 이하</strong>면 간이회생을 쓸 수 있고, 영업이 살아 있어야 회생 실익이 인정됩니다. 갈림길을 한 번 잘못 들면 되돌리기 어렵고, 대표의 보증채무는 어느 쪽이든 따로 남습니다.</p>
-        <a class="sit-go" href="/ceo-diagnosis.html">우리 법인은 어느 길인지 →</a>
-        <span class="sit-book">채무자회생법 §293의2 · 시행령 §15의3</span>
-      </div>
-
-      <div class="sitcard sitcard--box c-crimson" data-entry="연대보증">
-        <div class="sit-head">
-          <p class="sit-src">민법 §1005</p>
-          <button type="button" class="sit-thumb" data-img="/case/ceo-yeondaeboo.jpg" data-caption="연대보증은 법인이 아니라 가족에게 갑니다" aria-label="사진 크게 보기 — 연대보증">
-            <img src="/case/ceo-yeondaeboo.jpg" alt="연대보증 서류에 서명하는 손과 법인 도장" width="64" height="64" onerror="this.closest('.sit-thumb').remove()">
-          </button>
-        </div>
-        <h3>연대보증은 법인이 아니라 가족에게 갑니다</h3>
-        <p>법인을 정리해도 대표가 개인 자격으로 선 보증은 남고, 그대로 상속됩니다. 사망을 안 날부터 <strong>3개월</strong> 안에 한정승인이나 포기를 하지 않으면 배우자와 자녀가 떠안습니다.</p>
-        <a class="sit-go" href="/inheritdebt.html">오늘 갑자기 안 계신다면 →</a>
-        <span class="sit-book">민법 §1005 · §1019① · 채무자회생법 §579</span>
-      </div>
-
-    </div>
-
-    <p class="ceocta"><a class="btn btn-primary" href="/ceo-diagnosis.html">세 가지를 한 번에 진단하기 →</a></p>
-  </div>
-</section>
-
-<!-- ══════════════════ 도구 ══════════════════ -->
-<section id="tools">
-  <div class="wrap">
-    <p class="sec-label">도구 전체</p>
-    <h2>계산기는 열한 개가 있습니다</h2>
-    <p class="sec-intro">
-      위에서 상황을 고르시면 맞는 계산기로 바로 갑니다. 곧장 원하는 것을 여시려면 아래에서 고르세요.
-      전부 연락처 없이 결과까지 보실 수 있습니다.
-    </p>
-
-    <div class="toollist">
-      <a href="/calculator.html"><b>상속 종합 계산기</b><span>상속분 · 유류분 · 상속세를 한 번에</span></a>
-      <a href="/natural-death.html"><b>부모님이 남기신 재산</b><span>자연사망 상속의 재산 구성과 기한</span></a>
-      <a href="/inheritdebt.html"><b>상속채무 진단기</b><span>빚이 더 많을 때 · 3개월 기한 · 한정승인과 포기</span></a>
-      <a href="/ceo-diagnosis.html"><b>대표님 진단</b><span>법인 · 연대보증 · 승계를 한 화면에</span></a>
-      <a href="/car-accident.html"><b>교통사고 보상</b><span>일실수입 · 위자료 개략 산정</span></a>
-      <a href="/industrial-accident.html"><b>산재 보상</b><span>유족급여와 별도 청구 가능 범위</span></a>
-      <a href="/fire-accident.html"><b>화재 보상</b><span>실화책임법과 보험 구조</span></a>
-      <a href="/disability-trust.html"><b>장애인 신탁</b><span>아픈 아이에게 남기는 구조</span></a>
-      <a href="/insurance-two-faces.html"><b>유류분 — 청구와 방어</b><span>받을 사람과 지킬 사람, 두 방향</span></a>
-      <a href="/retirement/index.html"><b>노후자금 진단</b><span>남길 돈보다 쓸 돈이 먼저</span></a>
-      <a href="/gift/"><b>부모님께 받는 돈</b><span>결혼·출산 공제 · 증여세 · 신고기한</span></a>
-      <a href="/book.html"><b>『상속설계의 기술』</b><span>187쪽 안내서 · 30장 + 부록 A~E</span></a>
+    <div class="ask-row">
+      <a class="btn btn-navy" href="/check/?entry=A&amp;src=home-deadline">우리 집 기한 계산하기</a>
+      <a class="btn btn-line" href="/inheritdebt.html?src=home-deadline">빚이 더 많다면 — 상속채무 진단기</a>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════ 답변 (GEO 핵심 블록) ══════════════════ -->
-<section id="answers">
+<section class="sec" id="tools" aria-labelledby="toolsH" style="padding-top:0">
   <div class="wrap">
-    <p class="sec-label">답변</p>
-    <h2>자주 묻는 것에 먼저 답해 두었습니다</h2>
-    <p class="sec-intro">
-      각 답변은 <strong>결론 한 문장</strong>으로 시작하고, 그 아래에 근거 법령과 시행일을 붙였습니다.
-      상담 없이 이 페이지만 읽고 가셔도 괜찮습니다.
-    </p>
-
-    <div class="prose" style="max-width:none">
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>상속세는 재산이 얼마부터 나오나요?</h3>
-        <div class="qa-answer">
-          <p>상속세는 배우자가 살아 계시면 대체로 10억 원, 배우자가 없으면 5억 원을 넘을 때부터 나옵니다.</p>
-          <p>일괄공제 5억 원에 배우자상속공제 최소 5억 원이 더해지기 때문입니다. 다만 이건 다른 공제와 사전증여가 없다고 본 단순한 선이고, 실제로는 10년 안에 있었던 증여가 다시 합산되면서 선이 내려가는 경우가 많습니다.</p>
-          <span class="cite">상속세 및 증여세법 제19조·제21조 (법률 제21065호, 2026.1.2 시행)</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>상속세가 없으면 아무것도 안 해도 되나요?</h3>
-        <div class="qa-answer">
-          <p>아닙니다. 상속세가 없어도 법이 정한 기한은 그대로 진행됩니다.</p>
-          <p>상속포기와 한정승인은 사망을 안 날부터 3개월, 상속세 신고는 사망한 달의 말일부터 6개월입니다. 이 기한은 세금이 나오는지 여부와 관계없이 모든 상속인에게 적용됩니다. 실제로 문제가 되는 대부분은 세금이 아니라, 이 날짜를 모르고 지나간 경우입니다.</p>
-          <span class="cite">민법 제1019조 (2026.3.17 시행) · 상증법 제67조</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>집 한 채뿐인데 상속세를 내야 하나요?</h3>
-        <div class="qa-answer">
-          <p>배우자가 없는 상태에서 수도권 아파트 한 채를 물려받으면 상속세가 나올 수 있습니다.</p>
-          <p>평가 기준이 공시가격이 아니라 시가이기 때문입니다. 같은 단지 같은 평형의 최근 거래가(유사매매사례가액)나 감정가액이 기준이 되므로, 공시가격만 보고 “5억이 안 되니 괜찮다”고 판단하면 어긋납니다. 배우자가 살아 계시면 대체로 10억 원까지는 세금이 없습니다.</p>
-          <span class="cite">상속세 및 증여세법 제60조·제61조, 같은 법 시행령 제49조</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>돌아가신 분의 빚이 재산보다 많으면 어떻게 하나요?</h3>
-        <div class="qa-answer">
-          <p>사망을 안 날부터 3개월 안에 가정법원에 상속포기 또는 한정승인을 신청해야 합니다. 자녀가 전부 포기하면 배우자가 단독으로 상속하고 손주에게는 내려가지 않습니다(대법원 2023. 3. 23.자 2020그42 전원합의체 결정). 다만 배우자까지 포기하면 다음 순위로 넘어갑니다.</p>
-          <p>한정승인은 물려받은 재산 범위 안에서만 빚을 갚는 방식이라, 재산이 얼마인지 확실치 않을 때 안전한 선택이 됩니다. 3개월이 지나면 원칙적으로 단순승인이 되어 빚 전부를 부담하게 됩니다. 다만 빚이 있는 줄 정말 몰랐다면 그 사실을 안 날부터 3개월의 특별한정승인이 인정됩니다.</p>
-          <span class="cite">민법 제1019조 제1항·제3항 (2026.3.17 시행)</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>유류분은 지금도 청구할 수 있나요?</h3>
-        <div class="qa-answer">
-          <p>배우자·자녀·부모는 유류분을 청구할 수 있지만, 형제자매의 유류분은 폐지되었습니다.</p>
-          <p>헌법재판소가 2024년 4월 25일 형제자매 유류분 조항을 위헌으로 판단했습니다. 또한 2026년 3월 17일 시행 민법에 따라 유류분 반환 방식이 물건 자체를 돌려주는 원물반환에서 <strong>가액반환 원칙</strong>으로 바뀌었습니다. 받는 쪽에는 현금화가 쉬워진 변화이고, 지키는 쪽에는 그만큼 현금을 준비해야 한다는 변화입니다.</p>
-          <span class="cite">헌재 2024.4.25. 2020헌가4 · 민법 제1115조 (2026.3.17 시행)</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>미리 증여하면 상속세가 정말 줄어드나요?</h3>
-        <div class="qa-answer">
-          <p>줄어들 수도, 그대로일 수도 있습니다. 갈리는 것은 남은 시간입니다.</p>
-          <p>상속인에게 한 증여는 사망 전 10년 이내, 상속인이 아닌 사람(며느리·사위·손자녀 등)에게 한 증여는 5년 이내면 상속재산에 다시 합산됩니다. 10년을 확보할 수 있는 시점에 시작하면 효과가 크고, 시간이 부족한 상태에서 서두르면 세금은 그대로인 채 노후에 쓸 현금만 줄어듭니다. 증여를 결정하기 전에 “내가 앞으로 쓸 돈이 남는가”를 먼저 계산해야 하는 이유입니다.</p>
-          <span class="cite">상속세 및 증여세법 제13조 (법률 제21065호, 2026.1.2 시행)</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>상속세를 낼 현금이 없으면 어떻게 하나요?</h3>
-        <div class="qa-answer">
-          <p>부동산 중심 상속에서 가장 자주 생기는 문제이고, 세금 계산보다 먼저 봐야 할 부분입니다.</p>
-          <p>상속세는 현금 납부가 원칙이며, 분납·연부연납·물납 제도가 있습니다. 다만 어느 쪽이든 대가가 따릅니다. 재무설계에서는 세금을 줄이는 것보다 <strong>사망 시점에 현금이 만들어지는 구조</strong>를 미리 배치하는 쪽을 먼저 검토합니다. 급하게 파는 부동산은 제값을 받기 어렵기 때문입니다.</p>
-          <span class="cite">상속세 및 증여세법 제70조~제73조</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>장애가 있는 자녀에게 재산을 남기려면 어떻게 해야 하나요?</h3>
-        <div class="qa-answer">
-          <p>장애인신탁을 이용하면 5억 원 한도까지 증여세가 과세되지 않습니다.</p>
-          <p>중요한 건 세금보다 구조입니다. 목돈을 그대로 주면 관리가 어렵고 수급자격에도 영향이 갈 수 있어서, 자녀가 평생 나누어 쓸 수 있도록 관리하는 사람과 지급 방식을 함께 정해 두는 것이 핵심입니다. 재산을 남기는 일과 그 재산이 그 아이에게 실제로 닿게 하는 일은 다른 문제입니다.</p>
-          <span class="cite">상속세 및 증여세법 제52조의2</span>
-        </div>
-      </article>
-
-      <article class="qa">
-        <h3><span class="mark">Q.</span>AFPK® 자격인증자(재무설계사)는 상속에서 무엇을 해 줄 수 있나요?</h3>
-        <div class="qa-answer">
-          <p>재무설계사는 판단을 대신해 주는 사람이 아니라, 흩어진 것을 한 장으로 정리해 주는 사람입니다.</p>
-          <p>상속 재산과 빚의 현황 정리, 상속세 개략 추정, 그 세금을 낼 현금이 있는지 보는 납부 재원 진단, 보험·연금 구조 점검, 그리고 3개월·6개월 기한 관리를 돕습니다. 반대로 법률 자문과 소송은 변호사, 세무 신고 대리는 세무사의 영역이라 직접 하지 않고, 필요한 시점에 연결해 드립니다. 이 경계를 분명히 하는 편이 결과적으로 더 도움이 됩니다.</p>
-        </div>
-      </article>
-
-    </div>
+    <h2 id="toolsH">숫자로 확인하고 싶을 때</h2>
+    <p class="sec-lede">계산기는 연락처 없이 쓸 수 있습니다. 결과는 개략 추정이며 실제 세액과 다를 수 있습니다.</p>
+    <ul class="tools"><li><a class="tool" href="/calculator.html?src=home"><b>상속세 종합 계산기</b><span>재산·가족 구성을 넣으면 상속세를 개략으로 추정합니다</span></a></li><li><a class="tool" href="/inheritdebt.html?src=home"><b>상속채무 진단기</b><span>빚이 더 많을 때 한정승인·포기 기한과 선택지를 비교합니다</span></a></li><li><a class="tool" href="/gift/?src=home"><b>부모님께 받는 돈</b><span>결혼·출산·전세 자금, 받기 전에 세금부터 확인합니다</span></a></li><li><a class="tool" href="/retirement/?src=home"><b>노후자금 진단</b><span>연금 3층과 생활비로 은퇴 후 현금흐름을 봅니다</span></a></li><li><a class="tool" href="/ceo/?src=home"><b>대표로 산다는 것</b><span>법인 대표가 부딪히는 28가지 문제와 계산 도구</span></a></li><li><a class="tool" href="/field/?src=home"><b>현장을 지킨다는 것</b><span>사업장 안전관리 의무와 사고 뒤 24시간</span></a></li><li><a class="tool" href="/insurance-two-faces.html?src=home"><b>보험의 두 얼굴</b><span>보험금이 상속재산이 되는 경우와 아닌 경우</span></a></li><li><a class="tool" href="/disability-trust.html?src=home"><b>장애인 신탁 계산</b><span>장애 가족에게 남길 때 비과세 요건을 확인합니다</span></a></li><li><a class="tool" href="/car-accident.html?src=home"><b>교통사고 보상 계산</b><span>사고 보상금과 상속을 함께 봅니다</span></a></li></ul>
   </div>
 </section>
 
-<!-- ══════════════════ 경계선 ══════════════════ -->
-<section id="scope">
-  <div class="wrap">
-    <p class="sec-label">솔직하게</p>
-    <h2>제가 할 수 있는 일과, 하지 않는 일</h2>
-    <p class="sec-intro">
-      상속은 법률·세무·재무가 겹치는 자리입니다. 한 사람이 전부 하는 게 아니라,
-      각자 할 수 있는 자리에서 이어 주는 편이 결과가 좋습니다. 그래서 미리 나눠 둡니다.
-    </p>
-
-    <div class="scope">
-      <div>
-        <h3 style="color:var(--teal)">AFPK® 자격인증자(재무설계사)로서 합니다</h3>
-        <ul class="can">
-          <li>재산·빚·보험·연금을 한 장으로 정리</li>
-          <li>상속세 개략 추정과 시나리오 비교</li>
-          <li>그 세금을 낼 현금이 있는지 보는 납부 재원 진단</li>
-          <li>3개월·6개월 기한 관리와 알림</li>
-          <li>사전증여를 해도 노후 자금이 남는지 계산</li>
-          <li>가족이 같은 그림을 보게 하는 자료 정리</li>
-        </ul>
+<section class="sec ask" id="ask" aria-labelledby="askH">
+  <div class="wrap ask-grid">
+    <div class="ask-card">
+      <h3 id="askH">혼자 정리가 안 될 때</h3>
+      <p>상황을 적어 주시면 제가 먼저 읽고 정리합니다. 법률 판단이나 세액 확정이 필요한 부분은 무엇을 누구에게 물어야 하는지까지 정리해 드립니다.</p>
+      <div class="ask-row">
+        <a class="btn btn-amber" href="/chat.html?src=home-ask" data-ev="ask_chat">바로 묻기</a>
+        <a class="btn btn-line" href="/booking.html?src=home">상담 예약</a>
+        <a class="btn btn-line" href="tel:01020885383">010-2088-5383</a>
       </div>
-      <div>
-        <h3 style="color:var(--ink-2)">이건 전문가에게 연결해 드립니다</h3>
-        <!-- v3.3 (2026-09-23): 각 줄 → 협업 네트워크 분야 지도(해당 분야로 이동). 순서는 data-order 로 페이지별 조정 가능 -->
-        <ul class="cant expert-links">
-          <li data-order="1"><a href="/network/index.html?group=A&amp;field=%EB%B3%80%ED%98%B8%EC%82%AC(%EA%B0%80%EC%82%AC%C2%B7%EC%83%81%EC%86%8D)" data-expert-field="변호사(가사·상속)">법률 자문, 소송, 서면 작성 — 변호사</a></li>
-          <li data-order="2"><a href="/network/index.html?group=B&amp;field=%EC%84%B8%EB%AC%B4%EC%82%AC" data-expert-field="세무사">상속세·증여세 신고 대리 — 세무사</a></li>
-          <li data-order="3"><a href="/network/index.html?group=A&amp;field=%EB%B2%95%EB%AC%B4%EC%82%AC" data-expert-field="법무사">등기, 한정승인 신청 서류 — 법무사</a></li>
-          <li data-order="4"><a href="/network/index.html?group=B&amp;field=%EA%B0%90%EC%A0%95%ED%8F%89%EA%B0%80%EC%82%AC" data-expert-field="감정평가사">재산 평가를 위한 감정 — 감정평가사</a></li>
-        </ul>
-        <p style="font-size:15.5px;color:var(--ink-2);margin:16px 0 0">
-          연결에 별도 수수료를 받지 않습니다. 정리가 끝난 상태로 넘어가면 그쪽 비용도 줄어듭니다.
-        </p>
-        <p class="expert-acts">
-          <a class="expert-cta" href="/network/connect.html">전문가 연결 요청하기</a>
-          <a class="expert-join" href="/network/for-partners.html">협업 전문가이신가요? 지원 안내 보기 →</a>
-        </p>
-      </div>
+      <p style="font-size:16px">안내서 「상속설계의 기술」을 먼저 읽어 보셔도 좋습니다. <a href="/book.html?src=home">안내서 받기 →</a></p>
     </div>
-  </div>
-</section>
-
-<!-- ══════════════════ 질문방 ══════════════════ -->
-<section id="room">
-  <div class="wrap">
-    <p class="sec-label">소통</p>
-    <h2>이름 없이 물어보셔도 됩니다</h2>
-    <p class="sec-intro">
-      아직 아무한테도 못 물어본 이야기가 있으실 겁니다.
-      가족한테 물어보기 어렵고, 변호사 사무실 문을 열기엔 이른 그런 질문이요.
-      여기 남겨 주시면 정리해서 답을 드립니다.
-    </p>
-
-    <div class="room">
-      <!-- ⚠️ 배포 전 확인: ENDPOINT 를 Apps Script 웹앱 URL 로 교체하고,
-           hidden 필드 type 이 반드시 함께 전송되는지 확인할 것 (doPost 라우팅 기준) -->
-      <form id="askForm" novalidate>
-        <input type="hidden" name="type" value="qna">
-        <input type="hidden" name="source" value="index_room_v2">
-
-        <div class="field">
-          <label for="q">어떤 상황이신가요? <span class="opt">(가장 궁금한 것 한 가지만 적으셔도 충분합니다)</span></label>
-          <textarea id="q" name="question" required placeholder="예) 아버지가 두 달 전에 돌아가셨는데, 아파트 한 채랑 예금이 조금 있습니다. 세금은 안 나온다고 들었는데 그냥 있어도 되는 걸까요?"></textarea>
-        </div>
-
-        <div class="two">
-          <div class="field">
-            <label for="nick">어떻게 불러 드릴까요? <span class="opt">(선택)</span></label>
-            <input type="text" id="nick" name="nickname" placeholder="익명, 또는 편한 호칭">
-          </div>
-          <div class="field">
-            <label for="stage">지금 어느 단계이신가요? <span class="opt">(선택)</span></label>
-            <select id="stage" name="stage">
-              <option value="">고르지 않아도 됩니다</option>
-              <option>아직 아무 일도 없고, 미리 준비하고 싶습니다</option>
-              <option>부모님이 편찮으셔서 알아보는 중입니다</option>
-              <option>돌아가신 지 3개월이 안 됐습니다</option>
-              <option>돌아가신 지 3개월이 지났습니다</option>
-              <option>가족 사이에 다툼이 생겼습니다</option>
-              <option>사고·산재 보상 문제입니다</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="contact">답을 개인적으로 받고 싶으시면 <span class="opt">(선택 — 안 남기셔도 이 페이지에 올려 드립니다)</span></label>
-          <input type="text" id="contact" name="contact" placeholder="이메일 또는 휴대전화">
-        </div>
-
-        <p class="privacy">
-          남겨 주신 내용은 답변을 드리기 위해서만 사용하고, 다른 곳에 넘기지 않습니다.
-          질문을 공개 답변으로 정리할 때는 사람을 알아볼 수 있는 부분을 지웁니다.
-          연락처를 남기지 않으셔도 답변은 받으실 수 있습니다.
-          자세한 내용은 <a href="/privacy.html">개인정보처리방침</a>에 있습니다.
-        </p>
-
-        <button type="submit" class="btn btn-primary" style="width:100%">이대로 물어보기</button>
-        <p id="formMsg" role="status" aria-live="polite" style="font-size:16px;margin:14px 0 0;text-align:center;color:var(--teal);min-height:1.5em"></p>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ 누가 답하나 ══════════════════ -->
-<section id="who">
-  <div class="wrap">
-    <p class="sec-label">답하는 사람</p>
-    <h2>여기 답을 쓰는 사람은 이런 사람입니다</h2>
-
-    <div class="author">
-      <div class="avatar">
-        <img src="/og/profile.jpg" alt="재무설계사 신대식" width="104" height="104" loading="lazy"
-             onerror="var p=this.parentNode;this.remove();p.textContent='申';p.setAttribute('aria-hidden','true')">
-      </div>
-      <div>
-        <h3 style="margin-bottom:6px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">신대식 <span style="font-weight:500;color:var(--ink-2);font-size:17px">Syn Dae Sik · 申大湜</span>
-          <img src="/img/certs/afpk_mark.png" alt="AFPK® 자격표장 — 한국재무설계협회(IFPK) 소유 자격상표" width="680" height="468" style="height:56px;width:auto;background:#fff;border-radius:6px" loading="lazy" onerror="this.remove()"></h3>
-        <p style="color:var(--ink-2);margin-bottom:14px">AFPK® 자격인증자(재무설계사) · 주 활동지역 서울 · 경기 · 인천</p>
-        <p style="max-width:60ch">
-          법학을 공부하고 법무법인에서 일했고, 그 뒤엔 오래 기업에서 일했습니다.
-          소방설비기사·산업안전기사 자격을 따고 의용소방대원으로 7년째 활동하면서,
-          사고가 난 다음에 남은 가족이 무엇 때문에 가장 힘들어하는지를 옆에서 봤습니다.
-          대개 슬픔보다 <strong>“무엇부터 해야 할지 모르겠다”</strong>는 막막함이 먼저였습니다.
-          그 막막함을 줄이려고 이 사이트를 만들었습니다.
-          2026년에는 김·장 법률사무소 상속법 마스터 과정을 수료했습니다.
-        </p>
-        <div class="creds-group">
-          <p class="creds-label">재무·보험</p>
-          <ul class="creds creds--navy">
-            <li>AFPK® 자격인증자</li><li>생명·손해·변액보험</li><li>펀드·신탁·부동산 투자권유대행인</li><li>퇴직연금 모집인</li>
-          </ul>
-        </div>
-        <div class="creds-group">
-          <p class="creds-label">안전관리</p>
-          <ul class="creds">
-            <li>산업안전기사(2026)</li><li>소방설비기사 전기·기계</li><li>소방기술자 중급</li>
-          </ul>
-        </div>
-        <div class="creds-group">
-          <p class="creds-label">전문성·활동</p>
-          <ul class="creds">
-            <li>상속법 마스터 과정 수료(2026)</li><li>의용소방대 7년</li>
-          </ul>
-        </div>
-        <p style="margin-top:20px"><a class="btn btn-ghost btn-sm" href="/about.html">더 자세한 이야기 보기</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════ 책(개정판) + 미리보기 + 최종 CTA ══════════════════ -->
-<section id="book">
-  <div class="wrap">
-    <div class="finale">
-      <p class="sec-label" style="text-align:center">가져가셔도 됩니다</p>
-      <h2>『상속설계의 기술』 개정판을 드립니다</h2>
-      <p>
-        상속이 시작되기 전과 후, 무엇을 언제 해야 하는지 카툰과 표로 정리한 187쪽 안내서입니다.
-        받기 전에 실제 쪽을 먼저 넘겨 보셔도 됩니다. 비매품이고, 값을 받지 않습니다.
-      </p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="/book.html">187쪽 전체 책 받기</a>
-        <a class="btn btn-ghost" href="/book-preview.pdf">먼저 미리보기 (14쪽)</a>
-      </div>
-      <p style="font-size:15.5px;margin-top:22px;margin-bottom:0">
-        더 이야기하고 싶으시면 <a href="/consult.html" style="color:var(--coral);font-weight:700">상담 신청</a>도 열려 있습니다.
-        전화가 편하시면 <strong>010-2088-5383</strong> 으로 바로 주셔도 됩니다.
-      </p>
+    <div class="who">
+      <h3>답하는 사람</h3>
+      <p><strong>신대식</strong> (申大湜, Syn Dae Sik). 법률·금융·안전을 함께 보는 재무설계사로, 상속이 시작된 집과 미리 준비하려는 집의 일을 정리합니다.</p>
+      <ul class="creds" aria-label="보유 자격">
+        <li>AFPK® 자격인증자</li><li>생명·손해·제3보험설계사</li><li>변액보험판매관리사</li><li>투자권유대행인(펀드·신탁·부동산)</li><li>퇴직연금제도모집인</li><li>산업안전기사</li><li>소방설비기사(기계·전기)</li><li>부동산 경공매 권리분석사</li><li>어선중개업</li>
+      </ul>
+      <p><a href="/about.html">소개 자세히 보기 →</a> · <a href="/stories.html?src=home">우리 집 사연 →</a></p>
     </div>
   </div>
 </section>
 
 </main>
 
-<footer>
+<footer class="foot">
   <div class="wrap">
     <div class="fgrid">
       <div>
         <h4>HeirWise™</h4>
-        <p style="color:var(--ink-2);max-width:38ch;margin:0">
-          상속·증여 재무설계 안내. AFPK® 자격인증자(재무설계사) 신대식이 운영합니다.
-        </p>
-        <p style="color:var(--ink-2);margin:14px 0 0">
-          ☎ 010-2088-5383<br>
-          ✉ <a href="mailto:itart@finitart.com">itart@finitart.com</a><br>
-          경기 안산시 단원구 정왕천동로 30번길 2
-        </p>
+        <p>상속·증여 재무설계 안내 · 운영 신대식</p>
+        <p>www.finitart.com · itart@finitart.com · 010-2088-5383</p>
+      </div>
+      <div>
+        <h4>사무소</h4>
+        <ul>
+          <li>안산 · 경기 안산시 단원구 정왕천동로30번길 2, 2층</li>
+          <li>김포 · 경기 김포시 북변동 382-5, 3층</li>
+          <li>서울 · 서울 강남구 논현로106길 6 봉산빌딩 4층</li>
+        </ul>
       </div>
       <div>
         <h4>둘러보기</h4>
         <ul>
-          <li><a href="#deadline">상속 기한 확인</a></li>
-          <li><a href="#answers">자주 묻는 것</a></li>
-          <li><a href="#tools">계산 도구</a></li>
-          <li><a href="#room">이름 없이 물어보기</a></li>
-          <li><a href="/about.html">전문가 소개</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>안내</h4>
-        <ul>
-          <li><a href="/consult.html">상담 신청</a></li>
+          <li><a href="/lifemap/">인생 변곡점 지도 전체</a></li>
+          <li><a href="/check/?src=home-foot">우리 집 준비도 진단</a></li>
+          <li><a href="/chat.html?src=home-foot">바로 묻기</a></li>
+          <li><a href="/network/join.html?src=home-foot">협업 전문가 합류</a></li>
           <li><a href="/privacy.html">개인정보처리방침</a></li>
-          <li><a href="/llms.txt">AI 검색용 요약(llms.txt)</a></li>
         </ul>
       </div>
     </div>
-
-    <div class="disclaimer">
-      <span class="lawdate">적용 법령 기준일 — 상속세 및 증여세법 법률 제21065호(2026.1.2 시행) · 민법(2026.3.17 시행)</span>
-      <p style="margin:0">
-        이 사이트의 계산 도구는 간이 추정용이며, 실제 세액·보상액과 차이가 있을 수 있습니다.
-        정확한 세액은 세무전문가, 법률 판단은 변호사의 상담이 필요합니다.
-        여기 실린 내용은 일반적인 정보 제공이며 특정 사안에 대한 법률·세무 자문이 아닙니다.
-        게시된 법령 내용은 법제처 국가법령정보센터(law.go.kr) 기준으로 확인했으며, 이후 개정이 있을 수 있습니다.
-      </p>
-      <p style="margin:12px 0 0">© 2026 HeirWise_Syn Dae Sik (申大湜). 모든 권리 보유.</p>
+    <div class="law">
+      <p><strong>적용 법령 기준일</strong> — 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)</p>
+      <p>이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. 금융상품 안내는 별도 동의 후 소속 금융회사의 절차에 따릅니다.</p>
+      <p>© 2026 HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p>
     </div>
   </div>
 </footer>
 
-<div class="imgModal" id="imgModal" hidden>
-  <div class="imgModal-backdrop" data-modal-close></div>
-  <div class="imgModal-panel" role="dialog" aria-modal="true" aria-labelledby="imgModalCaption">
-    <button type="button" class="imgModal-close" data-modal-close aria-label="닫기">✕</button>
-    <img id="imgModalImg" src="" alt="">
-    <p class="imgModal-caption" id="imgModalCaption"></p>
-  </div>
-</div>
-
 <script>
-/* 화면 밝기 전환 — 저장은 하지 않고 세션 동안만 유지 */
 (function(){
-  var btn = document.getElementById('themeBtn');
-  var root = document.documentElement;
-  var saved = null;
-  try { saved = localStorage.getItem('hw-theme'); } catch(e){}
-  if (saved) root.setAttribute('data-theme', saved);
-  btn.addEventListener('click', function(){
-    var now = root.getAttribute('data-theme');
-    if (!now) {
-      now = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    var next = now === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('hw-theme', next); } catch(e){}
-  });
-})();
+  /* 화면 밝기 전환 */
+  var tb=document.getElementById("themeBtn");
+  if(tb) tb.addEventListener("click",function(){var r=document.documentElement,now=r.getAttribute("data-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),next=now==="dark"?"light":"dark";r.setAttribute("data-theme",next);try{localStorage.setItem("hw-theme",next);}catch(e){}});
 
-/* 질문 전송 — ENDPOINT 교체 필요. type 필드 반드시 포함해서 전송 */
-(function(){
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbxCzR8dnFsUsiesSX68BFv62IALmuDp82Rr4Z9uQtUglikwyRmFZ1Mvr7qPSpZhNq2HkQ/exec";
-  var form = document.getElementById('askForm');
-  var msg  = document.getElementById('formMsg');
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    var q = document.getElementById('q');
-    if (!q.value.trim()) {
-      msg.style.color = 'var(--crimson)';
-      msg.textContent = '궁금하신 내용을 한 줄만 적어 주세요.';
-      q.focus();
-      return;
+  /* 첫 화면 등불(기존 길잡이 연출 재사용, 2배 느리게) */
+  var sec=document.querySelector(".hero");
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var skip=!!location.hash&&location.hash!=="#top";
+  if(sec&&!reduce&&!skip){
+    sec.classList.add("is-anim");
+    var c=document.getElementById("heroCanvas"),ctx=c&&c.getContext&&c.getContext("2d");
+    if(ctx){
+      var K=2,dpr=Math.min(window.devicePixelRatio||1,2);
+      c.width=sec.clientWidth*dpr;c.height=sec.clientHeight*dpr;
+      var t0=performance.now(),dust=[],i;
+      for(i=0;i<40;i++)dust.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.4,s:Math.random()*.00004+.00001,p:Math.random()*6.28});
+      (function frame(now){
+        var w=c.width,h=c.height,e=(now-t0)/1000/K;ctx.clearRect(0,0,w,h);
+        var on=Math.min(1,e/1.6),settle=Math.max(0,1-Math.max(0,e-6)/2);
+        if(settle>0){ctx.fillStyle="rgba(245,217,138,.55)";
+          for(var j=0;j<dust.length;j++){var d=dust[j];d.y-=d.s*8*settle;d.x+=Math.sin(e+d.p)*.00008*settle;if(d.y<-.02){d.y=1.02;d.x=Math.random();}
+            ctx.globalAlpha=(.3+.7*Math.abs(Math.sin(e*.8+d.p)))*on*.6*settle;ctx.beginPath();ctx.arc(d.x*w,d.y*h,d.r*dpr,0,6.28);ctx.fill();}
+          ctx.globalAlpha=1;requestAnimationFrame(frame);}
+      })(t0);
     }
-    if (!ENDPOINT) {
-      msg.style.color = 'var(--crimson)';
-      msg.textContent = '전송 주소가 설정되지 않았습니다. (배포 전 ENDPOINT 설정 필요)';
-      return;
-    }
-    var fd = new FormData(form);
-    msg.style.color = 'var(--ink-2)';
-    msg.textContent = '보내는 중입니다…';
-
-    /* no-cors 는 실패해도 성공처럼 보이므로 사용하지 않음 */
-    fetch(ENDPOINT, { method:'POST', body: fd })
-      .then(function(r){ if(!r.ok) throw new Error(r.status); return r.text(); })
-      .then(function(){
-        form.reset();
-        msg.style.color = 'var(--teal)';
-        msg.textContent = '잘 받았습니다. 정리해서 답을 올려 드리겠습니다.';
-      })
-      .catch(function(){
-        msg.style.color = 'var(--crimson)';
-        msg.textContent = '전송이 되지 않았습니다. itart@finitart.com 으로 보내 주시면 확인하겠습니다.';
-      });
-  });
-})();
-/* 상황 진입로 클릭 계측 — G1(진입 분포) 판정의 유일한 근거 */
-(function(){
-  function track(name, params){
-    if (typeof window.hwTrack === 'function') { window.hwTrack(name, params); return; }
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push(['event', name, params]);   /* common.js 미로드 시 폴백 */
   }
-  /* 수정: 기존 a[data-entry] 셀렉터는 data-entry가 실제로는 div에 있어 두 카드(사고 보상·장애인 신탁)가
-     계측되지 않던 버그였음. 카드 구조를 div+.sit-go 링크로 통일하면서 함께 고침. */
-  var cards = document.querySelectorAll('a.sitcard, .sitcard a.sit-go');
-  Array.prototype.forEach.call(cards, function(a){
-    a.addEventListener('click', function(){
-      var card = a.closest('.sitcard');
-      var label = ((card && card.getAttribute('data-entry')) ||
-                   (a.querySelector('h3, h2, b') || {}).textContent ||
-                   a.textContent || '').trim().replace(/\s+/g,' ').slice(0, 60);
-      track('entry_select', {
-        entry_href: a.getAttribute('href') || '',
-        entry_label: label
-      });
-    });
+
+  /* 계측: 홈 v2 */
+  function T(n,p){ if(window.hwTrack) window.hwTrack(n,p||{}); else if(window.gtag) gtag("event",n,p||{}); }
+  document.addEventListener("click",function(ev){
+    var a=ev.target.closest&&ev.target.closest("a"); if(!a) return;
+    if(a.dataset.age) T("home_age_click",{band:a.dataset.age,where:a.classList.contains("chip")?"hero":"card"});
+    else if(a.dataset.ev) T("home_cta",{cta:a.dataset.ev});
   });
-
-  /* 사례 카드 썸네일 → 이미지 확대 모달 (vstory 이미지 반영 전이면 onerror로 썸네일 자체가 사라짐) */
-  var modal = document.getElementById('imgModal');
-  if (modal){
-    var modalImg = document.getElementById('imgModalImg');
-    var modalCaption = document.getElementById('imgModalCaption');
-    var lastFocus = null;
-    function openModal(btn){
-      lastFocus = btn;
-      modalImg.src = btn.getAttribute('data-img') || '';
-      modalImg.alt = (btn.querySelector('img') || {}).alt || '';
-      modalCaption.textContent = btn.getAttribute('data-caption') || '';
-      modal.hidden = false;
-      modal.querySelector('.imgModal-close').focus();
-      document.addEventListener('keydown', onModalKey);
-      track('case_image_view', { image: modalImg.src, caption: modalCaption.textContent });
-    }
-    function closeModal(){
-      modal.hidden = true;
-      modalImg.src = '';
-      document.removeEventListener('keydown', onModalKey);
-      if (lastFocus) lastFocus.focus();
-    }
-    function onModalKey(e){ if (e.key === 'Escape') closeModal(); }
-    Array.prototype.forEach.call(document.querySelectorAll('.sit-thumb'), function(btn){
-      btn.addEventListener('click', function(){ openModal(btn); });
-    });
-    Array.prototype.forEach.call(modal.querySelectorAll('[data-modal-close]'), function(el){
-      el.addEventListener('click', closeModal);
-    });
-  }
+  (function fire(){ if(window.hwTrack){ hwTrack("home_v2_view",{skipped:skip?1:0},true); }
+    else if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded",fire); } })();
 })();
-
 </script>
-
 <script src="/heirwise-common.js" defer></script>
 </body>
 </html>
