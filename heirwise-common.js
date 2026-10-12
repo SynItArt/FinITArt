@@ -141,7 +141,7 @@
 
   /* ② 페이지 이름표 (2026-09-26) — 위치 띠와 GA4 page_title 이 같은 이름을 쓴다.
      <title> 문구를 바꿔도 GA4 「페이지 제목」 보고서가 갈라지지 않게 하려는 것. 새 페이지를 만들면 여기에 한 줄 추가. */
-  var TOOLS = ["계산·진단 도구", "/#tools"], TALK = ["상담·운영자", "/about.html"], NET = ["함께 보는 사람들", "/network/"], MAPS = ["인생 변곡점 지도", "/lifemap/"];
+  var TOOLS = ["계산·진단 도구", "/#tools"], TALK = ["상담·운영자", "/about.html"], NET = ["협업 전문가 합류", "/network/join.html"], MAPS = ["인생 변곡점 지도", "/lifemap/"];
   var PAGE_NAMES = {
     "/": [null, "홈"],
     "/lifemap/": [null, "인생 변곡점 지도"],
@@ -164,10 +164,10 @@
     "/services/": [TALK, "운영자가 하는 일"],
     "/book.html": [null, "책 받기 — 상속설계의 기술"],
     "/chuseok.html": [null, "추석 전에, 다섯 가지만"],
-    "/network/": [null, "함께 보는 사람들 — 분야 지도"],
+    "/network/": [null, "협업 전문가 합류"],
     "/network/connect.html": [NET, "전문가 연결 요청"],
-    "/network/join.html": [NET, "협업 제안"],
-    "/network/for-partners.html": [NET, "협업기관 안내"],
+    "/network/join.html": [null, "협업 전문가 합류"],
+    "/network/for-partners.html": [NET, "협업 신청"],
     "/network/principles.html": [NET, "운영 원칙"],
     "/chat.html": [TALK, "물어보기"],
     "/stories.html": [null, "우리 집 사연"],
@@ -820,7 +820,7 @@
     var inNetwork = location.pathname.indexOf("/network/") === 0;
     var onPrivacy = /\/privacy\.html$/.test(location.pathname);
     var needPrivacy = !onPrivacy && !d.querySelector('a[href$="privacy.html"]');
-    var needPartner = !inNetwork && !d.querySelector('a[href*="for-partners"]');
+    var needPartner = !inNetwork && !d.querySelector('a[href*="for-partners"],a[href*="network/join"]');
     if (!needPrivacy && !needPartner) return;
 
     var css = "color:inherit;text-decoration:underline;padding:8px 12px;display:inline-block;min-height:44px;box-sizing:border-box";
@@ -838,7 +838,7 @@
       line.appendChild(a);
     }
     if (needPrivacy) add("/privacy.html", "개인정보처리방침");
-    if (needPartner) add("/network/for-partners.html", "전문가·기관이신가요?", "partners_from_footer");
+    if (needPartner) add("/network/join.html", "협업 전문가 합류", "partners_from_footer");
 
     var foot = d.querySelector("footer");
     if (foot) { foot.appendChild(line); }
@@ -1147,9 +1147,9 @@
       "@media print{#hw-lobby-return{display:none}}";
     d.head.appendChild(st);
     var a = d.createElement("a");
-    a.id = "hw-lobby-return"; a.href = "/#lobby";
-    a.setAttribute("aria-label", "홈 길잡이로 돌아가기");
-    a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span>길잡이로 돌아가기</span>';
+    a.id = "hw-lobby-return"; a.href = "/";  /* v2 홈(2026-10-12): 길잡이 섹션 없음 → 홈 맨 위로 */
+    a.setAttribute("aria-label", "처음 화면으로 돌아가기");
+    a.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#E9C46A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span>처음 화면으로</span>';
     a.addEventListener("click", function () { hwTrack("lobby_return", { door: door || "none" }); });
     d.body.appendChild(a);
   }
