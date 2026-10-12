@@ -1197,6 +1197,110 @@
     }, true);
   }
 
+  /* 2026-10-12 v2 공통 머리글·바닥글 — 홈과 같은 메뉴·로고·바닥글을 모든 안쪽 페이지에 씌운다.
+     · 홈(header.top 안 nav.main)과 body[data-shell="off"] 는 건너뜀
+     · 옛 메뉴 줄(상황별 도구·소통공간·무료 상담 등 v1 메뉴)은 숨기고, 제목(h1)이 든 머리글은 남기되 로고만 숨김
+     · 문제가 생기면 boot() 의 injectV2Shell 한 줄만 지우면 원래대로 돌아감 */
+  var V2_MENU = [["/lifemap/", "인생 변곡점", /^\/lifemap\//], ["/check/", "우리 집 진단", /^\/check\//],
+                 ["/calculator.html", "계산기", /^\/(calculator|inheritdebt|gift\/|retirement\/)/], ["/chat.html", "바로 묻기", /^\/chat\.html/]];
+  var V2_HIDE = "header.top, header.nav, header.hw-nav, header.gf-head, header.nw-head";
+  function injectV2Styles() {
+    if ($("hw2-style")) return;
+    var st = d.createElement("style"); st.id = "hw2-style";
+    st.textContent =
+      ".hw2-bar,.hw2-foot{--s:#FFFFFF;--s2:#F3EEE5;--k:#1B1B1B;--k2:#4A453D;--ln:#E2D8C8;--nv:#173863;--am:#F9A825;font-family:'Pretendard Variable','Pretendard','Malgun Gothic','Apple SD Gothic Neo',sans-serif;word-break:keep-all}" +
+      ".hw2-bar[data-s=dark],.hw2-foot[data-s=dark]{--s:#111827;--s2:#0B1220;--k:#F3F0EA;--k2:#C9CFD9;--ln:#2A3446;--nv:#9CC1FF}" +
+      ".hw2-bar *,.hw2-foot *{box-sizing:border-box}" +
+      ".hw2-bar{position:sticky;top:0;z-index:60;background:var(--s);border-bottom:1px solid var(--ln);color:var(--k)}" +
+      ".hw2-in{max-width:1100px;margin:0 auto;padding:6px 16px;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;min-height:60px}" +
+      ".hw2-logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--k)}" +
+      ".hw2-logo img{height:30px;width:auto;display:block}.hw2-logo sup{font-size:11px;margin-left:2px;color:var(--k2)}" +
+      ".hw2-bar[data-s=dark] .hw2-l1,.hw2-bar:not([data-s=dark]) .hw2-l2{display:none}" +
+      ".hw2-menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}" +
+      ".hw2-menu a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:10px;color:var(--k);text-decoration:none;font-weight:700;font-size:16.5px}" +
+      ".hw2-menu a:hover{background:var(--s2)}" +
+      ".hw2-menu a[aria-current]{background:var(--nv);color:var(--s)}" +
+      ".hw2-tel{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;background:var(--am);color:#1B1B1B;font-weight:800;text-decoration:none;font-size:15.5px;white-space:nowrap}" +
+      ".hw2-theme{width:44px;height:44px;border-radius:10px;border:1px solid var(--ln);background:var(--s);color:var(--k);font-size:18px;cursor:pointer}" +
+      ".hw2-bar a:focus-visible,.hw2-bar button:focus-visible,.hw2-foot a:focus-visible{outline:3px solid var(--am);outline-offset:2px}" +
+      "@media(max-width:720px){.hw2-in{padding:4px 10px;gap:2px 8px}.hw2-menu{order:3;width:100%;margin:0;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}.hw2-menu a{white-space:nowrap;padding:0 10px;font-size:16px}.hw2-tools{margin-left:auto}}" +
+      ".hw2-tools{display:flex;gap:8px;align-items:center}" +
+      ".hw2-foot{background:var(--s);border-top:1px solid var(--ln);color:var(--k2);font-size:15.5px;line-height:1.7;margin-top:40px}" +
+      ".hw2-foot .hw2-fin{max-width:1100px;margin:0 auto;padding:28px 16px 96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px 32px}" +
+      ".hw2-foot h4{margin:0 0 6px;color:var(--k);font-size:16.5px}.hw2-foot ul{list-style:none;margin:0;padding:0}.hw2-foot p{margin:0 0 4px}" +
+      ".hw2-foot a{color:var(--nv);font-weight:700}.hw2-foot .hw2-law{grid-column:1/-1;border-top:1px solid var(--ln);padding-top:14px;font-size:14.5px}" +
+      ".hw-crumb{background:#F3EEE5!important;color:#1B1B1B!important;border-bottom:1px solid #E2D8C8!important}" +
+      ".hw-crumb a{color:#173863!important}.hw-crumb li+li::before{color:#8C7F69!important}.hw-crumb [aria-current]{color:#1B1B1B!important}" +
+      ".hw-crumb .hw-map{background:#F9A825!important;color:#1B1B1B!important}.hw-crumb .hw-map b{background:#1B1B1B!important;color:#F9A825!important}" +
+      ".hw-crumb-in{min-height:44px!important}" +
+      "html[data-hw2-dark] .hw-crumb{background:#0B1220!important;color:#F3F0EA!important;border-bottom-color:#2A3446!important}" +
+      "html[data-hw2-dark] .hw-crumb a{color:#9CC1FF!important}html[data-hw2-dark] .hw-crumb [aria-current]{color:#F3F0EA!important}" +
+      "html[data-hw2] " + V2_HIDE.split(", ").join(",html[data-hw2] ") + "{display:none!important}" +
+      "html[data-hw2] .hw2-oldlogo{display:none!important}" +
+      "@media print{.hw2-bar,.hw2-foot{display:none!important}}";
+    d.head.appendChild(st);
+  }
+  function injectV2Shell() {
+    if (!d.body || d.body.getAttribute("data-shell") === "off" || $("hw2-bar")) return;
+    if (d.querySelector("header.top nav.main")) return;                       // 홈 v3 — 이미 v2 머리글
+    var path = normPath(location.pathname);
+    injectV2Styles();
+    d.documentElement.setAttribute("data-hw2", "");
+    // 제목이 든 머리글·옛 메뉴 줄 안의 로고는 숨김 (머리글 자체는 남김)
+    Array.prototype.forEach.call(d.querySelectorAll("header .logo-mark, body > nav .logo-mark, .wrap > nav .logo-mark"), function (lm) {
+      var a = lm.closest("a") || lm;
+      if (a.closest(V2_HIDE)) return;
+      a.classList.add("hw2-oldlogo");
+      var nx = a.nextSibling;                                                // 「 · 대표로 산다는 것」 앞의 가운뎃점 정리
+      if (nx && nx.nodeType === 3) nx.nodeValue = nx.nodeValue.replace(/^\s*[·|]\s*/, "");
+    });
+    Array.prototype.forEach.call(d.querySelectorAll("header .brand, header a.logo"), function (b) {   // 글자만 있는 「HeirWise™」 상표 줄
+      if (/^HeirWise\s*™?$/.test((b.textContent || "").trim())) b.classList.add("hw2-oldlogo");
+    });
+    var oldTheme = $("themeBtn");
+    var menu = V2_MENU.map(function (m) {
+      return '<a href="' + m[0] + '?src=nav"' + (m[2].test(path) ? ' aria-current="page"' : "") + ">" + m[1] + "</a>";
+    }).join("");
+    var bar = d.createElement("header");
+    bar.id = "hw2-bar"; bar.className = "hw2-bar";
+    bar.innerHTML = '<div class="hw2-in">' +
+      '<a class="hw2-logo" href="/" aria-label="HeirWise 처음 화면"><img class="hw2-l1" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise"><img class="hw2-l2" src="/img/brand/heirwise-logo-h-dark.svg" alt="HeirWise"><sup>™</sup></a>' +
+      '<nav class="hw2-menu" aria-label="주 메뉴">' + menu + "</nav>" +
+      '<span class="hw2-tools">' + (oldTheme ? '<button class="hw2-theme" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button>' : "") +
+      '<a class="hw2-tel" href="tel:01020885383">전화 상담</a></span></div>';
+    var crumb = $("hw-crumb"), skip = d.querySelector("a.skip, .skip-link");
+    if (crumb && crumb.parentNode === d.body) d.body.insertBefore(bar, crumb);
+    else if (skip && skip.parentNode === d.body) d.body.insertBefore(bar, skip.nextSibling);
+    else d.body.insertBefore(bar, d.body.firstChild);
+    if (oldTheme) bar.querySelector(".hw2-theme").addEventListener("click", function () { oldTheme.click(); });
+    bar.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a");
+      if (a) hwTrack("nav2_click", { to: a.getAttribute("href") });
+    });
+
+    var foot = null;
+    if (!d.querySelector("footer.foot .fgrid")) {
+      foot = d.createElement("footer");
+      foot.className = "hw2-foot"; foot.setAttribute("aria-label", "HeirWise 안내");
+      foot.innerHTML = '<div class="hw2-fin">' +
+        "<div><h4>HeirWise™</h4><p>상속·증여 재무설계 안내 · 운영 신대식</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
+        "<div><h4>사무소</h4><ul><li>안산 · 경기 안산시 단원구 정왕천동로30번길 2, 2층</li><li>김포 · 경기 김포시 북변동 382-5, 3층</li><li>서울 · 서울 강남구 논현로106길 6 봉산빌딩 4층</li></ul></div>" +
+        '<div><h4>둘러보기</h4><ul><li><a href="/lifemap/">인생 변곡점 지도</a></li><li><a href="/check/?src=foot">우리 집 준비도 진단</a></li><li><a href="/chat.html?src=foot">바로 묻기</a></li><li><a href="/network/join.html?src=foot">협업 전문가 합류</a></li><li><a href="/privacy.html">개인정보처리방침</a></li></ul></div>' +
+        '<p class="hw2-law">이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. © 2026 HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p></div>';
+      d.body.appendChild(foot);
+    }
+    function scheme() {
+      var dark = pageIsDark();
+      bar.setAttribute("data-s", dark ? "dark" : "light");
+      if (foot) foot.setAttribute("data-s", dark ? "dark" : "light");
+      if (dark) d.documentElement.setAttribute("data-hw2-dark", ""); else d.documentElement.removeAttribute("data-hw2-dark");
+    }
+    scheme();
+    try { new MutationObserver(scheme).observe(d.documentElement, { attributes: true, attributeFilter: ["data-theme", "class"] }); } catch (e) {}
+    try { new MutationObserver(scheme).observe(d.body, { attributes: true, attributeFilter: ["data-theme", "class"] }); } catch (e) {}
+    if (window.matchMedia) { var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", scheme); }
+  }
+
   function boot() {
     try { injectAskRoute(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectLawUI(); }    catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
@@ -1204,6 +1308,7 @@
     try { injectSeason(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectPrivacyLink(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectCrumb(); }   catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { injectV2Shell(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectAnnounce(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectLobbyReturn(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectChatLauncher(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
