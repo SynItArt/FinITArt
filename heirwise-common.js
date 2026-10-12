@@ -190,18 +190,31 @@
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
 
+  /* 10-12: 운영자 본인 방문 표시 — 주소 끝에 ?hw_internal=1 로 한 번 열면 그 브라우저는
+     계속 traffic_type=internal 로 기록된다(?hw_internal=0 으로 해제). IP가 바뀌는 휴대폰도 제외 가능.
+     GA4 관리 > 데이터 필터 「Internal Traffic」(traffic_type=internal 제외)를 활성으로 둘 때 보고서에서 빠진다. */
+  var HW_INTERNAL = false;
+  try {
+    var qInt = new URLSearchParams(location.search).get("hw_internal");
+    if (qInt === "1") localStorage.setItem("hw_internal", "1");
+    if (qInt === "0") localStorage.removeItem("hw_internal");
+    HW_INTERNAL = localStorage.getItem("hw_internal") === "1";
+  } catch (e) {}
+
   if (HW_CONFIG.GA4_ID) {
     var g = d.createElement("script");
     g.async = true;
     g.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(HW_CONFIG.GA4_ID);
     d.head.appendChild(g);
     gtag("js", new Date());
-    gtag("config", HW_CONFIG.GA4_ID, {
+    var gaCfg = {
       send_page_view: true,
       // 09-26: /index.html 과 / 를 한 페이지로, 제목은 이름표로 고정 → 「인기 페이지」가 한 줄로 모인다
       page_title: PAGE_NAME[1],
       page_location: location.origin + normPath(location.pathname) + location.search
-    });
+    };
+    if (HW_INTERNAL) gaCfg.traffic_type = "internal";
+    gtag("config", HW_CONFIG.GA4_ID, gaCfg);
   }
 
   var fired = {};
