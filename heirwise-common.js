@@ -1203,6 +1203,7 @@
      · 문제가 생기면 boot() 의 injectV2Shell 한 줄만 지우면 원래대로 돌아감 */
   var V2_MENU = [["/lifemap/", "인생 변곡점", /^\/lifemap\//], ["/check/", "우리 집 진단", /^\/check\//],
                  ["/calculator.html", "계산기", /^\/(calculator|inheritdebt|gift\/|retirement\/)/], ["/chat.html", "바로 묻기", /^\/chat\.html/]];
+  var V2_ADDR = { ansan: "경기 안산시 단원구 정왕천동로30번길 2(성곡동, 4바 858호 2층)", gimpo: "경기 김포시 북변동 382-5 3층", seoul: "서울 강남구 논현로106길 6 봉산빌딩 4층" };
   var V2_HIDE = "header.top, header.nav, header.hw-nav, header.gf-head, header.nw-head, body > div.top";
   function injectV2Styles() {
     if ($("hw2-style")) return;
@@ -1237,6 +1238,11 @@
       "html[data-hw2-dark] .hw-crumb a{color:#9CC1FF!important}html[data-hw2-dark] .hw-crumb [aria-current]{color:#F3F0EA!important}" +
       "html[data-hw2] " + V2_HIDE.split(", ").join(",html[data-hw2] ") + "{display:none!important}" +
       "html[data-hw2] .hw2-oldlogo{display:none!important}" +
+      "html[data-hw2] .hw2-oldfoot,html[data-hw2] .hw-lawbase{display:none!important}" +
+      "footer.hw2-foot{background:var(--s)!important;color:var(--k2)!important;text-align:left!important;padding:0!important;margin:40px 0 0!important;border:0!important;border-top:1px solid var(--ln)!important;font-size:15.5px!important;line-height:1.7!important;max-width:none!important;width:auto!important}" +
+      "footer.hw2-foot h4{color:var(--k)!important;text-align:left!important}footer.hw2-foot p,footer.hw2-foot li{color:var(--k2)!important;text-align:left!important;font-size:inherit!important}footer.hw2-foot a{color:var(--nv)!important;font-weight:700!important;text-decoration:underline!important}footer.hw2-foot strong{color:var(--k)!important}" +
+      ".hw2-foot .hw2-note{grid-column:1/-1;border-top:1px solid var(--ln);padding-top:14px}.hw2-foot .hw2-note li{margin-bottom:4px}" +
+      ".hw2-foot .hw2-law p{margin:0 0 6px}.hw2-foot .hw2-law strong{color:var(--k)}" +
       "html[data-hw2] button,html[data-hw2] input,html[data-hw2] select,html[data-hw2] textarea{font-family:inherit}" +
       "@media print{.hw2-bar,.hw2-foot{display:none!important}}";
     d.head.appendChild(st);
@@ -1311,17 +1317,31 @@
       if (a) hwTrack("nav2_click", { to: a.getAttribute("href") });
     });
 
-    var foot = null;
-    if (!d.querySelector("footer.foot .fgrid")) {
-      foot = d.createElement("footer");
-      foot.className = "hw2-foot"; foot.setAttribute("aria-label", "HeirWise 안내");
-      foot.innerHTML = '<div class="hw2-fin">' +
-        "<div><h4>HeirWise™</h4><p>상속·증여 재무설계 안내 · 운영 신대식</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
-        "<div><h4>사무소</h4><ul><li>안산 · 경기 안산시 단원구 정왕천동로30번길 2, 2층</li><li>김포 · 경기 김포시 북변동 382-5, 3층</li><li>서울 · 서울 강남구 논현로106길 6 봉산빌딩 4층</li></ul></div>" +
-        '<div><h4>둘러보기</h4><ul><li><a href="/lifemap/">인생 변곡점 지도</a></li><li><a href="/check/?src=foot">우리 집 준비도 진단</a></li><li><a href="/chat.html?src=foot">바로 묻기</a></li><li><a href="/network/join.html?src=foot">협업 전문가 합류</a></li><li><a href="/privacy.html">개인정보처리방침</a></li></ul></div>' +
-        '<p class="hw2-law">이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. © 2026 HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p></div>';
-      d.body.appendChild(foot);
-    }
+    /* 바닥글 하나로 통일 (2026-10-12) — 옛 바닥글은 숨기고, 그 페이지에만 필요한 안내문(등록번호·재구성 안내 등)은 「이 페이지 안내」로 옮김 */
+    var NOTE_KEY = /(추정|자문|판단|권유|등록번호|재구성|참고용|상담|동의|경력|달라|연결)/;
+    var NOTE_DROP = /(☎|✉|@|010-|사무소|정왕천동로|finitart\.com|©|HeirWise_Syn|정확한 세액은 세무전문가|일반적인 정보 제공|특정 사안에 대한 법률·세무 자문|금융상품 안내는 별도 동의 후 소속 금융회사|적용 법령 기준일|모든 권리|상담 신청|전문가 소개|(^|\s)홈(\s|$))/;
+    var notes = [];
+    Array.prototype.forEach.call(d.querySelectorAll("footer"), function (f) {
+      if (f.classList.contains("hw2-foot")) return;
+      String(f.innerText || f.textContent || "").replace(/([.다])\s+(?=[가-힣A-Z(「])/g, "$1\n").split(/\n+/).forEach(function (t) {
+        t = t.replace(/\s+/g, " ").trim();
+        if (t.length < 12 || !NOTE_KEY.test(t) || NOTE_DROP.test(t)) return;
+        if (notes.indexOf(t) < 0) notes.push(t);
+      });
+      f.classList.add("hw2-oldfoot");
+    });
+    var esc3 = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+    var foot = d.createElement("footer");
+    foot.className = "hw2-foot"; foot.setAttribute("aria-label", "HeirWise 안내");
+    foot.innerHTML = '<div class="hw2-fin">' +
+      "<div><h4>HeirWise™</h4><p>상속·증여 재무설계 안내 · 운영 신대식 (申大湜, Syn Dae Sik)</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
+      "<div><h4>사무소</h4><ul><li>안산 · " + V2_ADDR.ansan + "</li><li>김포 · " + V2_ADDR.gimpo + "</li><li>서울 · " + V2_ADDR.seoul + "</li></ul></div>" +
+      '<div><h4>둘러보기</h4><ul><li><a href="/lifemap/">인생 변곡점 지도</a></li><li><a href="/check/?src=foot">우리 집 준비도 진단</a></li><li><a href="/chat.html?src=foot">바로 묻기</a></li><li><a href="/network/join.html?src=foot">협업 전문가 합류</a></li><li><a href="/privacy.html">개인정보처리방침</a></li></ul></div>' +
+      (notes.length ? '<div class="hw2-note"><h4>이 페이지 안내</h4><ul>' + notes.map(function (t) { return "<li>" + esc3(t) + "</li>"; }).join("") + "</ul></div>" : "") +
+      '<div class="hw2-law"><p><strong>적용 법령 기준일</strong> — 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)</p>' +
+      "<p>이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. 금융상품 안내는 별도 동의 후 소속 금융회사의 절차에 따릅니다.</p>" +
+      "<p>© 2026 HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p></div></div>";
+    d.body.appendChild(foot);
     function scheme() {
       var dark = pageIsDark();
       bar.setAttribute("data-s", dark ? "dark" : "light");
