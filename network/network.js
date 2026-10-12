@@ -121,12 +121,15 @@
     var a = el("a", { class: "btn btn-ghost", href: href, text: "협업 제안하기" });
     a.addEventListener("click", function () { track("network_join_click", { group: g.id }); });
     var tel = el("a", { class: "btn btn-ghost", href: "tel:+82" + TEL.replace(/[^0-9]/g, "").slice(1), text: "전화로 먼저 묻기" });
+    /* 10-12: 기관이 없는 분야에서 방문자가 남길 곳이 없던 문제 — 1차 창구(물어보기)로 바로 이어 리드로 기록 */
+    var ask = el("a", { class: "btn btn-primary", href: "/chat.html?src=network&group=" + encodeURIComponent(g.id) + (field ? "&field=" + encodeURIComponent(field) : "") + "&from=%2Fnetwork%2F", text: "운영자에게 먼저 묻기" });
+    ask.addEventListener("click", function () { track("network_ask_click", { group: g.id, field: field || "" }); });
     return el("div", { class: "vacant" }, [
       el("p", {}, ["이 분야의 협업 기관을 모시고 있습니다", el("br"), el("small", { text: field ? field : g.fields.join(" · ") })]),
       waiting > 0
         ? el("p", { class: "vacant-user waiting" }, [el("strong", { text: "함께하는 전문가 " + waiting + "명이 연결을 기다리고 있습니다." }), " 공개 카드는 아직 없지만, 연결 요청을 남기시면 운영자가 직접 이어 드립니다."])
         : el("p", { class: "vacant-user" }, ["기관이 정해지기 전까지는 운영자가 상황을 먼저 정리해 드리고, 필요한 곳을 알려 드립니다."]),
-      el("div", { class: "vacant-acts" }, [a, tel])
+      el("div", { class: "vacant-acts" }, [ask, tel, a])
     ]);
   }
   function partnerCard(p, g) {
