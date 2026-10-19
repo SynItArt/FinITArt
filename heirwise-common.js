@@ -1215,6 +1215,7 @@
       ".hw2-bar{position:sticky;top:0;z-index:60;background:var(--s);border-bottom:1px solid var(--ln);color:var(--k)}" +
       ".hw2-in{max-width:1100px;margin:0 auto;padding:6px 16px;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;min-height:60px}" +
       ".hw2-logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;color:var(--k)}" +
+      ".hw2-grp{font-size:14px;font-weight:600;color:var(--k2);margin-right:8px;white-space:nowrap}" +
       ".hw2-logo img{height:30px;width:auto;display:block}.hw2-logo sup{font-size:11px;margin-left:2px;color:var(--k2)}" +
       ".hw2-bar[data-s=dark] .hw2-l1,.hw2-bar:not([data-s=dark]) .hw2-l2{display:none}" +
       ".hw2-menu{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}" +
@@ -1303,7 +1304,7 @@
     var bar = d.createElement("header");
     bar.id = "hw2-bar"; bar.className = "hw2-bar";
     bar.innerHTML = '<div class="hw2-in">' +
-      '<a class="hw2-logo" href="/" aria-label="HeirWise 처음 화면"><img class="hw2-l1" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise"><img class="hw2-l2" src="/img/brand/heirwise-logo-h-dark.svg" alt="HeirWise"><sup>™</sup></a>' +
+      '<a class="hw2-logo" href="/" aria-label="SynItArt · HeirWise 처음 화면"><span class="hw2-grp">SynItArt ·</span><img class="hw2-l1" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise"><img class="hw2-l2" src="/img/brand/heirwise-logo-h-dark.svg" alt="HeirWise"><sup>™</sup></a>' +
       '<nav class="hw2-menu" aria-label="주 메뉴">' + menu + "</nav>" +
       '<span class="hw2-tools">' + (oldTheme ? '<button class="hw2-theme" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button>' : "") +
       '<a class="hw2-tel" href="tel:01020885383">전화 상담</a></span></div>';
@@ -1334,12 +1335,13 @@
     var foot = d.createElement("footer");
     foot.className = "hw2-foot"; foot.setAttribute("aria-label", "HeirWise 안내");
     foot.innerHTML = '<div class="hw2-fin">' +
-      "<div><h4>HeirWise™</h4><p>상속·증여 재무설계 안내 · 운영 신대식 (申大湜, Syn Dae Sik)</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
+      "<div><h4><span style=\"color:var(--k2);font-weight:600\">SynItArt ·</span> HeirWise</h4><p>상속 · 증여 · 재무설계 안내 · 운영 신대식 (申大湜, Syn Dae Sik)</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
       "<div><h4>사무소</h4><ul><li>안산 · " + V2_ADDR.ansan + "</li><li>김포 · " + V2_ADDR.gimpo + "</li><li>서울 · " + V2_ADDR.seoul + "</li></ul></div>" +
       '<div><h4>둘러보기</h4><ul><li><a href="/lifemap/">인생 변곡점 지도</a></li><li><a href="/check/?src=foot">우리 집 준비도 진단</a></li><li><a href="/chat.html?src=foot">바로 묻기</a></li><li><a href="/network/join.html?src=foot">협업 전문가 합류</a></li><li><a href="/privacy.html">개인정보처리방침</a></li></ul></div>' +
       (notes.length ? '<div class="hw2-note"><h4>이 페이지 안내</h4><ul>' + notes.map(function (t) { return "<li>" + esc3(t) + "</li>"; }).join("") + "</ul></div>" : "") +
       '<div class="hw2-law"><p><strong>적용 법령 기준일</strong> — 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)</p>' +
       "<p>이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. 금융상품 안내는 별도 동의 후 소속 금융회사의 절차에 따릅니다.</p>" +
+      "<p>자격으로 판단하고, AI로 끝까지 챙깁니다. · AI·데이터 실무교육 3,603시간</p>" +
       "<p>© 2026 HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p></div></div>";
     d.body.appendChild(foot);
     function scheme() {

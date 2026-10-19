@@ -35,7 +35,7 @@
       "id": "E", "title": "기업·노무·안전",
       "situation": "회사를 운영하는 대표님의 유고·중대재해에 대비할 때",
       "fields": ["공인노무사", "산업안전·보건지도사", "안전관리전문기관", "중대재해 전문 변호사"],
-      "verticals": ["HeirWise", "NOusafe"],
+      "verticals": ["HeirWise", "NoUnsafe"],
       "tools": ["/ceo-diagnosis.html"]
     },
     {
