@@ -5,6 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>파일럿 신청 · 내돈내가</title>
+<meta name="description" content="버튼만 눌러 3분, 직접 입력은 휴대폰 번호 하나. 떼인 외주비·거래대금 셀프 회수 파일럿 신청">
+<meta name="theme-color" content="#0b0f17">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="내돈내가">
+<meta property="og:title" content="버튼만 눌러 3분 — 내돈내가 무료 파일럿 신청">
+<meta property="og:description" content="외주비·납품대금·공사대금. 직접 입력은 휴대폰 번호 하나, 수수료·성공보수 없음.">
+<meta property="og:url" content="https://finitart.com/naedon/apply.html">
+<meta property="og:image" content="https://finitart.com/naedon/assets/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="assets/app.css">
 <style>
@@ -38,6 +50,16 @@
 .done{text-align:center;padding:30px 0}
 .done .big{font-size:2rem;font-weight:900;margin:8px 0;color:var(--accent);word-break:break-all}
 .sending{font-weight:800;font-size:1.1rem}
+/* 모바일: 다음·신청 버튼을 화면 아래에 고정, 상단 메뉴 숨김 */
+.nav2 .msg{flex-basis:100%;margin:0}
+.route{border:3px solid var(--info);border-radius:12px;padding:12px 16px;margin:14px 0;background:var(--surface)}
+.route strong{color:var(--info)}
+.noscript{border:3px solid var(--accent);border-radius:14px;padding:18px;margin:22px 0;background:var(--surface)}
+@media (max-width:680px){
+  header.top .nav{display:none}
+  .nav2{position:sticky;bottom:0;z-index:10;background:var(--bg);margin:20px -16px 0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));border-top:2px solid var(--line)}
+  .nav2 .btn{min-width:0}
+}
 </style>
 </head>
 <body>
@@ -59,6 +81,11 @@
   <div class="wz">
     <div class="progress" aria-hidden="true"><div class="bar"><i id="barFill"></i></div><span class="stepno" id="stepNo"></span></div>
     <div id="stage" aria-live="polite"></div>
+    <noscript><div class="noscript"><h1 class="q" style="margin-top:0">이 화면에서는 신청서가 열리지 않습니다</h1>
+      <p>카카오톡·인스타그램 안에서 여셨다면 오른쪽 위 메뉴에서 <strong>“다른 브라우저로 열기”</strong>를 눌러 주세요.</p>
+      <p>바로 신청하시려면 아래 중 편한 방법으로 <strong>못 받은 돈 종류·금액·기간</strong>만 보내 주세요.</p>
+      <p><a class="btn btn-primary" href="sms:01020885383">문자로 신청하기</a> <a class="btn" href="mailto:itart@finitart.com?subject=%5B%EB%82%B4%EB%8F%88%EB%82%B4%EA%B0%80%20%ED%8C%8C%EC%9D%BC%EB%9F%BF%5D%20%EC%8B%A0%EC%B2%AD">메일로 신청하기</a></p>
+    </div></noscript>
     <p class="hint" style="margin-top:28px">고르신 답은 이 기기에 임시 저장되어, 화면을 닫았다 열어도 이어서 할 수 있습니다. 내돈내가는 셀프 도구 파일럿이며 법률상담·대리를 하지 않습니다.</p>
   </div>
 </main>
@@ -75,7 +102,7 @@
 (function(){
   ND.initTheme();
   var CFG = window.ND_CONFIG || {};
-  var KEY = 'naedon-apply-v1';
+  var KEY = 'naedon-apply-v2';
   var $ = function(id){ return document.getElementById(id); };
   var esc = ND.esc;
 
@@ -84,15 +111,16 @@
     {id:'kind', type:'single', q:'어떤 돈을 못 받으셨나요?', help:'가장 가까운 것을 하나 골라 주세요.', opts:[
       ['goods','물품·납품대금','물건을 팔거나 납품하고 못 받은 돈'],
       ['construction','공사대금','시공·인테리어·하도급 대금'],
-      ['service','용역·서비스 대금','디자인, 개발, 운송, 컨설팅 등'],
+      ['service','용역·서비스·외주 대금','디자인, 개발, 영상, 강의, 운송, 컨설팅 등 프리랜서 외주'],
       ['rent','임대료·관리비','상가·사무실 임대'],
       ['loan','사업상 빌려준 돈','거래처·지인 사업자에게 빌려준 돈'],
       ['judgment','이미 판결·지급명령을 받았는데 못 받음','법원 결정은 있는데 돈이 안 들어옴'],
+      ['wage','월급·알바비·퇴직금','일하고 못 받은 임금 — 고용노동부 진정이 더 빠를 수 있어요'],
       ['etc','기타','위에 없는 경우']]},
     {id:'debtor', type:'single', q:'못 준 상대방은 누구인가요?', opts:[
       ['corp','법인 (주식회사 등)'],['sole','개인사업자'],['person','개인 (사업자 아님)'],['unknown','잘 모르겠다']]},
     {id:'amount', type:'single', q:'못 받은 돈은 얼마쯤인가요?', help:'정확하지 않아도 됩니다.', opts:[
-      ['a1','500만원 미만'],['a2','500만 ~ 3,000만원'],['a3','3,000만 ~ 1억원'],['a4','1억 ~ 5억원'],['a5','5억원 이상']]},
+      ['a0','100만원 미만'],['a1','100만 ~ 500만원'],['a2','500만 ~ 3,000만원'],['a3','3,000만 ~ 1억원'],['a4','1억 ~ 5억원'],['a5','5억원 이상']]},
     {id:'since', type:'single', q:'받기로 한 날부터 얼마나 지났나요?', help:'여러 번 나눠 받기로 했다면 가장 오래된 것을 기준으로 골라 주세요.', opts:[
       ['s1','3개월 이내'],['s2','3개월 ~ 6개월'],['s3','6개월 ~ 1년'],['s4','1년 ~ 2년'],['s5','2년 ~ 3년'],['s6','3년 ~ 5년'],['s7','5년 이상'],['s0','잘 모르겠다']]},
     {id:'evidence', type:'multi', q:'가지고 계신 자료를 모두 골라 주세요.', help:'여러 개 고를 수 있습니다.', none:'none', opts:[
@@ -110,7 +138,7 @@
       ['asset','상대방에게 재산이 있는지 모르겠다'],['time','시효가 지났을까 걱정된다'],['proof','증거가 부족한 것 같다'],
       ['busy','일이 바빠 신경 쓸 시간이 없다'],['relation','거래 관계가 끊길까 걱정된다']]},
     {id:'want', type:'single', q:'파일럿에서 어떤 도움을 원하세요?', opts:[
-      ['tool','셀프 회수 도구를 직접 써보고 싶다','내용증명·지급명령 초안을 사장님 명의로 직접 작성'],
+      ['tool','셀프 회수 도구를 직접 써보고 싶다','내용증명·지급명령 초안을 내 이름으로 직접 작성'],
       ['check','진행 순서 체크리스트만 받고 싶다',''],
       ['monitor','거래처 관리 기능에 관심 있다','앞으로 떼이지 않게 미리 관리'],
       ['look','일단 어떤 서비스인지 알고 싶다','']]},
@@ -126,8 +154,8 @@
 
   /* ── 상태 ───────────────────────────── */
   var st = {i:0, a:{}, phone:''}, files = [], sending = false;
-  try{ var saved = JSON.parse(sessionStorage.getItem(KEY)||'null'); if(saved && saved.a){ st = saved; } }catch(e){}
-  function keep(){ try{ sessionStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
+  try{ var saved = JSON.parse(localStorage.getItem(KEY)||'null'); if(saved && saved.a && (Date.now()-(saved.t||0)) < 7*864e5){ st = saved; } }catch(e){}
+  function keep(){ st.t=Date.now(); try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
   function label(step, v){ var s=Q[IDX[step]]; for(var i=0;i<s.opts.length;i++) if(s.opts[i][0]===v) return s.opts[i][1]; return v; }
   function labels(step){ var v=st.a[step]; if(v==null) return '-'; return Array.isArray(v) ? (v.length?v.map(function(x){return label(step,x);}).join(', '):'-') : label(step,v); }
@@ -135,7 +163,7 @@
   /* 일반 기준 시효 참고 표시 */
   function limitFlag(){
     var k=st.a.kind, s=st.a.since; if(!k||!s||s==='s0') return null;
-    var years = {goods:3,construction:3,rent:3,service:5,loan:5,etc:5,judgment:10}[k];
+    var years = {goods:3,construction:3,rent:3,service:5,loan:5,etc:5,judgment:10,wage:3}[k];
     var range = {s1:[0,.25],s2:[.25,.5],s3:[.5,1],s4:[1,2],s5:[2,3],s6:[3,5],s7:[5,99]}[s];
     if(range[0] >= years) return 'over';
     if(range[1] > years - 0.5) return 'near';
@@ -168,7 +196,7 @@
            (multi?'role="checkbox" aria-checked="'+on+'"':'role="radio" aria-checked="'+on+'"')+'>'+
            '<span class="mk" aria-hidden="true">'+(on?'✓':'')+'</span><span>'+esc(o[1])+(o[2]?'<small>'+esc(o[2])+'</small>':'')+'</span></button>';
       });
-      h+='</div>'+(multi?navBtns():(st.i>0?'<div class="nav2"><button class="btn" type="button" id="back">← 이전</button></div>':''));
+      h+='</div>'+(multi?navBtns(null,null,s.id==='hard'):(st.i>0?'<div class="nav2"><button class="btn" type="button" id="back">← 이전</button></div>':''));
     } else if(s.type==='files'){
       var maxF=CFG.maxFiles||8, maxMB=CFG.maxTotalMB||20;
       h+=head(s)+'<div class="drop">'+
@@ -182,11 +210,12 @@
     } else if(s.type==='phone'){
       h+=head(s)+'<label for="phoneIn" class="hint">휴대폰 번호 (숫자만)</label>'+
         '<input id="phoneIn" class="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="13" placeholder="010-0000-0000" value="'+esc(st.phone)+'">'+
-        '<p class="msg" id="pmsg" role="alert"></p>'+navBtns();
+        '<p class="hint">검토 결과 안내에만 씁니다. 광고·영업 연락은 하지 않습니다.</p><p class="msg" id="pmsg" role="alert"></p>'+navBtns();
     } else if(s.type==='review'){
       var lf=limitFlag();
       h+=head(s);
       if(lf) h+='<div class="notice"><strong>'+(lf==='over'?'일반 기준 시효기간이 지났을 수 있습니다.':'일반 기준 시효가 가까울 수 있습니다.')+'</strong> 접수 시 우선 확인 대상으로 표시됩니다. (일반 기준 안내이며 개별 사건의 시효 판단이 아닙니다.)</div>';
+      if(st.a.kind==='wage') h+='<div class="route"><strong>임금(월급·알바비·퇴직금)은</strong> 고용노동부 임금체불 진정이 비용 없이 더 빠를 수 있습니다. 고객상담센터 국번 없이 1350. 그래도 신청하시면 검토 후 안내드립니다.</div>';
       h+='<table class="sum">';
       Q.forEach(function(x,i){
         if(x.type==='review') return;
@@ -198,7 +227,7 @@
         '<button type="button" class="opt multi" id="c1" role="checkbox" aria-checked="'+(!!st.c1)+'"><span class="mk" aria-hidden="true">'+(st.c1?'✓':'')+'</span><span>[필수] 개인정보 수집·이용에 동의합니다<small>수집: 휴대폰 번호, 위 답변, 올린 자료 · 목적: 파일럿 적합성 검토와 회신 · 보관: 회신 후 6개월(요청 시 즉시 삭제) · 저장: Google 드라이브(Google LLC, 국외 서버에 저장될 수 있음) · 거부 시 검토가 어렵습니다</small></span></button>'+
         '<button type="button" class="opt multi" id="c2" role="checkbox" aria-checked="'+(!!st.c2)+'" style="margin-top:12px"><span class="mk" aria-hidden="true">'+(st.c2?'✓':'')+'</span><span>[필수] 법률상담·대리가 아니라 셀프 도구 파일럿임을 이해했습니다<small>회신은 ① 파일럿 참여 가능 ② 변호사 상담 권장 ③ 이번 대상 아님 중 하나로 드립니다.</small></span></button>'+
         '</div><input type="text" id="hp" name="company_site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">'+
-        '<p class="msg" id="rmsg" role="alert"></p>'+navBtns(CFG.endpoint?'신청하기':'신청 내용 보내기','submit');
+        navBtns(CFG.endpoint?'신청하기':'신청 내용 보내기','submit').replace('<div class="nav2">','<div class="nav2"><p class="msg" id="rmsg" role="alert"></p>');
     }
     $('stage').innerHTML = h;
     var qh=$('qh'); if(qh) qh.focus({preventScroll:true});
@@ -224,6 +253,7 @@
           st.a[s.id]=cur; keep(); render();
         };
       });
+      var sk=$('skip'); if(sk) sk.onclick=next;
       $('next').onclick=function(){
         if(!Array.isArray(st.a[s.id])||!st.a[s.id].length){ flash('하나 이상 골라 주세요.'); return; }
         next();
@@ -247,7 +277,7 @@
       $('submit').onclick=submit;
     }
   }
-  function flash(t){ var n=document.querySelector('.nav2'); var m=document.createElement('p'); m.className='msg err'; m.setAttribute('role','alert'); m.textContent=t; n.parentNode.insertBefore(m,n); setTimeout(function(){ if(m.parentNode) m.parentNode.removeChild(m); },3000); }
+  function flash(t){ var n=document.querySelector('.nav2'); var m=document.createElement('p'); m.className='msg err'; m.setAttribute('role','alert'); m.textContent=t; n.insertBefore(m,n.firstChild); setTimeout(function(){ if(m.parentNode) m.parentNode.removeChild(m); },3000); }
   function fmtPhone(d){ d=String(d||'').replace(/\D/g,''); if(d.length<4) return d; if(d.length<8) return d.slice(0,3)+'-'+d.slice(3); return d.slice(0,3)+'-'+d.slice(3,d.length-4)+'-'+d.slice(-4); }
 
   /* ── 파일 ───────────────────────────── */
@@ -309,10 +339,10 @@
   }
   function submit(){
     var m=$('rmsg');
-    if(!st.c1||!st.c2){ m.className='msg err'; m.textContent='필수 확인 두 개를 눌러 주세요.'; return; }
+    if(!st.c1||!st.c2){ m.className='msg err'; m.textContent='필수 확인 두 개를 눌러 주세요.'; $(st.c1?'c2':'c1').scrollIntoView({block:'center',behavior:'smooth'}); return; }
     for(var i=0;i<Q.length;i++){ var s=Q[i];
       if((s.type==='single'||s.type==='multi') && (st.a[s.id]==null || (Array.isArray(st.a[s.id])&&!st.a[s.id].length)) && s.id!=='hard'){
-        m.className='msg err'; m.textContent='「'+s.q+'」에 아직 답하지 않으셨습니다.'; return; }
+        m.className='msg err'; m.textContent='「'+s.q+'」에 아직 답하지 않으셨습니다.'; m.scrollIntoView({block:'center'}); return; }
     }
     if(!/^01[016789]\d{7,8}$/.test(st.phone)){ m.className='msg err'; m.textContent='휴대폰 번호를 확인해 주세요.'; return; }
     if(sending) return;
@@ -331,7 +361,7 @@
     .then(function(r){ return r.json(); })
     .then(function(j){
       if(!j||!j.ok) throw new Error((j&&j.error)||'접수 실패');
-      try{ sessionStorage.removeItem(KEY); }catch(e){}
+      try{ localStorage.removeItem(KEY); }catch(e){}
       done(j.id);
     })
     .catch(function(err){

@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>내돈내가 파일럿</title>
-<meta name="description" content="떼인 거래대금, 사장님 명의로 직접 회수하는 셀프 도구 — 파일럿 참여 신청">
+<meta name="description" content="외주비·납품대금·공사대금, 떼인 돈을 내 이름으로 직접 받는 셀프 도구 — 무료 파일럿, 버튼만 눌러 3분 신청">
+<meta name="theme-color" content="#0b0f17">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="내돈내가">
+<meta property="og:title" content="떼인 돈, 내 이름으로 직접 받는다 — 내돈내가 무료 파일럿">
+<meta property="og:description" content="외주비·납품대금·공사대금. 버튼만 눌러 3분이면 신청, 수수료·성공보수 없음.">
+<meta property="og:url" content="https://finitart.com/naedon/">
+<meta property="og:image" content="https://finitart.com/naedon/assets/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="휴대폰 화면에서 버튼으로 미수금 유형을 고르는 내돈내가 신청 화면">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
 :root{
@@ -80,6 +92,27 @@ header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8p
   .btn-theme,.actions,#preview{display:none!important}
   section{break-inside:avoid}
 }
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
+.hero img{width:100%;height:auto;display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;padding:0;list-style:none}
+.chips li{border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-weight:800;font-size:.9rem;background:var(--surface)}
+.who{font-weight:800;color:var(--info);margin:0}
+.route{border:3px solid var(--info);border-radius:14px;padding:16px 18px;background:var(--surface);margin-top:16px}
+.route strong{color:var(--info)}
+dl.glo{display:grid;gap:10px;margin:0}
+dl.glo div{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:12px 16px}
+dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
+:root[data-theme="light"] dl.glo dt{color:#0b0f17;text-decoration:underline 4px #ffd23f;text-underline-offset:4px}
+.owner{display:flex;gap:16px;align-items:center}
+.owner .av{flex:none;width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:900;font-size:1.3rem}
+.sticky-cta{display:none}
+@media (max-width:680px){
+  .hero{grid-template-columns:1fr}.hero figure{order:-1;margin:0 -4px}
+  .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:2px solid var(--line)}
+  .sticky-cta a{display:block;text-align:center;text-decoration:none;min-height:56px;line-height:1.4}
+  body{padding-bottom:92px}
+}
+@media print{.sticky-cta,.hero figure{display:none!important}}
 </style>
 </head>
 <body>
@@ -100,12 +133,24 @@ header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8p
 
 <main class="wrap">
 
-<section>
-  <span class="badge">파일럿 참여자 모집 · 무료</span>
-  <h1>떼인 거래대금,<br>사장님 명의로 직접 받는 방법을 같이 만들고 있습니다</h1>
-  <p class="lead">미수금 상황을 <strong>버튼만 눌러</strong> 알려주시면, 저희가 만드는 <strong>셀프 회수 도구</strong>로 해결할 수 있는 사건인지 검토해 회신드립니다.
-  맞는 경우 파일럿 참여자로 도구를 먼저 써보시고, 쓰면서 불편했던 점을 알려주시면 됩니다.</p>
-  <p><a href="apply.html" class="btn btn-primary" style="display:inline-block;text-decoration:none">버튼으로 3분 신청하기 →</a></p>
+<section class="hero">
+  <div>
+    <span class="badge">파일럿 참여자 모집 · 무료</span>
+    <h1>떼인 거래대금·외주비,<br>내 이름으로 직접 받는 방법을 같이 만들고 있습니다</h1>
+    <p class="who">사장님 · 프리랜서 · 1인 사업자 · N잡러 누구나</p>
+    <ul class="chips" aria-label="핵심 조건">
+      <li>버튼만 눌러 3분</li><li>직접 입력은 휴대폰 번호 1개</li><li>수수료·성공보수 0원</li><li>소액도 신청 가능</li>
+    </ul>
+    <p class="lead">못 받은 돈 상황을 <strong>버튼만 눌러</strong> 알려주시면, 저희가 만드는 <strong>셀프 회수 도구</strong>로 해결할 수 있는 사건인지 검토해 문자로 회신드립니다.
+    맞는 경우 파일럿 참여자로 도구를 먼저 써보시고, 쓰면서 불편했던 점을 알려주시면 됩니다.</p>
+    <p><a href="apply.html" class="btn btn-primary" style="display:inline-block;text-decoration:none">버튼으로 3분 신청하기 →</a></p>
+  </div>
+  <figure>
+    <picture>
+      <source srcset="assets/img/hero.webp" type="image/webp">
+      <img src="assets/img/hero.png" width="720" height="520" alt="신청 화면 예시: 가진 자료를 버튼으로 고르고, 사진을 찍어 올리면 접수 완료와 회신 일정이 표시됨">
+    </picture>
+  </figure>
 </section>
 
 <section aria-labelledby="tools">
@@ -141,6 +186,20 @@ header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8p
   </div>
 </section>
 
+<section aria-labelledby="words">
+  <h2 id="words">처음 듣는 말, 한 줄 풀이</h2>
+  <dl class="glo">
+    <div><dt>내용증명</dt><dd>“언제, 누구에게, 어떤 내용을 보냈는지”를 우체국이 증명해 주는 우편입니다. 독촉한 기록이 공식적으로 남습니다.</dd></div>
+    <div><dt>지급명령</dt><dd>재판정에 나가지 않고 서류만으로 법원이 상대방에게 “돈을 내라”고 명령하는 절차입니다. 상대방이 받고 2주 안에 이의하지 않으면 판결과 같은 힘이 생깁니다.</dd></div>
+    <div><dt>인지대·송달료</dt><dd>법원에 내는 수수료와 우편 비용입니다. 지급명령의 인지대는 같은 금액 소송의 10분의 1입니다.</dd></div>
+    <div><dt>소멸시효</dt><dd>받을 권리를 오랫동안 행사하지 않으면 받을 수 없게 되는 기간입니다. 그래서 오래된 돈일수록 빨리 확인하는 게 중요합니다.</dd></div>
+  </dl>
+  <div class="route">
+    <strong>월급·알바비·퇴직금을 못 받으셨나요?</strong><br>
+    임금은 이 도구보다 <strong>고용노동부 임금체불 진정</strong>이 더 빠르고 비용이 들지 않습니다. 고용노동부 고객상담센터 <strong>국번 없이 1350</strong>에서 안내받으실 수 있습니다.
+  </div>
+</section>
+
 <section aria-labelledby="how">
   <h2 id="how">진행 순서</h2>
   <ol class="steps">
@@ -161,8 +220,19 @@ header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8p
   <p class="hint">시효가 걱정되시면 먼저 신청하세요. 물품·납품대금과 공사대금은 보통 3년, 그 밖의 상사채권은 보통 5년이 지나면 받기 어려워질 수 있습니다. 시효가 가까워 보이는 신청은 먼저 확인합니다. (일반 기준 안내이며 개별 사건의 시효 판단이 아닙니다.)</p>
 </section>
 
+<section aria-labelledby="owner">
+  <h2 id="owner">누가 운영하나요</h2>
+  <div class="card owner">
+    <div class="av" aria-hidden="true">SDS</div>
+    <div><strong>FinitArt 대표 Syn Dae Sik</strong>이 직접 검토하고 회신합니다. 콜센터·영업 전화는 없습니다.<br>
+    <span class="hint">법무법인 실무 경력(2003~2007) · AFPK · 사업자등록 사업장(안산) · 문의 010-2088-5383</span></div>
+  </div>
+</section>
+
 <section aria-labelledby="faq">
   <h2 id="faq">자주 묻는 질문</h2>
+  <details><summary>사업자가 아닌 프리랜서도 되나요?</summary>
+  <p>됩니다. 디자인·개발·영상·강의 같은 외주 대금은 신청서의 <strong>“용역·서비스 대금”</strong>을 고르시면 됩니다. 계약서가 없어도 카톡·메일 대화와 입금 내역이 있으면 함께 올려 주세요.</p></details>
   <details><summary>왜 무료인가요?</summary>
   <p>지금은 도구를 만드는 단계라, 실제 사장님들의 사건과 피드백이 저희에게 가장 필요한 자료입니다. 파일럿 기간에는 비용을 받지 않습니다. 추후 유료 기능이 생기더라도 <strong>파일럿에서 무료로 쓰시던 기능은 계속 무료</strong>로 유지합니다.</p></details>
   <details><summary>수수료나 성공보수가 있나요?</summary>
@@ -186,6 +256,8 @@ header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8p
 </section>
 
 </main>
+
+<div class="sticky-cta"><a href="apply.html" class="btn btn-primary">버튼으로 3분 신청하기 →</a></div>
 
 <footer>
   <div class="wrap">
