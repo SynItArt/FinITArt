@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
 <title>내돈내가 파일럿</title>
 <meta name="description" content="외주비·납품대금·공사대금, 떼인 돈을 내 이름으로 직접 받는 셀프 도구 — 무료 파일럿, 버튼만 눌러 3분 신청">
 <meta name="theme-color" content="#0b0f17">
@@ -37,21 +36,55 @@ body{margin:0;background:var(--bg);color:var(--text);
 a{color:var(--info)}
 :focus-visible{outline:4px solid var(--focus);outline-offset:3px}
 .wrap{max-width:900px;margin:0 auto;padding:0 16px}
+
+/* 건너뛰기 링크 */
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);
+  font-weight:800;padding:12px 18px;border-radius:0 0 12px 0;z-index:30;text-decoration:none}
+.skip:focus{left:0}
+
+/* 헤더: 2줄 → 1줄 + 가로 스크롤 메뉴 */
 header.top{border-bottom:2px solid var(--line);background:var(--surface)}
-header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
-.brand{font-weight:800;font-size:1.25rem}
-.brand small{display:block;font-weight:600;font-size:.8rem;color:var(--muted)}
-.btn-theme{background:transparent;color:var(--text);border:2px solid var(--line);border-radius:10px;padding:8px 14px;font:inherit;font-size:.85rem;cursor:pointer}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+.brand{font-weight:800;font-size:1.15rem;line-height:1.3}
+.brand small{display:block;font-weight:600;font-size:.72rem;color:var(--muted)}
+.hdr-cta{flex:none;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.9rem;
+  text-decoration:none;border:2px solid var(--accent);border-radius:999px;padding:9px 16px;min-height:44px;
+  display:inline-flex;align-items:center}
+.btn-theme{background:transparent;color:var(--text);border:2px solid var(--line);border-radius:10px;padding:6px 12px;font:inherit;font-size:.8rem;cursor:pointer;min-height:40px;flex:none}
+header.top .topnav{display:flex;flex-wrap:nowrap;gap:8px;padding-top:0;padding-bottom:10px;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center}
+header.top .topnav::-webkit-scrollbar{display:none}
+.topnav a{flex:none;color:var(--text);text-decoration:none;border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.85rem;white-space:nowrap}
+.topnav a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
 .badge{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:800;padding:4px 14px;border-radius:999px;font-size:.9rem}
-h1{font-size:2.1rem;line-height:1.3;margin:18px 0 12px}
+h1{font-size:2.1rem;line-height:1.3;margin:18px 0 12px;text-wrap:balance}
 h2{font-size:1.55rem;margin:0 0 14px;padding-left:14px;border-left:8px solid var(--accent)}
 h3{font-size:1.15rem;margin:0 0 6px}
 section{padding:36px 0;border-bottom:1px solid var(--line)}
 .lead{font-size:1.15rem;color:var(--muted)}
 .card{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:20px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.yes h3{color:var(--ok)} .no h3{color:var(--danger)}
 ul.mark{margin:0;padding-left:1.2em} ul.mark li{margin:4px 0}
+
+/* 하는 일 / 하지 않는 일: 색 외에 좌측 바 + 라벨로 2중 구분 */
+.card.yes{border-left:10px solid var(--ok)}
+.card.no{border-left:10px solid var(--danger)}
+.yes h3{color:var(--ok)} .no h3{color:var(--danger)}
+.tag{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.04em;
+  padding:3px 10px;border-radius:6px;margin-bottom:8px}
+.yes .tag{background:rgba(94,240,160,.16);color:var(--ok);border:2px solid var(--ok)}
+.no .tag{background:rgba(255,118,118,.16);color:var(--danger);border:2px solid var(--danger)}
+
+/* 소멸시효 숫자 카드 */
+.deadline{border:3px solid var(--danger);border-radius:16px;background:var(--surface);padding:20px}
+.deadline h2{margin-bottom:6px;border-left-color:var(--danger)}
+.dl-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0 12px;padding:0;list-style:none}
+.dl-nums li{background:var(--surface2);border:2px solid var(--line);border-radius:14px;padding:16px 10px;text-align:center}
+.dl-nums b{display:block;font-size:2.4rem;font-weight:900;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.dl-nums span{display:block;font-size:.9rem;color:var(--muted);margin-top:8px;line-height:1.45}
+:root[data-theme="light"] .dl-nums b{color:#8a5a00}
+
 ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
 ol.steps li{counter-increment:s;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 16px 16px 72px;position:relative}
 ol.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;width:42px;height:42px;border-radius:50%;
@@ -59,41 +92,16 @@ ol.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;widt
 table{width:100%;border-collapse:collapse;font-size:.95rem}
 th,td{border:2px solid var(--line);padding:10px;text-align:left;vertical-align:top}
 th{background:var(--surface2)}
-.warn{border-color:var(--danger)} .warn strong{color:var(--danger)}
-form{display:grid;gap:16px}
-label{font-weight:700;display:block;margin-bottom:6px}
-.req{color:var(--danger)}
 .hint{font-weight:500;font-size:.85rem;color:var(--muted)}
-input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
-  width:100%;font:inherit;font-size:1rem;color:var(--text);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:12px}
-textarea{min-height:110px}
-fieldset{border:2px solid var(--line);border-radius:12px;padding:12px 16px}
-legend{font-weight:700;padding:0 6px}
-.checks label{font-weight:500;display:flex;gap:10px;align-items:center;margin:6px 0}
-input[type=checkbox]{width:24px;height:24px;flex:none}
-.actions{display:flex;flex-wrap:wrap;gap:12px}
-.btn{font:inherit;font-weight:800;font-size:1.05rem;border-radius:12px;padding:14px 22px;cursor:pointer;border:3px solid var(--accent)}
+.btn{font:inherit;font-weight:800;font-size:1.05rem;border-radius:12px;padding:14px 22px;cursor:pointer;border:3px solid var(--accent);min-height:56px}
 .btn-primary{background:var(--accent);color:var(--accent-ink)}
-.btn-ghost{background:transparent;color:var(--text)}
-#limitation{display:none;margin-top:8px;padding:12px;border-radius:10px;border:2px solid var(--line);background:var(--surface2)}
-#limitation.urgent{border-color:var(--danger)}
-#preview{white-space:pre-wrap;background:var(--bg);border:2px dashed var(--line);border-radius:12px;padding:14px;font-size:.9rem;display:none}
-#msg{font-weight:700} #msg.err{color:var(--danger)} #msg.ok{color:var(--ok)}
 .mailbox{font-size:1.3rem;font-weight:900;color:var(--accent);word-break:break-all}
 details{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
-summary{font-weight:800;cursor:pointer}
+summary{font-weight:800;cursor:pointer;min-height:32px}
 footer{padding:28px 0 48px;color:var(--muted);font-size:.85rem}
-header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;padding-top:0;padding-bottom:14px}
-.topnav a{color:var(--text);text-decoration:none;border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.9rem}
-.topnav a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-@media (max-width:680px){html{font-size:18px}h1{font-size:1.7rem}.grid2{grid-template-columns:1fr}}
-@media print{
-  :root{--bg:#fff;--surface:#fff;--surface2:#eee;--line:#555;--text:#000;--muted:#222;--danger:#900;--ok:#060;--info:#003}
-  .btn-theme,.actions,#preview{display:none!important}
-  section{break-inside:avoid}
-}
+
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
-.hero img{width:100%;height:auto;display:block}
+.hero img{width:100%;height:auto;display:block;max-width:100%}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;padding:0;list-style:none}
 .chips li{border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-weight:800;font-size:.9rem;background:var(--surface)}
 .who{font-weight:800;color:var(--info);margin:0}
@@ -105,22 +113,48 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
 :root[data-theme="light"] dl.glo dt{color:#0b0f17;text-decoration:underline 4px #ffd23f;text-underline-offset:4px}
 .owner{display:flex;gap:16px;align-items:center}
 .owner .av{flex:none;width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:900;font-size:1.3rem}
-.sticky-cta{display:none}
+
+/* 고정 CTA: 전 화면폭에서 노출, 히어로 버튼이 보일 때는 숨김 */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  background:var(--bg);border-top:2px solid var(--line);
+  transform:translateY(0);transition:transform .18s ease}
+.sticky-cta[data-hidden="true"]{transform:translateY(110%)}
+.sticky-cta .inner{max-width:900px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.sticky-cta a{flex:1;display:block;text-align:center;text-decoration:none;min-height:56px;line-height:1.4;padding:14px 18px}
+.sticky-cta .note{flex:none;font-size:.85rem;color:var(--muted);font-weight:700}
+body{padding-bottom:100px}
+@media (prefers-reduced-motion:reduce){.sticky-cta{transition:none}}
+
 @media (max-width:680px){
-  .hero{grid-template-columns:1fr}.hero figure{order:-1;margin:0 -4px}
-  .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:2px solid var(--line)}
-  .sticky-cta a{display:block;text-align:center;text-decoration:none;min-height:56px;line-height:1.4}
-  body{padding-bottom:92px}
+  html{font-size:18px}
+  h1{font-size:1.7rem}
+  .grid2{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr}
+  .hero figure{margin:0 -4px}
+  .dl-nums{grid-template-columns:1fr;gap:8px}
+  .dl-nums li{display:flex;align-items:baseline;gap:12px;text-align:left;padding:12px 16px}
+  .dl-nums b{font-size:2rem}
+  .dl-nums span{margin-top:0}
+  .sticky-cta .note{display:none}
 }
-@media print{.sticky-cta,.hero figure{display:none!important}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface2:#eee;--line:#555;--text:#000;--muted:#222;--danger:#900;--ok:#060;--info:#003}
+  .btn-theme,.sticky-cta,.hero figure,.topnav,.skip{display:none!important}
+  body{padding-bottom:0}
+  section{break-inside:avoid}
+  .deadline{break-inside:avoid}
+}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#main">본문 바로가기</a>
+
 <header class="top">
   <div class="wrap">
     <div class="brand">내돈내가 <small>FinitArt · 미수금 셀프 회수 도구</small></div>
-    <button class="btn-theme" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">밝은 화면</button>
+    <a class="hdr-cta" href="apply.html">3분 신청 →</a>
   </div>
   <nav class="wrap topnav" aria-label="주요 메뉴">
     <a href="index.html" aria-current="page">파일럿 안내</a>
@@ -128,10 +162,11 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
     <a href="monitor.html">거래처 관리</a>
     <a href="recover.html">회수 작성 도구</a>
     <a href="reserve.html">요금·사전예약</a>
+    <button class="btn-theme" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">밝은 화면</button>
   </nav>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
 
 <section class="hero">
   <div>
@@ -143,7 +178,7 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
     </ul>
     <p class="lead">못 받은 돈 상황을 <strong>버튼만 눌러</strong> 알려주시면, 저희가 만드는 <strong>셀프 회수 도구</strong>로 해결할 수 있는 사건인지 검토해 문자로 회신드립니다.
     맞는 경우 파일럿 참여자로 도구를 먼저 써보시고, 쓰면서 불편했던 점을 알려주시면 됩니다.</p>
-    <p><a href="apply.html" class="btn btn-primary" style="display:inline-block;text-decoration:none">버튼으로 3분 신청하기 →</a></p>
+    <p><a href="apply.html" class="btn btn-primary" id="heroCta" style="display:inline-block;text-decoration:none">버튼으로 3분 신청하기 →</a></p>
   </div>
   <figure>
     <picture>
@@ -151,6 +186,19 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
       <img src="assets/img/hero.png" width="720" height="520" alt="신청 화면 예시: 가진 자료를 버튼으로 고르고, 사진을 찍어 올리면 접수 완료와 회신 일정이 표시됨">
     </picture>
   </figure>
+</section>
+
+<section aria-labelledby="deadline">
+  <div class="deadline">
+    <h2 id="deadline">이 기간이 지나면 받기 어려워집니다</h2>
+    <p style="margin:0;color:var(--muted)">받을 권리를 오래 행사하지 않으면 받을 수 없게 됩니다. 오래된 돈일수록 먼저 확인하세요.</p>
+    <ul class="dl-nums">
+      <li><b>3년</b><span>물품·납품대금</span></li>
+      <li><b>3년</b><span>공사대금</span></li>
+      <li><b>5년</b><span>그 밖의 상사채권</span></li>
+    </ul>
+    <p class="hint" style="margin:0">일반 기준 안내이며 개별 사건의 시효 판단이 아닙니다. 시효가 가까워 보이는 신청은 먼저 확인합니다.</p>
+  </div>
 </section>
 
 <section aria-labelledby="tools">
@@ -166,6 +214,7 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
   <h2 id="what">이 서비스가 하는 일과 하지 않는 일</h2>
   <div class="grid2">
     <div class="card yes">
+      <span class="tag">하는 일</span>
       <h3>✔ 하는 일</h3>
       <ul class="mark">
         <li>셀프 회수 도구로 다룰 수 있는 사건인지 <strong>적합성 검토</strong></li>
@@ -175,6 +224,7 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
       </ul>
     </div>
     <div class="card no">
+      <span class="tag">하지 않는 일</span>
       <h3>✖ 하지 않는 일</h3>
       <ul class="mark">
         <li>사장님을 대신한 추심·소송·서류 작성</li>
@@ -210,14 +260,14 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
   </ol>
 </section>
 
-<section aria-labelledby="apply" id="apply">
-  <h2 id="apply">참여 신청 — 버튼만 눌러서 3분</h2>
+<section aria-labelledby="apply-h" id="apply">
+  <h2 id="apply-h">참여 신청 — 버튼만 눌러서 3분</h2>
   <div class="card">
     <p style="margin-top:0">질문이 한 화면에 하나씩 나옵니다. <strong>버튼과 체크만</strong> 누르시면 되고, 직접 입력하는 칸은 <strong>휴대폰 번호 하나</strong>뿐입니다.
     세금계산서·거래명세서·대화 캡처는 신청 중에 <strong>휴대폰으로 바로 찍어 올리실 수</strong> 있습니다.</p>
     <p style="margin-bottom:0"><a href="apply.html" class="btn btn-primary" style="display:inline-block;text-decoration:none;font-size:1.15rem;padding:16px 28px">신청 시작하기 →</a></p>
   </div>
-  <p class="hint">시효가 걱정되시면 먼저 신청하세요. 물품·납품대금과 공사대금은 보통 3년, 그 밖의 상사채권은 보통 5년이 지나면 받기 어려워질 수 있습니다. 시효가 가까워 보이는 신청은 먼저 확인합니다. (일반 기준 안내이며 개별 사건의 시효 판단이 아닙니다.)</p>
+  <p class="hint">시효가 걱정되시면 먼저 신청하세요. 기간 기준은 <a href="#deadline">위 소멸시효 안내</a>를 참고하시면 됩니다.</p>
 </section>
 
 <section aria-labelledby="owner">
@@ -257,7 +307,12 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
 
 </main>
 
-<div class="sticky-cta"><a href="apply.html" class="btn btn-primary">버튼으로 3분 신청하기 →</a></div>
+<div class="sticky-cta" id="stickyCta">
+  <div class="inner">
+    <a href="apply.html" class="btn btn-primary">버튼으로 3분 신청하기 →</a>
+    <span class="note">직접 입력은 휴대폰 번호 하나</span>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
@@ -273,6 +328,15 @@ dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
   function set(t){ if(t==='light'){root.setAttribute('data-theme','light');b.textContent='어두운 화면';} else {root.removeAttribute('data-theme');b.textContent='밝은 화면';} try{localStorage.setItem('naedon-theme',t);}catch(e){} }
   try{ if(localStorage.getItem('naedon-theme')==='light') set('light'); }catch(e){}
   b.addEventListener('click',function(){ set(root.getAttribute('data-theme')==='light'?'dark':'light'); });
+
+  // 히어로 신청 버튼이 화면에 보이는 동안에는 고정 CTA를 내려 중복 노출을 피한다
+  var hero=document.getElementById('heroCta'), bar=document.getElementById('stickyCta');
+  if(hero&&bar&&'IntersectionObserver' in window){
+    bar.setAttribute('data-hidden','true');
+    new IntersectionObserver(function(es){
+      bar.setAttribute('data-hidden', es[0].isIntersecting ? 'true' : 'false');
+    },{threshold:0}).observe(hero);
+  }
 })();
 </script>
 </body>

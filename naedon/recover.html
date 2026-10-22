@@ -8,10 +8,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="stylesheet" href="assets/app.css">
 </head>
-<body>
+<body class="with-cta">
+<a class="skip" href="#main">본문 바로가기</a>
 <header class="top">
   <div class="wrap top-row">
     <a class="brand" href="index.html">내돈내가 <small>FinitArt · 미수금 셀프 관리</small></a>
+    <a class="hdr-cta" href="apply.html">3분 신청 →</a>
     <button class="btn-theme" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">밝은 화면</button>
   </div>
   <nav class="wrap nav" aria-label="주요 메뉴">
@@ -23,7 +25,7 @@
   </nav>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
   <h1>회수 작성 도구</h1>
   <p class="lead">내용증명과 지급명령 신청서 <strong>초안</strong>을 사장님 명의로 직접 만들고, 진행 상황을 기록합니다.</p>
   <div class="banner">여기서 만드는 문서는 사장님이 입력한 내용으로 채워지는 <strong>초안 양식</strong>입니다. 사실관계에 맞는지 직접 확인·수정한 뒤 사장님 명의로 제출하세요. 법률상담이나 대리가 아니며, 판단이 필요한 사안은 변호사와 상담하시기 바랍니다.</div>
@@ -182,6 +184,13 @@
     <p class="hint">일정은 입력한 날짜로 계산한 참고 정보입니다. 법원 통지와 다르면 법원 통지가 우선합니다.</p>
   </section>
 </main>
+
+<div class="sticky-cta">
+  <div class="inner">
+    <a href="apply.html" class="btn btn-primary">버튼으로 3분 신청하기 →</a>
+    <span class="note">직접 입력은 휴대폰 번호 하나</span>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">

@@ -104,3 +104,31 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.85rem}
   .panel[hidden]{display:block}
   section{break-inside:avoid}
 }
+
+/* ===== 2026-10-22 전환·접근성 개선 ===== */
+/* 메뉴: 모바일에서 두 줄로 접히지 않도록 한 줄 가로 스크롤 */
+.nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;align-items:center;padding-bottom:10px}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;white-space:nowrap;font-size:.85rem}
+/* 헤더 상시 신청 버튼 */
+.hdr-cta{flex:none;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.9rem;
+  text-decoration:none;border:2px solid var(--accent);border-radius:999px;padding:9px 16px;
+  min-height:44px;display:inline-flex;align-items:center}
+.top-row{gap:10px}
+/* 본문 바로가기 */
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--accent-ink);
+  font-weight:800;padding:12px 18px;border-radius:0 0 12px 0;z-index:30;text-decoration:none}
+.skip:focus{left:0}
+/* 하단 고정 신청 바 */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));
+  background:var(--bg);border-top:2px solid var(--line)}
+.sticky-cta .inner{max-width:900px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between}
+.sticky-cta a{flex:1;text-align:center;min-height:56px;padding:14px 18px;line-height:1.4}
+.sticky-cta .note{flex:none;font-size:.85rem;color:var(--muted);font-weight:700}
+body.with-cta{padding-bottom:100px}
+@media (max-width:680px){.sticky-cta .note{display:none}}
+@media print{
+  .sticky-cta,.skip,.hdr-cta{display:none!important}
+  body.with-cta{padding-bottom:0}
+}
