@@ -1,515 +1,279 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
-<script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
-<!-- ═══════════════════════════════════════════════════════════
-     HeirWise — finitart.com  index.html  v3.0 (홈 전면 개편, 2026-10-12)
-     원본: tools/home-v2-template.html + tools/home-v2-build.py (나이대 카드는 lifemap/index.html 의 MAP)
-       → 직접 고치지 말고 템플릿을 고친 뒤 python3 tools/home-v2-build.py
-     구조: 인생 변곡점(나이대 허브 6) → 우리 집 진단(/check/) → 기한 → 도구 → 바로 묻기
-     원칙: 외부 전문가 직접 연결 노출 없음 · 모든 문의는 운영자 경유 · 이전 홈은 git 이력(2026-10-12 이전 index.html)
-     제작: Syn Dae Sik (申大湜) · 보안등급: 공개용
-     법령 기준일: 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)
-     ═══════════════════════════════════════════════════════════ -->
-<title>HeirWise — 인생 변곡점마다 준비할 돈과 기한 | 상속·증여 재무설계 신대식</title>
-<meta name="description" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다. 나이대를 고르면 그 시기의 변곡점과 지금 준비할 돈을, 세 번만 누르면 우리 집 할 일과 법정 기한을 보여 드립니다.">
+<meta name="robots" content="noindex, nofollow">
+<title>내돈내가 파일럿</title>
+<meta name="description" content="외주비·납품대금·공사대금, 떼인 돈을 내 이름으로 직접 받는 셀프 도구 — 무료 파일럿, 버튼만 눌러 3분 신청">
+<meta name="theme-color" content="#0b0f17">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="ko_KR">
-<meta property="og:site_name" content="HeirWise · finitart.com">
-<meta property="og:url" content="https://finitart.com/">
-<meta property="og:title" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다 — HeirWise">
-<meta property="og:description" content="우리 집은 어느 쪽일까요. 나이대별 인생 변곡점과 1분 준비도 진단. 연락처 없이 결과까지 볼 수 있어요.">
-<meta property="og:image" content="https://finitart.com/og/og-default.png?v=20260928">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="준비한 집은 모두 비슷하고, 준비하지 않은 집은 저마다 다릅니다 — HeirWise">
+<meta property="og:site_name" content="내돈내가">
+<meta property="og:title" content="떼인 돈, 내 이름으로 직접 받는다 — 내돈내가 무료 파일럿">
+<meta property="og:description" content="외주비·납품대금·공사대금. 버튼만 눌러 3분이면 신청, 수수료·성공보수 없음.">
+<meta property="og:url" content="https://finitart.com/naedon/">
+<meta property="og:image" content="https://finitart.com/naedon/assets/img/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="휴대폰 화면에서 버튼으로 미수금 유형을 고르는 내돈내가 신청 화면">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="author" content="Syn Dae Sik (신대식, 申大湜)">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://finitart.com/">
-<link rel="alternate" type="text/markdown" href="https://finitart.com/llms.txt" title="HeirWise 요약 (AI 검색용)">
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="/hw-bands.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://finitart.com/#website",
-      "url": "https://finitart.com/",
-      "name": "HeirWise",
-      "alternateName": ["에어와이즈", "헤어와이즈", "신대식의 상속수업"],
-      "disambiguatingDescription": "대한민국의 상속·증여 재무설계 안내 사이트입니다. 같은 이름의 미국 유산정리 앱·서비스와 무관합니다. 법률 자문과 세무 신고 대리는 수행하지 않습니다.",
-      "description": "상속·증여 재무설계 안내 사이트. 법정 기한 관리, 상속세 개략 추정, 납부 재원 진단.",
-      "inLanguage": "ko-KR",
-      "publisher": { "@id": "https://finitart.com/#person" }
-    },
-    {
-      "@type": "Person",
-      "@id": "https://finitart.com/#person",
-      "name": "신대식",
-      "alternateName": ["Syn Dae Sik", "申大湜"],
-      "jobTitle": "AFPK® 자격인증자 (재무설계사)",
-      "description": "신대식(Syn Dae Sik)은 서울·경기·인천에서 활동하는 AFPK® 자격인증자(재무설계사)로, 상속·증여 재무설계와 사고 보상 설계를 전문으로 한다. 법학 전공, 산업안전기사·소방설비기사(전기·기계) 자격, AI·데이터 분석 교육을 결합한 복합 이력을 갖고 있다.",
-      "url": "https://finitart.com/about.html",
-      "email": "itart@finitart.com",
-      "telephone": "+82-10-2088-5383",
-      "knowsAbout": ["상속", "증여", "상속세", "유류분", "한정승인", "상속포기", "장애인신탁", "상속세 납부 재원", "재무설계", "산업재해 보상", "교통사고 보상"],
-      "knowsLanguage": "ko",
-      "hasCredential": [
-        { "@type": "EducationalOccupationalCredential", "credentialCategory": "professional certification", "name": "AFPK® (ASSOCIATE FINANCIAL PLANNER KOREA™) — (사)한국재무설계협회 IFPK 인증" },
-        { "@type": "EducationalOccupationalCredential", "credentialCategory": "professional certification", "name": "산업안전기사 (2026, 산업안전보건법 시행령 별표4 제2호 안전관리자 선임 자격)" },
-        { "@type": "EducationalOccupationalCredential", "credentialCategory": "professional certification", "name": "소방설비기사(전기·기계), 소방기술자(중급)" },
-        { "@type": "EducationalOccupationalCredential", "credentialCategory": "course completion", "name": "상속법 전문과정 수료 (2026)" }
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "KR",
-        "addressRegion": "경기도",
-        "addressLocality": "안산시 단원구",
-        "streetAddress": "정왕천동로 30번길 2"
-      }
-    },
-    {
-      "@type": "FinancialService",
-      "@id": "https://finitart.com/#service",
-      "name": "HeirWise 상속·증여 재무설계",
-      "logo": "https://finitart.com/img/brand/heirwise-logo-h.png",
-      "image": "https://finitart.com/img/brand/heirwise-logo-h.png",
-      "provider": { "@id": "https://finitart.com/#person" },
-      "areaServed": [ { "@type": "AdministrativeArea", "name": "서울특별시" }, { "@type": "AdministrativeArea", "name": "경기도" }, { "@type": "AdministrativeArea", "name": "인천광역시" } ],
-      "url": "https://finitart.com/",
-      "telephone": "+82-10-2088-5383",
-      "email": "itart@finitart.com",
-      "priceRange": "무료",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "제공 서비스",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "상속 법정 기한 관리 (3개월·6개월)" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "상속세 개략 추정 및 납부 재원(유동성) 진단" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "보험·연금 구조 점검" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "장애인 자녀 재산 이전 구조 설계 안내" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "교통사고·산재·화재 보상 개략 산정" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "상속채무 진단 — 한정승인·상속포기·상속재산파산 비교" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "법인 대표 통합 진단 — 연대보증 승계와 승계 리스크" } }
-        ]
-      }
-    }
-  ]
-}
-</script>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-/* 배치: 진한 남색 첫 화면(등불) → 나이대 색 카드 6장 → 진단 → 기한 → 도구 → 묻기. 같은 나이대 = 같은 색(hw-bands.css) */
 :root{
-  --bg:#FAF8F5; --surface:#FFFFFF; --surface-2:#F3EEE5; --ink:#1B1B1B; --ink-2:#4A453D;
-  --line:#E2D8C8; --line-strong:#8C7F69;
-  --navy:#173863; --on-navy:#FFFFFF; --amber:#F9A825; --amber-ink:#1B1B1B; --amber-soft:#FDF1D6;
-  --link:#173863; --focus:#173863;
-  --hero:#0B1220; --hero-2:#152033; --hero-line:#33445C; --hero-ink:#F5F7FA; --hero-sub:#C9D3E0; --gold:#E9C46A;
-  --radius:16px; --maxw:1160px;
-  --f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+  --bg:#0b0f17; --surface:#151c29; --surface2:#1d2738; --line:#33415a;
+  --text:#f5f7fa; --muted:#c9d1de; --accent:#ffd23f; --accent-ink:#111;
+  --info:#5fd8ff; --ok:#5ef0a0; --danger:#ff7676; --focus:#ffd23f;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#111827; --surface:#1B2332; --surface-2:#243044; --ink:#F3F4F6; --ink-2:#C9D1DC;
-  --line:#334155; --line-strong:#64748B; --navy:#F9A825; --on-navy:#111827; --link:#F9C74F; --focus:#F9C74F; --amber-soft:#3A3115;
-  color-scheme:dark }}
-:root[data-theme="dark"]{
-  --bg:#111827; --surface:#1B2332; --surface-2:#243044; --ink:#F3F4F6; --ink-2:#C9D1DC;
-  --line:#334155; --line-strong:#64748B; --navy:#F9A825; --on-navy:#111827; --link:#F9C74F; --focus:#F9C74F; --amber-soft:#3A3115;
-  color-scheme:dark }
+:root[data-theme="light"]{
+  --bg:#ffffff; --surface:#f3f5f9; --surface2:#e7ebf2; --line:#9aa6b8;
+  --text:#0b0f17; --muted:#2f3a4c; --accent:#ffd23f; --accent-ink:#111;
+  --info:#0057b8; --ok:#006b3c; --danger:#b00020; --focus:#0057b8;
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.7 var(--f);word-break:keep-all;overflow-wrap:break-word}
-a{color:var(--link)}
-:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
-.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:16px}
-@media(min-width:720px){.wrap{padding-inline:24px}}
-.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:8px;z-index:99;background:var(--surface);padding:8px 14px;border-radius:8px}
-h1,h2,h3{text-wrap:balance;letter-spacing:-.01em}
-h2{font-size:clamp(26px,3.4vw,36px);line-height:1.3;margin:0 0 10px}
-.sec{padding-block:64px}
-.sec-lede{font-size:19px;color:var(--ink-2);max-width:62ch;margin:0 0 28px}
-.eyebrow{display:inline-block;margin:0 0 12px;font-size:15px;font-weight:800;letter-spacing:.04em;background:var(--amber);color:var(--amber-ink);border-radius:6px;padding:4px 12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 26px;border-radius:12px;font:inherit;font-weight:800;font-size:19px;text-decoration:none;cursor:pointer;border:2px solid transparent}
-.btn-amber{background:var(--amber);color:var(--amber-ink)}
-.btn-navy{background:var(--navy);color:var(--on-navy)}
-.btn-line{border-color:var(--line-strong);color:var(--ink);background:transparent}
-.btn:hover{filter:brightness(1.05)}
-
-/* 상단 기한 띠 */
-.urgent{display:block;background:#173863;color:#FFFFFF;text-decoration:none;text-align:center;font-weight:700;font-size:17px;padding:12px 16px;line-height:1.5}
-.urgent b{color:#F9C74F}
-
-/* 머리 */
-header.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:40}
-header.top .wrap{display:flex;align-items:center;gap:16px;min-height:68px;flex-wrap:wrap}
-.logo{display:inline-flex;align-items:center;text-decoration:none;color:var(--ink);margin-right:auto}
-.logo-mark{display:inline-flex;align-items:flex-start}
-.logo-img{height:30px;width:auto;display:block}
-.logo-img.is-dark{display:none}
-:root[data-theme="dark"] .logo-img.is-light{display:none}:root[data-theme="dark"] .logo-img.is-dark{display:block}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .logo-img.is-light{display:none}:root:not([data-theme="light"]) .logo-img.is-dark{display:block}}
-.logo .tm{font-size:11px;font-weight:600;margin:2px 0 0 2px;color:var(--ink)}
-nav.main{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:17px;font-weight:700}
-nav.main a{color:var(--ink);text-decoration:none;padding:10px 2px;min-height:44px;display:inline-flex;align-items:center}
-nav.main a:hover{text-decoration:underline;text-underline-offset:5px}
-.iconbtn{min-width:44px;min-height:44px;border-radius:999px;border:2px solid var(--line-strong);background:transparent;color:var(--ink);font-size:18px;cursor:pointer}
-@media(max-width:760px){nav.main{order:3;width:100%;justify-content:space-between;gap:0 8px;font-size:16px;border-top:1px solid var(--line)}header.top{position:static}}
-
-/* 첫 화면 */
-.hero{position:relative;overflow:hidden;background:var(--hero);color:var(--hero-ink);padding:64px 0 56px}
-.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.hero .glow{position:absolute;top:-280px;left:50%;width:min(980px,150vw);height:660px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(233,196,106,.22),rgba(233,196,106,.05) 55%,rgba(11,18,32,0) 100%);pointer-events:none}
-.hero .wrap{position:relative;display:grid;gap:22px}
-.hero .eyebrow{justify-self:start;background:var(--gold);color:#0B1220}
-.hero h1{margin:0;font-size:clamp(30px,5.2vw,54px);line-height:1.3;max-width:20ch}
-.hero .q{margin:0;font-size:clamp(21px,2.6vw,28px);font-weight:800;color:var(--gold)}
-.hero .s{margin:0;font-size:19px;color:var(--hero-sub);max-width:58ch}
-.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-.chips .chip{display:inline-flex;align-items:center;min-height:52px;padding:0 22px;border-radius:999px;font-weight:800;font-size:19px;text-decoration:none;background:var(--band);color:var(--band-ink)}
-/* 첫 화면은 항상 어두우므로 나이대 칩은 다크 계열 색을 고정해서 쓴다 */
-.hero .chip[data-band="20"]{background:#D9F99D;color:#13161C}.hero .chip[data-band="30"]{background:#7DD3FC;color:#13161C}
-.hero .chip[data-band="40"]{background:#E9C46A;color:#13161C}.hero .chip[data-band="50"]{background:#5EEAD4;color:#13161C}
-.hero .chip[data-band="60"]{background:#F9A8D4;color:#13161C}.hero .chip[data-band="70"]{background:#FDBA74;color:#13161C}
-.hero .chip:hover{transform:translateY(-2px)}
-.hero .chip:focus-visible,.hero .btn:focus-visible{outline-color:var(--gold)}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
-.hero-cta .btn-line{border-color:#8FA3BF;color:var(--hero-ink)}
-.hero-cta small{font-size:16px;color:var(--hero-sub)}
-.hero{--k:2}
-.hero.is-anim .glow{animation:hwGlow calc(.9s*var(--k)) ease-out both}
-.hero.is-anim .wrap>*{animation:hwUp calc(.5s*var(--k)) ease-out both}
-.hero.is-anim .wrap>*:nth-child(1){animation-delay:calc(.2s*var(--k))}
-.hero.is-anim .wrap>*:nth-child(2){animation-delay:calc(.4s*var(--k))}
-.hero.is-anim .wrap>*:nth-child(3){animation-delay:calc(.7s*var(--k))}
-.hero.is-anim .wrap>*:nth-child(4){animation-delay:calc(.9s*var(--k))}
-.hero.is-anim .wrap>*:nth-child(5){animation-delay:calc(1.1s*var(--k))}
-.hero.is-anim .wrap>*:nth-child(6){animation-delay:calc(1.3s*var(--k))}
-@keyframes hwGlow{from{opacity:0;transform:translateX(-50%) scale(.85)}to{opacity:1;transform:translateX(-50%) scale(1)}}
-@keyframes hwUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.hero .glow,.hero .wrap>*{animation:none!important}.hero canvas{display:none}}
-
-/* 나이대 카드 */
-.ages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:20px}
-.age{display:flex;flex-direction:column;background:var(--band-soft);border:2px solid var(--band);border-radius:var(--radius);overflow:hidden}
-.age-pic{display:block;aspect-ratio:1200/825;background:var(--surface-2)}
-.age-pic img{display:block;width:100%;height:100%;object-fit:cover}
-.age-body{display:flex;flex-direction:column;gap:10px;padding:20px 22px 22px;flex:1}
-.age-k{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0;font-size:15px;font-weight:700;color:var(--ink-2)}
-.age-k .hw-band-chip{font-size:16px;padding:6px 12px}
-.age h3{margin:0;font-size:24px;line-height:1.35}
-.age h3 a{color:var(--ink);text-decoration:none}
-.age h3 a:hover{text-decoration:underline;text-underline-offset:5px}
-.age-ev{margin:0;padding:0 0 0 20px;font-size:17px;flex:1}
-.age-ev a{color:var(--ink)}
-.age-go{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;min-height:48px;padding:0 18px;border-radius:10px;background:var(--band);color:var(--band-ink);font-weight:800;text-decoration:none}
-
-/* 진단 */
-.check{background:var(--surface);border-block:1px solid var(--line)}
-.steps{list-style:none;margin:0 0 28px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;counter-reset:st}
-.steps li{counter-increment:st;background:var(--surface-2);border-radius:12px;padding:16px 18px 16px 62px;position:relative;font-size:17px}
-.steps li::before{content:counter(st);position:absolute;left:16px;top:14px;width:34px;height:34px;border-radius:50%;background:var(--navy);color:var(--on-navy);font-weight:800;display:flex;align-items:center;justify-content:center}
-.steps b{display:block;font-size:18px}
-.entries{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px}
-.entry{display:flex;flex-direction:column;gap:10px;padding:24px;border-radius:var(--radius);border:2px solid var(--line-strong);background:var(--bg);text-decoration:none;color:var(--ink)}
-.entry:hover{border-color:var(--navy)}
-.entry .tag{align-self:flex-start;font-size:15px;font-weight:800;border-radius:999px;padding:4px 12px;background:var(--amber-soft);color:var(--ink)}
-.entry b{font-size:23px;line-height:1.35}
-.entry span.d{font-size:17px;color:var(--ink-2);flex:1}
-.entry span.go{font-weight:800;color:var(--link)}
-.entry.soon{border-style:dashed}
-.check-note{margin:20px 0 0;font-size:16px;color:var(--ink-2)}
-
-/* 기한 */
-.deadline-box{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin:0 0 22px}
-.dl{border-left:8px solid var(--navy);background:var(--surface);border-radius:12px;padding:18px 20px}
-.dl .n{display:block;font-size:34px;font-weight:800;line-height:1.2;color:var(--ink)}
-.dl .w{display:block;font-size:18px;font-weight:700;margin:4px 0}
-.dl .l{display:block;font-size:15px;color:var(--ink-2)}
-
-/* 도구 */
-.tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
-.tool{display:flex;flex-direction:column;gap:4px;height:100%;padding:18px 20px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);text-decoration:none;color:var(--ink)}
-.tool:hover{border-color:var(--line-strong)}
-.tool b{font-size:19px}.tool span{font-size:16px;color:var(--ink-2)}
-
-/* 묻기 */
-.ask{background:var(--surface-2)}
-.ask-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:24px;align-items:start}
-.ask-card{background:var(--surface);border:2px solid var(--navy);border-radius:var(--radius);padding:26px;display:grid;gap:14px}
-.ask-card h3{margin:0;font-size:24px}
-.ask-card p{margin:0;color:var(--ink-2)}
-.ask-row{display:flex;flex-wrap:wrap;gap:10px}
-.who{display:grid;gap:10px}
-.who h3{margin:0;font-size:22px}
-.who p{margin:0;color:var(--ink-2);font-size:17px}
-.creds{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 0;padding:0;list-style:none}
-.creds li{font-size:15px;font-weight:700;border:1.5px solid var(--line-strong);border-radius:999px;padding:5px 12px;background:var(--surface)}
-
-/* 바닥 */
-footer.foot{border-top:1px solid var(--line);background:var(--surface);font-size:16px;color:var(--ink-2)}
-footer.foot .wrap{padding-block:40px 64px;display:grid;gap:24px}
-.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:24px}
-.fgrid h4{margin:0 0 8px;font-size:17px;color:var(--ink)}
-.fgrid ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
-.fgrid a{color:var(--ink)}
-.fgrid p{margin:0}
-.law{font-size:15px;border-top:1px solid var(--line);padding-top:18px}
-.law p{margin:0 0 8px}
+html{font-size:19px}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.7;word-break:keep-all}
+a{color:var(--info)}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:2px solid var(--line);background:var(--surface)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
+.brand{font-weight:800;font-size:1.25rem}
+.brand small{display:block;font-weight:600;font-size:.8rem;color:var(--muted)}
+.btn-theme{background:transparent;color:var(--text);border:2px solid var(--line);border-radius:10px;padding:8px 14px;font:inherit;font-size:.85rem;cursor:pointer}
+.badge{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:800;padding:4px 14px;border-radius:999px;font-size:.9rem}
+h1{font-size:2.1rem;line-height:1.3;margin:18px 0 12px}
+h2{font-size:1.55rem;margin:0 0 14px;padding-left:14px;border-left:8px solid var(--accent)}
+h3{font-size:1.15rem;margin:0 0 6px}
+section{padding:36px 0;border-bottom:1px solid var(--line)}
+.lead{font-size:1.15rem;color:var(--muted)}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.yes h3{color:var(--ok)} .no h3{color:var(--danger)}
+ul.mark{margin:0;padding-left:1.2em} ul.mark li{margin:4px 0}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+ol.steps li{counter-increment:s;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 16px 16px 72px;position:relative}
+ol.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;width:42px;height:42px;border-radius:50%;
+  background:var(--accent);color:var(--accent-ink);font-weight:900;font-size:1.3rem;display:grid;place-items:center}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{border:2px solid var(--line);padding:10px;text-align:left;vertical-align:top}
+th{background:var(--surface2)}
+.warn{border-color:var(--danger)} .warn strong{color:var(--danger)}
+form{display:grid;gap:16px}
+label{font-weight:700;display:block;margin-bottom:6px}
+.req{color:var(--danger)}
+.hint{font-weight:500;font-size:.85rem;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
+  width:100%;font:inherit;font-size:1rem;color:var(--text);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:12px}
+textarea{min-height:110px}
+fieldset{border:2px solid var(--line);border-radius:12px;padding:12px 16px}
+legend{font-weight:700;padding:0 6px}
+.checks label{font-weight:500;display:flex;gap:10px;align-items:center;margin:6px 0}
+input[type=checkbox]{width:24px;height:24px;flex:none}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font:inherit;font-weight:800;font-size:1.05rem;border-radius:12px;padding:14px 22px;cursor:pointer;border:3px solid var(--accent)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:transparent;color:var(--text)}
+#limitation{display:none;margin-top:8px;padding:12px;border-radius:10px;border:2px solid var(--line);background:var(--surface2)}
+#limitation.urgent{border-color:var(--danger)}
+#preview{white-space:pre-wrap;background:var(--bg);border:2px dashed var(--line);border-radius:12px;padding:14px;font-size:.9rem;display:none}
+#msg{font-weight:700} #msg.err{color:var(--danger)} #msg.ok{color:var(--ok)}
+.mailbox{font-size:1.3rem;font-weight:900;color:var(--accent);word-break:break-all}
+details{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+summary{font-weight:800;cursor:pointer}
+footer{padding:28px 0 48px;color:var(--muted);font-size:.85rem}
+header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;padding-top:0;padding-bottom:14px}
+.topnav a{color:var(--text);text-decoration:none;border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.9rem}
+.topnav a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+@media (max-width:680px){html{font-size:18px}h1{font-size:1.7rem}.grid2{grid-template-columns:1fr}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface2:#eee;--line:#555;--text:#000;--muted:#222;--danger:#900;--ok:#060;--info:#003}
+  .btn-theme,.actions,#preview{display:none!important}
+  section{break-inside:avoid}
+}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
+.hero img{width:100%;height:auto;display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;padding:0;list-style:none}
+.chips li{border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-weight:800;font-size:.9rem;background:var(--surface)}
+.who{font-weight:800;color:var(--info);margin:0}
+.route{border:3px solid var(--info);border-radius:14px;padding:16px 18px;background:var(--surface);margin-top:16px}
+.route strong{color:var(--info)}
+dl.glo{display:grid;gap:10px;margin:0}
+dl.glo div{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:12px 16px}
+dl.glo dt{font-weight:900;color:var(--accent)} dl.glo dd{margin:2px 0 0}
+:root[data-theme="light"] dl.glo dt{color:#0b0f17;text-decoration:underline 4px #ffd23f;text-underline-offset:4px}
+.owner{display:flex;gap:16px;align-items:center}
+.owner .av{flex:none;width:64px;height:64px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:900;font-size:1.3rem}
+.sticky-cta{display:none}
+@media (max-width:680px){
+  .hero{grid-template-columns:1fr}.hero figure{order:-1;margin:0 -4px}
+  .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:2px solid var(--line)}
+  .sticky-cta a{display:block;text-align:center;text-decoration:none;min-height:56px;line-height:1.4}
+  body{padding-bottom:92px}
+}
+@media print{.sticky-cta,.hero figure{display:none!important}}
 </style>
 </head>
-<body data-crumb="off" data-law="off">
-<a class="skip" href="#main">본문으로 건너뛰기</a>
-
-<a class="urgent" href="/check/?entry=A&amp;src=home-band" data-ev="home_band">상속이 이미 시작됐나요? <b>세금이 없어도 3개월·6개월 기한</b>은 있습니다 — 기한부터 확인하기 →</a>
+<body>
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="/" aria-label="SynItArt · HeirWise 홈"><span style="font-size:14px;font-weight:600;color:var(--ink-2);margin-right:8px;white-space:nowrap">SynItArt ·</span><span class="logo-mark"><img class="logo-img is-light" src="/img/brand/heirwise-logo-h.svg" alt="HeirWise" height="32"><img class="logo-img is-dark" src="/img/brand/heirwise-logo-h-dark.svg" alt="" aria-hidden="true" height="32"><sup class="tm">™</sup></span></a>
-    <nav class="main" aria-label="주 메뉴">
-      <a href="#ages">인생 변곡점</a>
-      <a href="/check/?src=home-nav">우리 집 진단</a>
-      <a href="#tools">계산기</a>
-      <a href="/chat.html?src=home-nav">바로 묻기</a>
-    </nav>
-    <button class="iconbtn" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">◐</button>
+    <div class="brand">내돈내가 <small>FinitArt · 미수금 셀프 회수 도구</small></div>
+    <button class="btn-theme" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">밝은 화면</button>
   </div>
+  <nav class="wrap topnav" aria-label="주요 메뉴">
+    <a href="index.html" aria-current="page">파일럿 안내</a>
+    <a href="apply.html">파일럿 신청</a>
+    <a href="monitor.html">거래처 관리</a>
+    <a href="recover.html">회수 작성 도구</a>
+    <a href="reserve.html">요금·사전예약</a>
+  </nav>
 </header>
 
-<main id="main">
+<main class="wrap">
 
-<section class="hero" id="top" aria-labelledby="heroH">
-  <canvas id="heroCanvas" aria-hidden="true"></canvas>
-  <div class="glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <p class="eyebrow">인생 변곡점 지도</p>
-    <h1 id="heroH">준비한 집은 모두 비슷하고,<br>준비하지 않은 집은 저마다 다릅니다.</h1>
-    <p class="q">우리 집은 어느 쪽일까요.</p>
-    <p class="s">나이대를 고르면 그 시기에 돈이 크게 움직이는 변곡점과 지금 준비할 것을 보여 드립니다. 세 번만 누르면 우리 집 할 일과 법정 기한도 나옵니다.</p>
-    <div class="chips" role="group" aria-label="나이대 고르기"><a class="chip" data-band="20" data-age="20" href="/lifemap/20/?src=home-hero">20대</a><a class="chip" data-band="30" data-age="30" href="/lifemap/30/?src=home-hero">30대</a><a class="chip" data-band="40" data-age="40" href="/lifemap/40/?src=home-hero">40대</a><a class="chip" data-band="50" data-age="50" href="/lifemap/50/?src=home-hero">50대</a><a class="chip" data-band="60" data-age="60" href="/lifemap/60/?src=home-hero">60대</a><a class="chip" data-band="70" data-age="70" href="/lifemap/70/?src=home-hero">70·80대</a></div>
-    <div class="hero-cta">
-      <a class="btn btn-amber" href="/check/?src=home-hero" data-ev="hero_check">우리 집 준비도 진단 (1분)</a>
-      <small>연락처 없이 결과까지 볼 수 있어요</small>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="ages" aria-labelledby="agesH">
-  <div class="wrap">
-    <h2 id="agesH">나이마다 찾아오는 변곡점</h2>
-    <p class="sec-lede">스무 살부터 여든 살까지, 돈이 크게 움직이는 순간은 대체로 정해져 있습니다. 나이대마다 세 가지 변곡점과 그때 미리 확보해 둘 재정을 정리했습니다.</p>
-    <ul class="ages">
-<li class="age" data-band="20">
-  <a class="age-pic" href="/lifemap/20/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/02_gift_parent/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
-  <div class="age-body">
-    <p class="age-k"><span class="hw-band-chip">20대</span><span>생전 축 · 축적</span></p>
-    <h3><a href="/lifemap/20/?src=home" data-age="20">처음 큰돈을 받거나 독립할 때</a></h3>
-    <ul class="age-ev" aria-label="20대 변곡점 3가지"><li><a href="/lifemap/20/#first_job">취업·독립</a></li><li><a href="/lifemap/20/#gift_parent">부모님께 받는 돈</a></li><li><a href="/lifemap/20/#marriage_prep">결혼 준비</a></li></ul>
-    <a class="age-go" href="/lifemap/20/?src=home" data-age="20">20대 지도 보기 <span aria-hidden="true">→</span></a>
-  </div>
-</li>
-<li class="age" data-band="30">
-  <a class="age-pic" href="/lifemap/30/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/04_first_home/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
-  <div class="age-body">
-    <p class="age-k"><span class="hw-band-chip">30대</span><span>생전 축 · 축적 → 보전</span></p>
-    <h3><a href="/lifemap/30/?src=home" data-age="30">집을 마련하고 가정을 꾸릴 때</a></h3>
-    <ul class="age-ev" aria-label="30대 변곡점 3가지"><li><a href="/lifemap/30/#first_home">첫 집</a></li><li><a href="/lifemap/30/#birth">출산</a></li><li><a href="/lifemap/30/#startup">창업</a></li></ul>
-    <a class="age-go" href="/lifemap/30/?src=home" data-age="30">30대 지도 보기 <span aria-hidden="true">→</span></a>
-  </div>
-</li>
-<li class="age" data-band="40">
-  <a class="age-pic" href="/lifemap/40/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/07_parent_care/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
-  <div class="age-body">
-    <p class="age-k"><span class="hw-band-chip">40대</span><span>생전 축 · 보전</span></p>
-    <h3><a href="/lifemap/40/?src=home" data-age="40">부모님의 일이 내 일이 될 때</a></h3>
-    <ul class="age-ev" aria-label="40대 변곡점 3가지"><li><a href="/lifemap/40/#parent_care">부모 부양 시작</a></li><li><a href="/lifemap/40/#biz_risk">사업 확장</a></li><li><a href="/lifemap/40/#debt">빚이 더 많은 상속을 받게 된다면</a></li></ul>
-    <a class="age-go" href="/lifemap/40/?src=home" data-age="40">40대 지도 보기 <span aria-hidden="true">→</span></a>
-  </div>
-</li>
-<li class="age" data-band="50">
-  <a class="age-pic" href="/lifemap/50/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/11_inherit_now/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
-  <div class="age-body">
-    <p class="age-k"><span class="hw-band-chip">50대</span><span>생전 축 · 보전 → 이전</span></p>
-    <h3><a href="/lifemap/50/?src=home" data-age="50">은퇴와 부모 상속이 겹칠 때</a></h3>
-    <ul class="age-ev" aria-label="50대 변곡점 3가지"><li><a href="/lifemap/50/#retire_prep">은퇴 준비</a></li><li><a href="/lifemap/50/#inherit_now">부모 상속 발생</a></li><li><a href="/lifemap/50/#succession">가업 승계</a></li></ul>
-    <a class="age-go" href="/lifemap/50/?src=home" data-age="50">50대 지도 보기 <span aria-hidden="true">→</span></a>
-  </div>
-</li>
-<li class="age" data-band="60">
-  <a class="age-pic" href="/lifemap/60/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/14_my_estate/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
-  <div class="age-body">
-    <p class="age-k"><span class="hw-band-chip">60대</span><span>생전 축 · 이전 → 상속 설계</span></p>
-    <h3><a href="/lifemap/60/?src=home" data-age="60">내 상속을 직접 설계할 때</a></h3>
-    <ul class="age-ev" aria-label="60대 변곡점 3가지"><li><a href="/lifemap/60/#retired">은퇴</a></li><li><a href="/lifemap/60/#my_estate">내 상속 설계</a></li><li><a href="/lifemap/60/#disability_family">장애 가족에게 남길 때</a></li></ul>
-    <a class="age-go" href="/lifemap/60/?src=home" data-age="60">60대 지도 보기 <span aria-hidden="true">→</span></a>
-  </div>
-</li>
-<li class="age" data-band="70">
-  <a class="age-pic" href="/lifemap/70/?src=home" tabindex="-1" aria-hidden="true"><img src="/img/toon/18_after/cut1.webp" alt="" loading="lazy" decoding="async" width="1200" height="825"></a>
-  <div class="age-body">
-    <p class="age-k"><span class="hw-band-chip">70·80대</span><span>생전 축 → 사후 축</span></p>
-    <h3><a href="/lifemap/70/?src=home" data-age="70">결정할 사람을 미리 정해 둘 때</a></h3>
-    <ul class="age-ev" aria-label="70·80대 변곡점 3가지"><li><a href="/lifemap/70/#illness">질병·사고</a></li><li><a href="/lifemap/70/#handover">물려주기</a></li><li><a href="/lifemap/70/#after">사후</a></li></ul>
-    <a class="age-go" href="/lifemap/70/?src=home" data-age="70">70·80대 지도 보기 <span aria-hidden="true">→</span></a>
-  </div>
-</li>
+<section class="hero">
+  <div>
+    <span class="badge">파일럿 참여자 모집 · 무료</span>
+    <h1>떼인 거래대금·외주비,<br>내 이름으로 직접 받는 방법을 같이 만들고 있습니다</h1>
+    <p class="who">사장님 · 프리랜서 · 1인 사업자 · N잡러 누구나</p>
+    <ul class="chips" aria-label="핵심 조건">
+      <li>버튼만 눌러 3분</li><li>직접 입력은 휴대폰 번호 1개</li><li>수수료·성공보수 0원</li><li>소액도 신청 가능</li>
     </ul>
+    <p class="lead">못 받은 돈 상황을 <strong>버튼만 눌러</strong> 알려주시면, 저희가 만드는 <strong>셀프 회수 도구</strong>로 해결할 수 있는 사건인지 검토해 문자로 회신드립니다.
+    맞는 경우 파일럿 참여자로 도구를 먼저 써보시고, 쓰면서 불편했던 점을 알려주시면 됩니다.</p>
+    <p><a href="apply.html" class="btn btn-primary" style="display:inline-block;text-decoration:none">버튼으로 3분 신청하기 →</a></p>
   </div>
+  <figure>
+    <picture>
+      <source srcset="assets/img/hero.webp" type="image/webp">
+      <img src="assets/img/hero.png" width="720" height="520" alt="신청 화면 예시: 가진 자료를 버튼으로 고르고, 사진을 찍어 올리면 접수 완료와 회신 일정이 표시됨">
+    </picture>
+  </figure>
 </section>
 
-<section class="sec check" id="check" aria-labelledby="checkH">
-  <div class="wrap">
-    <p class="eyebrow">우리 집 준비도 진단</p>
-    <h2 id="checkH">세 번 누르면, 우리 집 할 일과 기한</h2>
-    <p class="sec-lede">상황을 고르고 질문 두 개에 답하면 지금 할 일을 「혼자 할 일 · 정리가 필요한 일 · 판단이 필요한 일」로 나눠 보여 드립니다. 정리해서 받고 싶을 때만 이메일을 남기시면 됩니다.</p>
-    <ol class="steps">
-      <li><b>상황 고르기</b>지금 우리 집에 일어난 일을 하나 고릅니다</li>
-      <li><b>두 가지 질문</b>시기와 걱정되는 점을 누릅니다</li>
-      <li><b>결과 보기</b>기한과 할 일이 바로 나옵니다</li>
-      <li><b>정리해서 받기 (선택)</b>원하실 때만 이메일로 받습니다</li>
-    </ol>
-    <div class="entries">
-      <a class="entry" href="/check/?entry=A&amp;src=home" data-ev="entry_a"><span class="tag">입구 A</span><b>상속이 이미 시작됐어요</b><span class="d">부모님이나 가족이 돌아가셨다면, 세금이 없어도 지켜야 할 기한이 있습니다.</span><span class="go">진단 시작 →</span></a>
-      <a class="entry" href="/check/?entry=B&amp;src=home" data-ev="entry_b"><span class="tag">입구 B</span><b>부모님께 돈을 받았어요</b><span class="d">결혼·출산·전세 자금처럼 받은 돈이 있다면, 신고 기한과 공제부터 확인하세요.</span><span class="go">진단 시작 →</span></a>
-      <a class="entry" href="/check/?entry=C&amp;src=home" data-ev="entry_c"><span class="tag">입구 C</span><b>부모님 노후·간병이 걱정돼요</b><span class="d">간병비·재산 관리·형제 간 부담까지, 지금 기록해 둘 것부터 정리합니다.</span><span class="go">진단 시작 →</span></a>
-      <a class="entry" href="/check/?entry=D&amp;src=home" data-ev="entry_d"><span class="tag">입구 D</span><b>은퇴 전후, 미리 나눌지 고민돼요</b><span class="d">노후자금이 충분한지, 자녀에게 언제 줄지 「10년 시계」로 봅니다.</span><span class="go">진단 시작 →</span></a>
-      <a class="entry" href="/check/?entry=E&amp;src=home" data-ev="entry_e"><span class="tag">입구 E</span><b>유언·사업 승계를 정해 두고 싶어요</b><span class="d">유효한 유언의 조건과 유류분, 가업 승계 요건을 먼저 확인합니다.</span><span class="go">진단 시작 →</span></a>
-    </div>
-    <p class="check-note">해당하는 상황이 없으면 <a href="/chat.html?src=home-check-other">바로 물어보세요</a>. 진단 결과는 일반적인 안내입니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다.</p>
+<section aria-labelledby="tools">
+  <h2 id="tools">지금 바로 써볼 수 있는 도구</h2>
+  <div class="grid2">
+    <div class="card"><h3>거래처 관리</h3>받을 돈이 있는 거래처를 등록하면 주의가 필요한 순서대로 보여드립니다.<br><a href="monitor.html">거래처 관리 열기 →</a></div>
+    <div class="card"><h3>회수 작성 도구</h3>내용증명·지급명령 초안을 사장님 명의로 만들고 진행을 기록합니다.<br><a href="recover.html">회수 작성 도구 열기 →</a></div>
   </div>
+  <p class="hint">파일럿 기간 무료 · 입력 내용은 이 기기 브라우저에만 저장됩니다. <a href="reserve.html">정식 요금제 사전예약 →</a></p>
 </section>
 
-<section class="sec" id="deadline" aria-labelledby="dlH">
-  <div class="wrap">
-    <h2 id="dlH">상속이 시작됐다면, 기한부터</h2>
-    <p class="sec-lede">상속세를 낼 만큼 재산이 많지 않아도 아래 기한은 모든 집에 똑같이 흐릅니다.</p>
-    <div class="deadline-box">
-      <div class="dl"><span class="n">3개월</span><span class="w">상속받을지, 포기할지 정하는 기한</span><span class="l">상속이 시작된 것을 안 날부터 · 민법 제1019조 제1항</span></div>
-      <div class="dl"><span class="n">6개월</span><span class="w">상속세 신고 기한</span><span class="l">상속이 시작된 날이 속하는 달의 말일부터 · 상속세 및 증여세법 제67조</span></div>
-      <div class="dl"><span class="n">3개월</span><span class="w">증여세 신고 기한</span><span class="l">증여받은 날이 속하는 달의 말일부터 · 상속세 및 증여세법 제68조</span></div>
-    </div>
-    <div class="ask-row">
-      <a class="btn btn-navy" href="/check/?entry=A&amp;src=home-deadline">우리 집 기한 계산하기</a>
-      <a class="btn btn-line" href="/inheritdebt.html?src=home-deadline">빚이 더 많다면 — 상속채무 진단기</a>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="tools" aria-labelledby="toolsH" style="padding-top:0">
-  <div class="wrap">
-    <h2 id="toolsH">숫자로 확인하고 싶을 때</h2>
-    <p class="sec-lede">계산기는 연락처 없이 쓸 수 있습니다. 결과는 개략 추정이며 실제 세액과 다를 수 있습니다.</p>
-    <ul class="tools"><li><a class="tool" href="/calculator.html?src=home"><b>상속세 종합 계산기</b><span>재산·가족 구성을 넣으면 상속세를 개략으로 추정합니다</span></a></li><li><a class="tool" href="/inheritdebt.html?src=home"><b>상속채무 진단기</b><span>빚이 더 많을 때 한정승인·포기 기한과 선택지를 비교합니다</span></a></li><li><a class="tool" href="/gift/?src=home"><b>부모님께 받는 돈</b><span>결혼·출산·전세 자금, 받기 전에 세금부터 확인합니다</span></a></li><li><a class="tool" href="/retirement/?src=home"><b>노후자금 진단</b><span>연금 3층과 생활비로 은퇴 후 현금흐름을 봅니다</span></a></li><li><a class="tool" href="/ceo/?src=home"><b>대표로 산다는 것</b><span>법인 대표가 부딪히는 28가지 문제와 계산 도구</span></a></li><li><a class="tool" href="/field/?src=home"><b>현장을 지킨다는 것</b><span>사업장 안전관리 의무와 사고 뒤 24시간</span></a></li><li><a class="tool" href="/insurance-two-faces.html?src=home"><b>보험의 두 얼굴</b><span>보험금이 상속재산이 되는 경우와 아닌 경우</span></a></li><li><a class="tool" href="/disability-trust.html?src=home"><b>장애인 신탁 계산</b><span>장애 가족에게 남길 때 비과세 요건을 확인합니다</span></a></li><li><a class="tool" href="/car-accident.html?src=home"><b>교통사고 보상 계산</b><span>사고 보상금과 상속을 함께 봅니다</span></a></li></ul>
-  </div>
-</section>
-
-<section class="sec ask" id="ask" aria-labelledby="askH">
-  <div class="wrap ask-grid">
-    <div class="ask-card">
-      <h3 id="askH">혼자 정리가 안 될 때</h3>
-      <p>상황을 적어 주시면 제가 먼저 읽고 정리합니다. 법률 판단이나 세액 확정이 필요한 부분은 무엇을 누구에게 물어야 하는지까지 정리해 드립니다.</p>
-      <div class="ask-row">
-        <a class="btn btn-amber" href="/chat.html?src=home-ask" data-ev="ask_chat">바로 묻기</a>
-        <a class="btn btn-line" href="/booking.html?src=home">상담 예약</a>
-        <a class="btn btn-line" href="tel:01020885383">010-2088-5383</a>
-      </div>
-      <p style="font-size:16px">안내서 「상속설계의 기술」을 먼저 읽어 보셔도 좋습니다. <a href="/book.html?src=home">안내서 받기 →</a></p>
-    </div>
-    <div class="who">
-      <h3>답하는 사람</h3>
-      <p><strong>신대식</strong> (申大湜, Syn Dae Sik). 법률·금융·안전을 함께 보는 재무설계사로, 상속이 시작된 집과 미리 준비하려는 집의 일을 정리합니다.</p>
-      <ul class="creds" aria-label="보유 자격">
-        <li>AFPK® 자격인증자</li><li>상속법 전문과정 수료(2026)</li><li>산업안전기사</li><li>소방설비기사(기계·전기)</li><li>부동산 경공매 권리분석사</li><li>어선중개업</li>
+<section aria-labelledby="what">
+  <h2 id="what">이 서비스가 하는 일과 하지 않는 일</h2>
+  <div class="grid2">
+    <div class="card yes">
+      <h3>✔ 하는 일</h3>
+      <ul class="mark">
+        <li>셀프 회수 도구로 다룰 수 있는 사건인지 <strong>적합성 검토</strong></li>
+        <li>내용증명·지급명령 등 서류를 <strong>사장님이 직접 작성</strong>하는 도구 제공</li>
+        <li>절차별 체크리스트와 일정 안내</li>
+        <li>도구로 어려운 사건은 변호사 상담을 권해드림 (소개비 없음)</li>
       </ul>
-      <p><a href="/about.html">소개 자세히 보기 →</a> · <a href="/stories.html?src=home">우리 집 사연 →</a></p>
+    </div>
+    <div class="card no">
+      <h3>✖ 하지 않는 일</h3>
+      <ul class="mark">
+        <li>사장님을 대신한 추심·소송·서류 작성</li>
+        <li>채무자에게 전화·문자·방문 등 직접 연락</li>
+        <li>개별 사건에 대한 법률상담·법률판단</li>
+        <li>회수된 돈의 수령 — <strong>돈은 사장님 계좌로 직접</strong> 들어갑니다</li>
+      </ul>
     </div>
   </div>
+</section>
+
+<section aria-labelledby="words">
+  <h2 id="words">처음 듣는 말, 한 줄 풀이</h2>
+  <dl class="glo">
+    <div><dt>내용증명</dt><dd>“언제, 누구에게, 어떤 내용을 보냈는지”를 우체국이 증명해 주는 우편입니다. 독촉한 기록이 공식적으로 남습니다.</dd></div>
+    <div><dt>지급명령</dt><dd>재판정에 나가지 않고 서류만으로 법원이 상대방에게 “돈을 내라”고 명령하는 절차입니다. 상대방이 받고 2주 안에 이의하지 않으면 판결과 같은 힘이 생깁니다.</dd></div>
+    <div><dt>인지대·송달료</dt><dd>법원에 내는 수수료와 우편 비용입니다. 지급명령의 인지대는 같은 금액 소송의 10분의 1입니다.</dd></div>
+    <div><dt>소멸시효</dt><dd>받을 권리를 오랫동안 행사하지 않으면 받을 수 없게 되는 기간입니다. 그래서 오래된 돈일수록 빨리 확인하는 게 중요합니다.</dd></div>
+  </dl>
+  <div class="route">
+    <strong>월급·알바비·퇴직금을 못 받으셨나요?</strong><br>
+    임금은 이 도구보다 <strong>고용노동부 임금체불 진정</strong>이 더 빠르고 비용이 들지 않습니다. 고용노동부 고객상담센터 <strong>국번 없이 1350</strong>에서 안내받으실 수 있습니다.
+  </div>
+</section>
+
+<section aria-labelledby="how">
+  <h2 id="how">진행 순서</h2>
+  <ol class="steps">
+    <li><h3>버튼으로 신청 · 자료 사진 올리기</h3>질문에 버튼으로 답하고, 증빙을 휴대폰으로 찍어 바로 올립니다. 직접 입력은 휴대폰 번호 하나입니다.</li>
+    <li><h3>적합성 검토 (영업일 3~5일)</h3>셀프 도구로 진행할 수 있는 유형인지 확인합니다.</li>
+    <li><h3>회신</h3>① 파일럿 참여 가능 ② 변호사 상담 권장 ③ 이번 파일럿 대상 아님 — 셋 중 하나로 이유와 함께 알려드립니다.</li>
+    <li><h3>파일럿 참여 · 피드백</h3>도구와 체크리스트를 받아 직접 진행하시고, 2주 뒤 15분 정도 사용 후기를 여쭙니다.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="apply" id="apply">
+  <h2 id="apply">참여 신청 — 버튼만 눌러서 3분</h2>
+  <div class="card">
+    <p style="margin-top:0">질문이 한 화면에 하나씩 나옵니다. <strong>버튼과 체크만</strong> 누르시면 되고, 직접 입력하는 칸은 <strong>휴대폰 번호 하나</strong>뿐입니다.
+    세금계산서·거래명세서·대화 캡처는 신청 중에 <strong>휴대폰으로 바로 찍어 올리실 수</strong> 있습니다.</p>
+    <p style="margin-bottom:0"><a href="apply.html" class="btn btn-primary" style="display:inline-block;text-decoration:none;font-size:1.15rem;padding:16px 28px">신청 시작하기 →</a></p>
+  </div>
+  <p class="hint">시효가 걱정되시면 먼저 신청하세요. 물품·납품대금과 공사대금은 보통 3년, 그 밖의 상사채권은 보통 5년이 지나면 받기 어려워질 수 있습니다. 시효가 가까워 보이는 신청은 먼저 확인합니다. (일반 기준 안내이며 개별 사건의 시효 판단이 아닙니다.)</p>
+</section>
+
+<section aria-labelledby="owner">
+  <h2 id="owner">누가 운영하나요</h2>
+  <div class="card owner">
+    <div class="av" aria-hidden="true">SDS</div>
+    <div><strong>FinitArt 대표 Syn Dae Sik</strong>이 직접 검토하고 회신합니다. 콜센터·영업 전화는 없습니다.<br>
+    <span class="hint">법무법인 실무 경력(2003~2007) · AFPK · 사업자등록 사업장(안산) · 문의 010-2088-5383</span></div>
+  </div>
+</section>
+
+<section aria-labelledby="faq">
+  <h2 id="faq">자주 묻는 질문</h2>
+  <details><summary>사업자가 아닌 프리랜서도 되나요?</summary>
+  <p>됩니다. 디자인·개발·영상·강의 같은 외주 대금은 신청서의 <strong>“용역·서비스 대금”</strong>을 고르시면 됩니다. 계약서가 없어도 카톡·메일 대화와 입금 내역이 있으면 함께 올려 주세요.</p></details>
+  <details><summary>왜 무료인가요?</summary>
+  <p>지금은 도구를 만드는 단계라, 실제 사장님들의 사건과 피드백이 저희에게 가장 필요한 자료입니다. 파일럿 기간에는 비용을 받지 않습니다. 추후 유료 기능이 생기더라도 <strong>파일럿에서 무료로 쓰시던 기능은 계속 무료</strong>로 유지합니다.</p></details>
+  <details><summary>수수료나 성공보수가 있나요?</summary>
+  <p>없습니다. 저희는 대신 받아드리지 않기 때문에 중간에서 뗄 돈 자체가 없습니다. 인지대·송달료 같은 법원 비용은 사장님이 법원에 직접 내시며, 지급명령에서는 이 비용도 상대방에게 함께 청구할 수 있습니다.</p></details>
+  <details><summary>검토 후 대상이 아니라고 하면요?</summary>
+  <p>이유를 알려드리고, 필요한 경우 변호사 상담을 권해드립니다. 어느 변호사를 쓸지는 사장님이 정하시며 저희는 소개비를 받지 않습니다.</p></details>
+  <details><summary>제 자료는 어떻게 되나요?</summary>
+  <p>적합성 검토와 도구 개선에만 쓰고, 제3자에게 제공하거나 판매하지 않습니다. 삭제를 원하시면 접수번호와 함께 010-2088-5383 또는 itart@finitart.com으로 요청해 주세요.</p></details>
+</section>
+
+<section aria-labelledby="privacy">
+  <h2 id="privacy">개인정보 안내</h2>
+  <table>
+    <tr><th style="width:30%">수집 항목</th><td>휴대폰 번호, 신청 답변, 올리신 자료에 포함된 정보</td></tr>
+    <tr><th>이용 목적</th><td>셀프 회수 도구 파일럿 적합성 검토, 회신, 사용 후기 요청</td></tr>
+    <tr><th>보관 기간·장소</th><td>회신 후 6개월 (삭제 요청 시 즉시 삭제) · Google 드라이브·시트에 비공개 저장 (Google LLC, 국외 서버에 저장될 수 있음)</td></tr>
+    <tr><th>제3자 제공</th><td>하지 않음</td></tr>
+    <tr><th>동의 거부</th><td>거부할 수 있으며, 이 경우 파일럿 검토가 어렵습니다</td></tr>
+  </table>
+  <p class="hint">상대방(채무자)의 주민등록번호·계좌번호 등은 가리고 보내주세요. 검토에 필요하지 않습니다.</p>
 </section>
 
 </main>
 
-<footer class="foot">
+<div class="sticky-cta"><a href="apply.html" class="btn btn-primary">버튼으로 3분 신청하기 →</a></div>
+
+<footer>
   <div class="wrap">
-    <div class="fgrid">
-      <div>
-        <h4>HeirWise™</h4>
-        <p>상속·증여 재무설계 안내 · 운영 신대식 (申大湜, Syn Dae Sik)</p>
-        <p>www.finitart.com · itart@finitart.com · 010-2088-5383</p>
-      </div>
-      <div>
-        <h4>사무소</h4>
-        <ul>
-          <li>안산 · 경기 안산시 단원구 정왕천동로30번길 2(성곡동, 4바 858호 2층)</li>
-          <li>김포 · 경기 김포시 북변동 382-5 3층</li>
-          <li>서울 · 서울 강남구 논현로106길 6 봉산빌딩 4층</li>
-        </ul>
-      </div>
-      <div>
-        <h4>둘러보기</h4>
-        <ul>
-          <li><a href="/lifemap/">인생 변곡점 지도 전체</a></li>
-          <li><a href="/check/?src=home-foot">우리 집 준비도 진단</a></li>
-          <li><a href="/chat.html?src=home-foot">바로 묻기</a></li>
-          <li><a href="/network/join.html?src=home-foot">협업 전문가 합류</a></li>
-          <li><a href="/privacy.html">개인정보처리방침</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="law">
-      <p><strong>적용 법령 기준일</strong> — 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)</p>
-      <p>이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. 금융상품 안내는 별도 동의 후 소속 금융회사의 절차에 따릅니다.</p>
-      <p>© 2026 HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p>
-    </div>
+    <p>내돈내가는 미수금 회수를 사장님이 직접 할 수 있도록 돕는 작성 도구 파일럿입니다. 법률상담, 소송·추심 대리, 법률판단을 제공하지 않으며, 모든 서류의 작성자와 신청인은 이용자 본인입니다. 법률적 판단이 필요한 사안은 변호사와 상담하시기 바랍니다.</p>
+    <p>FinitArt · 대표 Syn Dae Sik · www.finitart.com · itart@finitart.com · 010-2088-5383<br>
+    경기 안산시 단원구 정왕천동로30번길 2 (성곡동, 4바 858호 2층)</p>
   </div>
 </footer>
 
 <script>
 (function(){
-  /* 화면 밝기 전환 */
-  var tb=document.getElementById("themeBtn");
-  if(tb) tb.addEventListener("click",function(){var r=document.documentElement,now=r.getAttribute("data-theme")||(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),next=now==="dark"?"light":"dark";r.setAttribute("data-theme",next);try{localStorage.setItem("hw-theme",next);}catch(e){}});
-
-  /* 첫 화면 등불(기존 길잡이 연출 재사용, 2배 느리게) */
-  var sec=document.querySelector(".hero");
-  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var skip=!!location.hash&&location.hash!=="#top";
-  if(sec&&!reduce&&!skip){
-    sec.classList.add("is-anim");
-    var c=document.getElementById("heroCanvas"),ctx=c&&c.getContext&&c.getContext("2d");
-    if(ctx){
-      var K=2,dpr=Math.min(window.devicePixelRatio||1,2);
-      c.width=sec.clientWidth*dpr;c.height=sec.clientHeight*dpr;
-      var t0=performance.now(),dust=[],i;
-      for(i=0;i<40;i++)dust.push({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.4,s:Math.random()*.00004+.00001,p:Math.random()*6.28});
-      (function frame(now){
-        var w=c.width,h=c.height,e=(now-t0)/1000/K;ctx.clearRect(0,0,w,h);
-        var on=Math.min(1,e/1.6),settle=Math.max(0,1-Math.max(0,e-6)/2);
-        if(settle>0){ctx.fillStyle="rgba(245,217,138,.55)";
-          for(var j=0;j<dust.length;j++){var d=dust[j];d.y-=d.s*8*settle;d.x+=Math.sin(e+d.p)*.00008*settle;if(d.y<-.02){d.y=1.02;d.x=Math.random();}
-            ctx.globalAlpha=(.3+.7*Math.abs(Math.sin(e*.8+d.p)))*on*.6*settle;ctx.beginPath();ctx.arc(d.x*w,d.y*h,d.r*dpr,0,6.28);ctx.fill();}
-          ctx.globalAlpha=1;requestAnimationFrame(frame);}
-      })(t0);
-    }
-  }
-
-  /* 계측: 홈 v2 */
-  function T(n,p){ if(window.hwTrack) window.hwTrack(n,p||{}); else if(window.gtag) gtag("event",n,p||{}); }
-  document.addEventListener("click",function(ev){
-    var a=ev.target.closest&&ev.target.closest("a"); if(!a) return;
-    if(a.dataset.age) T("home_age_click",{band:a.dataset.age,where:a.classList.contains("chip")?"hero":"card"});
-    else if(a.dataset.ev) T("home_cta",{cta:a.dataset.ev});
-  });
-  (function fire(){ if(window.hwTrack){ hwTrack("home_v2_view",{skipped:skip?1:0},true); }
-    else if(document.readyState==="loading"){ document.addEventListener("DOMContentLoaded",fire); } })();
+  var root=document.documentElement, b=document.getElementById('themeBtn');
+  function set(t){ if(t==='light'){root.setAttribute('data-theme','light');b.textContent='어두운 화면';} else {root.removeAttribute('data-theme');b.textContent='밝은 화면';} try{localStorage.setItem('naedon-theme',t);}catch(e){} }
+  try{ if(localStorage.getItem('naedon-theme')==='light') set('light'); }catch(e){}
+  b.addEventListener('click',function(){ set(root.getAttribute('data-theme')==='light'?'dark':'light'); });
 })();
 </script>
-<script src="/heirwise-common.js" defer></script>
 </body>
 </html>
