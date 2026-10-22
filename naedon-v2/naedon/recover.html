@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>회수 작성 도구 · 내돈내가</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="index.html">내돈내가 <small>FinitArt · 미수금 셀프 관리</small></a>
+    <button class="btn-theme" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">밝은 화면</button>
+  </div>
+  <nav class="wrap nav" aria-label="주요 메뉴">
+    <a href="index.html">파일럿 안내</a>
+    <a href="apply.html">파일럿 신청</a>
+    <a href="monitor.html">거래처 관리</a>
+    <a href="recover.html" aria-current="page">회수 작성 도구</a>
+    <a href="reserve.html">요금·사전예약</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <h1>회수 작성 도구</h1>
+  <p class="lead">내용증명과 지급명령 신청서 <strong>초안</strong>을 사장님 명의로 직접 만들고, 진행 상황을 기록합니다.</p>
+  <div class="banner">여기서 만드는 문서는 사장님이 입력한 내용으로 채워지는 <strong>초안 양식</strong>입니다. 사실관계에 맞는지 직접 확인·수정한 뒤 사장님 명의로 제출하세요. 법률상담이나 대리가 아니며, 판단이 필요한 사안은 변호사와 상담하시기 바랍니다.</div>
+
+  <section aria-labelledby="pickTitle">
+    <h2 id="pickTitle">어느 거래처인가요?</h2>
+    <div class="grid2">
+      <div><label for="pick">등록한 거래처</label><select id="pick"><option value="">— 새로 입력 —</option></select></div>
+      <div class="hint" style="align-self:end">거래처 관리에 등록한 거래처를 고르면 정보가 채워집니다. 새로 입력하면 저장할 때 거래처 관리에도 함께 등록됩니다.</div>
+    </div>
+  </section>
+
+  <div class="tabs" role="tablist" aria-label="작성 단계">
+    <button role="tab" id="tab1" aria-controls="p1" aria-selected="true">① 정보 입력</button>
+    <button role="tab" id="tab2" aria-controls="p2" aria-selected="false">② 내용증명</button>
+    <button role="tab" id="tab3" aria-controls="p3" aria-selected="false">③ 지급명령</button>
+    <button role="tab" id="tab4" aria-controls="p4" aria-selected="false">④ 진행 기록</button>
+  </div>
+
+  <!-- 1 -->
+  <section class="panel" id="p1" role="tabpanel" aria-labelledby="tab1">
+    <h2>① 정보 입력</h2>
+    <div class="form">
+      <fieldset><legend>보내는 사람 (사장님 · 채권자)</legend>
+        <div class="grid2">
+          <div><label for="meName">상호 <span class="req">*</span></label><input id="meName" type="text"></div>
+          <div><label for="meRep">대표자 성명 <span class="req">*</span></label><input id="meRep" type="text"></div>
+        </div>
+        <div class="grid2" style="margin-top:10px">
+          <div><label for="meAddr">주소 <span class="req">*</span></label><input id="meAddr" type="text"></div>
+          <div><label for="mePhone">연락처</label><input id="mePhone" type="tel"></div>
+        </div>
+      </fieldset>
+      <fieldset><legend>받는 사람 (거래처 · 채무자)</legend>
+        <div class="grid2">
+          <div><label for="dName">상호 <span class="req">*</span></label><input id="dName" type="text"></div>
+          <div><label for="dRep">대표자 성명</label><input id="dRep" type="text"></div>
+        </div>
+        <div style="margin-top:10px"><label for="dAddr">주소 <span class="req">*</span> <span class="hint">(사업장 또는 등기부상 본점 주소)</span></label><input id="dAddr" type="text"></div>
+      </fieldset>
+      <fieldset><legend>받을 돈</legend>
+        <div class="grid3">
+          <div><label for="type">종류 <span class="req">*</span></label><select id="type"><option value="">선택하세요</option></select></div>
+          <div><label for="amount">총 청구 금액 (원) <span class="req">*</span></label><input id="amount" type="text" inputmode="numeric"></div>
+          <div><label for="paid">이미 받은 금액 (원)</label><input id="paid" type="text" inputmode="numeric" placeholder="0"></div>
+        </div>
+        <div class="grid2" style="margin-top:10px">
+          <div><label for="due">받기로 한 날 <span class="req">*</span></label><input id="due" type="date"></div>
+          <div><label for="desc">거래 내용 <span class="req">*</span></label><input id="desc" type="text" placeholder="예: 2024년 3~6월 금속 가공품(브라켓) 납품"></div>
+        </div>
+        <div class="checks" style="margin-top:10px">
+          <label><input type="checkbox" id="merchant" checked>양쪽 모두 사업자 간 거래 (상사 지연이율 연 6% 적용, 해제 시 연 5%)</label>
+          <label><input type="checkbox" id="interest" checked>지연손해금(이자)도 함께 청구</label>
+        </div>
+      </fieldset>
+      <p class="msg" id="m1" role="alert"></p>
+      <div class="actions"><button class="btn btn-primary" type="button" id="save1">저장하고 ② 내용증명으로</button></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="panel" id="p2" role="tabpanel" aria-labelledby="tab2" hidden>
+    <h2>② 내용증명 초안</h2>
+    <div class="grid2">
+      <div><label for="letterDays">지급 기한 (서면 받은 날부터)</label><input id="letterDays" type="number" min="3" max="60" value="7"></div>
+      <div><label for="account">입금받을 계좌 <span class="hint">(사장님 명의 계좌 — 직접 기재)</span></label><input id="account" type="text" placeholder="예: ○○은행 000-0000-0000 예금주 ○○○"></div>
+    </div>
+    <p></p>
+    <div class="actions"><button class="btn btn-primary" type="button" id="genLetter">초안 만들기</button></div>
+    <p></p>
+    <label for="letter">초안 (직접 수정 가능)</label>
+    <textarea class="doc" id="letter"></textarea>
+    <p class="msg" id="m2" role="status"></p>
+    <div class="actions">
+      <button class="btn" type="button" id="copyLetter">복사</button>
+      <button class="btn" type="button" id="printLetter">인쇄 (3부)</button>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>보내는 방법</h3>
+      <ul style="margin:0;padding-left:1.2em">
+        <li>같은 내용을 <strong>3부</strong> 인쇄해 우체국에서 내용증명(배달증명 추가 권장)으로 보냅니다. 인터넷우체국에서도 접수할 수 있습니다.</li>
+        <li>발송 후 ④ 진행 기록에 발송일을 적어 두세요.</li>
+        <li><strong>주의:</strong> 내용증명으로 독촉한 뒤 <strong>6개월 안에</strong> 지급명령 신청 등 재판상 청구를 하지 않으면 시효를 멈추는 효과가 유지되지 않을 수 있습니다 (민법 제174조).</li>
+        <li>독촉은 서면으로만 하세요. 채무자의 가족·직장에 알리거나 반복 연락하는 방식은 분쟁의 원인이 됩니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="panel" id="p3" role="tabpanel" aria-labelledby="tab3" hidden>
+    <h2>③ 지급명령 신청서 초안</h2>
+    <p class="lead">지급명령은 법원에 직접 신청하는 간이 절차로, 비용이 소송의 약 1/10입니다. 상대방이 송달받고 2주 안에 이의하지 않으면 확정됩니다.</p>
+    <div class="grid2">
+      <div><label for="parties">당사자 수 (채권자+채무자)</label><input id="parties" type="number" min="2" value="2"></div>
+      <div><label for="svcUnit">송달료 1회분 (원)</label><input id="svcUnit" type="text" inputmode="numeric" value="5,500"></div>
+    </div>
+    <div class="calc" style="margin-top:14px" aria-live="polite">
+      <div class="tile"><span>인지대 (독촉 수수료)</span><b id="cStamp">-</b></div>
+      <div class="tile"><span>송달료 (당사자×6회분)</span><b id="cSvc">-</b></div>
+      <div class="tile"><span>합계 · 상대방에게 함께 청구</span><b id="cSum">-</b></div>
+    </div>
+    <p class="hint">참고 계산입니다. 실제 금액은 전자소송 신청 화면에 표시되는 금액이 우선합니다.</p>
+    <div class="actions"><button class="btn btn-primary" type="button" id="genOrder">초안 만들기</button></div>
+    <p></p>
+    <label for="order">청구취지·청구원인 초안 (직접 수정 가능)</label>
+    <textarea class="doc" id="order"></textarea>
+    <p class="msg" id="m3" role="status"></p>
+    <div class="actions">
+      <button class="btn" type="button" id="copyOrder">복사</button>
+      <button class="btn" type="button" id="printOrder">인쇄</button>
+      <a class="btn" href="https://ecfs.scourt.go.kr" target="_blank" rel="noopener">전자소송 열기</a>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>제출 방법</h3>
+      <ul style="margin:0;padding-left:1.2em">
+        <li>전자소송 사이트에서 공동인증서(또는 간편인증)로 로그인 → 서류제출 → 민사 독촉 → 지급명령 신청서를 엽니다.</li>
+        <li>초안의 청구취지·청구원인을 해당 칸에 붙여넣고, 세금계산서·거래명세서 등 증빙을 첨부합니다.</li>
+        <li>상대방이 법인이면 법인 등기사항증명서가 필요할 수 있습니다.</li>
+        <li>제출 후 받은 <strong>사건번호</strong>를 ④ 진행 기록에 적어 두세요.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="panel" id="p4" role="tabpanel" aria-labelledby="tab4" hidden>
+    <h2>④ 진행 기록</h2>
+    <div class="form">
+      <div class="grid2">
+        <div><label for="letterDate">내용증명 발송일</label><input id="letterDate" type="date"></div>
+        <div><label for="orderDate">지급명령 신청일</label><input id="orderDate" type="date"></div>
+      </div>
+      <div class="grid2">
+        <div><label for="caseNo">사건번호</label><input id="caseNo" type="text" placeholder="예: 2026차전12345"></div>
+        <div><label for="servedDate">상대방 송달일 <span class="hint">(전자소송 송달 내역)</span></label><input id="servedDate" type="date"></div>
+      </div>
+      <div class="grid2">
+        <div><label for="objection">상대방 이의신청</label>
+          <select id="objection"><option value="">아직 모름</option><option value="none">없음</option><option value="yes">이의신청 있음</option></select></div>
+        <div><label for="status">현재 상태</label>
+          <select id="status"><option value="ing">진행 중</option><option value="part">일부 회수</option><option value="full">전액 회수</option><option value="hold">재산 없음 · 보류</option><option value="end">종결</option></select></div>
+      </div>
+      <div class="grid2">
+        <div><label for="paid4">지금까지 받은 금액 (원)</label><input id="paid4" type="text" inputmode="numeric" placeholder="0"></div>
+        <div></div>
+      </div>
+      <fieldset class="checks"><legend>확정 후 할 일</legend>
+        <label><input type="checkbox" id="k1">재산명시 신청</label>
+        <label><input type="checkbox" id="k2">채권압류 및 추심명령 신청 (예금·매출채권 등)</label>
+        <label><input type="checkbox" id="k3">채무불이행자명부 등재 신청</label>
+      </fieldset>
+      <p class="msg" id="m4" role="status"></p>
+      <div class="actions"><button class="btn btn-primary" type="button" id="save4">기록 저장</button></div>
+    </div>
+    <h3 style="margin-top:22px">일정 확인</h3>
+    <ul class="timeline" id="timeline" aria-live="polite"></ul>
+    <p class="hint">일정은 입력한 날짜로 계산한 참고 정보입니다. 법원 통지와 다르면 법원 통지가 우선합니다.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>내돈내가는 미수금 회수를 사장님이 직접 할 수 있도록 돕는 작성 도구입니다. 법률상담, 소송·추심 대리, 법률판단을 제공하지 않으며 모든 서류의 작성자와 신청인은 이용자 본인입니다.</p>
+    <p>FinitArt · 대표 Syn Dae Sik · www.finitart.com · itart@finitart.com · 010-2088-5383</p>
+  </div>
+</footer>
+
+<script src="assets/store.js"></script>
+<script>
+(function(){
+  ND.initTheme();
+  var $=function(id){return document.getElementById(id);};
+  var cur=null; // 현재 거래처 객체
+
+  /* 탭 */
+  var tabs=[1,2,3,4];
+  function show(n){
+    tabs.forEach(function(i){ $('tab'+i).setAttribute('aria-selected', i===n?'true':'false'); $('p'+i).hidden = i!==n; });
+    if(n===3) calc(); if(n===4) timeline();
+  }
+  tabs.forEach(function(i){ $('tab'+i).addEventListener('click',function(){ show(i); }); });
+
+  /* 선택 상자 */
+  Object.keys(ND.TYPES).forEach(function(k){ var o=document.createElement('option'); o.value=k; o.textContent=ND.TYPES[k].l; $('type').appendChild(o); });
+  function fillPick(sel){
+    var p=$('pick'); p.length=1;
+    ND.load().items.forEach(function(it){ var o=document.createElement('option'); o.value=it.id; o.textContent=it.name+' · '+ND.won(ND.unpaid(it)); p.appendChild(o); });
+    p.value = sel||'';
+  }
+  ['amount','paid','paid4','svcUnit'].forEach(function(id){
+    $(id).addEventListener('input',function(){ var d=this.value.replace(/[^0-9]/g,''); this.value=d?Number(d).toLocaleString('ko-KR'):''; if(id!=='paid4') calc(); });
+  });
+  $('parties').addEventListener('input',calc);
+
+  function loadMe(){ var me=ND.load().me; $('meName').value=me.name||''; $('meRep').value=me.rep||''; $('meAddr').value=me.addr||''; $('mePhone').value=me.phone||''; $('account').value=me.account||''; }
+  function loadItem(it){
+    cur = it || {flags:{}, track:{}};
+    var t=cur.track||{};
+    $('dName').value=cur.name||''; $('dRep').value=cur.rep||''; $('dAddr').value=cur.addr||'';
+    $('type').value=cur.type||''; $('amount').value=cur.amount?Number(cur.amount).toLocaleString('ko-KR'):'';
+    $('paid').value=cur.paid?Number(cur.paid).toLocaleString('ko-KR'):''; $('paid4').value=$('paid').value;
+    $('due').value=cur.due||''; $('desc').value=cur.desc||'';
+    $('merchant').checked = cur.merchant!==false; $('interest').checked = cur.interest!==false;
+    $('letterDate').value=t.letterDate||''; $('orderDate').value=t.orderDate||''; $('caseNo').value=t.caseNo||'';
+    $('servedDate').value=t.servedDate||''; $('objection').value=t.objection||''; $('status').value=t.status||'ing';
+    $('k1').checked=!!t.k1; $('k2').checked=!!t.k2; $('k3').checked=!!t.k3;
+    $('letter').value=t.letterText||''; $('order').value=t.orderText||'';
+    calc();
+  }
+  $('pick').addEventListener('change',function(){ loadItem(this.value?ND.get(this.value):null); show(1); });
+
+  /* 저장 */
+  function collect(){
+    var d=ND.load();
+    d.me={name:$('meName').value.trim(), rep:$('meRep').value.trim(), addr:$('meAddr').value.trim(), phone:$('mePhone').value.trim(), account:$('account').value.trim()};
+    cur.name=$('dName').value.trim(); cur.rep=$('dRep').value.trim(); cur.addr=$('dAddr').value.trim();
+    cur.type=$('type').value; cur.amount=ND.num($('amount').value); cur.paid=ND.num($('paid').value);
+    cur.due=$('due').value; cur.desc=$('desc').value.trim();
+    cur.merchant=$('merchant').checked; cur.interest=$('interest').checked;
+    cur.flags=cur.flags||{}; cur.track=cur.track||{};
+  }
+  function validate(msgEl){
+    var need=[['meName','보내는 사람 상호'],['meRep','대표자 성명'],['meAddr','보내는 사람 주소'],['dName','받는 사람 상호'],['dAddr','받는 사람 주소'],['type','종류'],['amount','총 청구 금액'],['due','받기로 한 날'],['desc','거래 내용']];
+    for(var i=0;i<need.length;i++){ var el=$(need[i][0]); if(!el.value.trim()){ msgEl.className='msg err'; msgEl.textContent='① 정보 입력의 「'+need[i][1]+'」이(가) 필요합니다.'; return false; } }
+    if(ND.num($('paid').value)>ND.num($('amount').value)){ msgEl.className='msg err'; msgEl.textContent='받은 금액이 청구 금액보다 큽니다.'; return false; }
+    msgEl.className='msg'; msgEl.textContent=''; return true;
+  }
+  function persist(){ collect(); ND.upsert(cur); ND.save(); fillPick(cur.id); history.replaceState(null,'','?id='+encodeURIComponent(cur.id)); }
+
+  $('save1').addEventListener('click',function(){
+    if(!validate($('m1'))){ return; }
+    persist(); $('m1').className='msg ok'; $('m1').textContent='저장했습니다.'; show(2);
+  });
+
+  /* 계산 */
+  function stamp(a){
+    if(a<=0) return 0;
+    var s = a<1e7 ? a*0.0005 : a<1e8 ? a*0.00045+500 : a<1e9 ? a*0.0004+5500 : a*0.00035+55500;
+    s=Math.floor(s); if(s<1000) return 1000; return Math.floor(s/100)*100;
+  }
+  function costs(){
+    var a=Math.max(0, ND.num($('amount').value)-ND.num($('paid').value));
+    var st=stamp(a), svc=Math.max(2,ND.num($('parties').value))*6*ND.num($('svcUnit').value);
+    return {a:a, st:st, svc:svc, sum:st+svc};
+  }
+  function calc(){ var c=costs(); $('cStamp').textContent=c.a?ND.won(c.st):'-'; $('cSvc').textContent=ND.won(c.svc); $('cSum').textContent=c.a?ND.won(c.sum):'-'; }
+
+  function typeLabel(){ return (ND.TYPES[$('type').value]||{}).l || '대금'; }
+  function nameWithRep(n,r){ return n + (r?' (대표 '+r+')':''); }
+
+  /* 내용증명 */
+  $('genLetter').addEventListener('click',function(){
+    var m=$('m2'); if(!validate(m)){ return; }
+    collect();
+    var amt=ND.num($('amount').value), un=Math.max(0,amt-ND.num($('paid').value));
+    var dd=Math.max(3,ND.num($('letterDays').value)||7);
+    var acct=$('account').value.trim()||'(발신인 명의 계좌를 직접 기재)';
+    var t=[
+      typeLabel()+' 지급 요청서',
+      '',
+      '수신: '+nameWithRep($('dName').value.trim(),$('dRep').value.trim()),
+      '주소: '+$('dAddr').value.trim(),
+      '',
+      '발신: '+nameWithRep($('meName').value.trim(),$('meRep').value.trim()),
+      '주소: '+$('meAddr').value.trim(),
+      ($('mePhone').value.trim()?'연락처: '+$('mePhone').value.trim():''),
+      '',
+      '1. 발신인은 수신인과 '+$('desc').value.trim()+'에 관한 거래를 하였고, 그 대금 금 '+ND.won(amt)+'을 '+ND.fmt(ND.parseD($('due').value))+'까지 지급받기로 하였습니다.',
+      '',
+      '2. 그러나 현재까지 위 금액 중 금 '+ND.won(un)+'이 지급되지 않았습니다.',
+      '',
+      '3. 이에 이 서면을 받은 날부터 '+dd+'일 이내에 위 미지급금을 아래 계좌로 지급하여 주실 것을 요청합니다.',
+      '   입금 계좌: '+acct,
+      '',
+      '4. 위 기한까지 지급되지 않으면 발신인은 지급명령 신청 등 법적 절차를 진행할 예정이며, 이 경우 지연손해금과 절차 비용이 함께 청구될 수 있음을 알려드립니다.',
+      '',
+      '5. 이미 지급하셨거나 금액에 이견이 있으시면 위 연락처로 알려 주시기 바랍니다.',
+      '',
+      ND.fmt(ND.today()),
+      '',
+      '발신인  '+$('meName').value.trim()+'  대표 '+$('meRep').value.trim()+'  (인)'
+    ].filter(function(l,i,a){ return !(l==='' && a[i-1]===''); }).join('\n');
+    $('letter').value=t; cur.track.letterText=t; ND.upsert(cur); fillPick(cur.id);
+    m.className='msg ok'; m.textContent='초안을 만들었습니다. 내용을 확인하고 필요한 부분을 고쳐 주세요.';
+  });
+  $('letter').addEventListener('change',function(){ if(cur&&cur.id){ cur.track.letterText=this.value; ND.upsert(cur); } });
+  $('copyLetter').addEventListener('click',function(){ ND.copy($('letter').value,function(){ $('m2').className='msg ok'; $('m2').textContent='복사했습니다.'; }); });
+  $('printLetter').addEventListener('click',function(){ if(!$('letter').value.trim()){ $('m2').className='msg err'; $('m2').textContent='먼저 초안을 만들어 주세요.'; return; } ND.printText('내용증명', $('letter').value); });
+
+  /* 지급명령 */
+  $('genOrder').addEventListener('click',function(){
+    var m=$('m3'); if(!validate(m)){ return; }
+    collect(); calc();
+    var c=costs(), due=ND.parseD($('due').value), from=ND.addD(due,1);
+    var rate=$('merchant').checked?6:5, law=$('merchant').checked?'상법':'민법';
+    var t=cur.track||{}, ld=ND.parseD(t.letterDate||$('letterDate').value);
+    var claim = $('interest').checked
+      ? '채무자는 채권자에게 금 '+ND.won(c.a)+' 및 이에 대하여 '+ND.fmt(from)+'부터 이 사건 지급명령 정본을 송달받은 날까지는 연 '+rate+'%의, 그 다음 날부터 다 갚는 날까지는 연 12%의 각 비율로 계산한 돈과 아래 독촉절차비용을 지급하라.'
+      : '채무자는 채권자에게 금 '+ND.won(c.a)+'과 아래 독촉절차비용을 지급하라.';
+    var lines=[
+      '【청구취지】',
+      claim,
+      '',
+      '독촉절차비용: 금 '+ND.won(c.sum)+' (인지대 '+ND.won(c.st)+', 송달료 '+ND.won(c.svc)+')',
+      '',
+      '【청구원인】',
+      '1. 채권자는 채무자와 '+$('desc').value.trim()+'에 관한 거래를 하였습니다.',
+      '',
+      '2. 채무자는 그 대금 금 '+ND.won(ND.num($('amount').value))+'을 '+ND.fmt(due)+'까지 지급하기로 하였으나, 현재까지 금 '+ND.won(c.a)+'을 지급하지 않고 있습니다.',
+      '',
+      '3. 채권자는 '+(ld?ND.fmt(ld)+' 내용증명우편으로 지급을 요청하였으나 ':'여러 차례 지급을 요청하였으나 ')+'채무자가 지급하지 않아 이 신청에 이르렀습니다.',
+      ''
+    ];
+    if($('interest').checked) lines.push('4. 지연손해금은 변제기 다음 날부터 지급명령 정본 송달일까지는 '+law+'이 정한 연 '+rate+'%, 그 다음 날부터 다 갚는 날까지는 「소송촉진 등에 관한 특례법」이 정한 연 12%의 비율로 청구합니다.','');
+    lines.push('【소명자료】','1. 세금계산서','2. 거래명세서','3. 내용증명','(가지고 있는 증빙에 맞게 고쳐 쓰세요)');
+    var txt=lines.join('\n');
+    $('order').value=txt; cur.track.orderText=txt; ND.upsert(cur); fillPick(cur.id);
+    m.className='msg ok'; m.textContent='초안을 만들었습니다. 전자소송 신청 화면의 해당 칸에 나눠 붙여넣으세요.';
+  });
+  $('order').addEventListener('change',function(){ if(cur&&cur.id){ cur.track.orderText=this.value; ND.upsert(cur); } });
+  $('copyOrder').addEventListener('click',function(){ ND.copy($('order').value,function(){ $('m3').className='msg ok'; $('m3').textContent='복사했습니다.'; }); });
+  $('printOrder').addEventListener('click',function(){ if(!$('order').value.trim()){ $('m3').className='msg err'; $('m3').textContent='먼저 초안을 만들어 주세요.'; return; } ND.printText('지급명령 신청서 초안', $('order').value); });
+
+  /* 진행 기록 */
+  function readTrack(){
+    var t=cur.track||(cur.track={});
+    t.letterDate=$('letterDate').value; t.orderDate=$('orderDate').value; t.caseNo=$('caseNo').value.trim();
+    t.servedDate=$('servedDate').value; t.objection=$('objection').value; t.status=$('status').value;
+    t.k1=$('k1').checked; t.k2=$('k2').checked; t.k3=$('k3').checked;
+  }
+  $('save4').addEventListener('click',function(){
+    var m=$('m4');
+    if(!cur || !cur.id){ if(!validate(m)){ m.textContent='먼저 ① 정보 입력을 저장해 주세요.'; return; } persist(); }
+    readTrack();
+    var p=ND.num($('paid4').value);
+    if(p>cur.amount){ m.className='msg err'; m.textContent='받은 금액이 청구 금액보다 큽니다.'; return; }
+    cur.paid=p; $('paid').value=$('paid4').value;
+    ND.upsert(cur); fillPick(cur.id); calc(); timeline();
+    m.className='msg ok'; m.textContent='기록을 저장했습니다.';
+  });
+
+  function li(cls, html){ return '<li class="'+cls+'">'+html+'</li>'; }
+  function timeline(){
+    var ul=$('timeline'), out=[], T=ND.today();
+    var ld=ND.parseD($('letterDate').value), od=ND.parseD($('orderDate').value), sd=ND.parseD($('servedDate').value);
+    var obj=$('objection').value, st=$('status').value;
+    if(cur){ var L=ND.limitation({type:$('type').value, due:$('due').value});
+      if(L) out.push(li(L.left<=180?'urgent':'', '<strong>일반 기준 시효</strong> '+ND.fmt(L.end)+' ('+(L.left<0?'기간 경과 가능 — 중단 사유 확인 필요':'D-'+L.left)+')')); }
+    if(ld && !od){ var lim=ND.addM(ld,6), left=ND.days(T,lim);
+      out.push(li(left<=30?'urgent':'', '<strong>지급명령 신청 권장 기한</strong> '+ND.fmt(lim)+' (내용증명 후 6개월, '+(left<0?'지남':'D-'+left)+')')); }
+    if(ld) out.push(li('done','내용증명 발송 '+ND.fmt(ld)));
+    if(od) out.push(li('done','지급명령 신청 '+ND.fmt(od)+($('caseNo').value.trim()?' · 사건번호 '+ND.esc($('caseNo').value.trim()):'')));
+    if(sd){ var fin=ND.addD(sd,14), l2=ND.days(T,fin);
+      out.push(li(obj==='none'||l2<0?'done':'', '<strong>이의신청 기간 종료</strong> '+ND.fmt(fin)+' (송달 다음 날부터 2주'+(l2>=0?', D-'+l2:'')+')')); }
+    if(obj==='yes') out.push(li('urgent','이의신청이 있어 통상 소송으로 넘어갑니다. 법원에서 인지대 차액 보정 안내가 오면 기한 안에 납부해야 합니다. 이 단계부터는 변호사 상담을 권합니다.'));
+    if(obj==='none' || (sd && ND.days(T,ND.addD(sd,14))<0 && obj!=='yes')){
+      var todo=[['k1','재산명시 신청'],['k2','채권압류 및 추심명령 신청'],['k3','채무불이행자명부 등재 신청']].filter(function(x){return !$(x[0]).checked;});
+      out.push(li('', '<strong>확정 후 할 일</strong> '+(todo.length?todo.map(function(x){return x[1];}).join(' · '):'모두 진행함')));
+    }
+    if(st==='hold') out.push(li('', '재산이 확인되지 않아 보류 중입니다. 확정된 채권은 시효가 10년이므로, 거래처 관리에서 휴·폐업·경매 소식을 계속 확인하세요.'));
+    if(st==='full') out.push(li('done','전액 회수 완료'));
+    ul.innerHTML = out.length ? out.join('') : '<li>날짜를 입력하고 저장하면 다음 일정이 표시됩니다.</li>';
+  }
+  ['letterDate','orderDate','servedDate','objection','status','k1','k2','k3','caseNo'].forEach(function(id){ $(id).addEventListener('change',timeline); });
+
+  /* 시작 */
+  if(!ND.canStore()){ document.querySelector('.banner').insertAdjacentHTML('afterend','<div class="banner err">이 브라우저는 저장이 막혀 있어 새로고침하면 입력이 사라집니다.</div>'); }
+  loadMe();
+  var q=new URLSearchParams(location.search).get('id'), start=q?ND.get(q):null;
+  fillPick(start?start.id:''); loadItem(start); timeline();
+})();
+</script>
+</body>
+</html>
