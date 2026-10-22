@@ -18,6 +18,11 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7KFP0RMD2Z"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-7KFP0RMD2Z');
+</script>
 <link rel="stylesheet" href="assets/app.css">
 <style>
 .wz{max-width:720px;margin:0 auto}
@@ -364,6 +369,7 @@
     .then(function(j){
       if(!j||!j.ok) throw new Error((j&&j.error)||'접수 실패');
       try{ localStorage.removeItem(KEY); }catch(e){}
+      try{ if(typeof gtag==='function') gtag('event','apply_submit'); }catch(e){}
       done(j.id);
     })
     .catch(function(err){
