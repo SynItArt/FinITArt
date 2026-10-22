@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>요금·사전예약 · 내돈내가</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row">
+    <a class="brand" href="index.html">내돈내가 <small>FinitArt · 미수금 셀프 관리</small></a>
+    <button class="btn-theme" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">밝은 화면</button>
+  </div>
+  <nav class="wrap nav" aria-label="주요 메뉴">
+    <a href="index.html">파일럿 안내</a>
+    <a href="monitor.html">거래처 관리</a>
+    <a href="recover.html">회수 작성 도구</a>
+    <a href="reserve.html" aria-current="page">요금·사전예약</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <h1>요금 안내 · 사전예약</h1>
+  <p class="lead">지금은 파일럿 기간이라 <strong>모든 기능이 무료</strong>입니다. 정식 오픈 때 어떤 요금제를 쓰실지 미리 알려주시면, 오픈 소식과 사전예약자 안내를 먼저 보내드립니다.</p>
+  <div class="banner">사전예약은 <strong>결제가 아닙니다.</strong> 카드·계좌 정보를 받지 않으며, 정식 오픈 안내를 받은 뒤 이용 여부를 그때 결정하시면 됩니다.</div>
+
+  <section aria-labelledby="planTitle">
+    <h2 id="planTitle">요금제 (예정가 · 부가세 별도)</h2>
+    <div class="plans">
+      <div class="plan">
+        <span class="tag">지금</span>
+        <h3>파일럿</h3>
+        <div class="price">무료</div>
+        <ul>
+          <li>거래처 관리 · 회수 작성 도구 전체</li>
+          <li>이 기기 브라우저에 저장</li>
+          <li>사용 후기 15분 인터뷰 참여</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>베이직</h3>
+        <div class="price">49,000원<small> / 월</small></div>
+        <ul>
+          <li>거래처 30곳</li>
+          <li>회수 작성 도구 무제한</li>
+          <li>진행 기록 · CSV 내보내기</li>
+        </ul>
+      </div>
+      <div class="plan best">
+        <span class="tag">추천</span>
+        <h3>프로</h3>
+        <div class="price">99,000원<small> / 월</small></div>
+        <ul>
+          <li>거래처 100곳</li>
+          <li>시효·기한 메일 알림 <span class="hint">(예정)</span></li>
+          <li>여러 기기에서 같은 목록 <span class="hint">(예정)</span></li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>팀</h3>
+        <div class="price">290,000원<small> / 월</small></div>
+        <ul>
+          <li>거래처 무제한</li>
+          <li>직원 계정 5명 <span class="hint">(예정)</span></li>
+          <li>매출채권보험 검토 안내</li>
+        </ul>
+      </div>
+    </div>
+    <p class="hint">파일럿 기간에 무료로 쓰시던 기능은 정식 오픈 후에도 무료 범위로 계속 제공합니다. 성공보수·수수료는 어떤 요금제에도 없습니다.</p>
+  </section>
+
+  <section aria-labelledby="formTitle" id="form">
+    <h2 id="formTitle">사전예약 신청</h2>
+    <p class="hint">입력한 내용은 서버로 전송되지 않습니다. 버튼을 누르면 메일 앱에 내용이 채워지고, 직접 보내셔야 접수됩니다.</p>
+    <form id="f" novalidate>
+      <div class="grid2">
+        <div><label for="name">성함 / 상호 <span class="req">*</span></label><input id="name" type="text" autocomplete="organization"></div>
+        <div><label for="email">안내 받을 이메일 <span class="req">*</span></label><input id="email" type="email" autocomplete="email"></div>
+      </div>
+      <fieldset class="checks"><legend>쓰고 싶은 요금제 <span class="req">*</span></legend>
+        <label><input type="radio" name="plan" value="베이직 (월 49,000원)">베이직 · 월 49,000원</label>
+        <label><input type="radio" name="plan" value="프로 (월 99,000원)">프로 · 월 99,000원</label>
+        <label><input type="radio" name="plan" value="팀 (월 290,000원)">팀 · 월 290,000원</label>
+        <label><input type="radio" name="plan" value="무료 범위만">무료 범위만 쓰겠다</label>
+      </fieldset>
+      <div class="grid2">
+        <div><label for="count">관리할 거래처 수</label>
+          <select id="count"><option value="">선택하세요</option><option>10곳 미만</option><option>10~30곳</option><option>30~100곳</option><option>100곳 이상</option></select></div>
+        <div><label for="unpaid">지금 못 받은 돈이 있는 거래처</label>
+          <select id="unpaid"><option value="">선택하세요</option><option>없음</option><option>1곳</option><option>2~5곳</option><option>6곳 이상</option></select></div>
+      </div>
+      <fieldset class="checks"><legend>이 가격이면 쓰시겠어요? <span class="req">*</span></legend>
+        <label><input type="radio" name="wtp" value="이 가격이면 쓰겠다">이 가격이면 쓰겠다</label>
+        <label><input type="radio" name="wtp" value="비싸다">비싸다</label>
+        <label><input type="radio" name="wtp" value="싸다 — 기능이 더 있으면 더 낼 수 있다">싸다 — 기능이 더 있으면 더 낼 수 있다</label>
+        <label><input type="radio" name="wtp" value="아직 모르겠다">아직 모르겠다</label>
+      </fieldset>
+      <div class="grid2">
+        <div><label for="fair">적당하다고 생각하는 월 금액 (원)</label><input id="fair" type="text" inputmode="numeric" placeholder="예: 30,000"></div>
+        <div></div>
+      </div>
+      <div><label for="must">이 기능이 있으면 바로 결제하겠다</label><textarea id="must" placeholder="예: 거래처가 폐업하면 바로 문자로 알려주는 기능"></textarea></div>
+      <div class="checks">
+        <label><input type="checkbox" id="consent"><span><span class="req">*</span> 정식 오픈 안내를 위해 이메일과 응답 내용을 수집·이용하는 데 동의합니다. (보관: 정식 오픈 안내 후 6개월, 요청 시 즉시 삭제)</span></label>
+      </div>
+      <p class="msg" id="msg" role="alert"></p>
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="mailBtn">메일 앱으로 사전예약 보내기</button>
+        <button class="btn" type="button" id="copyBtn">내용 복사하기</button>
+      </div>
+      <p class="hint">메일 앱이 열리지 않으면 「내용 복사하기」를 누른 뒤 <strong>itart@finitart.com</strong>으로 보내주세요.</p>
+      <pre id="preview" class="card" style="white-space:pre-wrap;display:none" aria-label="작성된 메일 미리보기"></pre>
+    </form>
+  </section>
+
+  <section aria-labelledby="faqTitle">
+    <h2 id="faqTitle">자주 묻는 질문</h2>
+    <details><summary>언제 결제하나요?</summary><p>지금은 결제를 받지 않습니다. 정식 오픈이 정해지면 사전예약하신 메일로 먼저 알려드리고, 그때 이용 여부를 정하시면 됩니다.</p></details>
+    <details><summary>성공보수가 있나요?</summary><p>없습니다. 요금은 도구 사용료뿐이며, 회수한 금액과 연동해 받는 돈은 어떤 요금제에도 없습니다. 회수된 돈은 사장님 계좌로 직접 들어갑니다.</p></details>
+    <details><summary>신용조회나 대신 받아주는 서비스도 하나요?</summary><p>하지 않습니다. 내돈내가는 사장님이 알고 있는 사실로 거래처를 관리하고, 서류를 직접 작성하도록 돕는 도구입니다.</p></details>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>내돈내가는 미수금 관리와 회수를 사장님이 직접 할 수 있도록 돕는 도구입니다. 신용조회, 법률상담, 소송·추심 대리를 제공하지 않습니다.</p>
+    <p>FinitArt · 대표 Syn Dae Sik · www.finitart.com · itart@finitart.com · 010-2088-5383</p>
+  </div>
+</footer>
+
+<script src="assets/store.js"></script>
+<script>
+(function(){
+  ND.initTheme();
+  var TO='itart@finitart.com', $=function(id){return document.getElementById(id);};
+  $('fair').addEventListener('input',function(){ var d=this.value.replace(/[^0-9]/g,''); this.value=d?Number(d).toLocaleString('ko-KR'):''; });
+  function radio(n){ var r=document.querySelector('input[name='+n+']:checked'); return r?r.value:''; }
+  function build(){
+    var m=$('msg'); m.className='msg'; m.textContent='';
+    if(!$('name').value.trim()){ m.className='msg err'; m.textContent='「성함 / 상호」를 입력해 주세요.'; $('name').focus(); return null; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())){ m.className='msg err'; m.textContent='이메일을 확인해 주세요.'; $('email').focus(); return null; }
+    if(!radio('plan')){ m.className='msg err'; m.textContent='쓰고 싶은 요금제를 골라 주세요.'; return null; }
+    if(!radio('wtp')){ m.className='msg err'; m.textContent='「이 가격이면 쓰시겠어요?」에 답해 주세요.'; return null; }
+    if(!$('consent').checked){ m.className='msg err'; m.textContent='수집·이용 동의에 체크해 주세요.'; return null; }
+    var subject='[내돈내가 사전예약] '+$('name').value.trim()+' - '+radio('plan');
+    var body=[
+      '■ 내돈내가 사전예약',
+      '',
+      '성함/상호: '+$('name').value.trim(),
+      '안내 받을 이메일: '+$('email').value.trim(),
+      '희망 요금제: '+radio('plan'),
+      '관리할 거래처 수: '+($('count').value||'-'),
+      '못 받은 돈이 있는 거래처: '+($('unpaid').value||'-'),
+      '가격 의견: '+radio('wtp'),
+      '적당한 월 금액: '+($('fair').value?$('fair').value+'원':'-'),
+      '',
+      '바로 결제할 만한 기능:',
+      ($('must').value.trim()||'-'),
+      '',
+      '[확인] 이메일·응답 수집·이용 동의 / 결제가 아닌 사전예약임을 이해함'
+    ].join('\n');
+    $('preview').style.display='block'; $('preview').textContent='받는 곳: '+TO+'\n제목: '+subject+'\n\n'+body;
+    return {s:subject,b:body};
+  }
+  $('mailBtn').addEventListener('click',function(){
+    var x=build(); if(!x) return;
+    location.href='mailto:'+TO+'?subject='+encodeURIComponent(x.s)+'&body='+encodeURIComponent(x.b);
+    $('msg').className='msg ok'; $('msg').textContent='메일 앱이 열렸습니다. 「보내기」를 눌러야 접수됩니다.';
+  });
+  $('copyBtn').addEventListener('click',function(){
+    var x=build(); if(!x) return;
+    ND.copy('받는 곳: '+TO+'\n제목: '+x.s+'\n\n'+x.b, function(){ $('msg').className='msg ok'; $('msg').textContent='복사했습니다. '+TO+'로 보내주세요.'; });
+  });
+})();
+</script>
+</body>
+</html>

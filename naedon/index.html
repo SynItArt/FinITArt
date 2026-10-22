@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>내돈내가 파일럿</title>
+<meta name="description" content="떼인 거래대금, 사장님 명의로 직접 회수하는 셀프 도구 — 파일럿 참여 신청">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --bg:#0b0f17; --surface:#151c29; --surface2:#1d2738; --line:#33415a;
+  --text:#f5f7fa; --muted:#c9d1de; --accent:#ffd23f; --accent-ink:#111;
+  --info:#5fd8ff; --ok:#5ef0a0; --danger:#ff7676; --focus:#ffd23f;
+}
+:root[data-theme="light"]{
+  --bg:#ffffff; --surface:#f3f5f9; --surface2:#e7ebf2; --line:#9aa6b8;
+  --text:#0b0f17; --muted:#2f3a4c; --accent:#ffd23f; --accent-ink:#111;
+  --info:#0057b8; --ok:#006b3c; --danger:#b00020; --focus:#0057b8;
+}
+*{box-sizing:border-box}
+html{font-size:19px}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.7;word-break:keep-all}
+a{color:var(--info)}
+:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:2px solid var(--line);background:var(--surface)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:14px;padding-bottom:14px}
+.brand{font-weight:800;font-size:1.25rem}
+.brand small{display:block;font-weight:600;font-size:.8rem;color:var(--muted)}
+.btn-theme{background:transparent;color:var(--text);border:2px solid var(--line);border-radius:10px;padding:8px 14px;font:inherit;font-size:.85rem;cursor:pointer}
+.badge{display:inline-block;background:var(--accent);color:var(--accent-ink);font-weight:800;padding:4px 14px;border-radius:999px;font-size:.9rem}
+h1{font-size:2.1rem;line-height:1.3;margin:18px 0 12px}
+h2{font-size:1.55rem;margin:0 0 14px;padding-left:14px;border-left:8px solid var(--accent)}
+h3{font-size:1.15rem;margin:0 0 6px}
+section{padding:36px 0;border-bottom:1px solid var(--line)}
+.lead{font-size:1.15rem;color:var(--muted)}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:20px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.yes h3{color:var(--ok)} .no h3{color:var(--danger)}
+ul.mark{margin:0;padding-left:1.2em} ul.mark li{margin:4px 0}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+ol.steps li{counter-increment:s;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:16px 16px 16px 72px;position:relative}
+ol.steps li::before{content:counter(s);position:absolute;left:16px;top:14px;width:42px;height:42px;border-radius:50%;
+  background:var(--accent);color:var(--accent-ink);font-weight:900;font-size:1.3rem;display:grid;place-items:center}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+th,td{border:2px solid var(--line);padding:10px;text-align:left;vertical-align:top}
+th{background:var(--surface2)}
+.warn{border-color:var(--danger)} .warn strong{color:var(--danger)}
+form{display:grid;gap:16px}
+label{font-weight:700;display:block;margin-bottom:6px}
+.req{color:var(--danger)}
+.hint{font-weight:500;font-size:.85rem;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{
+  width:100%;font:inherit;font-size:1rem;color:var(--text);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:12px}
+textarea{min-height:110px}
+fieldset{border:2px solid var(--line);border-radius:12px;padding:12px 16px}
+legend{font-weight:700;padding:0 6px}
+.checks label{font-weight:500;display:flex;gap:10px;align-items:center;margin:6px 0}
+input[type=checkbox]{width:24px;height:24px;flex:none}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{font:inherit;font-weight:800;font-size:1.05rem;border-radius:12px;padding:14px 22px;cursor:pointer;border:3px solid var(--accent)}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:transparent;color:var(--text)}
+#limitation{display:none;margin-top:8px;padding:12px;border-radius:10px;border:2px solid var(--line);background:var(--surface2)}
+#limitation.urgent{border-color:var(--danger)}
+#preview{white-space:pre-wrap;background:var(--bg);border:2px dashed var(--line);border-radius:12px;padding:14px;font-size:.9rem;display:none}
+#msg{font-weight:700} #msg.err{color:var(--danger)} #msg.ok{color:var(--ok)}
+.mailbox{font-size:1.3rem;font-weight:900;color:var(--accent);word-break:break-all}
+details{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+summary{font-weight:800;cursor:pointer}
+footer{padding:28px 0 48px;color:var(--muted);font-size:.85rem}
+header.top .topnav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:8px;padding-top:0;padding-bottom:14px}
+.topnav a{color:var(--text);text-decoration:none;border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.9rem}
+.topnav a[aria-current="page"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+@media (max-width:680px){html{font-size:18px}h1{font-size:1.7rem}.grid2{grid-template-columns:1fr}}
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface2:#eee;--line:#555;--text:#000;--muted:#222;--danger:#900;--ok:#060;--info:#003}
+  .btn-theme,.actions,#preview{display:none!important}
+  section{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">내돈내가 <small>FinitArt · 미수금 셀프 회수 도구</small></div>
+    <button class="btn-theme" id="themeBtn" type="button" aria-label="밝은 화면과 어두운 화면 전환">밝은 화면</button>
+  </div>
+  <nav class="wrap topnav" aria-label="주요 메뉴">
+    <a href="index.html" aria-current="page">파일럿 안내</a>
+    <a href="monitor.html">거래처 관리</a>
+    <a href="recover.html">회수 작성 도구</a>
+    <a href="reserve.html">요금·사전예약</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+<section>
+  <span class="badge">파일럿 참여자 모집 · 무료</span>
+  <h1>떼인 거래대금,<br>사장님 명의로 직접 받는 방법을 같이 만들고 있습니다</h1>
+  <p class="lead">미수금 상황을 메일로 보내주시면, 저희가 만드는 <strong>셀프 회수 도구</strong>로 해결할 수 있는 사건인지 검토해 회신드립니다.
+  맞는 경우 파일럿 참여자로 도구를 먼저 써보시고, 쓰면서 불편했던 점을 알려주시면 됩니다.</p>
+  <p><a href="#apply" class="btn btn-primary" style="display:inline-block;text-decoration:none">참여 신청 메일 쓰기</a></p>
+</section>
+
+<section aria-labelledby="tools">
+  <h2 id="tools">지금 바로 써볼 수 있는 도구</h2>
+  <div class="grid2">
+    <div class="card"><h3>거래처 관리</h3>받을 돈이 있는 거래처를 등록하면 주의가 필요한 순서대로 보여드립니다.<br><a href="monitor.html">거래처 관리 열기 →</a></div>
+    <div class="card"><h3>회수 작성 도구</h3>내용증명·지급명령 초안을 사장님 명의로 만들고 진행을 기록합니다.<br><a href="recover.html">회수 작성 도구 열기 →</a></div>
+  </div>
+  <p class="hint">파일럿 기간 무료 · 입력 내용은 이 기기 브라우저에만 저장됩니다. <a href="reserve.html">정식 요금제 사전예약 →</a></p>
+</section>
+
+<section aria-labelledby="what">
+  <h2 id="what">이 서비스가 하는 일과 하지 않는 일</h2>
+  <div class="grid2">
+    <div class="card yes">
+      <h3>✔ 하는 일</h3>
+      <ul class="mark">
+        <li>셀프 회수 도구로 다룰 수 있는 사건인지 <strong>적합성 검토</strong></li>
+        <li>내용증명·지급명령 등 서류를 <strong>사장님이 직접 작성</strong>하는 도구 제공</li>
+        <li>절차별 체크리스트와 일정 안내</li>
+        <li>도구로 어려운 사건은 변호사 상담을 권해드림 (소개비 없음)</li>
+      </ul>
+    </div>
+    <div class="card no">
+      <h3>✖ 하지 않는 일</h3>
+      <ul class="mark">
+        <li>사장님을 대신한 추심·소송·서류 작성</li>
+        <li>채무자에게 전화·문자·방문 등 직접 연락</li>
+        <li>개별 사건에 대한 법률상담·법률판단</li>
+        <li>회수된 돈의 수령 — <strong>돈은 사장님 계좌로 직접</strong> 들어갑니다</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="how">
+  <h2 id="how">진행 순서</h2>
+  <ol class="steps">
+    <li><h3>메일로 상황 요약 보내기</h3>아래 양식을 채우면 메일이 자동으로 작성됩니다. 증빙 사본은 메일에 첨부해 주세요.</li>
+    <li><h3>적합성 검토 (영업일 3~5일)</h3>셀프 도구로 진행할 수 있는 유형인지 확인합니다.</li>
+    <li><h3>회신</h3>① 파일럿 참여 가능 ② 변호사 상담 권장 ③ 이번 파일럿 대상 아님 — 셋 중 하나로 이유와 함께 알려드립니다.</li>
+    <li><h3>파일럿 참여 · 피드백</h3>도구와 체크리스트를 받아 직접 진행하시고, 2주 뒤 15분 정도 사용 후기를 여쭙니다.</li>
+  </ol>
+</section>
+
+<section aria-labelledby="send">
+  <h2 id="send">보내실 곳과 보낼 자료</h2>
+  <div class="card">
+    <p style="margin:0">보내실 메일 주소</p>
+    <p class="mailbox" style="margin:4px 0 0">itart@finitart.com</p>
+  </div>
+  <p></p>
+  <table>
+    <tr><th style="width:30%">구분</th><th>자료</th></tr>
+    <tr><td><strong>필수</strong></td><td>아래 신청 양식 내용 (자동 작성됨)</td></tr>
+    <tr><td>있으면 첨부</td><td>세금계산서 · 거래명세서 · 계약서 · 발주서 · 문자/카톡 대화 캡처 · 보낸 내용증명 · 판결문/지급명령 결정문</td></tr>
+    <tr><td><strong>보내지 마세요</strong></td><td>주민등록번호 뒷자리, 계좌번호, 카드번호 — <strong>가리고</strong> 보내주세요</td></tr>
+  </table>
+  <p class="card warn" style="margin-top:16px"><strong>시효가 걱정되시면 먼저 보내세요.</strong>
+  물품·납품대금과 공사대금은 보통 <strong>3년</strong>, 그 밖의 상사채권은 보통 <strong>5년</strong>이 지나면 받기 어려워질 수 있습니다.
+  날짜가 가까우면 양식이 메일 제목에 <strong>[시효임박]</strong>을 붙여 먼저 확인합니다. (일반적인 기준 안내이며, 개별 사건의 시효 판단이 아닙니다.)</p>
+</section>
+
+<section aria-labelledby="apply" id="apply">
+  <h2>참여 신청 양식</h2>
+  <p class="hint">입력하신 내용은 이 페이지에서 서버로 전송되지 않습니다. 버튼을 누르면 사장님의 메일 앱에 내용이 채워진 메일이 열리고, 직접 보내셔야 접수됩니다.</p>
+  <form id="f" novalidate>
+    <div class="grid2">
+      <div><label for="name">성함 / 상호 <span class="req">*</span></label><input id="name" type="text" autocomplete="organization"></div>
+      <div><label for="email">회신 받을 이메일 <span class="req">*</span></label><input id="email" type="email" autocomplete="email"></div>
+    </div>
+    <div class="grid2">
+      <div><label for="phone">연락처 <span class="hint">(선택)</span></label><input id="phone" type="tel" autocomplete="tel"></div>
+      <div><label for="debtorType">상대방 형태 <span class="req">*</span></label>
+        <select id="debtorType"><option value="">선택하세요</option><option>법인</option><option>개인사업자</option><option>개인</option><option>모름</option></select></div>
+    </div>
+    <div class="grid2">
+      <div><label for="type">받을 돈의 종류 <span class="req">*</span></label>
+        <select id="type">
+          <option value="">선택하세요</option>
+          <option value="goods">물품·납품대금</option>
+          <option value="construction">공사대금</option>
+          <option value="service">용역대금</option>
+          <option value="loan">사업상 빌려준 돈</option>
+          <option value="judgment">판결·지급명령은 받았는데 못 받음</option>
+          <option value="etc">기타</option>
+        </select></div>
+      <div><label for="amount">못 받은 금액 (원) <span class="req">*</span></label><input id="amount" type="text" inputmode="numeric" placeholder="예: 42,000,000"></div>
+    </div>
+    <div class="grid2">
+      <div><label for="date">받기로 한 날 (또는 마지막 거래일) <span class="req">*</span></label><input id="date" type="date"></div>
+      <div><label for="debtor">상대방 상호 <span class="hint">(선택)</span></label><input id="debtor" type="text"></div>
+    </div>
+    <div id="limitation" role="status" aria-live="polite"></div>
+    <fieldset class="checks">
+      <legend>가지고 계신 증빙 (해당 모두)</legend>
+      <label><input type="checkbox" name="ev" value="세금계산서">세금계산서</label>
+      <label><input type="checkbox" name="ev" value="거래명세서">거래명세서</label>
+      <label><input type="checkbox" name="ev" value="계약서·발주서">계약서·발주서</label>
+      <label><input type="checkbox" name="ev" value="문자·카톡 기록">문자·카톡 기록</label>
+      <label><input type="checkbox" name="ev" value="판결문·결정문">판결문·결정문</label>
+      <label><input type="checkbox" name="ev" value="없음">없음</label>
+    </fieldset>
+    <div><label for="done">지금까지 해보신 것</label><textarea id="done" placeholder="예: 전화 독촉 10여 차례, 변호사 상담 1회"></textarea></div>
+    <div><label for="hard">가장 막막한 점 <span class="hint">(파일럿 개선에 가장 중요한 질문입니다)</span></label><textarea id="hard" placeholder="예: 어디서부터 시작해야 할지 모르겠다"></textarea></div>
+    <div class="checks">
+      <label><input type="checkbox" id="consent"><span><span class="req">*</span> 아래 「개인정보 안내」를 읽었고, 파일럿 적합성 검토를 위한 수집·이용에 동의합니다.</span></label>
+      <label><input type="checkbox" id="understand"><span><span class="req">*</span> 이 서비스는 법률상담·대리가 아니라 셀프 도구 파일럿임을 이해했습니다.</span></label>
+    </div>
+    <p id="msg" role="alert"></p>
+    <div class="actions">
+      <button class="btn btn-primary" type="button" id="mailBtn">메일 앱으로 보내기</button>
+      <button class="btn btn-ghost" type="button" id="copyBtn">내용 복사하기</button>
+    </div>
+    <p class="hint">메일 앱이 열리지 않으면 「내용 복사하기」를 누른 뒤 <strong>itart@finitart.com</strong>으로 붙여넣어 보내주세요.</p>
+    <pre id="preview" aria-label="작성된 메일 미리보기"></pre>
+  </form>
+</section>
+
+<section aria-labelledby="faq">
+  <h2 id="faq">자주 묻는 질문</h2>
+  <details><summary>왜 무료인가요?</summary>
+  <p>지금은 도구를 만드는 단계라, 실제 사장님들의 사건과 피드백이 저희에게 가장 필요한 자료입니다. 파일럿 기간에는 비용을 받지 않습니다. 추후 유료 기능이 생기더라도 <strong>파일럿에서 무료로 쓰시던 기능은 계속 무료</strong>로 유지합니다.</p></details>
+  <details><summary>수수료나 성공보수가 있나요?</summary>
+  <p>없습니다. 저희는 대신 받아드리지 않기 때문에 중간에서 뗄 돈 자체가 없습니다. 인지대·송달료 같은 법원 비용은 사장님이 법원에 직접 내시며, 지급명령에서는 이 비용도 상대방에게 함께 청구할 수 있습니다.</p></details>
+  <details><summary>검토 후 대상이 아니라고 하면요?</summary>
+  <p>이유를 알려드리고, 필요한 경우 변호사 상담을 권해드립니다. 어느 변호사를 쓸지는 사장님이 정하시며 저희는 소개비를 받지 않습니다.</p></details>
+  <details><summary>제 자료는 어떻게 되나요?</summary>
+  <p>적합성 검토와 도구 개선에만 쓰고, 제3자에게 제공하거나 판매하지 않습니다. 삭제를 원하시면 같은 메일 주소로 요청해 주세요.</p></details>
+</section>
+
+<section aria-labelledby="privacy">
+  <h2 id="privacy">개인정보 안내</h2>
+  <table>
+    <tr><th style="width:30%">수집 항목</th><td>성함·상호, 이메일, 연락처(선택), 채권 내용, 첨부하신 자료에 포함된 정보</td></tr>
+    <tr><th>이용 목적</th><td>셀프 회수 도구 파일럿 적합성 검토, 회신, 사용 후기 요청</td></tr>
+    <tr><th>보관 기간</th><td>회신 후 6개월 (삭제 요청 시 즉시 삭제)</td></tr>
+    <tr><th>제3자 제공</th><td>하지 않음</td></tr>
+    <tr><th>동의 거부</th><td>거부할 수 있으며, 이 경우 파일럿 검토가 어렵습니다</td></tr>
+  </table>
+  <p class="hint">상대방(채무자)의 주민등록번호·계좌번호 등은 가리고 보내주세요. 검토에 필요하지 않습니다.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>내돈내가는 미수금 회수를 사장님이 직접 할 수 있도록 돕는 작성 도구 파일럿입니다. 법률상담, 소송·추심 대리, 법률판단을 제공하지 않으며, 모든 서류의 작성자와 신청인은 이용자 본인입니다. 법률적 판단이 필요한 사안은 변호사와 상담하시기 바랍니다.</p>
+    <p>FinitArt · 대표 Syn Dae Sik · www.finitart.com · itart@finitart.com · 010-2088-5383<br>
+    경기 안산시 단원구 정왕천동로30번길 2 (성곡동, 4바 858호 2층)</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var TO = 'itart@finitart.com';
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  function setTheme(t){
+    if(t==='light'){root.setAttribute('data-theme','light');themeBtn.textContent='어두운 화면';}
+    else{root.removeAttribute('data-theme');themeBtn.textContent='밝은 화면';}
+    try{localStorage.setItem('naedon-theme',t);}catch(e){}
+  }
+  try{ if(localStorage.getItem('naedon-theme')==='light') setTheme('light'); }catch(e){}
+  themeBtn.addEventListener('click',function(){ setTheme(root.getAttribute('data-theme')==='light'?'dark':'light'); });
+
+  var $ = function(id){return document.getElementById(id);};
+  var TYPE_LABEL = {goods:'물품·납품대금',construction:'공사대금',service:'용역대금',loan:'사업상 빌려준 돈',judgment:'판결·지급명령 후 미회수',etc:'기타'};
+  var YEARS = {goods:3,construction:3,service:5,loan:5,judgment:10};
+
+  var amount = $('amount');
+  amount.addEventListener('input',function(){
+    var d = amount.value.replace(/[^0-9]/g,'');
+    amount.value = d ? Number(d).toLocaleString('ko-KR') : '';
+  });
+
+  function limitationInfo(){
+    var t = $('type').value, v = $('date').value;
+    if(!t || !v || !YEARS[t]) return null;
+    var start = new Date(v + 'T00:00:00');
+    if(isNaN(start)) return null;
+    var end = new Date(start); end.setFullYear(end.getFullYear() + YEARS[t]);
+    var today = new Date(); today.setHours(0,0,0,0);
+    var days = Math.round((end - today)/86400000);
+    return {years:YEARS[t], end:end, days:days};
+  }
+  function fmt(d){return d.getFullYear()+'.'+(d.getMonth()+1)+'.'+d.getDate();}
+  function showLimitation(){
+    var box = $('limitation'), info = limitationInfo();
+    if(!info){box.style.display='none';box.className='';return;}
+    box.style.display='block';
+    var urgent = info.days <= 180;
+    box.className = urgent ? 'urgent' : '';
+    var head = info.days < 0 ? '⚠ 일반 기준으로는 이미 지났을 수 있습니다. 중단 사유가 있었는지 확인이 필요하니 바로 보내주세요.'
+             : (urgent ? '⚠ 일반 기준으로 약 '+info.days+'일 남았습니다. 메일 제목에 [시효임박]이 붙습니다.'
+                       : '일반 기준으로 약 '+info.days+'일 남았습니다.');
+    box.innerHTML = '<strong>'+head+'</strong><br><span class="hint">참고용 계산: '+info.years+'년 기준 · '+fmt(info.end)+'경. 내용증명·소송 등 중단 사유는 반영되지 않았으며 개별 사건의 시효 판단이 아닙니다.</span>';
+  }
+  $('type').addEventListener('change',showLimitation);
+  $('date').addEventListener('change',showLimitation);
+
+  function build(){
+    var msg = $('msg'); msg.className=''; msg.textContent='';
+    var need = [['name','성함 / 상호'],['email','회신 받을 이메일'],['debtorType','상대방 형태'],['type','받을 돈의 종류'],['amount','못 받은 금액'],['date','받기로 한 날']];
+    for(var i=0;i<need.length;i++){
+      if(!$(need[i][0]).value.trim()){ msg.className='err'; msg.textContent='「'+need[i][1]+'」을(를) 입력해 주세요.'; $(need[i][0]).focus(); return null; }
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())){ msg.className='err'; msg.textContent='이메일 형식을 확인해 주세요.'; $('email').focus(); return null; }
+    if(!$('consent').checked || !$('understand').checked){ msg.className='err'; msg.textContent='필수 확인 항목 두 개에 체크해 주세요.'; return null; }
+
+    var ev = Array.prototype.slice.call(document.querySelectorAll('input[name=ev]:checked')).map(function(x){return x.value;});
+    var info = limitationInfo();
+    var urgent = info && info.days <= 180;
+    var t = TYPE_LABEL[$('type').value];
+    var subject = (urgent?'[시효임박] ':'') + '[내돈내가 파일럿] ' + $('name').value.trim() + ' - ' + t + ' ' + $('amount').value + '원';
+    var lines = [
+      '■ 내돈내가 파일럿 참여 신청',
+      '',
+      '성함/상호: ' + $('name').value.trim(),
+      '회신 이메일: ' + $('email').value.trim(),
+      '연락처: ' + ($('phone').value.trim() || '-'),
+      '',
+      '받을 돈의 종류: ' + t,
+      '못 받은 금액: ' + $('amount').value + '원',
+      '받기로 한 날(마지막 거래일): ' + $('date').value,
+      '상대방 형태: ' + $('debtorType').value,
+      '상대방 상호: ' + ($('debtor').value.trim() || '-'),
+      '보유 증빙: ' + (ev.length ? ev.join(', ') : '-'),
+      (info ? '참고 시효 계산: '+info.years+'년 기준 약 '+info.days+'일 남음' : ''),
+      '',
+      '지금까지 해본 것:',
+      ($('done').value.trim() || '-'),
+      '',
+      '가장 막막한 점:',
+      ($('hard').value.trim() || '-'),
+      '',
+      '[확인] 개인정보 수집·이용 동의 / 셀프 도구 파일럿임을 이해함',
+      '※ 증빙 사본을 첨부해 주세요 (주민번호 뒷자리·계좌번호는 가려서).'
+    ].filter(function(l,i,a){ return !(l==='' && a[i-1]===''); });
+    var body = lines.join('\n');
+    var pre = $('preview'); pre.style.display='block';
+    pre.textContent = '받는 곳: ' + TO + '\n제목: ' + subject + '\n\n' + body;
+    return {subject:subject, body:body};
+  }
+
+  $('mailBtn').addEventListener('click',function(){
+    var m = build(); if(!m) return;
+    window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(m.subject) + '&body=' + encodeURIComponent(m.body);
+    $('msg').className='ok'; $('msg').textContent='메일 앱이 열렸습니다. 증빙을 첨부한 뒤 「보내기」를 눌러야 접수됩니다.';
+  });
+
+  $('copyBtn').addEventListener('click',function(){
+    var m = build(); if(!m) return;
+    var text = '받는 곳: ' + TO + '\n제목: ' + m.subject + '\n\n' + m.body;
+    function done(){ $('msg').className='ok'; $('msg').textContent='복사했습니다. 메일에 붙여넣어 '+TO+'로 보내주세요.'; }
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done,fallback); }
+      else fallback();
+    }catch(e){ fallback(); }
+    function fallback(){
+      var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ $('msg').className='err'; $('msg').textContent='복사가 안 되면 아래 미리보기 내용을 직접 선택해 복사해 주세요.'; }
+      document.body.removeChild(ta);
+    }
+  });
+})();
+</script>
+</body>
+</html>
