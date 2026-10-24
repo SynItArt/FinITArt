@@ -502,4 +502,30 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- ── 블로그 · 기한 가이드 시리즈 (2026-10-24 배포) ── -->
+  <url>
+    <loc>https://finitart.com/blog/after-death-checklist.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/blog/renunciation-3months.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/blog/inheritance-tax-6months.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://finitart.com/blog/gift-marriage-deduction.html</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
