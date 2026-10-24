@@ -5,6 +5,11 @@ node_modules
 .env
 !robots.txt
 !llms.txt
+!64e9ca91573ed16da5e460f11066b2af.txt
 
 # 협업 네트워크 로컬 샘플
 network/*.local.json
+
+# 로컬 동기화 기록 (본부장님 PC에서만 생성)
+_automation/sync-local.log
+__pycache__/

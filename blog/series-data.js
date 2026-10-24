@@ -69,6 +69,7 @@
       related: ["renunciation-3months", "inheritance-tax-6months", "gift-marriage-deduction"],
       cta: { label: "인생 변곡점 지도 바로가기", url: "/lifemap/?src=blog-checklist" }
     }
+    /* @@SERIES-END@@ 자동 발행 스크립트(_automation/blog_publish.py)가 이 줄 앞에 글을 추가합니다 */
   ];
 
   function bySlug(slug) {
@@ -97,6 +98,7 @@
         if (nx) html += '<p class="hw-series-next">다음 글 → <a href="' + nx.url + '?src=next-' + self.slug + '">' + nx.title + "</a></p>";
       }
       html += '<p class="hw-series-cta"><a class="hw-cta-btn" href="' + self.cta.url + '">' + self.cta.label + "</a><br><small>연락처 입력 없이 결과까지 확인됩니다</small></p>";
+      html += '<p class="hw-series-all"><a href="/blog/?src=series-' + self.slug + '">기한 가이드 전체 보기 →</a></p>';
       html += '<p class="hw-series-law"><small>' + HW_LAW.baseline + " · 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다.</small></p>";
       html += "</div>";
       box.innerHTML = html;
