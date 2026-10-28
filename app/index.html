@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!-- 보안등급: 공개용 | HeirWise 웹앱 설치 안내 v1.0 (2026.10.28) | 제작: HeirWise_Syn Dae Sik -->
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/img/brand/heirwise-symbol.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#1B3A6B">
+<link rel="apple-touch-icon" href="/img/app/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="HeirWise">
+<script>try{var t=localStorage.getItem("hw-theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
+<title>HeirWise를 휴대폰 앱처럼 쓰기 — 홈 화면에 추가 | HeirWise</title>
+<meta name="description" content="finitart.com을 휴대폰 홈 화면에 아이콘으로 두고 앱처럼 여는 방법. 안드로이드는 버튼 한 번, 아이폰은 세 번 누르면 됩니다. 설치비·회원가입 없음.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="HeirWise · finitart.com">
+<meta property="og:url" content="https://finitart.com/app/">
+<meta property="og:title" content="HeirWise를 휴대폰 앱처럼 쓰기">
+<meta property="og:description" content="홈 화면에 아이콘 하나. 기한·증여·변곡점 지도를 한 번에 엽니다. 설치비·회원가입 없음.">
+<meta property="og:image" content="https://finitart.com/og/og-default.png?v=20260928">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://finitart.com/app/">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{--bg:#FFFFFF;--card:#F4F6FA;--ink:#14161A;--ink-2:#4A4F57;--line:#C9CED6;--heir:#1B3A6B;--wise:#7A5C0E;--btn:#1B3A6B;--btn-ink:#FFFFFF;--ok:#0B6B3A;--warn-bg:#FFF4D6;--warn-ink:#5C4300}
+:root:not([data-theme="light"]){color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1420;--card:#172033;--ink:#F2F4F8;--ink-2:#C3C9D3;--line:#3A4458;--heir:#8FB4FF;--wise:#E8C46A;--btn:#8FB4FF;--btn-ink:#0E1420;--ok:#7BE0A6;--warn-bg:#3A2F10;--warn-ink:#FFE39A}}
+:root[data-theme="dark"]{--bg:#0E1420;--card:#172033;--ink:#F2F4F8;--ink-2:#C3C9D3;--line:#3A4458;--heir:#8FB4FF;--wise:#E8C46A;--btn:#8FB4FF;--btn-ink:#0E1420;--ok:#7BE0A6;--warn-bg:#3A2F10;--warn-ink:#FFE39A}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",system-ui,sans-serif;font-size:19px;line-height:1.7;word-break:keep-all}
+main{max-width:640px;margin:0 auto;padding:28px 16px 64px}
+.brand{font-size:16px;font-weight:600;color:var(--ink-2);text-decoration:none;display:inline-block}
+.brand b{font-size:22px;font-weight:800}.brand .h{color:var(--heir)}.brand .w{color:var(--wise)}
+h1{font-size:30px;line-height:1.35;margin:8px 0 10px}
+h2{font-size:23px;line-height:1.4;margin:40px 0 12px}
+p{margin:0 0 14px}
+.lead{font-size:20px;color:var(--ink-2)}
+.icon-row{display:flex;align-items:center;gap:16px;margin:22px 0}
+.icon-row img{width:72px;height:72px;border-radius:18px;border:1px solid var(--line);background:#fff}
+.icon-row span{font-size:17px;color:var(--ink-2)}
+.uses{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.uses li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.uses strong{display:block;font-size:20px}
+.cta{margin:26px 0 8px}
+button.install{display:block;width:100%;min-height:60px;border:0;border-radius:12px;background:var(--btn);color:var(--btn-ink);font:inherit;font-weight:800;font-size:21px;cursor:pointer}
+button.install:focus-visible{outline:3px solid var(--wise);outline-offset:3px}
+.status{border-radius:12px;padding:16px 18px;margin:14px 0;font-size:19px;border:2px solid var(--line)}
+.status.ok{border-color:var(--ok)}
+.status.warn{background:var(--warn-bg);color:var(--warn-ink);border-color:transparent}
+.status strong{display:block;font-size:20px;margin-bottom:2px}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:12px}
+ol.steps li{counter-increment:s;position:relative;padding:14px 16px 14px 64px;background:var(--card);border:1px solid var(--line);border-radius:12px;min-height:60px}
+ol.steps li::before{content:counter(s);position:absolute;left:14px;top:12px;width:36px;height:36px;border-radius:50%;background:var(--btn);color:var(--btn-ink);font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center}
+.k{display:inline-block;border:2px solid var(--ink-2);border-radius:8px;padding:0 8px;font-weight:700;white-space:nowrap}
+.note{font-size:16px;color:var(--ink-2);border-top:1px solid var(--line);margin-top:40px;padding-top:16px}
+</style>
+</head>
+<body data-tool="앱설치안내" data-season="off" data-announce="off" data-rating="off" data-law="off">
+<main>
+  <h1>휴대폰 홈 화면에<br>HeirWise 아이콘을 두세요</h1>
+  <p class="lead">앱스토어에서 받을 필요가 없습니다. 지금 보고 계신 이 사이트를 휴대폰 홈 화면에 아이콘으로 두면, 앱처럼 한 번에 열립니다.</p>
+
+  <div class="icon-row"><img src="/img/app/icon-192.png" alt="HeirWise 아이콘 모양"><span>홈 화면에 이 아이콘이 생깁니다.<br>설치비 없음 · 회원가입 없음</span></div>
+
+  <div class="cta">
+    <div id="st-installed" class="status ok" hidden><strong>이미 홈 화면에 있어요</strong>HeirWise 아이콘을 눌러 여시면 됩니다.</div>
+    <div id="st-inapp" class="status warn" hidden><strong>카카오톡 안에서는 설치가 안 돼요</strong>오른쪽 위 <span class="k">⋮</span> 또는 <span class="k">공유</span> 버튼을 눌러 <b>「다른 브라우저로 열기」</b>를 고른 뒤, 이 페이지에서 다시 눌러 주세요.</div>
+    <button id="btn-install" class="install" type="button" hidden>홈 화면에 추가하기</button>
+    <div id="st-ios" class="status" hidden><strong>아이폰은 아래 3단계로 추가합니다</strong>사파리(Safari)에서 열어 주세요.</div>
+    <div id="st-manual" class="status" hidden><strong>아래 순서대로 추가해 주세요</strong>휴대폰 종류에 맞는 순서를 보시면 됩니다.</div>
+  </div>
+
+  <h2 id="android">안드로이드(삼성 갤럭시 등)</h2>
+  <ol class="steps">
+    <li>크롬이나 삼성 인터넷으로 <b>finitart.com</b>을 엽니다.</li>
+    <li>위의 <b>「홈 화면에 추가하기」</b> 버튼을 누릅니다. 버튼이 안 보이면 오른쪽 위 <span class="k">⋮</span> 를 누릅니다.</li>
+    <li><b>「홈 화면에 추가」</b> 또는 <b>「앱 설치」</b>를 고르고 <b>「추가」</b>를 누릅니다.</li>
+  </ol>
+
+  <h2 id="iphone">아이폰</h2>
+  <ol class="steps">
+    <li><b>사파리(Safari)</b>로 <b>finitart.com</b>을 엽니다.</li>
+    <li>화면 아래쪽 가운데 <span class="k">공유</span> 버튼(네모에서 위로 화살표가 나온 모양)을 누릅니다.</li>
+    <li>목록을 위로 밀어 <b>「홈 화면에 추가」</b>를 누르고, 오른쪽 위 <b>「추가」</b>를 누릅니다.</li>
+  </ol>
+
+  <h2>아이콘으로 바로 열리는 것</h2>
+  <ul class="uses">
+    <li><strong>상속이 시작됐을 때</strong>해야 할 일과 법정 기한(3개월·6개월)</li>
+    <li><strong>부모님께 받는 돈</strong>증여세가 얼마쯤인지, 결혼·출산 공제까지</li>
+    <li><strong>인생 변곡점 지도</strong>지금 내 나이에 준비할 돈</li>
+    <li><strong>물어보기</strong>상황을 적으면 정리해 드립니다</li>
+  </ul>
+  <p style="margin-top:12px;font-size:17px;color:var(--ink-2)">안드로이드는 아이콘을 꾹 누르면 위 네 가지가 바로가기로 나옵니다.</p>
+
+  <p class="note">홈 화면 아이콘은 이 사이트를 여는 바로가기입니다. 휴대폰의 연락처·사진·위치에 접근하지 않고, 입력하신 계산 내용을 휴대폰에 따로 저장하지 않습니다. 아이콘을 지우려면 아이콘을 꾹 눌러 「삭제」를 고르시면 됩니다. 계산·진단 결과는 간이 추정이며, 정확한 세액은 세무전문가, 법률 판단은 변호사 확인이 필요합니다.</p>
+</main>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var ua = navigator.userAgent || "";
+  var isIOS = /iphone|ipad|ipod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var inApp = /KAKAOTALK|NAVER\(inapp|Instagram|FBAN|FBAV|Line\//i.test(ua);
+  var standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+  var deferred = null;
+  function track(n, p) { try { if (window.hwTrack) window.hwTrack(n, p || {}); } catch (e) {} }
+
+  function show(id) { ["st-installed", "st-inapp", "st-ios", "st-manual"].forEach(function (k) { $(k).hidden = (k !== id); }); }
+
+  if (standalone) { show("st-installed"); }
+  else if (inApp) { show("st-inapp"); track("pwa_guide_view", { pwa_state: "inapp" }); }
+  else if (isIOS) { show("st-ios"); track("pwa_guide_view", { pwa_state: "ios" }); }
+  else { show("st-manual"); }
+
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    deferred = e;
+    if (!standalone && !inApp) { $("btn-install").hidden = false; $("st-manual").hidden = true; }
+  });
+
+  $("btn-install").addEventListener("click", function () {
+    if (!deferred) return;
+    track("pwa_install_click", {});
+    deferred.prompt();
+    deferred.userChoice.then(function (c) {
+      track("pwa_install_choice", { pwa_choice: c && c.outcome });
+      deferred = null;
+      $("btn-install").hidden = true;
+      if (c && c.outcome === "accepted") show("st-installed"); else show("st-manual");
+    });
+  });
+
+  window.addEventListener("appinstalled", function () { show("st-installed"); $("btn-install").hidden = true; });
+})();
+</script>
+<script src="/heirwise-common.js" defer></script>
+</body>
+</html>

@@ -1337,7 +1337,7 @@
     foot.innerHTML = '<div class="hw2-fin">' +
       "<div><h4><span style=\"color:var(--k2);font-weight:600\">SynItArt ·</span> HeirWise</h4><p>상속 · 증여 · 재무설계 안내 · 운영 신대식 (申大湜, Syn Dae Sik)</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
       "<div><h4>사무소</h4><ul><li>안산 · " + V2_ADDR.ansan + "</li><li>김포 · " + V2_ADDR.gimpo + "</li><li>서울 · " + V2_ADDR.seoul + "</li></ul></div>" +
-      '<div><h4>둘러보기</h4><ul><li><a href="/lifemap/">인생 변곡점 지도</a></li><li><a href="/check/?src=foot">우리 집 준비도 진단</a></li><li><a href="/chat.html?src=foot">바로 묻기</a></li><li><a href="/network/join.html?src=foot">협업 전문가 합류</a></li><li><a href="/privacy.html">개인정보처리방침</a></li></ul></div>' +
+      '<div><h4>둘러보기</h4><ul><li><a href="/lifemap/">인생 변곡점 지도</a></li><li><a href="/check/?src=foot">우리 집 준비도 진단</a></li><li><a href="/chat.html?src=foot">바로 묻기</a></li><li><a href="/network/join.html?src=foot">협업 전문가 합류</a></li><li><a href="/app/?src=foot">휴대폰 홈 화면에 추가</a></li><li><a href="/privacy.html">개인정보처리방침</a></li></ul></div>' +
       (notes.length ? '<div class="hw2-note"><h4>이 페이지 안내</h4><ul>' + notes.map(function (t) { return "<li>" + esc3(t) + "</li>"; }).join("") + "</ul></div>" : "") +
       '<div class="hw2-law"><p><strong>적용 법령 기준일</strong> — 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)</p>' +
       "<p>이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. 금융상품 안내는 별도 동의 후 소속 금융회사의 절차에 따릅니다.</p>" +
@@ -1356,6 +1356,28 @@
     if (window.matchMedia) { var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", scheme); }
   }
 
+  /* ============================================================
+     웹앱(PWA) — 2026.10.28 · 1단계
+     서비스 워커 등록 + 앱으로 연 방문 계측. 화면에는 아무것도 띄우지 않습니다.
+     ============================================================ */
+  function initPWA() {
+    var standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+    if (standalone) {
+      var k = "hw-pwa-open";
+      var seen = false;
+      try { seen = sessionStorage.getItem(k) === "1"; sessionStorage.setItem(k, "1"); } catch (e) {}
+      if (!seen) hwTrack("pwa_open", { pwa_mode: "standalone" }, true);
+    }
+    window.addEventListener("appinstalled", function () { hwTrack("pwa_installed", {}, true); });
+    if (!("serviceWorker" in navigator)) return;
+    var secure = location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1";
+    if (!secure) return;
+    function reg() {
+      navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(function (e) { if (HW_CONFIG.DEBUG) console.error(e); });
+    }
+    if (d.readyState === "complete") reg(); else window.addEventListener("load", reg);
+  }
+
   function boot() {
     try { injectAskRoute(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectLawUI(); }    catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
@@ -1368,6 +1390,7 @@
     try { injectLobbyReturn(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { injectChatLauncher(); } catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
     try { maybeRate(); }     catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
+    try { initPWA(); }       catch (e) { if (HW_CONFIG.DEBUG) console.error(e); }
   }
 
   if (d.readyState === "loading") {
