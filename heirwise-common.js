@@ -1335,14 +1335,14 @@
     var foot = d.createElement("footer");
     foot.className = "hw2-foot"; foot.setAttribute("aria-label", "HeirWise 안내");
     foot.innerHTML = '<div class="hw2-fin">' +
-      "<div><h4><span style=\"color:var(--k2);font-weight:600\">SynItArt ·</span> HeirWise</h4><p>상속 · 증여 · 재무설계 안내 · 운영 신대식 (申大湜, Syn Dae Sik)</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
+      "<div><h4><span style=\"color:var(--k2);font-weight:600\">SynItArt ·</span> HeirWise</h4><p>상속 · 증여 · 재무설계 안내 · 운영 FinitArt · 대표 신대식 (申大湜, Syn Dae Sik)</p><p>www.finitart.com · itart@finitart.com · 010-2088-5383</p></div>" +
       "<div><h4>사무소</h4><ul><li>안산 · " + V2_ADDR.ansan + "</li><li>김포 · " + V2_ADDR.gimpo + "</li><li>서울 · " + V2_ADDR.seoul + "</li></ul></div>" +
       '<div><h4>둘러보기</h4><ul><li><a href="/lifemap/">인생 변곡점 지도</a></li><li><a href="/check/?src=foot">우리 집 준비도 진단</a></li><li><a href="/chat.html?src=foot">바로 묻기</a></li><li><a href="/network/join.html?src=foot">협업 전문가 합류</a></li><li><a href="/app/?src=foot">휴대폰 홈 화면에 추가</a></li><li><a href="/privacy.html">개인정보처리방침</a></li></ul></div>' +
       (notes.length ? '<div class="hw2-note"><h4>이 페이지 안내</h4><ul>' + notes.map(function (t) { return "<li>" + esc3(t) + "</li>"; }).join("") + "</ul></div>" : "") +
       '<div class="hw2-law"><p><strong>적용 법령 기준일</strong> — 상속세 및 증여세법 법률 제21065호(2026.1.2) · 민법(2026.3.17 시행)</p>' +
       "<p>이 사이트의 계산·진단은 간이 추정과 일반적인 안내이며 특정 사안에 대한 법률·세무 자문이 아닙니다. 정확한 세액은 세무전문가, 법률 판단은 변호사 상담이 필요합니다. 금융상품 안내는 별도 동의 후 소속 금융회사의 절차에 따릅니다.</p>" +
       "<p>자격으로 판단하고, AI로 끝까지 챙깁니다. · AI·데이터 실무교육 3,603시간</p>" +
-      "<p>© 2026 HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p></div></div>";
+      "<p>© 2026 FinitArt (SynItArt 그룹) · HeirWise_Syn Dae Sik (申大湜). HeirWise™는 상표 출원 중입니다.</p></div></div>";
     d.body.appendChild(foot);
     function scheme() {
       var dark = pageIsDark();

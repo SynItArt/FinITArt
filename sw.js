@@ -12,7 +12,7 @@
  *
  * 수정 후에는 VERSION 숫자를 올리십시오. 이전 저장본은 자동으로 지워집니다.
  */
-var VERSION = "hw-pwa-v1-20261028";
+var VERSION = "hw-pwa-v1-20261102";
 var PAGES = VERSION + "-pages";
 var IMAGES = VERSION + "-img";
 
