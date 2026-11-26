@@ -38,7 +38,7 @@
     {
       "order": 5,
       "slug": "one-stop-inheritance-search",
-      "status": "review",
+      "status": "published",
       "cluster": "기한",
       "topic": "안심상속 원스톱서비스 — 신청 방법, 조회되는 것과 안 되는 것",
       "keywords": [
@@ -51,12 +51,13 @@
         "label": "상속채무 진단 바로가기",
         "url": "/inheritdebt.html?src=blog-onestop"
       },
-      "title": "안심상속 원스톱서비스 — 신청 기한 1년, 조회되는 것과 안 되는 것"
+      "title": "안심상속 원스톱서비스 — 신청 기한 1년, 조회되는 것과 안 되는 것",
+      "published": "2026-11-26"
     },
     {
       "order": 6,
       "slug": "deposit-withdrawal-acceptance",
-      "status": "review",
+      "status": "published",
       "cluster": "기한",
       "topic": "돌아가신 부모님 통장에서 돈을 찾으면 단순승인이 될까 — 장례비·병원비는?",
       "keywords": [
@@ -69,12 +70,13 @@
         "label": "상속채무 진단 바로가기",
         "url": "/inheritdebt.html?src=blog-withdraw"
       },
-      "title": "돌아가신 부모님 통장에서 돈을 찾으면 단순승인이 될까 — 장례비·병원비는?"
+      "title": "돌아가신 부모님 통장에서 돈을 찾으면 단순승인이 될까 — 장례비·병원비는?",
+      "published": "2026-11-26"
     },
     {
       "order": 7,
       "slug": "qualified-acceptance-procedure",
-      "status": "review",
+      "status": "published",
       "cluster": "기한",
       "topic": "한정승인 신청 절차 — 서류, 비용, 신청 뒤 해야 할 청산 절차",
       "keywords": [
@@ -87,7 +89,8 @@
         "label": "상속채무 진단 바로가기",
         "url": "/inheritdebt.html?src=blog-limited"
       },
-      "title": "한정승인 신청 절차 — 서류, 비용, 신청 뒤 해야 할 청산 절차"
+      "title": "한정승인 신청 절차 — 서류, 비용, 신청 뒤 해야 할 청산 절차",
+      "published": "2026-11-26"
     },
     {
       "order": 8,
