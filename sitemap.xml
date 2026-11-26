@@ -563,4 +563,25 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://finitart.com/blog/debt-passes-to-next-heirs.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://finitart.com/blog/lump-sum-and-spouse-deduction.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://finitart.com/blog/prior-gift-10years.html</loc>
+    <lastmod>2026-11-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

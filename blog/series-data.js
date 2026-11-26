@@ -66,7 +66,7 @@
       title: "부모님 돌아가신 직후 해야 할 일 7가지 (기한 순서대로)",
       url: "/blog/after-death-checklist.html",
       next: null, /* 허브 글: 다음 글 대신 진단 입구로 */
-      related: ["renunciation-3months", "inheritance-tax-6months", "gift-marriage-deduction", "one-stop-inheritance-search", "deposit-withdrawal-acceptance", "qualified-acceptance-procedure"],
+      related: ["renunciation-3months", "inheritance-tax-6months", "gift-marriage-deduction", "one-stop-inheritance-search", "deposit-withdrawal-acceptance", "qualified-acceptance-procedure", "debt-passes-to-next-heirs", "lump-sum-and-spouse-deduction"],
       cta: { label: "인생 변곡점 지도 바로가기", url: "/lifemap/?src=blog-checklist" }
     },
     {
@@ -95,6 +95,33 @@
       next: "after-death-checklist",
       related: ["one-stop-inheritance-search", "deposit-withdrawal-acceptance", "after-death-checklist"],
       cta: { label: "상속채무 진단 바로가기", url: "/inheritdebt.html?src=blog-limited" }
+    },
+    {
+      slug: "debt-passes-to-next-heirs",
+      no: 8,
+      title: "자녀가 다 포기했더니 손자·형제에게 빚이 — 후순위 상속인 연쇄 포기",
+      url: "/blog/debt-passes-to-next-heirs.html",
+      next: "lump-sum-and-spouse-deduction",
+      related: ["deposit-withdrawal-acceptance", "qualified-acceptance-procedure", "after-death-checklist"],
+      cta: { label: "상속채무 진단 바로가기", url: "/inheritdebt.html?src=blog-nextheir" }
+    },
+    {
+      slug: "lump-sum-and-spouse-deduction",
+      no: 9,
+      title: "상속세, “10억까지는 안 낸다”는 말의 정확한 뜻 — 일괄공제 5억과 배우자공제",
+      url: "/blog/lump-sum-and-spouse-deduction.html",
+      next: "prior-gift-10years",
+      related: ["inheritance-tax-6months", "prior-gift-10years", "after-death-checklist"],
+      cta: { label: "상속세 계산기 바로가기", url: "/calculator.html?src=blog-deduction" }
+    },
+    {
+      slug: "prior-gift-10years",
+      no: 10,
+      title: "돌아가시기 10년 안에 받은 돈은 다시 상속세로 — 사전증여 합산",
+      url: "/blog/prior-gift-10years.html",
+      next: "after-death-checklist",
+      related: ["inheritance-tax-6months", "lump-sum-and-spouse-deduction", "after-death-checklist"],
+      cta: { label: "상속세 계산기 바로가기", url: "/calculator.html?src=blog-priorgift" }
     }
     /* @@SERIES-END@@ 자동 발행 스크립트(_automation/blog_publish.py)가 이 줄 앞에 글을 추가합니다 */
   ];

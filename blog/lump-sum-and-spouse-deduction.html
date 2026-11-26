@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- hw-pwa --><link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#1B3A6B"><link rel="apple-touch-icon" href="/img/app/apple-touch-icon.png"><meta name="apple-mobile-web-app-title" content="HeirWise">
+<title>상속세, “10억까지는 안 낸다”는 말의 정확한 뜻 — 일괄공제 5억과 배우자공제 | HeirWise</title>
+<meta name="description" content="배우자와 자녀가 함께 상속하면 일괄공제 5억 원과 배우자 상속공제 최소 5억 원으로 10억 원까지 과세표준이 0이 될 수 있습니다. 배우자가 없거나 사전증여가 있으면 달라지는 이유를 상증세법 조문으로 정리했습니다.">
+<meta property="og:title" content="상속세 “10억까지 안 낸다”의 정확한 뜻">
+<meta property="og:description" content="일괄공제 5억 + 배우자공제 최소 5억 — 적용 조건과 예외.">
+<meta property="og:image" content="https://finitart.com/og/og-default.png">
+<meta property="og:url" content="https://finitart.com/blog/lump-sum-and-spouse-deduction.html">
+<meta property="og:type" content="article">
+
+<style>
+/* 저시력 기준: 명암비 4.5:1 이상, 본문 18px, 색으로만 뜻 전달 금지 */
+:root{
+  --hw-navy:#1A3C6D; --hw-navy-lt:#8FB4FF; --hw-gold:#7A5C0E;
+  --bg:#FFFFFF; --fg:#1A1A1A; --line:#C9CFD8; --box:#EFF4FA;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#101418; --fg:#F2F4F7; --line:#3A434E; --box:#1B2430;
+         --hw-navy:#8FB4FF; --hw-gold:#E8C46A; }
+}
+body{ margin:0; background:var(--bg); color:var(--fg);
+      font-family:"Malgun Gothic","Noto Sans KR",sans-serif;
+      font-size:18px; line-height:1.75; }
+.hw-wrap{ max-width:760px; margin:0 auto; padding:24px 20px 60px; }
+.hw-brand{ font-size:15px; color:#5A6472; }
+.hw-brand b{ color:var(--hw-navy); } .hw-brand .gold{ color:var(--hw-gold); font-weight:700; }
+h1{ font-size:28px; line-height:1.4; color:var(--hw-navy); margin:14px 0 6px; }
+h2{ font-size:22px; color:var(--hw-navy); margin-top:40px;
+    border-left:6px solid var(--hw-gold); padding-left:12px; }
+.hw-lead{ background:var(--box); border:1px solid var(--line);
+          border-radius:10px; padding:16px 18px; font-size:19px; font-weight:700; }
+table{ border-collapse:collapse; width:100%; margin:16px 0; font-size:17px; }
+th,td{ border:1px solid var(--line); padding:10px 12px; text-align:left; }
+th{ background:var(--box); }
+blockquote{ margin:14px 0; padding:10px 16px; border-left:4px solid var(--hw-navy);
+            background:var(--box); font-size:16px; }
+.hw-note{ font-size:15px; color:#5A6472; border-top:1px solid var(--line);
+          margin-top:44px; padding-top:14px; }
+.hw-disclaim{ font-size:15px; font-style:italic; color:#5A6472; margin-top:32px; }
+@media (prefers-color-scheme: dark){ .hw-brand,.hw-note,.hw-disclaim{ color:#AEB7C2; } }
+.hw-series-inner{ background:var(--box); border:1px solid var(--line);
+                  border-radius:10px; padding:18px 20px; margin-top:36px; }
+.hw-series-head{ font-weight:700; font-size:19px; margin:0 0 8px; }
+.hw-series-list{ margin:0 0 12px; padding-left:22px; }
+.hw-series-list a, .hw-series-next a{ color:var(--hw-navy); font-weight:700; }
+.hw-cta-btn{ display:inline-block; background:var(--hw-navy); color:#FFFFFF;
+             padding:14px 26px; border-radius:8px; font-size:19px;
+             font-weight:700; text-decoration:none; margin-top:6px; }
+@media (prefers-color-scheme: dark){ .hw-cta-btn{ color:#101418; } }
+</style>
+</head>
+<body data-law="off" data-season="off" data-tool="blog-lump-sum-and-spouse-deduction">
+<div class="hw-wrap">
+
+  <p class="hw-brand"><a href="/" style="color:inherit;text-decoration:none;">SynItArt · <b>Heir</b><span class="gold">Wise</span>™</a> — 자격으로 판단하고, AI로 끝까지 챙깁니다.</p>
+
+  <article>
+    <h1>상속세, “10억까지는 안 낸다”는 말의 정확한 뜻 — 일괄공제 5억과 배우자공제</h1>
+
+    <h2>결론부터: 재산 10억이 아니라 “공제 10억”입니다</h2>
+    <p class="hw-lead">배우자와 자녀가 함께 상속받으면 <strong>일괄공제 5억 원 + 배우자 상속공제 최소 5억 원</strong>,
+       합계 10억 원을 상속세 과세가액에서 뺄 수 있습니다. 그래서 과세가액이 10억 원 이하면 세금이 0원이 되는 경우가 많습니다.
+       배우자가 없으면 기본은 <strong>5억 원</strong>입니다.</p>
+    <blockquote>상속세 및 증여세법 제21조 제1항 — 상속인이나 수유자는 제18조(기초공제 2억 원)와 제20조 제1항에 따른 공제액을 합친 금액과 5억 원 중 큰 금액으로 공제받을 수 있다. 다만, 신고가 없는 경우에는 5억 원을 공제한다.<br>
+       같은 법 제19조 제4항 — 배우자가 실제 상속받은 금액이 없거나 상속받은 금액이 5억 원 미만이면 5억 원을 공제한다.</blockquote>
+
+    <h2>일괄공제 5억은 어떻게 나오나요</h2>
+    <p>기초공제 2억 원에 자녀 1명당 5천만 원, 미성년자·65세 이상·장애인 공제 같은 “그 밖의 인적공제”를 더한 금액과 5억 원 중 큰 쪽을 고릅니다.
+       자녀가 2명이면 2억 + 1억 = 3억 원이므로 대부분 5억 원이 유리합니다.
+       단, <strong>배우자가 혼자 상속받는 경우</strong>에는 일괄공제 5억 원을 쓸 수 없고 기초공제와 그 밖의 인적공제만 받습니다(제21조 제2항). 배우자공제는 이와 별도로 적용됩니다.</p>
+
+    <h2>배우자공제는 “실제로 받은 만큼”입니다</h2>
+    <p>배우자공제는 배우자가 실제 상속받은 금액을 기준으로, 법정상속분 등으로 계산한 한도와 <strong>30억 원</strong> 중 작은 금액까지 공제합니다(제19조 제1항).
+       5억 원을 넘게 공제받으려면 상속세 신고기한 다음 날부터 9개월 안에 배우자 몫을 나누고(등기 등 포함) 세무서에 신고해야 합니다(제19조 제2항).</p>
+
+    <h2>예시: 과세가액 10억 원, 배우자와 자녀 2명</h2>
+    <table>
+      <tr><th>항목</th><th>배우자 있음</th><th>배우자 없음</th></tr>
+      <tr><td>상속세 과세가액</td><td>10억 원</td><td>10억 원</td></tr>
+      <tr><td>일괄공제</td><td>5억 원</td><td>5억 원</td></tr>
+      <tr><td>배우자 상속공제(최소)</td><td>5억 원</td><td>—</td></tr>
+      <tr><td><strong>과세표준</strong></td><td><strong>0원</strong></td><td><strong>5억 원 → 세금 발생</strong></td></tr>
+    </table>
+    <p>예금 같은 순금융재산이 있으면 금융재산 상속공제(최대 2억 원, 제22조)가 더해질 수 있습니다. 신고 기한은 <a href="/blog/inheritance-tax-6months.html?src=body-deduction">상속세 신고 6개월 글</a>에 정리했습니다.</p>
+
+    <h2>세금이 0원이면 신고하지 않아도 되나요</h2>
+    <p>신고를 하지 않아도 일괄공제 5억 원은 적용됩니다(제21조 제1항 단서). 하지만 배우자가 5억 원을 넘게 상속받아 그만큼 공제받으려면
+       기한 안에 재산을 나누고 신고해야 합니다. 세금이 나오는 경우에는 기한 안에 신고하면 산출세액의 3%를 빼 주는 신고세액공제(제69조 제1항)도 받을 수 있습니다.
+       결국 공제가 크게 걸린 집일수록 “안 내도 되니 안 한다”가 아니라 “제대로 받기 위해 신고한다”가 맞습니다.</p>
+
+    <h2>“10억 공식”이 깨지는 3가지</h2>
+    <ol>
+      <li><strong>생전에 증여한 재산이 있을 때.</strong> 10년(상속인 아닌 사람은 5년) 안의 증여재산은 과세가액에 더해지고, 공제 한도는 오히려 그만큼 줄어듭니다(제13조, 제24조).</li>
+      <li><strong>배우자가 단독상속인일 때.</strong> 일괄공제 5억 원 대신 기초공제·인적공제만 적용되므로, 배우자공제를 더해도 합계가 10억 원에 못 미칠 수 있습니다.</li>
+      <li><strong>“자녀공제 5억”은 현행법이 아닙니다.</strong> 2024년 정부 개편안의 자녀공제 상향·최고세율 인하는 국회에서 부결돼 시행되지 않았습니다. 현행 자녀공제는 1명당 5천만 원입니다.</li>
+    </ol>
+
+    <p class="hw-disclaim">본 글은 상속세 및 증여세법(법률 제21065호, 2026.1.2. 시행) 기준의 일반적 안내이며,
+       법률 판단은 변호사, 정확한 세액은 세무전문가 상담이 필요합니다.</p>
+  </article>
+
+  <!-- 상호링크 + CTA + 법령 기준일 (series-data.js가 자동 렌더링) -->
+  <div class="hw-series" data-self="lump-sum-and-spouse-deduction"></div>
+
+  <p class="hw-note">AI·데이터 실무교육 3,951시간 · itart@finitart.com · 글: Syn Dae Sik</p>
+</div>
+
+<script src="/blog/series-data.js"></script>
+<script src="/heirwise-common.js" defer></script>
+</body>
+</html>
