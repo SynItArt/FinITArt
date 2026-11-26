@@ -66,8 +66,35 @@
       title: "부모님 돌아가신 직후 해야 할 일 7가지 (기한 순서대로)",
       url: "/blog/after-death-checklist.html",
       next: null, /* 허브 글: 다음 글 대신 진단 입구로 */
-      related: ["renunciation-3months", "inheritance-tax-6months", "gift-marriage-deduction"],
+      related: ["renunciation-3months", "inheritance-tax-6months", "gift-marriage-deduction", "one-stop-inheritance-search", "deposit-withdrawal-acceptance", "qualified-acceptance-procedure"],
       cta: { label: "인생 변곡점 지도 바로가기", url: "/lifemap/?src=blog-checklist" }
+    },
+    {
+      slug: "one-stop-inheritance-search",
+      no: 5,
+      title: "안심상속 원스톱서비스 — 신청 기한 1년, 조회되는 것과 안 되는 것",
+      url: "/blog/one-stop-inheritance-search.html",
+      next: "deposit-withdrawal-acceptance",
+      related: ["deposit-withdrawal-acceptance", "qualified-acceptance-procedure", "after-death-checklist"],
+      cta: { label: "상속채무 진단 바로가기", url: "/inheritdebt.html?src=blog-onestop" }
+    },
+    {
+      slug: "deposit-withdrawal-acceptance",
+      no: 6,
+      title: "돌아가신 부모님 통장에서 돈을 찾으면 단순승인이 될까 — 장례비·병원비는?",
+      url: "/blog/deposit-withdrawal-acceptance.html",
+      next: "qualified-acceptance-procedure",
+      related: ["one-stop-inheritance-search", "qualified-acceptance-procedure", "after-death-checklist"],
+      cta: { label: "상속채무 진단 바로가기", url: "/inheritdebt.html?src=blog-withdraw" }
+    },
+    {
+      slug: "qualified-acceptance-procedure",
+      no: 7,
+      title: "한정승인 신청 절차 — 서류, 비용, 신청 뒤 해야 할 청산 절차",
+      url: "/blog/qualified-acceptance-procedure.html",
+      next: "after-death-checklist",
+      related: ["one-stop-inheritance-search", "deposit-withdrawal-acceptance", "after-death-checklist"],
+      cta: { label: "상속채무 진단 바로가기", url: "/inheritdebt.html?src=blog-limited" }
     }
     /* @@SERIES-END@@ 자동 발행 스크립트(_automation/blog_publish.py)가 이 줄 앞에 글을 추가합니다 */
   ];
